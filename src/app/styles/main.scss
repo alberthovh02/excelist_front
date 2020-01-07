@@ -1,0 +1,234 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  font-family: Tahoma, Geneva, sans-serif;
+  background-color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7em;
+  color: #666;
+}
+
+.introduction {
+  background-image: url("../../assets/background_excel.jpg");
+  background-color: transparent;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 742px;
+  margin-top: -45px;
+  margin-bottom: 0;
+  overflow: visible;
+  width: 100%;
+}
+
+.intro_benefits,
+.intro_lessons,
+.intro_excelist,
+.intro_partners {
+  background-color: #ededed;
+  padding: 0 77px;
+}
+
+.partners_row {
+  display: flex !important;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  img {
+    margin-bottom: 40px
+  }
+}
+
+.intro_partners {
+  padding-bottom: 30px
+}
+
+.benefits_desc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .row {
+    width: 90%;
+    float: right;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: row;
+
+    h3 {
+      text-transform: none;
+      font-size: 15px;
+      line-height: 25px;
+      font-weight: 700;
+      margin: 0;
+      font-style: normal;
+      color: #333;
+    }
+  }
+}
+
+.main_statistics {
+  background-image: url("../../assets/about.jpg");
+  width: 100%;
+  height: 382px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+  p {
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 60px;
+    display: block;
+    margin: 0;
+    padding-top: 12px;
+    color: #217142;
+
+    span {
+      text-transform: uppercase;
+      font-size: 23px;
+      font-weight: 700;
+      line-height: 30px;
+      display: block;
+      color: #217142;
+      padding-bottom: 10px;
+    }
+  }
+}
+
+.intro_excelist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60px;
+  img {
+    border-radius: 100px;
+    width: 200px;
+    height: 200px;
+  }
+  .excelist_desc {
+    .our_team {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 20px
+    }
+  }
+}
+
+.main_heading {
+  padding: 42px 0 19px;
+}
+
+.row_1,
+.row_2 {
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+}
+
+.row_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 40%;
+
+  h2 {
+    text-transform: none;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 25px;
+    margin-top: 4px;
+    margin-bottom: 15px;
+    color: #217142;
+    margin-left: 15px;
+  }
+}
+
+.intro_videoblog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.videblog_desc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  img {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+
+  .single_videblog p {
+    color: #217142;
+    font-weight: 600;
+  }
+}
+
+.lessons_desc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  text-align: center;
+
+  .single_lesson {
+    width: 255px;
+    padding: 0 15px;
+
+    img {
+      width: 100%;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 28px;
+      margin: 10px 0;
+      text-decoration: none;
+      color: #217142;
+    }
+  }
+}
+.faq_desc {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-around;
+  .ant-collapse{
+    max-width: 48%;
+  }
+  .ant-collapse-header{
+    line-height: 30px !important;
+        display: block !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        color: #666 !important;
+        margin-left: 5px;
+        overflow: scroll;
+  }
+}
+
+.online_benefits {
+  h3 {
+    text-transform: none;
+    font-size: 15px;
+    line-height: 25px;
+    font-weight: 700;
+    margin: 0;
+    font-style: normal;
+    color: #333;
+  }
+}

@@ -1,0 +1,131 @@
+.socials {
+  margin-right: 10%;
+  a {
+    margin-right: 10px
+  }
+}
+
+nav > div> ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header_text {
+    background: #217142;
+    padding: 20px;
+    color: white;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .header {
+      background-image: url(../../assets/about.jpg);
+      filter: brightness(0.5);
+      min-height: 235px;
+      width: 100%;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 1;
+    //
+        span {
+          position: relative;
+            text-transform: uppercase;
+            font-size: 48px;
+            font-weight: 700;
+            margin-left: 150px;
+            position: relative;
+            color: white;
+            top: 90px;
+            z-index: 2;
+            border-left: 3px solid #217142;
+            padding-left: 20px;
+        }
+        }
+
+  .phone_icon {
+    font-size: 13px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .phone_contact {
+    display: flex;
+    align-items: center;
+    margin-left: 10%
+  }
+  .fb_icon {
+   background-color: #ffffff;
+   border-radius: 50%;
+   outline: none;
+  }
+
+  .socicon {
+    font-style: normal;
+    cursor: pointer;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    width: 1.8em;
+    text-align: center;
+  }
+
+  .header_links {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  .nav-item {
+    margin-left: 40px
+  }
+
+  #navContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+  }
+
+  .dropdown-lessons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    width: 800px !important;
+    line-height: 2em;
+    li a {
+      font-size: 15px !important;
+      padding: 20px !important
+    }
+  }
+
+.dropdown-menu {
+  width: 200px;
+  padding: 15px;
+  border-bottom: 1px solid rgba(43,43,43,0);
+   li a{
+     color: #999;
+     font-weight: normal;
+     font-size: 13px;
+   }
+}
+
+  .header_links a {
+    text-decoration: none;
+    color: #217142;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .web_links {
+    display: flex;
+    justify-content: space-around;
+  }

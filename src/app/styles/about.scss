@@ -1,0 +1,157 @@
+.about_info p {
+    font-size: 15px;
+      font-weight: normal;
+      line-height: 1.7em;
+      color: #666;
+  }
+
+  .about_heading {
+    text-transform: uppercase;
+    line-height: 40px;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 2px;
+    color: #217142;
+    text-align: center;
+    margin-top: 70px;
+    padding-bottom: 20px;
+
+  }
+
+  .about_quotes {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 48px;
+    color: #217142;
+    text-align: center;
+    margin-top: 70px;
+
+    span {
+      font-size: 18px;
+    font-weight: 700;
+    font-style: normal;
+    text-transform: none;
+    line-height: 1.6em;
+    color: #999999
+    }
+  }
+
+  .statistic_item {
+    text-align: center;
+    color: #333;
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 40px;
+    display: block;
+    margin: 0;
+    padding-top: 12px;
+
+    span {
+      text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 30px;
+    display: block;
+    color: #666;
+    padding-bottom: 10px;
+    }
+  }
+
+  .about_statistics {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .lesson_benefits {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .lesson_benefit {
+    margin-left: 10%;
+    h4{
+      color: #217142;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 36px;
+    padding-left: 32px;
+    position: relative;
+    margin-bottom: 12px;
+    border-left: 3px solid #217142
+    }
+
+    ul {
+      margin-left: 15px
+    }
+  }
+
+  .our_team {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    .team_member {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      margin-left: 5%;
+      .member_name {
+        a {
+          text-decoration: none;
+          color: #333;
+          font-size: 15px;
+          font-weight: 700;
+          margin: 24px 0 0;
+          line-height: 25px;
+        }
+      }
+      p:last-child {
+        text-transform: uppercase;
+        font-size: 13px;
+      font-weight: 700;
+      color: #217142;
+      line-height: 20px;
+      }
+    }
+  }
+
+  .j_team a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 30px;
+    padding: 5px 25px;
+    font-weight: 700;
+
+    background: #217142;
+    color: #333;
+    text-decoration: none;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 60px;
+  }
+
+  .about_info {
+    margin-left: 15px;
+  }
+
+  .users_feedbacks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .line {
+    background-color: #217142;
+    height: 1px;
+    width: 35px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+  }

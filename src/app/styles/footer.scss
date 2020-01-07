@@ -1,0 +1,60 @@
+footer {
+    background-color: #217142;
+    color: white;
+    width: 100%;
+  }
+  
+  .fa-viber {
+    color: blueviolet !important;
+  }
+  
+  .footer_contact {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .form_container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form_container input, textarea{
+    margin-top: 50px;
+    padding: 15px;
+  }
+  
+  #sendButton {
+    padding: 10px 25px;
+    background: #111;
+    color: white;
+    opacity: .5;
+    outline: none;
+    border: none;
+    width: 30%;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  
+  .footer_links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 13px;
+    border-top: 1px solid rgba(153, 153, 153, 0.15) ;
+    color: #999999;
+  }
+  
+  .footer_social_links a{
+    margin-right: 10px;
+    color: #999999;
+    text-decoration: none;
+  }
+  
+  footer .fab {
+    margin-right: 10px;
+  }
+  
