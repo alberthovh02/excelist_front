@@ -5,7 +5,7 @@ const { Router } = require("express");
 // const jwt = require("jsonwebtoken");
 // const { check, validationResult } = require('express-validator');
 // const User = require("../models/User.js");
-const Lesson = require("../models/Lesson")
+const Lesson = require("../models/lesson")
 const router = Router();
 
 // router.post("/", async (req, res) => {
@@ -30,11 +30,16 @@ router.get("/", function(req, res, next){
 })
 
 router.post("/create", function(req, res, next){
+  const { name, endTime } = req.body;
 
+  if(!name || !endTime){
+    next()
+  }else{
   Lesson.create(req.body, (err, post) => {
     if(err) throw new Error(err);
-    res.json(post)
+    res.json({message: "Success", code: 200})
   })
+}
 })
 
 router.delete("/:id", function(req, res, next){

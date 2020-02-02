@@ -3,8 +3,15 @@ import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	Redirect
+	Redirect,
+	NavLink
 } from "react-router-dom";
+
+import Request from '../../store/request'
+
+
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
 
 //app routes
 import {PublicRoutes, PrivateRoutes} from "../../config/routes";
@@ -16,7 +23,38 @@ import Footer from "./Footer";
 
 const {Panel} = Collapse;
 
+const renderTime = value => {
+  if (value === 0) {
+    return <div className="timer">Too lale...</div>;
+  }
+
+  return (
+    <div className="timer">
+      <div className="text">Remaining</div>
+      <div className="value">{value}</div>
+      <div className="text">seconds</div>
+    </div>
+  );
+};
+
 class Index extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			data: [],
+			lessonTimer: null
+		}
+	}
+	componentDidMount(){
+		Request.get("students/")
+		.then(response => response.json())
+		.then(result => this.setState({data: result}))
+		.catch(e => console.log(e));
+		Request.get("create-lesson/")
+			.then(response => response.json())
+			.then(result => this.setState({lessonTimer: result}))
+			.catch(e => console.log(e));
+	}
 	render() {
 		const customPanelStyle = {
 			background: "#f7f7f7",
@@ -383,7 +421,10 @@ class Index extends React.Component {
 								style={{color: "black", fontSize: "50px"}}
 							></i>
 							<p>
-								2500 <span>ՈՒՍԱՆՈՂ</span>
+								{this.state.data.length && this.state.data.map((item, key) => {
+									console.log(item)
+								return	item.dataType === "students_count" && item.count
+								})} <span>ՈՒՍԱՆՈՂ</span>
 							</p>
 						</div>
 						<div className="statistic_item">
@@ -448,6 +489,21 @@ class Index extends React.Component {
 								</div>
 							</div>
 						</div>
+					</div>
+
+					<div className="lessons_timeline">
+					<h1 className="about_heading main_heading">ԳՐԱՆՑՎԻ՛Ր ՄՈՏԱԿԱ ԴԱՍԸՆԹԱՑԻՆ</h1>
+					<div className="line"></div>
+
+			{this.state.lessonTimer && this.state.lessonTimer.map(data => {
+				return 	<CountdownCircleTimer
+        isPlaying
+        durationSeconds={new Date(data.endTime).getDay()}
+        colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
+        renderTime={renderTime}
+        onComplete={() => [true, 1000]}
+      />
+			})}
 					</div>
 
 					<div className="intro_partners">
@@ -786,7 +842,7 @@ class Index extends React.Component {
 					<div className="get_files" style={{marginBottom: 30}}>
             <h2>ԼՐԱՑՐՈ՛Ւ ԷԼ.ՀԱՍՑԵԴ ԵՎ ՍՏԱՑԻ՛Ր ՄԱՍՆԱԳԻՏԱԿԱՆ ՆՅՈՒԹԵՐ</h2>
             <div className="line"></div>
-            <a href="#" target="_blank"><button className="get_files_button"><i className="fa fa-envelope" aria-hidden="true"></i> ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ</button></a>
+            <NavLink to="/get-files" target="_blank"><button className="get_files_button"><i className="fa fa-envelope" aria-hidden="true"></i> ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ</button></NavLink>
           </div>
 
 				</div>

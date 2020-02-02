@@ -1,4 +1,4 @@
 module.exports = {
-  "server": "127.0.0.1:27017",
-  "database": "excellist"
+  "server": "albert:Admin#777!@cluster0-8xyhu.mongodb.net/test?retryWrites=true&w=majority",
+  "database": "test"
 }

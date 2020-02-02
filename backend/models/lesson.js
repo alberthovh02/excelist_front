@@ -12,6 +12,10 @@ const lessonSchema = new Schema({
     endTime :{
       type: Date,
       required: true
+    },
+    endMinutes: {
+      type: String,
+      required: true
     }
 })
 

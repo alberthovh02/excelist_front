@@ -1,0 +1,26 @@
+.sidebar-learnmore {
+  box-sizing: border-box;
+  font-size: 1em;
+  padding: 1em 2em;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #154a2b), color-stop(1, #217142));
+  border: 1px solid;
+  border-color: #123e24 #10361f #0c2a19 #10361f;
+  border-radius: 0.25em;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1em;
+  color: white !important
+}
+
+.sidebar-item {
+  margin-bottom: 50px;
+  padding-left: 20px;
+  p {
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+}

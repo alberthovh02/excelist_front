@@ -2,14 +2,32 @@ import React from "react";
 import { Form, Icon, Input, Button } from "antd";
 
 class Login extends React.Component {
+	constructor(){
+		super()
+		this.state = {
+			username: "",
+			password: "",
+			authEror: ""
+		}
+	}
 	handleSubmit = e => {
+		const { username, password} = this.state;
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				console.log("Received values of form: ", values);
 			}
 		});
+
+		//Make login request
+
 	};
+
+	handleChange = (event) => {
+		const { name, value} = event.target;
+		this.setState({ [name]: value})
+	}
+
 	render() {
 		const {getFieldDecorator} = this.props.form;
 
@@ -24,6 +42,8 @@ class Login extends React.Component {
 						})(
 							<Input
 								prefix={<Icon type="user" style={{color: "rgba(0,0,0,.25)"}} />}
+								name="username"
+								onChange={ this.handleChange }
 								placeholder="Username"
 							/>
 						)}
@@ -35,6 +55,8 @@ class Login extends React.Component {
 							<Input
 								prefix={<Icon type="lock" style={{color: "rgba(0,0,0,.25)"}} />}
 								type="password"
+								name="password"
+								onChange={ this.handleChange }
 								placeholder="Password"
 							/>
 						)}

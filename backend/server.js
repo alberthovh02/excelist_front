@@ -1,9 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
-const cors = require("cors")
+const cors = require("cors");
+const path = require("path")
 
 const lessonRoute = require("./routes/index");
+const subscribe = require("./routes/subscribe");
+const singleData = require('./routes/singleData');
+const videoBlog = require("./routes/videoblog");
 //Configurations
 const { server, database } = require("./config/config");
 
@@ -13,9 +17,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 // parse application/json
 app.use(bodyParser.json())
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 //Database connection
-mongoose.connect(`mongodb://${server}/${database}`, { useNewUrlParser :"false"});
+mongoose.connect(`mongodb+srv://albert:Admin%23777!@cluster0-8xyhu.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser :"false"});
 
 //Handle database connection error
 mongoose.connection.on("error",(err)=>{
@@ -29,6 +34,10 @@ mongoose.connection.on("connected",(err,res) => {
 
 // app.use("/login/admin", authRoute);
 app.use("/create-lesson", lessonRoute)
+app.use("/get-files", subscribe);
+app.use("/subscribes",subscribe);
+app.use('/students', singleData)
+app.use('/video-blog', videoBlog)
 ;
 const PORT = process.env.PORT || 5000;
 
