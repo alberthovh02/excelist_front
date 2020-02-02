@@ -61,11 +61,16 @@ class Container extends React.Component {
           <p>Videoblog</p>
         </div>
         </NavLink>
-        <NavLink to="/blog">
+        <NavLink to="/blogs">
         <div className="activeLesson" style={{marginLeft: 50}}>
           <Icon type="highlight" style={{fontSize: 100, color: "orange"}}/>
           <p>Blog</p>
         </div>
+        </NavLink>
+        <NavLink to="/" onClick={() => localStorage.removeItem("admin")}>
+          <div className="activeLesson">
+            <p>LOGOUT</p>
+          </div>
         </NavLink>
 			</>
 		);
