@@ -66,7 +66,7 @@ class Header extends React.Component {
 
     const videoMenu = (<Menu>
         <Menu.Item>
-          <a href="/videos?lang=arm">Հայերեն վիդեոներ</a>
+          <NavLink to="/videos?lang=arm">Հայերեն վիդեոներ</NavLink>
         </Menu.Item>
         <Menu.Item>
           <a href="/videos?lang=rus">Русскоязычные видео</a>
