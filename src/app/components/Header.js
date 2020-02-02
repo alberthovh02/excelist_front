@@ -160,7 +160,7 @@ class Header extends React.Component {
 								<NavLink to="/blog">ԲԼՈԳ</NavLink>
 							</li>
               <li className="nav-item">
-              <Dropdown overlay={videoMenu} onClick={() => window.location = "/videoblog"}>
+              <Dropdown overlay={videoMenu}>
               <NavLink
                 to="/videoblog"
                 className="ant-dropdown-link"
