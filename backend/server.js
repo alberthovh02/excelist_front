@@ -5,16 +5,15 @@ const cors = require("cors");
 const path = require("path")
 var router = express.Router();
 
-
+//Routes
 const lessonRoute = require("./routes/index");
 const subscribe = require("./routes/subscribe");
 const singleData = require('./routes/singleData');
 const videoBlog = require("./routes/videoblog");
 //Configurations
 const { server, database } = require("./config/config");
-
 const app = express();
-
+//Middlewares
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 // parse application/json

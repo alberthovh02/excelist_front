@@ -43,5 +43,5 @@ export const PrivateRoutes = [
   { id: 5, path: "/subscribes", component: SubscribedUsers},
   { id: 6, path: '/registered_users', component: RegisteredUsers},
   { id: 7, path: '/video-blog', component: VideoBlogAdmin},
-  { id: 8, path: '/blog', component: BlogAdmin}
+  { id: 8, path: '/blogs', component: BlogAdmin}
 ];

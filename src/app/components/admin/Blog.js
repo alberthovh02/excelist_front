@@ -1,27 +1,9 @@
 import React from "react";
-import {Input, Select, Icon, Form, Button, Upload, message} from "antd";
+import {Input, Icon, Form, Button, Upload, message} from "antd";
 import { EditorState } from 'draft-js';
 import { Editor, editorState } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import Header from "./Header";
-
-const {Option} = Select;
-
-const selectBefore = (
-	<Select defaultValue="Http://" style={{width: 90}}>
-		<Option value="Http://">Http://</Option>
-		<Option value="Https://">Https://</Option>
-	</Select>
-);
-
-const selectAfter = (
-	<Select defaultValue=".com" style={{width: 80}}>
-		<Option value=".com">.com</Option>
-		<Option value=".jp">.jp</Option>
-		<Option value=".cn">.cn</Option>
-		<Option value=".org">.org</Option>
-	</Select>
-);
 
 class BlogAdmin extends React.Component {
 	constructor(props){

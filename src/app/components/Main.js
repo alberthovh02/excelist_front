@@ -888,6 +888,25 @@ class Main extends React.Component {
 							);
 
 					})}
+					{authorized && PrivateRoutes.map((item, key) => {
+						return (
+							<Switch>
+								<Route
+									path={item.path}
+									render={() => <item.component />}
+									key={key}
+								/>
+							</Switch>
+						)
+					})}
+					{authorized ?
+						 window.location.pathname === "/dashboard"
+						 ? <Redirect to="dashboard"/>
+						 : null
+						 : window.location.pathname === "/dashboard"
+						 ? <Redirect to="/login/admin"/>
+						 : <Redirect to="/"/> 
+					 }
 				</Router>
 			</div>
 		);
