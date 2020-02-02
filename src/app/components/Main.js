@@ -866,17 +866,7 @@ class Main extends React.Component {
 		return (
 			<div>
 				<Router>
-					{ !authorized ? PublicRoutes.map((item, key) => {
-						if (item.id === 1) {
-							return (
-								<Route
-									path={item.path}
-									render={() => <Index />}
-									key={key}
-									exact
-								/>
-							);
-						}
+					{ PublicRoutes.map((item, key) => {
 							return (
 								<Switch key={key}>
 									{item.id !== 1 && (
@@ -886,17 +876,17 @@ class Main extends React.Component {
 											key={key}
 										/>
 									)}
+									{item.id === 1 && (
+										<Route
+											path={item.path}
+											render={() => <Index />}
+											key={key}
+											exact
+										/>
+									)}
 								</Switch>
 							);
-						
-					}) : PrivateRoutes.map((item, key) => {
-						return (
-							<Route
-								path={item.path}
-								render={() => <item.component />}
-								key={key}
-							/>
-						)
+
 					})}
 				</Router>
 			</div>
