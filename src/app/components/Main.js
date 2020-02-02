@@ -866,6 +866,7 @@ class Main extends React.Component {
 		return (
 			<div>
 				<Router>
+				<Switch>
 					{ !authorized ? PublicRoutes.map((item, key) => {
 						if (item.id === 1) {
 							return (
@@ -878,16 +879,13 @@ class Main extends React.Component {
 							);
 						} else {
 							return (
-								<Switch key={key}>
-									{item.id !== 1 && (
 										<Route
 											path={item.path}
 											render={() => <item.component />}
 											key={key}
 										/>
-									)}
-								</Switch>
-							);
+									)
+						
 						}
 					}) : PrivateRoutes.map((item, key) => {
 						return (
@@ -898,6 +896,8 @@ class Main extends React.Component {
 							/>
 						)
 					})}
+					</Switch>
+
 				</Router>
 			</div>
 		);
