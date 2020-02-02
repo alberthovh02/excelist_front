@@ -69,10 +69,10 @@ class Header extends React.Component {
           <NavLink to="/videos?lang=arm">Հայերեն վիդեոներ</NavLink>
         </Menu.Item>
         <Menu.Item>
-          <a href="/videos?lang=rus">Русскоязычные видео</a>
+          <NavLink to="/videos?lang=rus">Русскоязычные видео</a>
         </Menu.Item>
         <Menu.Item>
-          <a href="/videos?lang=eng">English videos</a>
+          <NavLink to="/videos?lang=eng">English videos</a>
         </Menu.Item>
       </Menu>)
 		return (
