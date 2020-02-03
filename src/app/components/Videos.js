@@ -29,7 +29,7 @@ class Videos extends React.Component{
       <Header/>
       <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
       <div className="blog-container">
-        {data.length && data.map((el, key) => {
+        {data.length ? data.map((el, key) => {
           return (
             <div key={key} className="blog-item">
               <img src={`http://excelist-backend.herokuapp.com/${el.imageUrl}`} alt="image" style={{height: "100%"}}/>
@@ -38,7 +38,7 @@ class Videos extends React.Component{
               <a className="blog-see-more" href="#">Ավելին …</a>
             </div>
           )
-        })}
+        }) : "There are no data"}
         </div>
         <Sidebar/>
         </div>

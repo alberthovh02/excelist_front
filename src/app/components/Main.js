@@ -8,8 +8,7 @@ import {
 } from "react-router-dom";
 
 import Request from '../../store/request'
-
-
+import createBrowserHistory from "history/createBrowserHistory";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 
@@ -22,6 +21,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 const {Panel} = Collapse;
+const history = createBrowserHistory();
 
 const renderTime = value => {
   if (value === 0) {
@@ -865,7 +865,7 @@ class Main extends React.Component {
 
 		return (
 			<div>
-				<Router>
+				<Router history={history}>
 					{ PublicRoutes.map((item, key) => {
 							return (
 								<Switch key={key}>
@@ -905,7 +905,7 @@ class Main extends React.Component {
 						 : null
 						 : window.location.pathname === "/dashboard"
 						 ? <Redirect to="/login/admin"/>
-						 : <Redirect to="/"/> 
+						 : null
 					 }
 				</Router>
 			</div>
