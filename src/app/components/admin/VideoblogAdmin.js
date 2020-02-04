@@ -42,7 +42,7 @@ class VideoBlogAdmin extends React.Component {
 		data.append("title", title);
 		data.append("video_link", video_link);
 		data.append("file_link", file_link);
-		const response = await fetch("video-blog/create", {
+		const response = await fetch("//excelist-backend.herokuapp.com/video-blog/create", {
 			method: "POST",
 			// headers: {"Content-Type": "multipart/form-data"},
 			body: data
