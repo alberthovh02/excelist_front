@@ -17,7 +17,7 @@ class Lesson extends React.Component {
 		};
 	}
 	componentDidMount() {
-		fetch("http://localhost:5000/create-lesson")
+		fetch("//excelist-backend.herokuapp.com/create-lesson")
 			.then(response => response.json())
 			.then(result => this.setState({data: result}))
 			.catch(e => console.log(e));
@@ -44,7 +44,7 @@ class Lesson extends React.Component {
 		formData.append("name", name);
 		formData.append("endTime", endTime);
 		formData.append("endMinutes", endMinutes);
-		
+
 		for (var value of formData.values()) {
    		console.log(value);
 		}

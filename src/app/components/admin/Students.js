@@ -18,7 +18,7 @@ class Students extends React.Component {
     e.preventDefault();
     const { count } = this.state;
     const dataType = "students_count";
-    const response = await fetch("http://localhost:5000/students/count", {
+    const response = await fetch("//excelist-backend.herokuapp.com/students/count", {
 			method: "POST",
 			headers: {"Content-Type": "application/json"},
 			body: JSON.stringify({count, dataType})

@@ -23,7 +23,7 @@ class BlogAdmin extends React.Component {
 		const data = new FormData();
 		data.append('image',image);
 		data.append("title", title);
-		const response = await fetch("http://localhost:5000/blog/create", {
+		const response = await fetch("//excelist-backend.herokuapp.com/blog/create", {
 			method: "POST",
 			// headers: {"Content-Type": "multipart/form-data"},
 			body: data

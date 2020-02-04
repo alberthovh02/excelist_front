@@ -104,7 +104,7 @@ class SubscribedUsers extends React.Component {
       message.error({content: "There are no subscribers"})
     }
     else{
-      const response = await fetch("http://localhost:5000/subscribes/sendMail", {
+      const response = await fetch("//excelist-backend.herokuapp.com/subscribes/sendMail", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({text, link, data})
