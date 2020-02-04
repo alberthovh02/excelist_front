@@ -872,14 +872,14 @@ class Main extends React.Component {
 									{item.id !== 1 && (
 										<Route
 											path={item.path}
-											render={() => <item.component />}
+											render={(route) => <item.component {...this.props} {...route.match}/>}
 											key={key}
 										/>
 									)}
 									{item.id === 1 && (
 										<Route
 											path={item.path}
-											render={() => <Index />}
+											render={(route) => <Index {...this.props} {...route.match}/>}
 											key={key}
 											exact
 										/>
@@ -893,7 +893,8 @@ class Main extends React.Component {
 							<Switch>
 								<Route
 									path={item.path}
-									render={() => <item.component />}
+
+									render={(route) => <item.component {...this.props} {...route.match.params}/>}
 									key={key}
 								/>
 							</Switch>
