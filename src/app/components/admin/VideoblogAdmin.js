@@ -42,12 +42,11 @@ class VideoBlogAdmin extends React.Component {
 		data.append("title", title);
 		data.append("video_link", video_link);
 		data.append("file_link", file_link);
-		const response = Request.post("video-blog/create", data)
-		// const response = await fetch("video-blog/create", {
-		// 	method: "POST",
-		// 	// headers: {"Content-Type": "multipart/form-data"},
-		// 	body: data
-		// });
+		const response = await fetch("video-blog/create", {
+			method: "POST",
+			// headers: {"Content-Type": "multipart/form-data"},
+			body: data
+		});
 		console.log(response.status)
 		if(response.status === 200){
 				message.success({content: "Post successfully added"})
