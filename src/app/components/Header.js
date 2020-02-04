@@ -66,13 +66,13 @@ class Header extends React.Component {
 
     const videoMenu = (<Menu>
         <Menu.Item>
-          <NavLink to="/videos?lang=arm">Հայերեն վիդեոներ</NavLink>
+          <a href="/videos?lang=arm">Հայերեն վիդեոներ</a>
         </Menu.Item>
         <Menu.Item>
-          <NavLink to="/videos?lang=rus">Русскоязычные видео</NavLink>
+          <a href="/videos?lang=rus">Русскоязычные видео</a>
         </Menu.Item>
         <Menu.Item>
-          <NavLink to="/videos?lang=eng">English videos</NavLink>
+          <a href="/videos?lang=eng">English videos</a>
         </Menu.Item>
       </Menu>)
 		return (
