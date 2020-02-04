@@ -1,6 +1,8 @@
 import React from "react";
 import {Input, Select, Icon, Form, Button, Upload, message} from "antd";
 import Header from "./Header";
+import Request from '../../../store/request'
+
 
 const {Option} = Select;
 
@@ -40,11 +42,12 @@ class VideoBlogAdmin extends React.Component {
 		data.append("title", title);
 		data.append("video_link", video_link);
 		data.append("file_link", file_link);
-		const response = await fetch("http://localhost:5000/video-blog/create", {
-			method: "POST",
-			// headers: {"Content-Type": "multipart/form-data"},
-			body: data
-		});
+		const response = Request.post("video-blog/create", data)
+		// const response = await fetch("video-blog/create", {
+		// 	method: "POST",
+		// 	// headers: {"Content-Type": "multipart/form-data"},
+		// 	body: data
+		// });
 		console.log(response.status)
 		if(response.status === 200){
 				message.success({content: "Post successfully added"})
