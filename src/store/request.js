@@ -1,6 +1,6 @@
 class Request {
   constructor(){
-    this.mainRoute = "http://excelist-backend.herokuapp.com/"
+    this.mainRoute = "//excelist-backend.herokuapp.com/"
   }
 
   get = url => this.sendRequest("GET", url);
