@@ -116,7 +116,7 @@ class SubscribedUsers extends React.Component {
 
 
 	componentDidMount() {
-		fetch("//excelist-backend.herokuapp.com//subscribes")
+		fetch("//excelist-backend.herokuapp.com/subscribes")
 			.then(response => response.json())
 			.then(result => this.setState({data: result}))
 			.catch(e => console.log(e));
