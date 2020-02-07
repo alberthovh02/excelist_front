@@ -15,26 +15,67 @@ class Footer extends React.Component{
                             <h2>ՄԵԶ ԿԱՐՈՂ ԵՍ ԳՏՆԵԼ</h2>
                             <p>Ողջու՛յն, էքսելի՛ստ: Ուրախ ենք, որ մեզ հետ ես: )))</p>
                         </div>
+                        <div className="footer-contact">
                         <div className="footer_phone fc_item">
                             <i className="material-icons md-36">phone</i>
-                            Հեռախոս<br/> + 374 55 50 57 57
+                            Հեռախոս<br/> <p className="footer-info">+ 374 55 50 57 57</p>
                         </div>
                         <div className="footer_viber fc_item">
                             <i className="fa fa-viber fa-2x"></i>
-                            Viber<br/> +374 55 50 57 57
+                            Viber<br/> <p className="footer-info">+374 55 50 57 57</p>
                         </div>
+                        </div>
+                        <div className="footer-contact">
                         <div className="footer_mail fc_item">
                             <i className="fa fa-envelope fa-2x"></i>
-                            Էլ. փոստ<br/> info@excelist.am
+                            Էլ. փոստ<br/> <p className="footer-info">info@excelist.am</p>
                         </div>
                         <div className="footer_skype fc_item">
                             <i className="fa fa-skype fa-2x"></i>
-                            Skype<br/> msexcel_online
+                            Skype<br/> <p className="footer-info">msexcel_online</p>
+                        </div>
                         </div>
                         <div>
                         <i className="fa fa-map-marker fa-2x"></i>
                         Հասցե<br/>
-                        ք. Երևան, Արշակունյաց 2` «Տիգրան Մեծ» հրատարակչություն, 3-րդ հարկ
+                        <p className="footer-info">ք. Երևան, Արշակունյաց 2` «Տիգրան Մեծ» հրատարակչություն, 3-րդ հարկ</p>
+                        </div>
+                        <div className="footer-social-icons">
+                          <i className="fa fa-facebook" style={{
+          									backgroundColor: "#3b5998",
+          									fontSize: "18px",
+          									padding: "8px 12px",
+          									borderRadius: "100px",
+          									color: "white"
+          								}}></i>
+                          <i className="fa fa-youtube" style={{
+                            backgroundColor: "red",
+                            fontSize: "18px",
+                            padding: "8px",
+                            borderRadius: "100px",
+                            color: "white"
+                          }}></i>
+                          <i className="fa fa-linkedin" style={{
+                            backgroundColor: "#0077B5",
+                            fontSize: "18px",
+                            padding: "8px",
+                            borderRadius: "100px",
+                            color: "white"
+                          }}></i>
+                          <i className="fa fa-edit" style={{
+                            backgroundColor: "#72c752",
+                            fontSize: "18px",
+                            padding: "8px",
+                            borderRadius: "100px",
+                            color: "white"
+                          }}></i>
+                          <i className="fa fa-play-circle" style={{
+                            backgroundColor: "#72c752",
+                            fontSize: "18px",
+                            padding: "8px",
+                            borderRadius: "100px",
+                            color: "white"
+                          }}></i>
                         </div>
                     </div>
                     <div className="footer_coll_2">

@@ -59,3 +59,49 @@ footer {
   footer .fab {
     margin-right: 10px;
   }
+
+  .footer_heading_2, .footer_heading_1 {
+    h2{
+      color: white;
+      font-size: 30px;
+      padding-top: 42px;
+    }
+    p{
+      color:#d0d0d0;
+      margin-bottom: 50px
+    }
+  }
+
+  .footer-contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 60%;
+    i {
+      margin-right: 15px
+    }
+  }
+
+  .footer_coll_1, .footer_coll_2 {
+    div {
+      margin-bottom: 40px
+    }
+  }
+
+  .footer-info, i {
+    color: #d0d0d0
+  }
+
+  .footer-social-icons {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    padding-top: 40px;
+  }
+
+  .footer_coll_2 {
+    input {
+      outline: none;
+      border: none
+    }
+  }

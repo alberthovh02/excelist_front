@@ -8,9 +8,10 @@ class Feedback extends React.Component {
 		return (
 			<>
 				<Header />
-				<div className="feedback">
+				<div
+ className="feedback">
 					<div className="feedback_contact">
-						<div className="">
+						<div className="feedback-first-line">
 							<div className="feedback_heading_1">
 								<h2>ՄԵԶ ԿԱՐՈՂ ԵՍ ԳՏՆԵԼ</h2>
 								<p>Ողջու՛յն, էքսելի՛ստ: Ուրախ ենք, որ մեզ հետ ես: )))</p>
@@ -43,7 +44,7 @@ class Feedback extends React.Component {
 								հարկ
 							</div>
 						</div>
-						<div className="">
+						<div className="feedback-form">
 							<div className="feedback_heading_2">
 								<h2>ԳՐԻ՛Ր ՄԵԶ</h2>
 								<p>Սպասում ենք քո նամակին:</p>
