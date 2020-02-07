@@ -38,3 +38,53 @@
     margin-top: 40px
   }
 }
+
+.feedback_heading_1, .feedback_heading_2 {
+  h2{
+    color: #217142;
+    font-weight: 700;
+    font-size: 2em;
+  }
+}
+
+.feedback-form {
+  width: 30%
+}
+
+.feedback {
+  margin-top: 50px
+}
+
+.feedback_contact {
+  display: flex;
+  justify-content: space-around;
+  input, textarea {
+    border: 1px solid #e5e5e5;
+    outline: none;
+  }
+}
+
+.footer-contact {
+  div {
+    margin-bottom: 30px;
+    color: black;
+  }
+}
+
+.footer-info{
+  color: #666 !important;
+}
+
+.first-line {
+  margin-top: 50px
+}
+
+.feedback-social {
+  width: 30%
+}
+
+.send {
+  background: #217142 !important;
+  color: #333 !important;
+  opacity: 1 !important
+}
