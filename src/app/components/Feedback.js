@@ -19,27 +19,27 @@ class Feedback extends React.Component {
 							<div className="footer-contact first-line">
 							<div className="footer_phone fc_item">
 									<i className="material-icons md-36" style={{color: '#217142'}}>phone</i>
-									Հեռախոս<br/> <p className="footer-info">+ 374 55 50 57 57</p>
+									Հեռախոս<br/> <p className="feedback-footer-info">+ 374 55 50 57 57</p>
 							</div>
 							<div className="footer_viber fc_item">
 									<i className="fa fa-phone-square fa-2x"  style={{color: '#217142'}}></i>
-									Viber<br/> <p className="footer-info">+374 55 50 57 57</p>
+									Viber<br/> <p className="feedback-footer-info">+374 55 50 57 57</p>
 							</div>
 							</div>
 							<div className="footer-contact">
 							<div className="footer_mail fc_item">
 									<i className="fa fa-envelope fa-2x"  style={{color: '#217142'}}></i>
-									Էլ. փոստ<br/> <p className="footer-info">info@excelist.am</p>
+									Էլ. փոստ<br/> <p className="feedback-footer-info">info@excelist.am</p>
 							</div>
 							<div className="footer_skype fc_item">
 									<i className="fa fa-skype fa-2x"  style={{color: '#217142'}}></i>
-									Skype<br/> <p className="footer-info">msexcel_online</p>
+									Skype<br/> <p className="feedback-footer-info">msexcel_online</p>
 							</div>
 							</div>
 							<div>
 							<i className="fa fa-map-marker fa-2x"  style={{color: '#217142'}}></i>
 							Հասցե<br/>
-							<p className="footer-info">ք. Երևան, Արշակունյաց 2` «Տիգրան Մեծ» հրատարակչություն, 3-րդ հարկ</p>
+							<p className="feedback-footer-info">ք. Երևան, Արշակունյաց 2` «Տիգրան Մեծ» հրատարակչություն, 3-րդ հարկ</p>
 							</div>
 							<div className="footer-social-icons feedback-social">
 							<a href="https://www.facebook.com/Excel.lessons/?fref=ts" target="_blank">

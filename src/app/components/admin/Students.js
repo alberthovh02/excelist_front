@@ -33,11 +33,28 @@ class Students extends React.Component {
       <Header title="STUDENTS BOARD"/>
       <main>
       <Form className="students-board">
-        <h2>Single data changer</h2>
+        <h2>Static data changer</h2>
         <Input placeholder="Enter students count"
+          name="students_count"
           className="students_count"
           onChange={e => this.handleNumberChange(e)}/>
-          <Button type="primary" className="submit_count" onClick={(e) => this.handleSubmit(e)}>Submit</Button>
+        <Input placeholder="Enter lessons count"
+          name="lessons_count"
+          className="students_count"
+          onChange={e => this.handleNumberChange(e)}/>
+        <Input placeholder="Enter teachers count"
+          name="teachers_count"
+          className="students_count"
+          onChange={e => this.handleNumberChange(e)}/>
+        <Input placeholder="Enter members count"
+          name="members_count"
+          className="students_count"
+          onChange={e => this.handleNumberChange(e)}/>
+        <Input placeholder="Enter *** count"
+          name="***_count"
+          className="students_count"
+          onChange={e => this.handleNumberChange(e)}/>
+        <Button type="primary" className="submit_count" onClick={(e) => this.handleSubmit(e)}>Submit</Button>
       </Form>
       </main>
       </>
