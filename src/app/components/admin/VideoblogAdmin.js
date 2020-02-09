@@ -4,6 +4,7 @@ import Header from "./Header";
 import Request from '../../../store/request'
 
 
+
 const {Option} = Select;
 const { Panel } = Collapse;
 
@@ -69,11 +70,13 @@ class VideoBlogAdmin extends React.Component {
 	}
 
 	async componentDidMount(){
-		const response = await("//excelist-backend.herokuapp.com/video-blog/blogs-desc")
-		.then(response => response.json())
-		.then(result => this.setState({videoBlogData: result}))
-		.catch(e => console.log(e));
-		console.log(this.state.videoBlogData);
+
+		Request.get("blogs-desc/")
+			.then(response => response.json())
+			.then(result => this.setState({lessonTimer: result}))
+			.catch(e => console.log(e));
+
+			console.log(this.state.videoBlogData);
 	}
 
 	onImageUpload = async info => {
