@@ -68,7 +68,7 @@ class VideoBlogAdmin extends React.Component {
 		console.log(this.state)
 	}
 
-	componentDidMount = async () => {
+	async componentDidMount(){
 		const response = await("//excelist-backend.herokuapp.com/video-blog/blogs-desc")
 		.then(response => response.json())
 		.then(result => this.setState({videoBlogData: result}))
