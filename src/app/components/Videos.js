@@ -35,7 +35,7 @@ class Videos extends React.Component{
               <img src={`http://excelist-backend.herokuapp.com/${el.imageUrl}`} alt="image" style={{height: "100%"}}/>
               <a className="blog-link">{el.title}</a>
               <p className="blog-text">Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։ Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ...</p>
-              <a className="blog-see-more" href="#">Ավելին …</a>
+              <a className="blog-see-more" href={`/videoblogpost/${el.generatedUrl}`}>Ավելին …</a>
             </div>
           )
         }) : "There are no data"}

@@ -40,7 +40,7 @@ router.get('/video/:videobloglink', function(req, res, next){
 
 router.post("/create", upload.single('image'), function(req, res, next){
   const { language, title, video_link, file_link } = req.body;
-  const generatedUrl = `${title}_${language}_${video_link}`;
+  const generatedUrl = `${title.trim()}_${language}`;
   console.log("GENERATED URL", generatedUrl);
 	if (!language || !title || !video_link || !file_link) {
     console.log("Error when getting data fields are empty")
@@ -51,7 +51,8 @@ router.post("/create", upload.single('image'), function(req, res, next){
 			title,
 			video_link,
 			file_link,
-			imageUrl: req.file.path
+			imageUrl: req.file.path,
+      generatedUrl
 		}
 		Videoblog.create({...data}, (err, post) => {
 			if (err){
