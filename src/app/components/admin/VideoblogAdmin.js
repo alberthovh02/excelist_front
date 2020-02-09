@@ -71,7 +71,7 @@ class VideoBlogAdmin extends React.Component {
 
 	async componentDidMount(){
 
-		Request.get("blogs-desc/")
+		Request.get("video-blog/blogs-desc/")
 			.then(response => response.json())
 			.then(result => this.setState({videoBlogData: result}))
 			.catch(e => console.log(e));
