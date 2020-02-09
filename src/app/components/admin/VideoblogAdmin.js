@@ -73,9 +73,8 @@ class VideoBlogAdmin extends React.Component {
 
 		Request.get("blogs-desc/")
 			.then(response => response.json())
-			.then(result => this.setState({lessonTimer: result}))
+			.then(result => this.setState({videoBlogData: result}))
 			.catch(e => console.log(e));
-
 			console.log(this.state.videoBlogData);
 	}
 
