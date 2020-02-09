@@ -11,6 +11,42 @@ nav > div> ul{
   justify-content: space-between;
 }
 
+header {
+  position: sticky;
+  background-color: white;
+  // transition: all 0.5s ease-in-out 0s;
+  box-shadow: rgba(42, 42, 42, 0.4) 0px 1px 5px -2px;
+  margin-bottom: 30px;
+  z-index: 99
+}
+
+// .fadeIn {
+//     position: sticky;
+//     top: 0;
+//     transition-property: all;
+//       transition-duration: 2.5s;
+//       transition-timing-function: ease-in-out;
+//       transition-delay: 0s;
+// }
+//
+// .fadeOut {
+//   position: absolute;
+//   top: 0;
+//   width: 100%;
+//   transition-property: all;
+//     transition-duration: 2.5s;
+//     transition-timing-function: ease-in-out;
+//     transition-delay: 0s;
+// }
+
+#hover-line{
+  display: none;
+  background: #217142;
+  height: 2px;
+  overflow: hidden;
+  position: absolute;
+}
+
 .header_text {
     background: #217142;
     padding: 20px;

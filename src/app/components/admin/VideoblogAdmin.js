@@ -1,10 +1,11 @@
 import React from "react";
-import {Input, Select, Icon, Form, Button, Upload, message} from "antd";
+import {Input, Select, Icon, Form, Button, Upload,Collapse , message} from "antd";
 import Header from "./Header";
 import Request from '../../../store/request'
 
 
 const {Option} = Select;
+const { Panel } = Collapse;
 
 const selectBefore = (
 	<Select defaultValue="Http://" style={{width: 90}}>
@@ -30,7 +31,8 @@ class VideoBlogAdmin extends React.Component {
 				video_link: null,
 				file_link: null,
 				language: null,
-				image: null
+				image: null,
+				videoBlogData: []
 		}
 	}
 	handleSubmit = async (e) => {
@@ -66,6 +68,14 @@ class VideoBlogAdmin extends React.Component {
 		console.log(this.state)
 	}
 
+	componentDidMount = async () => {
+		const response = await("//excelist-backend.herokuapp.com/video-blog/blogs-desc")
+		.then(response => response.json())
+		.then(result => this.setState({videoBlogData: result}))
+		.catch(e => console.log(e));
+		console.log(this.state.videoBlogData);
+	}
+
 	onImageUpload = async info => {
 		if (info.file.status === 'uploading') {
 			this.setState({image:  info.file.originFileObj})
@@ -88,6 +98,11 @@ class VideoBlogAdmin extends React.Component {
 			<div>
 				<Header title="Video Blog" />
 				<form>
+				<Collapse accordion>
+					<Panel header="View videoblogs">
+						mwmmdk
+					</Panel>
+				</Collapse>
 					<Form.Item>
 						<p>Please choose language of videoblog</p>
 						<Select

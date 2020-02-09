@@ -8,6 +8,35 @@ class Header extends React.Component {
 
 	// }
 
+	componentDidMount(){
+		var scrollPos = 0;
+		const header = document.getElementsByTagName("header")[0];
+
+// adding scroll event
+// window.addEventListener('scroll', function(){
+//   // detects new state and compares it with the new one
+//   if ((document.body.getBoundingClientRect()).top > scrollPos)
+// 		header.classList = "fadeIn";
+// 	else
+// 		header.classList = "fadeOut"
+// 	// saves the new position for iteration.
+// 	scrollPos = (document.body.getBoundingClientRect()).top;
+// });
+		const navItems = document.getElementsByClassName('nav-item');
+		const hoverLine = document.getElementById('hover-line');
+		const sortedArr = Array.prototype.map.call(navItems, (item, key) => {item.childNodes[0].onmouseover = function(e){
+			hoverLine.style.display = 'inline-block';
+			console.log(e)
+			hoverLine.style.position = 'absolute';
+			hoverLine.style.left = e.target.offsetLeft + 'px';
+			hoverLine.style.top = e.target.offsetTop + e.target.offsetHeight + 10 + 'px'
+			hoverLine.style.width = e.target.offsetWidth + 'px'
+			console.log(hoverLine)
+		}; item.onmouseout = function(){
+			hoverLine.style.display = 'none'
+		}})
+	}
+
 	render() {
     const menu = (<Menu>
       <Menu.Item>
@@ -138,6 +167,7 @@ class Header extends React.Component {
 						className="collapse navbar-collapse"
 						id="navbarTogglerDemo03 navContent"
 					>
+					<span id="hover-line"></span>
 						<ul className="navbar-nav mr-auto mt-2 mt-lg-0 myNav">
 							<li className="nav-item">
 								<NavLink to="/about">ՄԵՐ ՄԱՍԻՆ</NavLink>
@@ -150,16 +180,12 @@ class Header extends React.Component {
                 data-toggle="dropdown"
                 style={{display: "flex", alignItems: "center"}}
               >ԴԱՍԸՆԹԱՑՆԵՐ<Icon type="caret-down" /></NavLink>
-
               </Dropdown>
-
-
-
               </li>
 							<li className="nav-item">
 								<NavLink to="/blog">ԲԼՈԳ</NavLink>
 							</li>
-              <li className="nav-item">
+              <li className="nav-item" onClick={() => window.location = "/lessons"}>
               <Dropdown overlay={videoMenu}>
               <NavLink
                 to="/videoblog"
