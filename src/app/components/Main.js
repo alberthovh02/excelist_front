@@ -8,9 +8,8 @@ import {
 } from "react-router-dom";
 
 import Request from '../../store/request'
-import createBrowserHistory from "history/createBrowserHistory";
+// import createBrowserHistory from "history";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-
 
 //app routes
 import {PublicRoutes, PrivateRoutes} from "../../config/routes";
@@ -20,8 +19,9 @@ import {Collapse, Icon} from "antd";
 import Header from "./Header";
 import Footer from "./Footer";
 
+const createBrowserHistory = require("history")
 const {Panel} = Collapse;
-const history = createBrowserHistory();
+const history = createBrowserHistory.createBrowserHistory();
 
 const renderTime = value => {
   if (value === 0) {

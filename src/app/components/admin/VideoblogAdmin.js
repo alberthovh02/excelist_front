@@ -69,13 +69,20 @@ class VideoBlogAdmin extends React.Component {
 		console.log(this.state)
 	}
 
+	deletePost = async(item) => {
+		console.log(item)
+		const resp = await Request.delete(`video-blog/${item._id}`)
+		.then(response => response.json())
+		.catch(e => console.log(e));
+		console.log("RESP ", resp)
+	}
+
 	async componentDidMount(){
 
 		Request.get("video-blog/blogs-desc/")
 			.then(response => response.json())
 			.then(result => this.setState({videoBlogData: result}))
 			.catch(e => console.log(e));
-			console.log(this.state.videoBlogData);
 	}
 
 	onImageUpload = async info => {
@@ -95,14 +102,24 @@ class VideoBlogAdmin extends React.Component {
 	};
 
 	render() {
-
+		const { videoBlogData } = this.state;
 		return (
 			<div>
 				<Header title="Video Blog" />
 				<form>
 				<Collapse accordion>
 					<Panel header="View videoblogs">
-						mwmmdk
+						{videoBlogData.map((item, key) => {
+							return <div key={key} className="videoblog-admin">
+								<img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "8%", width: "8%"}}/>
+								<b>{item.title}</b>
+								<i>{item.language}</i>
+								<div>
+								<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
+								<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}}>EDIT</Button>
+								</div>
+								</div>
+						}) }
 					</Panel>
 				</Collapse>
 					<Form.Item>
