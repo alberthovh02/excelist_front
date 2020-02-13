@@ -3,7 +3,8 @@ import {Icon} from "semantic-ui-react";
 import { Input } from 'antd';
 import { Link } from 'react-router-dom'
 import Header from "./Header";
-import Footer from './Footer'
+import Footer from './Footer';
+import Sidebar from './Sidebar';
 const { Search } = Input;
 
 
@@ -17,15 +18,12 @@ class Automatic extends React.Component {
 		return (
 			<div className="">
       <Header/>
-				<div className="header">
-					<span>ԱՎՏՈՄԱՏԱՑՈՒՄ</span>
-				</div>
-
+			<div className="automatic-wrapper">
 				<div className="content">
 					<div className="content_item">
 						<p>
-							<a href="/">«Excelist»</a> ակումբի հիմքի վրա ստեղծված «Մակրոլաբ»
-							ծրագրավորման ֆիրման մասնագիտացել է MS Excel, MS Access, Google
+							<a href="/">«Excelist»</a> ակումբի հիմքի վրա ստեղծված <a href="http://macrolab.am/" target="_blank">«Մակրոլաբ» </a>
+							 ծրագրավորման ֆիրման մասնագիտացել է MS Excel, MS Access, Google
 							Sheets, վեբ, C# և այլ պլատֆորմների վրա բիզնես գործընթացների
 							ավտոմատացման պրոդուկտների ստեղծման գծով: Ավտոմատացման լուծումներին
 							կարող եք ծանոթանալ ստորև՝ ըստ համապատասխան վիդեոալբոմների:
@@ -82,20 +80,7 @@ class Automatic extends React.Component {
 					</div>
 				</div>
 
-				<div className="sidebar">
-					<div className="sidebar_item search">
-							<Search
-								placeholder="input search text"
-								onSearch={value => console.log(value)}
-								style={{width: 200}}
-							/>
-					</div>
-					<div className="sidebar_item exam"></div>
-					<div className="sidebar_item fb_iframe"></div>
-					<div className="sidebar_item get_news"></div>
-					<div className="sidebar_item courses"></div>
-					<div className="sidebar_item blog"></div>
-					<div className="sidebar_item videoblog"></div>
+				<Sidebar/>
 				</div>
         <Footer mode="simple" />
 			</div>
