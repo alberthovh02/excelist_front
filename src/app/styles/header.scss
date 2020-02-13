@@ -11,6 +11,12 @@ nav > div> ul{
   justify-content: space-between;
 }
 
+nav {
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+}
+
 header {
   position: sticky;
   background-color: white;
