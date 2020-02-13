@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom'
 
 class Footer extends React.Component{
     constructor(props){
@@ -68,6 +69,7 @@ class Footer extends React.Component{
                             color: "white"
                           }}></i>
                           </a>
+                          <NavLink to="/blog">
                           <i className="fa fa-edit" style={{
                             backgroundColor: "#72c752",
                             fontSize: "18px",
@@ -75,6 +77,8 @@ class Footer extends React.Component{
                             borderRadius: "100px",
                             color: "white"
                           }}></i>
+                          </NavLink>
+                          <NavLink to='/videoblog'>
                           <i className="fa fa-play-circle" style={{
                             backgroundColor: "#72c752",
                             fontSize: "18px",
@@ -82,6 +86,7 @@ class Footer extends React.Component{
                             borderRadius: "100px",
                             color: "white"
                           }}></i>
+                          </NavLink>
                         </div>
                     </div>
                     <div className="footer_coll_2">

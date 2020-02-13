@@ -11,6 +11,7 @@ import Register from '../app/components/Register';
 import GetFiles from '../app/components/GetFiles';
 import Videos from '../app/components/Videos';
 import VideoPost from '../app/components/VideoPost';
+import Qualification from '../app/components/Qualification';
 //Private routes
 import Dashboard from "../app/components/admin/Dashboard";
 import Lesson from "../app/components/admin/Lesson";
@@ -33,7 +34,8 @@ export const PublicRoutes = [
     { id: 9, path: `/register`, component: Register },
     { id: 10, path: `/get-files`, component: GetFiles },
     { id: 11, path: `/videos`, component: Videos},
-    { id: 12, path: `/videoblogpost/:url`, component: VideoPost}
+    { id: 12, path: `/videoblogpost/:url`, component: VideoPost},
+    { id: 13, path: `/qualification`, component: Qualification}
 ]
 
 

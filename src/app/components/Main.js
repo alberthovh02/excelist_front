@@ -66,7 +66,31 @@ class Index extends React.Component {
 		return (
 			<>
 				<Header />
-				<div className="introduction"></div>
+				<div className="introduction">
+					<div className="introduction-bars">
+						<div className="intro-bar-item">
+							<div>
+								<h1>ԴԱՍԵՐ</h1>
+								<p><NavLink to="/courses" className="intro-more">ԱՎԵԼԻՆ</NavLink><i class="fa fa-chevron-right arrow"></i></p>
+							</div>
+							<i className="fa fa-book"></i>
+						</div>
+						<div className="intro-bar-item">
+						<div>
+							<h1>ԲԼՈԳ</h1>
+							<p><NavLink to="/blog" className="intro-more">ԱՎԵԼԻՆ</NavLink><i class="fa fa-chevron-right arrow"></i></p>
+						</div>
+							<i className="fa fa-edit"></i>
+						</div>
+						<div className="intro-bar-item">
+						<div>
+							<h1>ՎԻԴԵՈԲԼՈԳ</h1>
+							<p><NavLink to="/videoblog" className="intro-more">ԱՎԵԼԻՆ</NavLink><i class="fa fa-chevron-right arrow"></i></p>
+						</div>
+							<i className="fa fa-play-circle-o"></i>
+						</div>
+					</div>
+				</div>
 				<div className="intro_lessons">
 					<h1 className="about_heading main_heading">ԴԱՍԸՆԹԱՑՆԵՐ</h1>
 					<div className="line"></div>
@@ -93,12 +117,12 @@ class Index extends React.Component {
 						</div>
 					</div>
 					<div className="get_files">
-						<a href="/lessons">
+						<NavLink to="/course">
 							<button className="get_files_button">
 								<i className="fa fa-chevron-circle-down" aria-hidden="true"></i> Այլ
 								դասընթացներ{" "}
 							</button>
-						</a>
+						</NavLink>
 					</div>
 				</div>
 
@@ -196,12 +220,12 @@ class Index extends React.Component {
 						</div>
 					</div>
 					<div className="get_files" style={{backgroundColor: "transparent"}}>
-						<a href="#" target="_blank">
+						<NavLink to="/qualification" target="_blank">
 							<button className="get_files_button">
 								<i className="fa fa-chevron-circle-down" aria-hidden="true"></i>{" "}
 								ԾԱՆՈԹԱՆԱԼ{" "}
 							</button>
-						</a>
+						</NavLink>
 					</div>
 
 					<div className="intro_lessons">
@@ -245,21 +269,21 @@ class Index extends React.Component {
 						<div className="videblog_desc">
 							<div className="single_videblog">
 								<img src={require("../../assets/images/intro/arm.png")} />
-								<p>Հայերեն վիդեոներ</p>
+								<h4 className="single-title">Հայերեն վիդեոներ</h4>
 								<a className="intro_videoblog_see_more" target="_blank">
 									Տեսնել ավելին․․․
 								</a>
 							</div>
 							<div className="single_videoblog">
 								<img src={require("../../assets/images/intro/rus.png")} />
-								<p>Русскоязычные видео</p>
+								<h4 className="single-title">Русскоязычные видео</h4>
 								<a className="intro_videoblog_see_more" target="_blank">
 									Տեսնել ավելին․․․
 								</a>
 							</div>
 							<div className="single_videoblog">
 								<img src={require("../../assets/images/intro/en.png")} />
-								<p>English videos</p>
+								<h4 className="single-title">English videos</h4>
 								<a className="intro_videoblog_see_more" target="_blank">
 									Տեսնել ավելին․․․
 								</a>
