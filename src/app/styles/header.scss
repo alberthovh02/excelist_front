@@ -55,7 +55,7 @@ header {
 
 .header_text {
     background: #217142;
-    padding: 20px;
+    padding: 20px 0px;
     color: white;
     font-size: 13px;
     line-height: 30px;
@@ -63,6 +63,7 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 100%
   }
 
   .header {
@@ -91,9 +92,10 @@ header {
         }
 
   .phone_icon {
-    font-size: 13px;
+    font-size: 17px;
     margin-left: 10px;
     margin-right: 10px;
+    color: #fff;
   }
 
   .phone_contact {

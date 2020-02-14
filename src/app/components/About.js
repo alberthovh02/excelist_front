@@ -11,9 +11,6 @@ class AboutUs extends React.Component {
 		return (
 			<>
 				<Header />
-				<div className="header">
-					<span>ՄԵՐ ՄԱՍԻՆ</span>
-				</div>
 				<div className="container">
 					<div className="about_info">
 						<h1 className="about_heading">ՄԵՐ ՊԱՏՄՈՒԹՅՈՒՆԸ</h1>

@@ -24,19 +24,20 @@ class VideoPost extends React.Component {
     console.log(this.state)
     const { data } = this.state;
 		return (
-			<div>
+			<div className="videopost-container">
 				<Header />
-				<div className="single-post">
-        <div>
-        <h2>{data.title}</h2>
-        { data &&  <div>
-              <iframe width="629" height="409" src={data.video_link}></iframe>
+				<div className="videopost-single-post">
+          <div>
+            <h2 className="videopost-title">{data.title}</h2>
+              { data &&  <div>
+                <iframe width="750" height="409" src={data.video_link}></iframe>
+                </div>
+              }
+              <p>Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։</p>
+              <p>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ֆորման՝ համապատասխան դաշտում նշելով հոլովակի վերնագիրը:</p>
+
           </div>
-        }
-        <p>Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։<br/>
-Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ֆորման՝ համապատասխան դաշտում նշելով հոլովակի վերնագիրը:</p>
-</div>
-      <Sidebar/>
+            <Sidebar/>
         </div>
 				<Footer mode="simple" />
 			</div>
