@@ -42,7 +42,8 @@ class Index extends React.Component {
 		super(props);
 		this.state = {
 			data: [],
-			lessonTimer: null
+			lessonTimer: null,
+			youtubeSubscribersCount: null,
 		}
 	}
 	componentDidMount(){
@@ -54,6 +55,9 @@ class Index extends React.Component {
 			.then(response => response.json())
 			.then(result => this.setState({lessonTimer: result}))
 			.catch(e => console.log(e));
+		fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
+		.then(response => response.json())
+		.then(result => this.setState({youtubeSubscribersCount: result}))
 	}
 	render() {
 		const customPanelStyle = {
@@ -466,7 +470,7 @@ class Index extends React.Component {
 								style={{color: "#e52d27", fontSize: "50px"}}
 							></i>
 							<p>
-								318827 <span>ԴԻՏՈՒՄ YOUTUBE-ՈՒՄ</span>
+								{this.state.youtubeSubscribersCount && this.state.youtubeSubscribersCount.items[0].statistics.viewCount} <span>ԴԻՏՈՒՄ YOUTUBE-ՈՒՄ</span>
 							</p>
 						</div>
 					</div>
