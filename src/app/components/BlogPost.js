@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import Request from '../../store/request';
 import { Helmet } from 'react-helmet'
 
@@ -6,7 +6,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar"
 
-class VideoPost extends React.Component {
+class BlogPost extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -15,27 +15,25 @@ class VideoPost extends React.Component {
   }
 
   componentDidMount(){
-    const resp = Request.get(`videoblogpost/${this.props.params.url}`)
+    const resp = Request.get(`blogpost/${this.props.params.url}`)
     .then(response => response.json())
     .then(result => this.setState({data: result}))
     .catch(e => console.log(e));
   }
 
-	render() {
-    console.log(this.state)
-    const { data } = this.state;
-    const title = data.title && `${data.title} | Excelist.am`
-		return (
-			<div className="videopost-container">
+  render(){
+    const { data } = this.state
+    return(
+      <div>
       <Helmet>
-        <title>{title && title}</title>
+        <title>{ data.title }</title>
       </Helmet>
-				<Header />
-				<div className="videopost-single-post">
+        <Header />
+        <div className="videopost-single-post">
           <div>
             <h2 className="videopost-title">{data.title}</h2>
-              { data &&  <div>
-                <iframe width="750" height="409" src={data.video_link}></iframe>
+              { data &&  <div className="singleblog-container">
+                  <div className="singleblog-content" dangerouslySetInnerHTML={{__html: data.content}}></div>
                 </div>
               }
               <p>Բաժանորդագրվե’ք /Subscribe/<strong > <a href="https://www.youtube.com/c/MsExcelOnlineLessons" className='green-text' target="_blank">մեր յութուբյան ալիքին</a></strong>։</p>
@@ -44,10 +42,10 @@ class VideoPost extends React.Component {
           </div>
             <Sidebar/>
         </div>
-				<Footer mode="simple" />
-			</div>
-		);
-	}
+        <Footer mode="simple" />
+      </div>
+    )
+  }
 }
 
-export default VideoPost;
+export default BlogPost

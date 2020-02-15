@@ -185,7 +185,7 @@ class Header extends React.Component {
 							<li className="nav-item">
 								<NavLink to="/blog">ԲԼՈԳ</NavLink>
 							</li>
-              <li className="nav-item" onClick={() => window.location = "/lessons"}>
+              <li className="nav-item" onClick={() => window.location = "/videoblog"}>
               <Dropdown overlay={videoMenu}>
               <NavLink
                 to="/videoblog"

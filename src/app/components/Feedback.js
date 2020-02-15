@@ -1,12 +1,18 @@
 import React from "react";
+import { Helmet } from 'react-helmet';
 
 import Header from "./Header";
 import Footer from "./Footer";
+
+const title = 'ՀԵՏԱԴԱՐՁ ԿԱՊ | Excelist'
 
 class Feedback extends React.Component {
 	render() {
 		return (
 			<>
+			<Helmet>
+				<title>{ title }</title>
+			</Helmet>
 				<Header />
 				<div
  className="feedback">
@@ -108,7 +114,7 @@ class Feedback extends React.Component {
           <div className="get_files">
             <h2>ԼՐԱՑՐՈ՛Ւ ԷԼ.ՀԱՍՑԵԴ ԵՎ ՍՏԱՑԻ՛Ր ՄԱՍՆԱԳԻՏԱԿԱՆ ՆՅՈՒԹԵՐ</h2>
             <div className="line"></div>
-            <a href="#" target="_blank"><button className="get_files_button"><i className="fa fa-envelope" aria-hidden="true"></i> ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ</button></a>
+            <a href="/get-files" target="_blank"><button className="get_files_button"><i className="fa fa-envelope" aria-hidden="true"></i> ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ</button></a>
           </div>
 
           <div className="location">

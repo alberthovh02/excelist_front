@@ -2,3 +2,14 @@
   display: flex;
   justify-content: space-around;
 }
+
+.singleblog-content {
+  text-align: justify;
+}
+
+.blog-item {
+  img {
+    max-width: 300px;
+    max-height: 160px
+  }
+}

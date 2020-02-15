@@ -1,9 +1,14 @@
 import React from "react";
 import Request from '../../store/request';
+import { Helmet } from 'react-helmet';
+
+
 
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from './Sidebar';
+
+const title = 'ԲԼՈԳ | Excelist'
 
 class Blog extends React.Component {
 	constructor(props){
@@ -26,6 +31,9 @@ class Blog extends React.Component {
 		const { data } = this.state;
 		return (
 			<>
+			<Helmet>
+				 <title>{ title }</title>
+			 </Helmet>
 				<Header />
 				<div className="blog-wrapper">
 				<div className="blog-container">
@@ -34,7 +42,8 @@ class Blog extends React.Component {
 	            <div key={key} className="blog-item">
 	              <img src={`http://excelist-backend.herokuapp.com/${el.imageUrl}`} alt="image" style={{height: "100%"}}/>
 	              <a className="blog-link">{el.title}</a>
-								<p className="blog-content" dangerouslySetInnerHTML={{__html: el.content}}></p>
+								<p className="blog-content" dangerouslySetInnerHTML={{__html: el.content.slice(0, 100)}}></p>
+								<a className="blog-see-more" href={`/blogpost/${el.generatedUrl}`}>Ավելին …</a>
 	            </div>
 	          )
 	        }) : "There are no data"}

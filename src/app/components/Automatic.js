@@ -1,5 +1,6 @@
 import React from "react";
 import {Icon} from "semantic-ui-react";
+import { Helmet } from 'react-helmet';
 import { Input } from 'antd';
 import { Link } from 'react-router-dom'
 import Header from "./Header";
@@ -7,7 +8,7 @@ import Footer from './Footer';
 import Sidebar from './Sidebar';
 const { Search } = Input;
 
-
+const title = 'ԱՎՏՈՄԱՏԱՑՈՒՄ | Excelist';
 
 
 class Automatic extends React.Component {
@@ -17,6 +18,9 @@ class Automatic extends React.Component {
 	render() {
 		return (
 			<div className="">
+			<Helmet>
+				<title>{title}</title>
+			</Helmet>
       <Header/>
 			<div className="automatic-wrapper">
 				<div className="content">

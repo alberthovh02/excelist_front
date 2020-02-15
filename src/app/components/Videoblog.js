@@ -1,12 +1,18 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import Header from './Header';
 import Footer from "./Footer"
+
+const title = "ՎԻԴԵՈԲԼՈԳ | Excelist"
 
 class Videoblog extends React.Component{
  render(){
    return(
      <div>
+     <Helmet>
+        <title>{ title }</title>
+      </Helmet>
       <Header/>
       <div className="intro_videoblog" style={{marginTop: "20px"}}>
         <div className="videblog_desc">

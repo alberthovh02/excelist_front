@@ -63,10 +63,8 @@ class VideoBlogAdmin extends React.Component {
   }
 
 	handleInputChange = (e) => {
-		console.log(e.target.value);
 		const { name, value } = e.target
 		this.setState({[name]: value });
-		console.log(this.state)
 	}
 
 	deletePost = async(item) => {

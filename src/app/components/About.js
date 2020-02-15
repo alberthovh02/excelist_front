@@ -2,6 +2,9 @@ import React from "react";
 import {Icon} from "semantic-ui-react";
 import Header from "./Header";
 import Footer from "./Footer";
+import { Helmet } from 'react-helmet'
+
+const title = 'ՄԵՐ ՄԱՍԻՆ | Excelist'
 
 class AboutUs extends React.Component {
 	// constructor(){
@@ -10,6 +13,9 @@ class AboutUs extends React.Component {
 	render() {
 		return (
 			<>
+			<Helmet>
+				 <title>{ title }</title>
+			 </Helmet>
 				<Header />
 				<div className="container">
 					<div className="about_info">

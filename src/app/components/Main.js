@@ -7,6 +7,8 @@ import {
 	NavLink
 } from "react-router-dom";
 
+import { Helmet } from 'react-helmet';
+
 import Request from '../../store/request'
 // import createBrowserHistory from "history";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -22,6 +24,7 @@ import Footer from "./Footer";
 const createBrowserHistory = require("history")
 const {Panel} = Collapse;
 const history = createBrowserHistory.createBrowserHistory();
+const title = 'Excelist.am';
 
 const renderTime = value => {
   if (value === 0) {
@@ -69,6 +72,9 @@ class Index extends React.Component {
 		};
 		return (
 			<>
+			<Helmet>
+				<title>{title}</title>
+			</Helmet>
 				<Header />
 				<div className="introduction">
 					<div className="introduction-bars">

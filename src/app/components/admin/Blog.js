@@ -1,9 +1,6 @@
 import React from "react";
 import {Input, Icon, Form, Button, Upload, message} from "antd";
-import {EditorState} from "draft-js";
 import ReactQuill from "react-quill";
-import {Editor, editorState} from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Header from "./Header";
 
 class BlogAdmin extends React.Component {
@@ -13,9 +10,7 @@ class BlogAdmin extends React.Component {
 			title: null,
 			image: null,
 			text: "",
-			editorState: EditorState.createEmpty()
 		};
-		this.onEditorStateChange = editorState => this.setState({editorState});
 	}
 
 	handleSubmit = async e => {
@@ -103,6 +98,7 @@ class BlogAdmin extends React.Component {
 					<Form.Item>
 						<div style={{borderWidth: 1, borderStyle: "solid"}}>
 							<ReactQuill
+								id='editor'
 								value={this.state.text}
 								onChange={this.handleTextChange}
 								modules={BlogAdmin.modules}
