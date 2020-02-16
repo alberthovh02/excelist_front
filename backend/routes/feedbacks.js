@@ -1,7 +1,7 @@
 const express = require("express");
 const {Router} = require("express");
 const multer = require('multer');
-const Feedbacks = require("../models/singleData");
+const Feedbacks = require("../models/feedbacks");
 const router = Router();
 const PATH = 'public/images/uploads/feedbacks';
 
@@ -28,6 +28,8 @@ const upload = multer({
 });
 
 
+
+
 router.get("/", function(req, res, next) {
 	Feedbacks.find(function(err, lesson) {
 		if (err) throw new Error(err);
@@ -38,9 +40,11 @@ router.get("/", function(req, res, next) {
 router.post("/create", upload.single('image') ,function(req, res, next) {
 	const { username, comment, link } = req.body;
 	if (!username, !comment || !link) {
+    console.log("errrrror")
 		next();
 	} else {
-		Feedbacks.create(req.body, (err, post) => {
+    const data = {username, comment, link, imageUrl: req.file.path}
+		Feedbacks.create({...data}, (err, post) => {
 			if (err) throw new Error(err);
 			res.json({message: "Success", code: 200});
 		});
@@ -48,12 +52,30 @@ router.post("/create", upload.single('image') ,function(req, res, next) {
 	}
 });
 
-// router.delete("/:id", function(req, res, next){
-//   console.log(">>>>>>>>>>.", req.body)
-//   Lesson.findByIdAndRemove(req.body._id,(err, post) => {
-//     if(err) return next(err)
-//     res.json(post);
-//   })
-// })
+router.put('/:id', function(req, res, next){
+  router.use(express.urlencoded({ extended: true }));
+
+  // for parsing multipart/form-data
+  router.use(upload.array()); 
+  console.log("iddd ", req.params.id, req.body)
+  Feedbacks.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {new: true},
+    (err, feedback) => {
+    // Handle any possible database errors
+        if (err) return res.status(500).send(err);
+        return res.json({message: "Updated", code: 200});
+    }
+)
+})
+
+router.delete("/:id", function(req, res, next){
+  console.log(">>>>>>>>>>.", req.params.id)
+  Feedbacks.findByIdAndRemove(req.params.id,(err, post) => {
+    if(err) return next(err)
+    res.json({message: "successfully deleted", code: 200});
+  })
+})
 
 module.exports = router;

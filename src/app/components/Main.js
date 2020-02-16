@@ -277,7 +277,7 @@ class Index extends React.Component {
 						<h1 className="about_heading">ՎԻԴԵՈԲԼՈԳ</h1>
 						<div className="line"></div>
 						<div className="videblog_desc">
-							<div className="single_videblog">
+							<div className="single_videoblog">
 								<img src={require("../../assets/images/intro/arm.png")} />
 								<h4 className="single-title">Հայերեն վիդեոներ</h4>
 								<a className="intro_videoblog_see_more" target="_blank">

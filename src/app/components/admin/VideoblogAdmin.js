@@ -113,8 +113,8 @@ class VideoBlogAdmin extends React.Component {
 								<b>{item.title}</b>
 								<i>{item.language}</i>
 								<div>
-								<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
-								<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}}>EDIT</Button>
+									<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
+									<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}}>EDIT</Button>
 								</div>
 								</div>
 						}) }
