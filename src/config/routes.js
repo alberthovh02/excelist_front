@@ -22,6 +22,7 @@ import SubscribedUsers from "../app/components/admin/SubscribedUsers";
 import RegisteredUsers from '../app/components/admin/RegisteredUsers';
 import VideoBlogAdmin from "../app/components/admin/VideoblogAdmin";
 import BlogAdmin from '../app/components/admin/Blog';
+import Course from '../app/components/admin/Course';
 
 export const PublicRoutes = [
     { id: 1, path: `/`, component: Main },
@@ -49,5 +50,6 @@ export const PrivateRoutes = [
   { id: 5, path: "/subscribes", component: SubscribedUsers},
   { id: 6, path: '/registered_users', component: RegisteredUsers},
   { id: 7, path: '/video-blog', component: VideoBlogAdmin},
-  { id: 8, path: '/blogs', component: BlogAdmin}
+  { id: 8, path: '/blogs', component: BlogAdmin},
+  { id: 9, path: '/course', component: Course}
 ];
