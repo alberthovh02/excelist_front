@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
+const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const path = require("path")
 var router = express.Router();
@@ -15,15 +16,19 @@ const videoblogpost = require("./routes/videopost");
 const blogpost = require('./routes/blogpost');
 const feedbacks = require('./routes/feedbacks');
 const course = require('./routes/course');
+const filerequest = require('./routes/filerequest');
+const imageupload = require('./routes/imageupload');
 //Configurations
 const { server, database } = require("./config/config");
 const app = express();
 //Middlewares
-app.use(bodyParser.urlencoded({ extended: false }))
+
 app.use(cors())
 // parse application/json
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use("/public", express.static(path.join(__dirname, 'public')));
+app.use(fileUpload())
 
 //Database connection
 mongoose.connect(`mongodb+srv://albert:Admin%23777!@cluster0-8xyhu.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser :"false"});
@@ -49,7 +54,9 @@ app.use("/blogs", blogs);
 app.use('/videoblogpost', videoblogpost);
 app.use('/blogpost', blogpost);
 app.use('/user-feedbacks', feedbacks);
-app.use('/course', course)
+app.use('/course', course);
+app.use('/filerequest', filerequest);
+app.use('/images', imageupload);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`App is running in port ${PORT}`))

@@ -7,6 +7,15 @@
   width: 60%;
   margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .ant-upload-drag{
+    width: 60% !important;
+    display: flex;
+    margin: 10px auto;
+  }
   .lesson_name, button , .datepicker{
     width: 50%;
     margin-bottom: 20px

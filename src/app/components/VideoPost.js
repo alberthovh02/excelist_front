@@ -1,6 +1,8 @@
 import React from "react";
 import Request from '../../store/request';
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet';
+import { NavLink } from 'react-router-dom';
+
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -39,7 +41,7 @@ class VideoPost extends React.Component {
                 </div>
               }
               <p>Բաժանորդագրվե’ք /Subscribe/<strong > <a href="https://www.youtube.com/c/MsExcelOnlineLessons" className='green-text' target="_blank">մեր յութուբյան ալիքին</a></strong>։</p>
-              <p>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ֆորման:</p>
+              <p>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք <NavLink to={`/filerequest/:${data.title}`}>ֆորման</NavLink>:</p>
 
           </div>
             <Sidebar/>

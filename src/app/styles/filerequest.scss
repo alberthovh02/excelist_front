@@ -1,0 +1,11 @@
+.filerequest-container {
+  display: flex;
+  justify-content: space-between;
+  form{
+    width: 30%;
+    margin: 0 auto;
+    input, button {
+      margin-top: 10px;
+    }
+  }
+}

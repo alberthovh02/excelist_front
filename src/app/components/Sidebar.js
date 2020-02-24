@@ -1,10 +1,38 @@
 import React from 'react';
 import { Input } from 'antd';
+import Request from '../../store/request';
+
 const { Search } = Input;
 
 
 class Sidebar extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      videoBlogData: [],
+      blogData: [],
+      course: []
+    }
+  }
+
+  componentDidMount(){
+    Request.get("video-blog/blogs-desc/")
+			.then(response => response.json())
+			.then(result => this.setState({videoBlogData: result.slice(0, 3)}))
+			.catch(e => console.log(e));
+    Request.get("blog/")
+  		.then(response => response.json())
+  		.then(result => this.setState({blogData: result.slice(0, 3)}))
+  		.catch(e => console.log(e));
+    Request.get("course/")
+  		.then(response => response.json())
+  		.then(result => this.setState({course: result.slice(0, 3)}))
+  		.catch(e => console.log(e));
+
+  }
+
   render(){
+    const { videoBlogData, blogData, course } = this.state
     return(
       <div style={{width: "25%"}}>
         <div className="sidebar-item search">
@@ -38,6 +66,12 @@ class Sidebar extends React.Component {
         </div>
         <div className="sidebar-item lessons">
           <p>ԴԱՍԸՆԹԱՑՆԵՐ</p>
+          <div className="lessons-container">
+          { course && course.map((item, key) => {
+            return (<div key={key} className="sidebar-course"><img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "100%"}}/>
+<p>{item.title}</p></div>)
+          })}
+          </div>
         </div>
         <div className="sidebar-item blog">
           <p>ԲԼՈԳ</p>

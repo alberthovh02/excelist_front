@@ -68,7 +68,7 @@ class BlogAdmin extends React.Component {
 	render() {
 		return (
 			<div>
-				<Header title="Video Blog" />
+				<Header title="Blog" />
 				<form>
 					<Form.Item>
 						<p>Select an image</p>

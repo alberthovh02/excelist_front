@@ -3,14 +3,28 @@ import {Icon} from "semantic-ui-react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Helmet } from 'react-helmet'
+import Request from '../../store/request'
 
 const title = 'ՄԵՐ ՄԱՍԻՆ | Excelist'
 
 class AboutUs extends React.Component {
-	// constructor(){
+	constructor(props){
+		super(props);
+		this.state = {
+			data: []
+		}
+	}
 
-	// }
+	componentDidMount(){
+		const resp = Request.get(`students/`)
+		.then(response => response.json())
+		.then(result => this.setState({data: result}))
+		.catch(e => console.log(e));
+	}
+
 	render() {
+		const { data } = this.state;
+		console.log(data)
 		return (
 			<>
 			<Helmet>

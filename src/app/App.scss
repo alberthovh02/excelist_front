@@ -1,7 +1,9 @@
 @import './styles/main.scss';
 @import '~react-quill/dist/quill.snow.css';
 @import '~antd/dist/antd.css';
+@import '~tui-image-editor/dist/tui-image-editor.css';
 @import "./src/assets/fonts/font-awesome/scss/font-awesome.scss";
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 @import './styles/header.scss';
 @import './styles/footer.scss';
@@ -14,6 +16,8 @@
 @import './styles/singlePost.scss';
 @import './styles/qualification.scss';
 @import './styles/lessons.scss';
+@import './styles/certificate.scss';
+@import './styles/filerequest.scss';
 
 @import './styles/admin/dashboard.scss';
 @import './styles/admin/lessons.scss';

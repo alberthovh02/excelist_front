@@ -8,10 +8,9 @@ import {
 } from "react-router-dom";
 
 import { Helmet } from 'react-helmet';
-
 import Request from '../../store/request'
+import Countdown from '../functions/countDown';
 // import createBrowserHistory from "history";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 //app routes
 import {PublicRoutes, PrivateRoutes} from "../../config/routes";
@@ -39,6 +38,7 @@ const renderTime = value => {
     </div>
   );
 };
+
 
 class Index extends React.Component {
 	constructor(props){
@@ -81,21 +81,21 @@ class Index extends React.Component {
 						<div className="intro-bar-item">
 							<div>
 								<h1>ԴԱՍԵՐ</h1>
-								<p><NavLink to="/courses" className="intro-more">ԱՎԵԼԻՆ</NavLink><i class="fa fa-chevron-right arrow"></i></p>
+								<p><NavLink to="/courses" className="intro-more">ԱՎԵԼԻՆ</NavLink><i className="fa fa-chevron-right arrow"></i></p>
 							</div>
 							<i className="fa fa-book"></i>
 						</div>
 						<div className="intro-bar-item">
 						<div>
 							<h1>ԲԼՈԳ</h1>
-							<p><NavLink to="/blog" className="intro-more">ԱՎԵԼԻՆ</NavLink><i class="fa fa-chevron-right arrow"></i></p>
+							<p><NavLink to="/blog" className="intro-more">ԱՎԵԼԻՆ</NavLink><i className="fa fa-chevron-right arrow"></i></p>
 						</div>
 							<i className="fa fa-edit"></i>
 						</div>
 						<div className="intro-bar-item">
 						<div>
 							<h1>ՎԻԴԵՈԲԼՈԳ</h1>
-							<p><NavLink to="/videoblog" className="intro-more">ԱՎԵԼԻՆ</NavLink><i class="fa fa-chevron-right arrow"></i></p>
+							<p><NavLink to="/videoblog" className="intro-more">ԱՎԵԼԻՆ</NavLink><i className="fa fa-chevron-right arrow"></i></p>
 						</div>
 							<i className="fa fa-play-circle-o"></i>
 						</div>
@@ -529,14 +529,19 @@ class Index extends React.Component {
 					<h1 className="about_heading main_heading">ԳՐԱՆՑՎԻ՛Ր ՄՈՏԱԿԱ ԴԱՍԸՆԹԱՑԻՆ</h1>
 					<div className="line"></div>
 
-			{this.state.lessonTimer && this.state.lessonTimer.map(data => {
-				return 	<CountdownCircleTimer
-        isPlaying
-        durationSeconds={new Date(data.endTime).getDay()}
-        colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
-        renderTime={renderTime}
-        onComplete={() => [true, 1000]}
-      />
+			{this.state.lessonTimer && this.state.lessonTimer.map((data, key) => {
+				const day = `${new Date(data.endTime).toLocaleString().split('.')[0]} `;
+				const month = `${new Date(data.endTime).toLocaleString().split('.')[1]} `;
+				const year = `${new Date(data.endTime).toLocaleString().split('.')[2].split(',')[0]}`;
+				const hour = `${new Date(data.endTime).toLocaleString().split(':')[0].split(',')[1]}:`;
+				const minutes = `${new Date(data.endTime).toLocaleString().split(':')[1]}am`;
+				const parsedDate = month.concat(day).concat(year).concat(hour).concat(minutes);
+				console.log(data)
+				return 	<Countdown
+					key={key}
+					timeTillDate={parsedDate}
+					timeFormat="MM DD YYYY, h:mm a"
+				/>
 			})}
 					</div>
 
@@ -924,7 +929,7 @@ class Main extends React.Component {
 					})}
 					{authorized && PrivateRoutes.map((item, key) => {
 						return (
-							<Switch>
+							<Switch key={key}>
 								<Route
 									path={item.path}
 

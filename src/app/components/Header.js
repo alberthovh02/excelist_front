@@ -26,7 +26,6 @@ class Header extends React.Component {
 		const hoverLine = document.getElementById('hover-line');
 		const sortedArr = Array.prototype.map.call(navItems, (item, key) => {item.childNodes[0].onmouseover = function(e){
 			hoverLine.style.display = 'inline-block';
-			console.log(e)
 			hoverLine.style.position = 'absolute';
 			hoverLine.style.left = e.target.offsetLeft + 'px';
 			hoverLine.style.top = e.target.offsetTop + e.target.offsetHeight + 10 + 'px'

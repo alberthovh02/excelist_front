@@ -18,6 +18,15 @@
    }
 }
 
+.sidebar-course {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  img {
+    max-height: 100px
+  }
+}
+
 .sidebar-item {
   margin-bottom: 50px;
   padding-left: 20px;
@@ -25,6 +34,10 @@
     color: #333;
     font-size: 18px;
     font-weight: bold;
+  }
+  .lessons-container {
+    display: flex;
+    flex-direction: column;
   }
 
 }

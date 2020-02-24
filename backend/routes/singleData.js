@@ -11,16 +11,12 @@ router.get("/", function(req, res, next) {
 });
 
 router.post("/count", function(req, res, next) {
-	const { count, dataType } = req.body;
-	if (!count || !dataType) {
-		next();
-	} else {
-		SingleData.create(req.body, (err, post) => {
-			if (err) throw new Error(err);
+	const { students_count, lessons_count, teachers_count, members_count, supporters_count } = req.body;
+		SingleData.update({students_count, lessons_count, teachers_count, members_count, supporters_count}, { upsert : true },(err, post) => {
+			if (err) console.log(err);
+			console.log("post", post)
 			res.json({message: "Success", code: 200});
 		});
-
-	}
 });
 
 // router.delete("/:id", function(req, res, next){

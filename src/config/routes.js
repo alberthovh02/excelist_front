@@ -12,7 +12,8 @@ import GetFiles from '../app/components/GetFiles';
 import Videos from '../app/components/Videos';
 import VideoPost from '../app/components/VideoPost';
 import Qualification from '../app/components/Qualification';
-import BlogPost from '../app/components/BlogPost'
+import BlogPost from '../app/components/BlogPost';
+import FileRequest from '../app/components/FileRequest';
 //Private routes
 import Dashboard from "../app/components/admin/Dashboard";
 import Lesson from "../app/components/admin/Lesson";
@@ -23,6 +24,8 @@ import RegisteredUsers from '../app/components/admin/RegisteredUsers';
 import VideoBlogAdmin from "../app/components/admin/VideoblogAdmin";
 import BlogAdmin from '../app/components/admin/Blog';
 import Course from '../app/components/admin/Course';
+import Certificate from '../app/components/admin/Certificate';
+import Images from '../app/components/admin/Images';
 
 export const PublicRoutes = [
     { id: 1, path: `/`, component: Main },
@@ -38,7 +41,8 @@ export const PublicRoutes = [
     { id: 11, path: `/videos`, component: Videos},
     { id: 12, path: `/videoblogpost/:url`, component: VideoPost},
     { id: 13, path: `/qualification`, component: Qualification},
-    { id: 14, path: `/blogpost/:url`, component: BlogPost}
+    { id: 14, path: `/blogpost/:url`, component: BlogPost},
+    { id: 15, path: `/filerequest/:video`, component: FileRequest}
 ]
 
 
@@ -51,5 +55,7 @@ export const PrivateRoutes = [
   { id: 6, path: '/registered_users', component: RegisteredUsers},
   { id: 7, path: '/video-blog', component: VideoBlogAdmin},
   { id: 8, path: '/blogs', component: BlogAdmin},
-  { id: 9, path: '/course', component: Course}
+  { id: 9, path: '/course', component: Course},
+  { id: 10, path: '/certificate', component: Certificate},
+  { id: 11, path: '/images', component: Images}
 ];
