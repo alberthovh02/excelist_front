@@ -59,7 +59,6 @@ class Images extends React.Component{
    );
     return(
       <div className="images-container">
-        <Header title="Images"/>
         <Select defaultValue="free" style={{ width: 120 }} onChange={this.handleSelectChange}>
           <Option value="free">Outdoor</Option>
           <Option value="lesson">Lessons</Option>

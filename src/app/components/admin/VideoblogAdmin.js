@@ -1,28 +1,8 @@
 import React from "react";
-import {Input, Select, Icon, Form, Button, Upload,Collapse , message} from "antd";
-import Header from "./Header";
+import {Input, Select, Icon, Form, Button, Upload,Collapse , message, Radio} from "antd";
 import Request from '../../../store/request'
-
-
-
 const {Option} = Select;
 const { Panel } = Collapse;
-
-const selectBefore = (
-	<Select defaultValue="Http://" style={{width: 90}}>
-		<Option value="Http://">Http://</Option>
-		<Option value="Https://">Https://</Option>
-	</Select>
-);
-
-const selectAfter = (
-	<Select defaultValue=".com" style={{width: 80}}>
-		<Option value=".com">.com</Option>
-		<Option value=".jp">.jp</Option>
-		<Option value=".cn">.cn</Option>
-		<Option value=".org">.org</Option>
-	</Select>
-);
 
 class VideoBlogAdmin extends React.Component {
 	constructor(){
@@ -33,18 +13,29 @@ class VideoBlogAdmin extends React.Component {
 				file_link: null,
 				language: null,
 				image: null,
-				videoBlogData: []
+				videoBlogData: [],
+				fileList: [],
+				uploading: false,
+				radio: null
 		}
 	}
 	handleSubmit = async (e) => {
 		e.preventDefault()
-		const { language, title, video_link, file_link, image } = this.state;
+		const { language, title, video_link, file_link, image, fileList } = this.state;
 		const data = new FormData();
 		data.append('image',image);
 		data.append("language", language);
 		data.append("title", title);
 		data.append("video_link", video_link);
-		data.append("file_link", file_link);
+		fileList.forEach(file => {
+			data.append('file_link', file);
+		});
+
+		this.setState({
+			uploading: true,
+		});
+
+
 		const response = await fetch("//excelist-backend.herokuapp.com/video-blog/create", {
 			method: "POST",
 			// headers: {"Content-Type": "multipart/form-data"},
@@ -99,11 +90,35 @@ class VideoBlogAdmin extends React.Component {
 	}
 	};
 
+	handleContentChoose = e => {
+    this.setState({
+      radio: e.target.value,
+    });
+  };
+
 	render() {
-		const { videoBlogData } = this.state;
+		const { videoBlogData, uploading, fileList, radio } = this.state;
+		const props = {
+      onRemove: file => {
+        this.setState(state => {
+          const index = state.fileList.indexOf(file);
+          const newFileList = state.fileList.slice();
+          newFileList.splice(index, 1);
+          return {
+            fileList: newFileList,
+          };
+        });
+      },
+      beforeUpload: file => {
+        this.setState(state => ({
+          fileList: [...state.fileList, file],
+        }));
+        return false;
+      },
+      fileList,
+    };
 		return (
 			<div>
-				<Header title="Video Blog" />
 				<form>
 				<Collapse accordion>
 					<Panel header="View videoblogs">
@@ -145,23 +160,24 @@ class VideoBlogAdmin extends React.Component {
 					<Form.Item>
 						Video link(youtube)
 						<Input
-							addonBefore={selectBefore}
-							addonAfter={selectAfter}
-							defaultValue="mysite"
 							name="video_link"
 							onChange={(e) => this.handleInputChange(e)}
 						/>
 					</Form.Item>
-					<Form.Item>
-						Added files link
-						<Input
-							addonBefore={selectBefore}
-							addonAfter={selectAfter}
-							defaultValue="mysite"
-							name="file_link"
-							onChange={(e) => this.handleInputChange(e)}
-						/>
-					</Form.Item>
+					<div>
+						<Radio.Group onChange={this.handleContentChoose}>
+							<Radio key={1} value={1}>Select file</Radio>
+							<Radio key={2} value={2}>Macrolab</Radio>
+						</Radio.Group>
+					</div>
+					{ radio && radio === 1 ? <div>
+					<p>Select file</p>
+	        <Upload {...props}>
+	          <Button>
+	            Select File
+	          </Button>
+	        </Upload>
+	      </div> : null}
 					<Button type="primary" onClick={(e) => this.handleSubmit(e)}>
 						Submit
 					</Button>

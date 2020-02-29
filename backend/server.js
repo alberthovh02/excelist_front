@@ -18,6 +18,7 @@ const feedbacks = require('./routes/feedbacks');
 const course = require('./routes/course');
 const filerequest = require('./routes/filerequest');
 const imageupload = require('./routes/imageupload');
+const sendfeedback = require('./routes/sendfeedback');
 //Configurations
 const { server, database } = require("./config/config");
 const app = express();
@@ -28,7 +29,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use("/public", express.static(path.join(__dirname, 'public')));
-app.use(fileUpload())
+// app.use(fileUpload())
 
 //Database connection
 mongoose.connect(`mongodb+srv://albert:Admin%23777!@cluster0-8xyhu.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser :"false"});
@@ -57,6 +58,7 @@ app.use('/user-feedbacks', feedbacks);
 app.use('/course', course);
 app.use('/filerequest', filerequest);
 app.use('/images', imageupload);
+app.use('/feedback', sendfeedback)
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`App is running in port ${PORT}`))

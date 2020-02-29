@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "./Header";
 import { Collapse, Input, Button, message } from "antd";
+import parseDate from '../../functions/parseTime';
 //Table css
 import CssBaseline from '@material-ui/core/CssBaseline'
 import MaUTable from '@material-ui/core/Table'
@@ -108,9 +108,8 @@ class SubscribedUsers extends React.Component {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({text, link, data})
-      });
-      if(response.code === 200) message.success({content: "successfully sended"})
-      else alert("Something went wrong")
+      }).then(response => response.json())
+        .then(result => result.code === 200 ? message.success(result.message) : message.error(result.message) )
     }
   }
 
@@ -128,12 +127,11 @@ class SubscribedUsers extends React.Component {
 			return {
 				firstName: item.name,
 				email: item.email,
-				subscribeTime: item.createdAt
+				subscribeTime: parseDate(item.createdAt)
 			}
 		})
 		return (
 			<>
-				{" "}<Header title="Active Subscribers" />
         <Collapse accordion>
           <Panel header="Send message" key="1">
             <p>Enter message below</p>

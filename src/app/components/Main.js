@@ -7,6 +7,9 @@ import {
 	NavLink
 } from "react-router-dom";
 
+import CountUp from 'react-countup';
+
+
 import { Helmet } from 'react-helmet';
 import Request from '../../store/request'
 import Countdown from '../functions/countDown';
@@ -19,6 +22,7 @@ import {Collapse, Icon} from "antd";
 
 import Header from "./Header";
 import Footer from "./Footer";
+import Navbar from './admin/Navbar'
 
 const createBrowserHistory = require("history")
 const {Panel} = Collapse;
@@ -61,6 +65,7 @@ class Index extends React.Component {
 		fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
 		.then(response => response.json())
 		.then(result => this.setState({youtubeSubscribersCount: result}))
+
 	}
 	render() {
 		const customPanelStyle = {
@@ -457,7 +462,14 @@ class Index extends React.Component {
 							<p>
 								{this.state.data.length && this.state.data.map((item, key) => {
 									console.log(item)
-								return	item.dataType === "students_count" && item.count
+								return	item.dataType === "students_count" && <CountUp
+									start={0}
+									end={item.count}
+									duration={4}
+									delay={2}
+									separator=" "
+									decimal=","
+								/>
 								})} <span>ՈՒՍԱՆՈՂ</span>
 							</p>
 						</div>
@@ -467,16 +479,32 @@ class Index extends React.Component {
 								style={{color: "#3b5998", fontSize: "50px"}}
 							></i>
 							<p>
-								16150 <span>ՀԵՏԵՎՈՂ ՖԵՅՍԲՈՒՔՈՒՄ</span>
+							<CountUp
+								start={0}
+								end={16150}
+								duration={4}
+								delay={2}
+								separator=" "
+								decimal=","
+							/> <span>ՀԵՏԵՎՈՂ ՖԵՅՍԲՈՒՔՈՒՄ</span>
 							</p>
 						</div>
+
+
 						<div className="statistic_item">
 							<i
 								className="fa fa-youtube"
 								style={{color: "#e52d27", fontSize: "50px"}}
 							></i>
 							<p>
-								{this.state.youtubeSubscribersCount && this.state.youtubeSubscribersCount.items[0].statistics.viewCount} <span>ԴԻՏՈՒՄ YOUTUBE-ՈՒՄ</span>
+								{this.state.youtubeSubscribersCount && <CountUp
+									start={0}
+									end={this.state.youtubeSubscribersCount.items[0].statistics.viewCount}
+									duration={4}
+									delay={2}
+									separator=" "
+									decimal=","
+								/> } <span>ԴԻՏՈՒՄ YOUTUBE-ՈՒՄ</span>
 							</p>
 						</div>
 					</div>
@@ -927,18 +955,18 @@ class Main extends React.Component {
 							);
 
 					})}
-					{authorized && PrivateRoutes.map((item, key) => {
+
+					{authorized && <><Navbar/>{PrivateRoutes.map((item, key) => {
 						return (
 							<Switch key={key}>
-								<Route
-									path={item.path}
-
-									render={(route) => <item.component {...this.props} {...route.match.params}/>}
-									key={key}
-								/>
+							<><Route
+								exact={item.id === 1}
+								path={item.path}
+								render={(props) => <item.component/> }
+							/></>
 							</Switch>
 						)
-					})}
+					})}</>}
 					{authorized ?
 						 window.location.pathname === "/dashboard"
 						 ? <Redirect to="dashboard"/>

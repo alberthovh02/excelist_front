@@ -1,6 +1,5 @@
 import React from "react";
 import {Input, Button, message, Upload, Icon, Collapse} from "antd";
-import Header from "./Header";
 import Request from "../../../store/request";
 import Modal from "react-modal";
 
@@ -128,7 +127,6 @@ class Feedbacks extends React.Component {
 		const {data} = this.state;
 		return (
 			<>
-				<Header title="Users feedbacks" />
 				<Collapse accordion>
 					<Panel header="Feedbacks" key="1">
 						{data &&

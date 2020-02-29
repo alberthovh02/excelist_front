@@ -2,8 +2,6 @@ import React from "react";
 import {Form, Upload, message, Button, Icon, Input} from "antd";
 import ReactQuill from "react-quill";
 
-import Header from "./Header";
-
 class AdminCourse extends React.Component {
 	constructor(props) {
 		super(props);
@@ -67,7 +65,6 @@ class AdminCourse extends React.Component {
 
 		return (
 			<div>
-				<Header title="Course" />
 				<Form
 					labelCol={{span: 4}}
 					className="admin-course-form"

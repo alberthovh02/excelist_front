@@ -2,18 +2,23 @@ import React from "react";
 
 import Sidebar from "./Sidebar";
 import Container from './Container';
+import Navbar from './Navbar';
+import { Route, Switch } from 'react-router-dom'
+import { PrivateRoutes } from '../../../config/routes';
 
 class Dashboard extends React.Component {
 	render() {
 		return (
 			<>
-				<div className="admin_header">
-					<h3>Excelist admin panel</h3>
-				</div>
-				<div style={{display: "flex", flexDirection: "row"}}>
-				{/*<Sidebar />*/}
-        <Container/>
-				</div>
+				<Switch>
+				{
+					PrivateRoutes.map((item, key) =>
+					item.id !== 1 && <><Route
+					exact={item.id === 1}
+					path={item.path}
+					render={(props) => <item.component/> }
+				/></>)}
+				</Switch>
 			</>
 		);
 	}

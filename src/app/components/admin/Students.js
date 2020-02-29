@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Form, Button } from 'antd';
-import Header from './Header';
 
 class Students extends React.Component {
   //Need to validate that data is number only
@@ -39,7 +38,6 @@ class Students extends React.Component {
   render(){
     return(
       <>
-      <Header title="STUDENTS BOARD"/>
       <main>
       <Form className="students-board">
         <h2>Static data changer</h2>

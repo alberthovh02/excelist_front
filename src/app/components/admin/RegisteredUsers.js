@@ -6,7 +6,7 @@ class RegisteredUsers extends React.Component {
   render(){
     return(
       <>
-        <Header title="Registered users"/>
+      Registered users
       </>
     )
   }

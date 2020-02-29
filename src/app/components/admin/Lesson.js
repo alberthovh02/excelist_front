@@ -14,8 +14,6 @@ import Request from '../../../store/request';
 
 import Avatar from "../../functions/imageUpload";
 
-import Header from "./Header";
-
 const {Dragger} = Upload;
 const {Panel} = Collapse;
 
@@ -111,7 +109,6 @@ class Lesson extends React.Component {
 		const {data} = this.state;
 		return (
 			<>
-				<Header title="Lessons" />
 				<Collapse accordion>
 					<Panel header="View lessons">
 						{data.length &&

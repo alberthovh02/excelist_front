@@ -31,16 +31,18 @@ router.post("/send", function(req, res, next) {
 
 		const mailOptions = {
 			from: "albert.hovhannisyan.main@gmail.com",
-			to: "albert.hovhannisyan002@gmail.com",
-			subject: "Excelist new message",
-			text: "Thank you for subscribing to Excelist newsroom!"
+			to: email,
+			subject: "Excelist ակումբ",
+			text: "Դուք բաժանորդագրվել էք Excelist ակումբի նորություններին, շնորհակալ ենք մեզ վստահելու համար:"
 		};
 
 		transporter.sendMail(mailOptions, function(error, info) {
 			if (error) {
 				console.log(error);
+				res.json({code: 400, message: 'something went wrong'}).code(400)
 			} else {
 				console.log("Email sent: " + info.response);
+				res.json({code: 200, message: 'empty data'}).code(200)
 			}
 		});
 	}
@@ -59,31 +61,28 @@ router.post("/sendMail", function(req, res, next){
 			}
 		});
 
-		const mailOptions = {
-			from: "albert.hovhannisyan.main@gmail.com",
-			to: "albert.hovhannisyan002@gmail.com",
-			subject: "Excelist new message",
-			html: `<div><p>${text}<p><br/><br/>${link}<div style='display: flex;flex-direction:row;justify-content: space-between'><a href="https://web.facebook.com/Excel.lessons/?fref=ts&_rdc=1&_rdr"><img src=""/></a><a><img/></a><a><img/></a></div></div>`
-		};
+		Subscribe.find(function(err, subscriber) {
+			if (err) throw new Error(err);
+			collectUsers(subscriber)
+			subscriber.map((item) => {
+				const mailOptions = {
+					from: "albert.hovhannisyan.main@gmail.com",
+					to: item.email,
+					subject: "Excelist new message",
+					html: `<div><p>${text}<p><br/><br/>${link}<div style='display: flex;flex-direction:row;justify-content: space-between'><a href="https://web.facebook.com/Excel.lessons/?fref=ts&_rdc=1&_rdr"><img src=""/></a><a><img/></a><a><img/></a></div></div>`
+				};
 
-		transporter.sendMail(mailOptions, function(error, info) {
-			if (error) {
-				console.log(error);
-				message.error({content: "Error: Message not sent" + error})
-			} else {
-				message.success({content: "Messsage sent"})
-				console.log("Email sent: " + info.response);
-			}
+				transporter.sendMail(mailOptions, function(error, info) {
+					if (error) {
+						console.log(error);
+						res.json({code: 400, message: `Նամակը չի ուղարկվել տեխ. խնդրի պատճառով`}).code(400)
+					} else {
+						console.log("Email sent: " + info.response);
+						res.json({code: 200, message: `Նամակը հաջողությամբ ուղարկվել է օգտատերերին`}).code(200)
+					}
+				});
+			})
 		});
 	}
 })
-
-// router.delete("/:id", function(req, res, next){
-//   console.log(">>>>>>>>>>.", req.body)
-//   Lesson.findByIdAndRemove(req.body._id,(err, post) => {
-//     if(err) return next(err)
-//     res.json(post);
-//   })
-// })
-
 module.exports = router;

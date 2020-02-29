@@ -1,11 +1,40 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import { Form, Input, message as toast } from 'antd';
+import Request from '../../store/request';
 
 class Footer extends React.Component{
-    constructor(props){
-      super(props)
+  constructor(props){
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      title: '',
+      message: ''
     }
+  }
+
+  handleInput = e => {
+    const { name, value } = e.target;
+    this.setState({[name]: value});
+  }
+
+  sendMessage = async(e) => {
+    const { name, email, title, message } = this.state;
+    if(!email || !name || !message){
+      toast.error("Խնդրում ենք լրացնել բոլոր պարտադիր դաշտերը");
+      return false;
+    }else{
+      const resp = await Request.postJson('feedback/sendMessage', { name, email, title, message })
+      console.log(resp)
+      if(resp.status === 200){
+        toast.success('Նամակը հաջողությամբ ուղարկվել է')
+      }else{
+        toast.error("Ինչ որ բան ընթացավ սխալ, խնդրում ենք փորձել քիչ հետո")
+      }
+    }
+  }
     render(){
       const { mode } = this.props
         return(
@@ -95,13 +124,41 @@ class Footer extends React.Component{
                             <p>Սպասում ենք քո նամակին:</p>
                         </div>
                         <div className="form_container">
-                            <form>
-                                <input type="text" placeholder="Ձեր անունը (պարտադիր)" id="footer_form_name"/>
-                                <input type="email" placeholder="Ձեր էլ. փոստը (պարտադիր)" id="footer_form_email"/>
-                                <input type="text" placeholder="Վերնագիր" id="footer_form_title"/>
-                                <textarea cols={60} rows={10} placeholder="Նամակ" id="footer_form_message"></textarea>
-                                <input type="button" value="Ուղարկել" id="sendButton"/>
-                            </form>
+                            <Form className='footer-form'>
+                                <Input
+                                  size='large'
+                                  type="text"
+                                  name="name"
+                                  placeholder="Ձեր անունը (պարտադիր)"
+                                  id="footer_form_name"
+                                  onChange= { this.handleInput }
+                                  />
+                                <Input
+                                  size='large'
+                                  type="email"
+                                  name='email'
+                                  placeholder="Ձեր էլ. փոստը (պարտադիր)"
+                                  id="footer_form_email"
+                                  onChange={ this.handleInput}
+                                  />
+                                <Input
+                                  size='large'
+                                  type="text"
+                                  name='title'
+                                  placeholder="Վերնագիր"
+                                  id="footer_form_title"
+                                  onChange={ this.handleInput}
+                                  />
+                                <textarea
+                                  cols={60}
+                                  name='message'
+                                  rows={10}
+                                  placeholder="Նամակ"
+                                  id="footer_form_message"
+                                  onChange={ this.handleInput }
+                                  ></textarea>
+                                <input type="button" value="Ուղարկել" id="sendButton" onClick={ this.sendMessage }/>
+                            </Form>
                         </div>
                     </div>
                 </div> : null }

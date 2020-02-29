@@ -41,7 +41,19 @@ class VideoPost extends React.Component {
                 </div>
               }
               <p>Բաժանորդագրվե’ք /Subscribe/<strong > <a href="https://www.youtube.com/c/MsExcelOnlineLessons" className='green-text' target="_blank">մեր յութուբյան ալիքին</a></strong>։</p>
-              <p>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք <NavLink to={`/filerequest/:${data.title}`}>ֆորման</NavLink>:</p>
+
+              { data.file_link ?
+                <div>
+                  <p>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք <NavLink to={`/filerequest/:${data.title}`}>ֆորման</NavLink>:</p>
+                </div>
+                : <div>
+                  Մանրամասների համար դիմե՛ք․<br/>
+                  🌐 www.macrolab.am<br/>
+                  📞 Tel: 093 18 88 95,<br/>
+                  ✉ E-mail: info@macrolab.am
+                </div>
+              }
+
 
           </div>
             <Sidebar/>

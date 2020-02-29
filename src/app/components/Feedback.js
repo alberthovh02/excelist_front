@@ -1,5 +1,7 @@
 import React from "react";
 import { Helmet } from 'react-helmet';
+import { message as toast } from 'antd';
+import Request from '../../store/request';
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -7,6 +9,37 @@ import Footer from "./Footer";
 const title = 'ՀԵՏԱԴԱՐՁ ԿԱՊ | Excelist'
 
 class Feedback extends React.Component {
+	constructor(){
+		super();
+		this.state = {
+			name: '',
+			email: '',
+			title: '',
+			message: ''
+		}
+	}
+
+	handleInput = e => {
+		const { name, value } = e.target;
+		this.setState({[name]: value});
+	}
+
+	sendMessage = async(e) => {
+		const { name, email, title, message } = this.state;
+		if(!email || !name || !message){
+			toast.error("Խնդրում ենք լրացնել բոլոր պարտադիր դաշտերը");
+			return false;
+		}else{
+			const resp = await Request.postJson('feedback/sendMessage', { name, email, title, message })
+	    console.log(resp)
+	    if(resp.status === 200){
+	      toast.success('Նամակը հաջողությամբ ուղարկվել է')
+	    }else{
+	      toast.error("Ինչ որ բան ընթացավ սխալ, խնդրում ենք փորձել քիչ հետո")
+	    }
+		}
+	}
+
 	render() {
 		return (
 			<>
@@ -86,26 +119,34 @@ class Feedback extends React.Component {
 								<form>
 									<input
 										type="text"
+										name='name'
+										onChange={ this.handleInput }
 										placeholder="Ձեր անունը (պարտադիր)"
 										id="footer_form_name"
 									/>
 									<input
 										type="email"
+										name='email'
+										onChange={ this.handleInput }
 										placeholder="Ձեր էլ. փոստը (պարտադիր)"
 										id="footer_form_email"
 									/>
 									<input
 										type="text"
+										name='title'
+										onChange={ this.handleInput }
 										placeholder="Վերնագիր"
 										id="footer_form_title"
 									/>
 									<textarea
+										name='message'
+										onChange={ this.handleInput }
 										cols={60}
 										rows={10}
-										placeholder="Նամակ"
+										placeholder="Նամակ (պարտադիր)"
 										id="footer_form_message"
 									></textarea>
-									<input type="button" value="Ուղարկել" id="sendButton" className="send"/>
+									<input type="button" value="Ուղարկել" id="sendButton" className="send" onClick={ this.sendMessage }/>
 								</form>
 							</div>
 						</div>

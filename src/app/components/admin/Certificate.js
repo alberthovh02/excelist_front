@@ -4,8 +4,6 @@ import "tui-image-editor/dist/tui-image-editor.css";
 import ImageEditor from "@toast-ui/react-image-editor";
 import Request from '../../../store/request';
 
-import Header from "./Header";
-
 class Certificate extends React.Component {
 	constructor(props) {
 		super(props);
@@ -29,7 +27,6 @@ class Certificate extends React.Component {
 
 		return (
 			<div className="certificate">
-				<Header title="Certificate" />
 				<ImageEditor
 					ref={this.editorRef}
 					includeUI={{

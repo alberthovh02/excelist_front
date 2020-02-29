@@ -1,5 +1,5 @@
 import React from "react";
-import {Input, Button} from "antd";
+import {Input, Button, message as toast} from "antd";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -27,20 +27,16 @@ class GetFiles extends React.Component {
 	handleSubmit = async(e) => {
 		e.preventDefault();
 		const { name, email } = this.state;
-		//Need validation for name and email
-		const response = Request.postJson('get-files/send', { name, email})
-		// const response = await fetch("http://localhost:5000/get-files/send", {
-		// 	method: "POST",
-		// 	headers: {"Content-Type": "application/json"},
-		// 	body: JSON.stringify({name, email})
-		// });
-		// const res = await response.json()
-		// if(res.code === 200){
-		// 	alert("Success");
-		// }
-		// else{
-		// 	alert("Something went wrong");
-		// }
+		if(!email || !name){
+			toast.error("Խնդրում ենք լրացնել բոլոր պարտադիր դաշտերը");
+			return false;
+		}
+		const response = await Request.postJson('get-files/send', { name, email})
+		if(response.status === 200){
+			toast.success('Նամակը հաջողությամբ ուղարկվել է')
+		}else{
+			toast.error("Ինչ որ բան ընթացավ սխալ, խնդրում ենք փորձել քիչ հետո")
+		}
 	}
 
 	render() {

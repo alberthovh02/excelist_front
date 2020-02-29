@@ -1,7 +1,6 @@
 import React from "react";
 import {Input, Icon, Form, Button, Upload, message} from "antd";
 import ReactQuill from "react-quill";
-import Header from "./Header";
 
 class BlogAdmin extends React.Component {
 	constructor(props) {
@@ -68,7 +67,6 @@ class BlogAdmin extends React.Component {
 	render() {
 		return (
 			<div>
-				<Header title="Blog" />
 				<form>
 					<Form.Item>
 						<p>Select an image</p>

@@ -19,6 +19,7 @@ class Container extends React.Component {
     const { activeView } = this.props;
 		return (
 			<>
+      
         {activeView === 1 && <Lesson/>}
         <NavLink to="/create-lesson">
         <div className="activeLesson" style={{marginLeft: 50}}>
