@@ -19,6 +19,7 @@ const course = require('./routes/course');
 const filerequest = require('./routes/filerequest');
 const imageupload = require('./routes/imageupload');
 const sendfeedback = require('./routes/sendfeedback');
+const comments = require('./routes/comments');
 //Configurations
 const { server, database } = require("./config/config");
 const app = express();
@@ -46,7 +47,7 @@ mongoose.connection.on("connected",(err,res) => {
 
 // app.use("/login/admin", authRoute);
 // app.use("/",router)
-app.use("/create-lesson", lessonRoute)
+app.use("/lesson", lessonRoute)
 app.use("/get-files", subscribe);
 app.use("/subscribes",subscribe);
 app.use('/students', singleData);
@@ -59,6 +60,7 @@ app.use('/course', course);
 app.use('/filerequest', filerequest);
 app.use('/images', imageupload);
 app.use('/feedback', sendfeedback)
+app.use('/comments', comments)
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`App is running in port ${PORT}`))

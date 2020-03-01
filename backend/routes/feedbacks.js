@@ -46,7 +46,7 @@ router.post("/create", upload.single('image') ,function(req, res, next) {
     const data = {username, comment, link, imageUrl: req.file.path}
 		Feedbacks.create({...data}, (err, post) => {
 			if (err) throw new Error(err);
-			res.json({message: "Success", code: 200});
+			res.json({message: "Success", code: 200, data: post});
 		});
 
 	}
@@ -56,7 +56,7 @@ router.put('/:id', function(req, res, next){
   router.use(express.urlencoded({ extended: true }));
 
   // for parsing multipart/form-data
-  router.use(upload.array()); 
+  router.use(upload.array());
   console.log("iddd ", req.params.id, req.body)
   Feedbacks.findByIdAndUpdate(
     req.params.id,
@@ -65,7 +65,7 @@ router.put('/:id', function(req, res, next){
     (err, feedback) => {
     // Handle any possible database errors
         if (err) return res.status(500).send(err);
-        return res.json({message: "Updated", code: 200});
+        return res.json({message: "Updated", code: 200, data: feedback});
     }
 )
 })

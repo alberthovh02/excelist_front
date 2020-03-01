@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet'
 
 import Header from "./Header";
 import Footer from "./Footer";
-import Sidebar from "./Sidebar"
+import Sidebar from "./Sidebar";
+import Comments from './Comments';
 
 class BlogPost extends React.Component {
   constructor(props){
@@ -38,7 +39,7 @@ class BlogPost extends React.Component {
               }
               <p>Բաժանորդագրվե’ք /Subscribe/<strong > <a href="https://www.youtube.com/c/MsExcelOnlineLessons" className='green-text' target="_blank">մեր յութուբյան ալիքին</a></strong>։</p>
               <p>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ֆորման:</p>
-
+              {data._id && <Comments parentId={ data._id } parentType='blog'/>}
           </div>
             <Sidebar/>
         </div>

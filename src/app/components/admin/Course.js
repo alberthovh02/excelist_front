@@ -1,6 +1,12 @@
 import React from "react";
-import {Form, Upload, message, Button, Icon, Input} from "antd";
+import {Form, Upload, message, Button, Icon, Input, Collapse} from "antd";
 import ReactQuill from "react-quill";
+import { connect } from 'react-redux';
+import { createCourse, deleteCourse } from '../../../store/api';
+import { ActionCreator, DELETE, POST } from '../../../store/actionCreators';
+import { DELETE_COURSE, CREATE_COURSE } from '../../../store/actionTypes';
+
+const { Panel } = Collapse;
 
 class AdminCourse extends React.Component {
 	constructor(props) {
@@ -23,26 +29,32 @@ class AdminCourse extends React.Component {
 
 	handleSubmit = async(event) => {
     event.preventDefault();
+		const { dispatch } = this.props;
 		const {title, image, text} = this.state;
 		const data = new FormData();
 		data.append("image", image);
 		data.append("content", text);
 		data.append("title", title);
-		const response = await fetch(
-			"//excelist-backend.herokuapp.com/course/create",
-			{
-				method: "POST",
-				// headers: {"Content-Type": "multipart/form-data"},
-				body: data
-			}
-		);
-		console.log(response.status);
-		if (response.status === 200) {
-			message.success({content: "Post successfully added"});
+		const response = await dispatch(POST(createCourse, data, true));
+
+		if (response.code === 200) {
+			message.success("Կուրսը հաջողությամբ ավելացվել է");
+			await dispatch(ActionCreator(CREATE_COURSE, response.data));
 		} else {
-			message.error({content: "Something went wrong"});
+			message.error("Ինչ որ բան գնաց ոչ այնպես");
 		}
   };
+
+	deletePost = async(item) => {
+		const { dispatch } = this.props;
+		const response = await dispatch(DELETE(deleteCourse(item._id)));
+		if (response.code === 200) {
+			message.success("Կուրսը հաջողությամբ ջնջվել է");
+			await dispatch(ActionCreator(DELETE_COURSE, response.data));
+		} else {
+			message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
+		}
+	}
 
 	onImageUpload = async info => {
 		if (info.file.status === "uploading") {
@@ -62,9 +74,24 @@ class AdminCourse extends React.Component {
 
 	render() {
 		const {getFieldDecorator} = this.props.form;
-
+		const { Courses } = this.props;
 		return (
 			<div>
+			<Collapse accordion>
+				<Panel header="View courses">
+					{Courses && Courses.map((item, key) => {
+						return <div key={key} className="videoblog-admin">
+							<img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "8%", width: "8%"}}/>
+							<b>{item.title}</b>
+							<i>{item.language}</i>
+							<div>
+								<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
+								<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}}>EDIT</Button>
+							</div>
+							</div>
+					}) }
+				</Panel>
+			</Collapse>
 				<Form
 					labelCol={{span: 4}}
 					className="admin-course-form"
@@ -158,4 +185,8 @@ AdminCourse.formats = [
 
 const Course = Form.create()(AdminCourse);
 
-export default Course;
+const get = state => {
+	return {Courses: state.Courses};
+}
+
+export default connect(get)(Course);

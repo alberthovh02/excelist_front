@@ -6,7 +6,8 @@ import { NavLink } from 'react-router-dom';
 
 import Header from "./Header";
 import Footer from "./Footer";
-import Sidebar from "./Sidebar"
+import Sidebar from "./Sidebar";
+import Comments from './Comments'
 
 class VideoPost extends React.Component {
   constructor(props){
@@ -54,7 +55,7 @@ class VideoPost extends React.Component {
                 </div>
               }
 
-
+              {data._id && <Comments parentId={ data._id } parentType='videoblog'/>}
           </div>
             <Sidebar/>
         </div>

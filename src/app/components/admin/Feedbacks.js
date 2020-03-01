@@ -1,7 +1,11 @@
 import React from "react";
-import {Input, Button, message, Upload, Icon, Collapse} from "antd";
+import {Input, Button, message, Upload, Icon, Collapse, Modal} from "antd";
 import Request from "../../../store/request";
-import Modal from "react-modal";
+import { connect } from 'react-redux';
+import { createFeedback, updateFeedback } from '../../../store/api';
+import { ActionCreator, DELETE, POST, PUT } from '../../../store/actionCreators';
+import { DELETE_FEEDBACK, CREATE_FEEDBACK, UPDATE_FEEDBACK } from '../../../store/actionTypes';
+
 
 const {TextArea} = Input;
 const {Panel} = Collapse;
@@ -24,20 +28,28 @@ class Feedbacks extends React.Component {
 			username: null,
 			comment: null,
 			link: null,
-			data: [],
-			modalIsOpen: false
+			visible: false
 		};
 	}
 
-	async componentDidMount() {
-		fetch("//excelist-backend.herokuapp.com/user-feedbacks/")
-			.then(response => response.json())
-			.then(result => this.setState({data: result}))
-			.catch(e => console.log(e));
-	}
+
+	handleOk = e => {
+	console.log(e);
+	this.setState({
+		visible: false,
+	});
+};
+
+handleCancel = e => {
+	console.log(e);
+	this.setState({
+		visible: false,
+	});
+};
 
 	handleForm = async (e, type, item) => {
 		e.preventDefault();
+		const { dispatch } = this.props;
 		const {image, username, comment, link} = this.state;
 		const data = new FormData();
 		data.append("image", image);
@@ -46,35 +58,21 @@ class Feedbacks extends React.Component {
 		data.append("link", link);
     console.log(type)
     if(type === 'update'){
-      const response = await fetch(
-        `//excelist-backend.herokuapp.com/user-feedbacks/${item._id}`,
-        {
-          method: "PUT",
-          // headers: {"Content-Type": "multipart/form-data"},
-          body: data
-        }
-      );
-      console.log(response.status);
-      if (response.status === 200) {
-        message.success({content: "Post successfully updated"});
+			const response = await dispatch(PUT(updateFeedback(item._id), data, true));
+      if (response.code === 200) {
+        message.success("Կարծիքը հաջողությամբ թարմացվել է");
+				await dispatch(ActionCreator(UPDATE_FEEDBACK, response.data));
       } else {
-        message.error({content: "Something went wrong"});
+        message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
       }
-
     }else{
-      const response = await fetch(
-        "//excelist-backend.herokuapp.com/user-feedbacks/create",
-        {
-          method: "POST",
-          // headers: {"Content-Type": "multipart/form-data"},
-          body: data
-        }
-      );
-      console.log(response.status);
-      if (response.status === 200) {
-        message.success({content: "Post successfully added"});
+			const response = await dispatch(POST(createFeedback, data, true));
+
+      if (response.code === 200) {
+        message.success("Կարծիքը հաջողությամբ ավելացվել է");
+				await dispatch(ActionCreator(CREATE_FEEDBACK, response.data));
       } else {
-        message.error({content: "Something went wrong"});
+        message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
       }
     }
 
@@ -96,41 +94,37 @@ class Feedbacks extends React.Component {
 		}
 	};
 
-	openModal = () => {
-		this.setState({modalIsOpen: true});
-	};
-
-	afterOpenModal = () => {
-		// references are now sync'd and can be accessed.
-		this.subtitle.style.color = "#f00";
-	};
-
-	closeModal = () => {
-		this.setState({modalIsOpen: false});
-	};
-
 	deleteFeedback = async item => {
-		console.log(item);
+		const { dispatch } = this.props;
 		const resp = await Request.delete(`user-feedbacks/${item._id}`)
 			.then(response => response.json())
 			.catch(e => console.log(e));
-		console.log("RESP ", resp);
+		if(resp.code === 200){
+			await dispatch(ActionCreator(DELETE_FEEDBACK, item));
+			message.success('Կարծիքը ջնջված է');
+		}
+		else message.error('Ինչ որ բան սխալ ընթացավ')
 	};
 
 	handleInputs = event => {
 		const {target} = event;
 		this.setState({[target.name]: target.value});
-    console.log(target.value)
 	};
 
+	showModal = () => {
+	this.setState({
+		visible: true,
+	});
+};
+
 	render() {
-		const {data} = this.state;
+		const { Feedbacks } = this.props;
 		return (
 			<>
 				<Collapse accordion>
 					<Panel header="Feedbacks" key="1">
-						{data &&
-							data.map((item, key) => {
+						{Feedbacks &&
+							Feedbacks.map((item, key) => {
 								return (
 									<div key={key} className="feedbacks-data">
 										<img
@@ -154,58 +148,50 @@ class Feedbacks extends React.Component {
 													backgroundColor: "orange",
 													borderColor: "orange"
 												}}
-												onClick={this.openModal}
+												onClick={this.showModal}
 											>
 												EDIT
 											</Button>
 										</div>
 										<Modal
-											isOpen={this.state.modalIsOpen}
-											onAfterOpen={this.afterOpenModal}
-											onRequestClose={this.closeModal}
-											style={customStyles}
-										>
-											<h2 ref={subtitle => (this.subtitle = subtitle)}>
-												Edit feedback
-											</h2>
-											<Icon type="close" style={{color: "red", position: 'relative', top: -50, left:"95%"}} onClick={this.closeModal}></Icon>
-											<form>
-                      <div className="user-feedbacks">
-                        <Upload
-                          onChange={this.onImageUpload}
-                          multiple={false}
-                          showUploadList={false}
-                          customRequest={() =>
-                            setTimeout(() => {
-                              console.log("ok");
-                            }, 0)
-                          }
-                        >
-                          <Button>
-                            <Icon type="upload" name="image" /> Click to Upload
-                          </Button>
-                        </Upload>
-                        <Input
-                          placeholder="Enter user name"
-                          name="username"
-                          onChange={this.handleInputs}
-                        />
-                        <Input
-                          placeholder="Enter comment link"
-                          name="link"
-                          onChange={this.handleInputs}
-                        />
-                        <TextArea
-                          placeholder="Enter feedback"
-                          name="comment"
-                          onChange={this.handleInputs}
-                        />
-                        <Button type="primary" onClick={(e) => this.handleForm(e, 'update', item)}>
-                          ADD
-                        </Button>
-                        </div>
-											</form>
-										</Modal>
+				 							title="Edit feedback"
+				 							visible={this.state.visible}
+				 							onOk={(e) => this.handleForm(e, 'update', item)}
+				 							onCancel={this.handleCancel}
+											key={key}
+			 								>
+											<Upload
+												onChange={this.onImageUpload}
+												multiple={false}
+												showUploadList={false}
+												customRequest={() =>
+													setTimeout(() => {
+														console.log("ok");
+													}, 0)
+												}
+											>
+												<Button>
+													<Icon type="upload" name="image" /> Click to Upload
+												</Button>
+											</Upload>
+											<Input
+												placeholder="Enter user name"
+												name="username"
+												onChange={this.handleInputs}
+												defaultValue={item.username}
+											/>
+											<Input
+												placeholder="Enter comment link"
+												name="link"
+												defaultValue={item.link}
+												onChange={this.handleInputs}
+											/>
+											<TextArea
+												placeholder="Enter feedback"
+												name="comment"
+												onChange={this.handleInputs}
+											/>
+			 							</Modal>
 									</div>
 								);
 							})}
@@ -250,4 +236,8 @@ class Feedbacks extends React.Component {
 	}
 }
 
-export default Feedbacks;
+const get = state => {
+	return { Feedbacks: state.Feedbacks}
+}
+
+export default connect(get)(Feedbacks);

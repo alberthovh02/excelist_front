@@ -5,6 +5,10 @@ class Request {
 
   get = url => this.sendRequest("GET", url);
 
+  post = (url, data) => this.sendRequest('POST', url, data, null);
+
+  postJson = (url, data) => this.sendRequest('POST', url, JSON.stringify(data), 'application/json');
+
   postFormData = (url, data) => this.sendRequest("POST", url, data)
 
   postJson = (url, data) => this.sendRequest("POST", url, JSON.stringify(data), 'application/json');

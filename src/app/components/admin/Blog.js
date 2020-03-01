@@ -1,6 +1,13 @@
 import React from "react";
-import {Input, Icon, Form, Button, Upload, message} from "antd";
+import {Input, Icon, Form, Button, Upload, message, Collapse} from "antd";
 import ReactQuill from "react-quill";
+
+import { connect } from 'react-redux';
+import { getBlogs, createBlog, deleteBlog } from '../../../store/api';
+import { GET_ALL_BLOGS, CREATE_BLOG, DELETE_BLOG } from '../../../store/actionTypes';
+import { ActionCreator, DELETE, GET, POST } from '../../../store/actionCreators';
+
+const { Panel } = Collapse
 
 class BlogAdmin extends React.Component {
 	constructor(props) {
@@ -14,26 +21,21 @@ class BlogAdmin extends React.Component {
 
 	handleSubmit = async e => {
 		e.preventDefault();
+		const { dispatch } = this.props;
 		const {title, image, text} = this.state;
 		const data = new FormData();
 		data.append("image", image);
 		data.append("content", text);
 		data.append("title", title);
-		const response = await fetch(
-			"//excelist-backend.herokuapp.com/blogs/create",
-			{
-				method: "POST",
-				// headers: {"Content-Type": "multipart/form-data"},
-				body: data
-			}
-		);
-		console.log(response.status);
-		if (response.status === 200) {
-			message.success({content: "Post successfully added"});
+		const response = await dispatch(POST(createBlog, data, true));
+		if (response.code === 200) {
+			message.success("Բլոգը հաջողությամբ ավելացվել է");
+			await dispatch(ActionCreator(CREATE_BLOG, response.data));
 		} else {
-			message.error({content: "Something went wrong"});
+			message.error("Ինչ որ բան գնաց ոչ այնպես");
 		}
 	};
+
 	handleChange = data => {
 		this.setState({language: data});
 	};
@@ -64,9 +66,42 @@ class BlogAdmin extends React.Component {
 		}
 	};
 
+	deletePost = async(item) => {
+		const { dispatch } = this.props;
+		const response = await dispatch(DELETE(deleteBlog(item._id)));
+		if (response.code === 200) {
+			message.success("բլոգը հաջողությամբ ջնջվել է");
+			await dispatch(ActionCreator(DELETE_BLOG, response.data));
+		} else {
+			message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
+		}
+	}
+
+
+	async componentDidMount(){
+		const { dispatch } = this.props;
+		const response = await dispatch(GET(getBlogs, GET_ALL_BLOGS));
+	}
+
 	render() {
+		const { Blogs } = this.props;
 		return (
 			<div>
+			<Collapse accordion>
+				<Panel header="View blogs">
+					{Blogs && Blogs.map((item, key) => {
+						return <div key={key} className="videoblog-admin">
+							<img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "8%", width: "8%"}}/>
+							<b>{item.title}</b>
+							<i>{item.language}</i>
+							<div>
+								<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
+								<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}}>EDIT</Button>
+							</div>
+							</div>
+					}) }
+				</Panel>
+			</Collapse>
 				<form>
 					<Form.Item>
 						<p>Select an image</p>
@@ -155,4 +190,9 @@ BlogAdmin.formats = [
 	"video"
 ];
 
-export default BlogAdmin;
+
+const get = state => {
+	return { Blogs: state.Blogs}
+}
+
+export default connect(get)(BlogAdmin);

@@ -1,6 +1,9 @@
 import React from "react";
 import {Input, Select, Icon, Form, Button, Upload,Collapse , message, Radio} from "antd";
-import Request from '../../../store/request'
+import { connect } from 'react-redux';
+import { getVideoblogs, createVideoblog, deleteVideoblog } from '../../../store/api';
+import { GET_ALL_VIDEOBLOGS, CREATE_VIDEOBLOG, DELETE_VIDEOBLOG } from '../../../store/actionTypes';
+import { ActionCreator, DELETE, GET, POST } from '../../../store/actionCreators';
 const {Option} = Select;
 const { Panel } = Collapse;
 
@@ -13,7 +16,6 @@ class VideoBlogAdmin extends React.Component {
 				file_link: null,
 				language: null,
 				image: null,
-				videoBlogData: [],
 				fileList: [],
 				uploading: false,
 				radio: null
@@ -21,6 +23,7 @@ class VideoBlogAdmin extends React.Component {
 	}
 	handleSubmit = async (e) => {
 		e.preventDefault()
+		const { dispatch } = this.props;
 		const { language, title, video_link, file_link, image, fileList } = this.state;
 		const data = new FormData();
 		data.append('image',image);
@@ -35,19 +38,15 @@ class VideoBlogAdmin extends React.Component {
 			uploading: true,
 		});
 
+		const response = await dispatch(POST(createVideoblog, data, true));
 
-		const response = await fetch("//excelist-backend.herokuapp.com/video-blog/create", {
-			method: "POST",
-			// headers: {"Content-Type": "multipart/form-data"},
-			body: data
-		});
-		console.log(response.status)
-		if(response.status === 200){
-				message.success({content: "Post successfully added"})
+		if (response.code === 200) {
+			message.success("Վիդեոբլոգը հաջողությամբ ավելացվել է");
+			await dispatch(ActionCreator(CREATE_VIDEOBLOG, response.data));
+		} else {
+			message.error("Ինչ որ բան գնաց ոչ այնպես");
 		}
-		else{
-			 message.error({content: "Something went wrong"})
-		}
+
 	};
   handleChange = (data) => {
 		this.setState({language: data})
@@ -59,19 +58,20 @@ class VideoBlogAdmin extends React.Component {
 	}
 
 	deletePost = async(item) => {
-		console.log(item)
-		const resp = await Request.delete(`video-blog/${item._id}`)
-		.then(response => response.json())
-		.catch(e => console.log(e));
-		console.log("RESP ", resp)
+		const { dispatch } = this.props;
+		const response = await dispatch(DELETE(deleteVideoblog(item._id)));
+		if (response.code === 200) {
+			message.success("Վիդեոբլոգը հաջողությամբ ջնջվել է");
+			await dispatch(ActionCreator(DELETE_VIDEOBLOG, response.data));
+		} else {
+			message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
+		}
 	}
 
 	async componentDidMount(){
+		const { dispatch } = this.props;
+		const response = await dispatch(GET(getVideoblogs, GET_ALL_VIDEOBLOGS));
 
-		Request.get("video-blog/blogs-desc/")
-			.then(response => response.json())
-			.then(result => this.setState({videoBlogData: result}))
-			.catch(e => console.log(e));
 	}
 
 	onImageUpload = async info => {
@@ -97,7 +97,8 @@ class VideoBlogAdmin extends React.Component {
   };
 
 	render() {
-		const { videoBlogData, uploading, fileList, radio } = this.state;
+		const { uploading, fileList, radio } = this.state;
+		const { Videoblogs } = this.props;
 		const props = {
       onRemove: file => {
         this.setState(state => {
@@ -122,7 +123,7 @@ class VideoBlogAdmin extends React.Component {
 				<form>
 				<Collapse accordion>
 					<Panel header="View videoblogs">
-						{videoBlogData.map((item, key) => {
+						{Videoblogs && Videoblogs.map((item, key) => {
 							return <div key={key} className="videoblog-admin">
 								<img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "8%", width: "8%"}}/>
 								<b>{item.title}</b>
@@ -187,4 +188,8 @@ class VideoBlogAdmin extends React.Component {
 	}
 }
 
-export default VideoBlogAdmin;
+const get = state => {
+	return { Videoblogs: state.Videoblogs}
+}
+
+export default connect(get)(VideoBlogAdmin);

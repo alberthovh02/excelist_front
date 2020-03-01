@@ -29,7 +29,7 @@ class Lesson extends React.Component {
 		};
 	}
 	componentDidMount() {
-		fetch("//excelist-backend.herokuapp.com/create-lesson")
+		fetch("//excelist-backend.herokuapp.com/lesson")
 			.then(response => response.json())
 			.then(result => this.setState({data: result}))
 			.catch(e => console.log(e));
@@ -65,7 +65,7 @@ class Lesson extends React.Component {
 			return false;
 		}
 		const response = await fetch(
-			"//excelist-backend.herokuapp.com/create-lesson/create",
+			"//excelist-backend.herokuapp.com/lesson/create",
 			{
 				method: "POST",
 				// headers: {"Content-Type": "application/json"},
@@ -80,7 +80,7 @@ class Lesson extends React.Component {
 
 	deleteLesson = async item => {
 		const {_id} = item;
-		fetch("//excelist-backend.herokuapp.com/create-lesson/:id", {
+		fetch("//excelist-backend.herokuapp.com/lesson/:id", {
 			method: "DELETE",
 			headers: {"content-type": "application/json"},
 			body: JSON.stringify({_id})
