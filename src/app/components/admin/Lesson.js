@@ -11,6 +11,7 @@ import {
 } from "antd";
 import moment from "moment";
 import Request from '../../../store/request';
+import parseDate from '../../functions/parseTime';
 
 import Avatar from "../../functions/imageUpload";
 
@@ -121,7 +122,7 @@ class Lesson extends React.Component {
 											style={{height: "8%", width: "8%"}}
 										/>
 										<b>{item.name}</b>
-										<i>{item.endTime}</i>
+										<i>{parseDate(item.endTime)}</i>
 										<div>
 											<Button
 												type="danger"

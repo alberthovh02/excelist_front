@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import CountUp from 'react-countup';
-
+import { connect } from 'react-redux'
 
 import { Helmet } from 'react-helmet';
 import Request from '../../store/request'
@@ -49,7 +49,6 @@ class Index extends React.Component {
 		super(props);
 		this.state = {
 			data: [],
-			lessonTimer: null,
 			youtubeSubscribersCount: null,
 		}
 	}
@@ -58,10 +57,6 @@ class Index extends React.Component {
 		.then(response => response.json())
 		.then(result => this.setState({data: result}))
 		.catch(e => console.log(e));
-		Request.get("create-lesson/")
-			.then(response => response.json())
-			.then(result => this.setState({lessonTimer: result}))
-			.catch(e => console.log(e));
 		fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
 		.then(response => response.json())
 		.then(result => this.setState({youtubeSubscribersCount: result}))
@@ -75,6 +70,7 @@ class Index extends React.Component {
 			border: 0,
 			overflow: "hidden"
 		};
+		const { Lessons } = this.props;
 		return (
 			<>
 			<Helmet>
@@ -554,10 +550,11 @@ class Index extends React.Component {
 					</div>
 
 					<div className="lessons_timeline">
+					{ Lessons && Lessons.length && <>
 					<h1 className="about_heading main_heading">ԳՐԱՆՑՎԻ՛Ր ՄՈՏԱԿԱ ԴԱՍԸՆԹԱՑԻՆ</h1>
-					<div className="line"></div>
+					<div className="line"></div> </>}
 
-			{this.state.lessonTimer && this.state.lessonTimer.map((data, key) => {
+			{Lessons && Lessons.map((data, key) => {
 				const day = `${new Date(data.endTime).toLocaleString().split('.')[0]} `;
 				const month = `${new Date(data.endTime).toLocaleString().split('.')[1]} `;
 				const year = `${new Date(data.endTime).toLocaleString().split('.')[2].split(',')[0]}`;
@@ -565,11 +562,11 @@ class Index extends React.Component {
 				const minutes = `${new Date(data.endTime).toLocaleString().split(':')[1]}am`;
 				const parsedDate = month.concat(day).concat(year).concat(hour).concat(minutes);
 				console.log(data)
-				return 	<Countdown
+				return (<div><p>{data.name}</p> <img src={`//excelist-backend.herokuapp.com/${data.imageUrl}`}/>	<Countdown
 					key={key}
 					timeTillDate={parsedDate}
 					timeFormat="MM DD YYYY, h:mm a"
-				/>
+				/></div> )
 			})}
 					</div>
 
@@ -981,4 +978,8 @@ class Main extends React.Component {
 	}
 }
 
-export default Main;
+const get = state => {
+	return { Lessons: state.Lessons}
+}
+
+export default connect(get)(Main);
