@@ -3,6 +3,9 @@
 // export const GetUserCount = "students/";
 export const getLessons = 'lesson';
 
+//Login
+export const login = 'login'
+
 //feedbacks
 export const getFeedbacks = 'user-feedbacks/';
 export const createFeedback = 'user-feedbacks/create';

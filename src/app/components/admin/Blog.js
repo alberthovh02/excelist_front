@@ -23,6 +23,10 @@ class BlogAdmin extends React.Component {
 		e.preventDefault();
 		const { dispatch } = this.props;
 		const {title, image, text} = this.state;
+		if(!title || !image || !text){
+			message.warning("Լրացրեք բոլոր դաշտերը");
+			return false
+		}
 		const data = new FormData();
 		data.append("image", image);
 		data.append("content", text);
@@ -53,16 +57,6 @@ class BlogAdmin extends React.Component {
 	onImageUpload = async info => {
 		if (info.file.status === "uploading") {
 			this.setState({image: info.file.originFileObj});
-			// const response = await dispatch(PUT(update_avatar, data, true));
-			// 	if (response.code === 200) {
-			// 		message.success(`${response.message}`);
-			// 		await dispatch(ActionCreator(UPDATE_PROFILE, { image: response.result }));
-			// 	} else {
-			// 		message.error(`${response.message} `);
-			// 	}
-			// } else if (info.file.status === 'error') {
-			// 	message.error(`${info.file.name} file upload failed.`);
-			// }
 		}
 	};
 

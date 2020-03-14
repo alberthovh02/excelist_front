@@ -20,6 +20,18 @@ body {
   }
 }
 
+.backDropGreen{
+  display: none;
+  background-color: green;
+  width: 200px;
+      height: 200px;
+  box-sizing: content-box;
+      border-radius: 50%;
+      opacity: 0.4;
+      position: absolute;
+      // top: -200px;
+}
+
 .dashboard-welcome{
   font-size: 3em;
   // display: flex;

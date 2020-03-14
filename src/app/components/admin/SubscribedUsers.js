@@ -1,6 +1,8 @@
 import React from "react";
-import { Collapse, Input, Button, message } from "antd";
+import { Collapse, Input, Button, message, Upload, Icon } from "antd";
 import parseDate from '../../functions/parseTime';
+import { connect } from 'react-redux';
+import { POST } from '../../../store/actionCreators';
 //Table css
 import CssBaseline from '@material-ui/core/CssBaseline'
 import MaUTable from '@material-ui/core/Table'
@@ -62,7 +64,8 @@ class SubscribedUsers extends React.Component {
 		this.state = {
 			data: [],
       text: null,
-      link: null
+      link: null,
+      image: null
 		};
 		this.column = [
 				{
@@ -96,22 +99,45 @@ class SubscribedUsers extends React.Component {
   }
 
   sendMessage = async() => {
-    const { text, link, data } = this.state;
-    if(!text || !link){
+    const { text, link, data, image } = this.state;
+    const { dispatch } = this.props;
+
+    if(!text || !link || !image){
       message.warning({content: "Please fill data"})
     }
     if(!data.length){
       message.error({content: "There are no subscribers"})
     }
     else{
-      const response = await fetch("//excelist-backend.herokuapp.com/subscribes/sendMail", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({text, link, data})
-      }).then(response => response.json())
-        .then(result => result.code === 200 ? message.success(result.message) : message.error(result.message) )
+      const formData = new FormData();
+      formData.append('text', text);
+      formData.append('link', link);
+      formData.append('data', data);
+      formData.append('image', image)
+      const response = await dispatch(POST('//excelist-backend.herokuapp.com/subscribes/sendMail', data, true));
+  		if (response.code === 200) {
+  			message.success("Նամակը հաջողությամբ ուղարկվել է");
+  		} else {
+  			message.error("Ինչ որ բան գնաց ոչ այնպես");
+  		}
     }
   }
+
+  onImageUpload = async info => {
+    if (info.file.status === "uploading") {
+      this.setState({image: info.file.originFileObj});
+      // const response = await dispatch(PUT(update_avatar, data, true));
+      // 	if (response.code === 200) {
+      // 		message.success(`${response.message}`);
+      // 		await dispatch(ActionCreator(UPDATE_PROFILE, { image: response.result }));
+      // 	} else {
+      // 		message.error(`${response.message} `);
+      // 	}
+      // } else if (info.file.status === 'error') {
+      // 	message.error(`${info.file.name} file upload failed.`);
+      // }
+    }
+  };
 
 
 	componentDidMount() {
@@ -137,6 +163,20 @@ class SubscribedUsers extends React.Component {
             <p>Enter message below</p>
             <TextArea rows={4} name="text" onChange={this.handleChange}/><br/><br/>
             <Input placeholder="Enter video link" name="link" onChange={this.handleChange}/><br/><br/>
+            <Upload
+							onChange={this.onImageUpload}
+							multiple={false}
+							showUploadList={false}
+							customRequest={() =>
+								setTimeout(() => {
+									console.log("ok");
+								}, 0)
+							}
+						>
+							<Button>
+								<Icon type="upload" name="image" /> Click to Upload
+							</Button>
+						</Upload>
             <Button type="primary" onClick={this.sendMessage}>
               Send
             </Button><br/><br/>
@@ -151,4 +191,8 @@ class SubscribedUsers extends React.Component {
 	}
 }
 
-export default SubscribedUsers;
+const get = state => {
+  return { Subscribes: state.Subscribes}
+}
+
+export default connect(get)(SubscribedUsers);

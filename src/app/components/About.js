@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Helmet } from 'react-helmet'
 import Request from '../../store/request'
+import { connect } from 'react-redux';
 
 const title = 'ՄԵՐ ՄԱՍԻՆ | Excelist'
 
@@ -11,20 +12,13 @@ class AboutUs extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			data: []
 		}
 	}
 
-	componentDidMount(){
-		const resp = Request.get(`students/`)
-		.then(response => response.json())
-		.then(result => this.setState({data: result}))
-		.catch(e => console.log(e));
-	}
+
 
 	render() {
-		const { data } = this.state;
-		console.log(data)
+		const { SingleData, Feedbacks } = this.props;
 		return (
 			<>
 			<Helmet>
@@ -221,7 +215,16 @@ class AboutUs extends React.Component {
 						<h1 className="about_heading">ԿԱՐԾԻՔՆԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ</h1>
 						<div className="line"></div>
 						<div className="users_feedbacks">
-							Here will be carousel of user feedbacks
+							{ Feedbacks && Feedbacks.length && Feedbacks.map((item, key) => {
+								return (
+									<div className="single-feedback">
+										<img src={item.imageUrl}/>
+										<a href={item.link} target="_blank">{item.username}</a>
+										<p>{item.comment}</p>
+									</div>
+								)
+
+							})}
 						</div>
 					</div>
 				</div>
@@ -231,4 +234,8 @@ class AboutUs extends React.Component {
 	}
 }
 
-export default AboutUs;
+const get = state => {
+	return { SingleData: state.SingleData, Feedbacks: state.Feedbacks }
+}
+
+export default connect(get)(AboutUs);

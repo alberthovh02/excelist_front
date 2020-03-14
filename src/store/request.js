@@ -1,6 +1,7 @@
 class Request {
   constructor(){
     this.mainRoute = "//excelist-backend.herokuapp.com/"
+    // this.mainRoute = '//localhost:5000/'
   }
 
   get = url => this.sendRequest("GET", url);
@@ -23,8 +24,8 @@ class Request {
     const token = localStorage.getItem("authorizedUser");
     let headers = {};
     contentType
-      ? (headers = { 'Content-Type': contentType, Authorization: 'Bearer' + token})
-      : (headers = { Authorization: "Bearer" + token});
+      ? (headers = { 'Content-Type': contentType, Authorization: 'Bearer ' + token})
+      : (headers = { Authorization: "Bearer " + token});
       return fetch(this.mainRoute + url, {
         method,
         headers,

@@ -31,7 +31,9 @@ class BlogPost extends React.Component {
       </Helmet>
         <Header />
         <div className="videopost-single-post">
+        <img src={data.imageUrl} alt="image" />
           <div>
+
             <h2 className="videopost-title">{data.title}</h2>
               { data &&  <div className="singleblog-container">
                   <div className="singleblog-content" dangerouslySetInnerHTML={{__html: data.content}}></div>

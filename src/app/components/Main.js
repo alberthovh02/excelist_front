@@ -512,7 +512,7 @@ class Index extends React.Component {
 						<div className="line"></div>
 						<div className="excelist_desc">
 							<div className="our_team">
-								<div className="team_member">
+								<div className="team_member" key={0}>
 									<img
 										src={require("../../assets/images/our_team/member-1.jpg")}
 									/>
@@ -523,7 +523,7 @@ class Index extends React.Component {
 									</p>
 									<p>Էքսելիստ</p>
 								</div>
-								<div className="team_member">
+								<div className="team_member" key={1}>
 									<img
 										src={require("../../assets/images/our_team/member-2.jpg")}
 									/>
@@ -534,10 +534,11 @@ class Index extends React.Component {
 									</p>
 									<p>Էքսելիստ</p>
 								</div>
-								<div className="team_member">
+								<div className="team_member" key={2}>
 									<img
 										src={require("../../assets/images/our_team/member-3.jpg")}
 									/>
+									<div className='backDropGreen'>fb linked</div>
 									<p className="member_name">
 										<a href="#" target="_blank">
 											ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ
@@ -921,7 +922,7 @@ class Main extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			authorized: localStorage.getItem("admin") ? true : false
+			authorized: localStorage.getItem("authorizedUser") ? true : false
 		};
 	}
 	render() {

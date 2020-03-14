@@ -92,13 +92,13 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    padding: 0 40px;
     .team_member {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       text-align: center;
-      margin-left: 5%;
       .member_name {
         a {
           text-decoration: none;
@@ -115,6 +115,9 @@
       font-weight: 700;
       color: #217142;
       line-height: 20px;
+      }
+      img {
+        border-radius: 50%;
       }
     }
   }

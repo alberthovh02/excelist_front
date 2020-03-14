@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from 'antd';
 import Request from '../../store/request';
-
+import { connect } from 'react-redux';
 const { Search } = Input;
 
 
@@ -9,30 +9,16 @@ class Sidebar extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      videoBlogData: [],
-      blogData: [],
-      course: []
+
     }
   }
 
-  componentDidMount(){
-    Request.get("video-blog/blogs-desc/")
-			.then(response => response.json())
-			.then(result => this.setState({videoBlogData: result.slice(0, 3)}))
-			.catch(e => console.log(e));
-    Request.get("blog/")
-  		.then(response => response.json())
-  		.then(result => this.setState({blogData: result.slice(0, 3)}))
-  		.catch(e => console.log(e));
-    Request.get("course/")
-  		.then(response => response.json())
-  		.then(result => this.setState({course: result.slice(0, 3)}))
-  		.catch(e => console.log(e));
-
-  }
-
   render(){
-    const { videoBlogData, blogData, course } = this.state
+    const { Videoblogs, Blogs, Courses } = this.props;
+    const filterVideoblogs = Videoblogs && Videoblogs.length && Videoblogs.slice(0, 3);
+    const filterBlogs = Blogs && Blogs.length && Blogs.slice(0, 3);
+    const filterCourses = Courses && Courses.length && Courses.slice(0, 3);
+    console.log("3 videoblogs", filterVideoblogs)
     return(
       <div style={{width: "25%"}}>
         <div className="sidebar-item search">
@@ -67,21 +53,44 @@ class Sidebar extends React.Component {
         <div className="sidebar-item lessons">
           <p>ԴԱՍԸՆԹԱՑՆԵՐ</p>
           <div className="lessons-container">
-          { course && course.map((item, key) => {
-            return (<div key={key} className="sidebar-course"><img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "100%"}}/>
-<p>{item.title}</p></div>)
+          { filterCourses &&  filterCourses.map((item, key) => {
+            return (
+              <div key={key} className="sidebar-course">
+              <img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "100%"}}/>
+              <>{item.title}</>
+            </div>)
           })}
           </div>
         </div>
         <div className="sidebar-item blog">
           <p>ԲԼՈԳ</p>
+          { filterBlogs && filterBlogs.map((item, key) => {
+            return (
+              <div className="sidebar-course">
+                <img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "100%"}}/>
+                  <>{item.title}</>
+              </div>
+            )
+          } )}
         </div>
         <div className="sidebar-item viedoblog">
           <p>ՎԻԴԵՈԲԼՈԳ</p>
+          { filterVideoblogs && filterVideoblogs.map((item, key) => {
+            return (
+              <div className="sidebar-course">
+                <img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "100%"}}/>
+                  <>{item.title}</>
+              </div>
+            )
+          } )}
         </div>
       </div>
     )
   }
 }
 
-export default Sidebar;
+const get = state => {
+  return {Videoblogs: state.Videoblogs, Blogs: state.Blogs, Courses: state.Courses}
+}
+
+export default connect(get)(Sidebar);

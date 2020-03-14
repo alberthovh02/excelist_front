@@ -13,15 +13,15 @@ class Header extends React.Component {
 		const header = document.getElementsByTagName("header")[0];
 
 // adding scroll event
-// window.addEventListener('scroll', function(){
-//   // detects new state and compares it with the new one
-//   if ((document.body.getBoundingClientRect()).top > scrollPos)
-// 		header.classList = "fadeIn";
-// 	else
-// 		header.classList = "fadeOut"
-// 	// saves the new position for iteration.
-// 	scrollPos = (document.body.getBoundingClientRect()).top;
-// });
+window.addEventListener('scroll', function(){
+  // detects new state and compares it with the new one
+  if ((document.body.getBoundingClientRect()).top > scrollPos)
+		header.classList = "fadeIn";
+	else
+		header.classList = "fadeOut"
+	// saves the new position for iteration.
+	scrollPos = (document.body.getBoundingClientRect()).top;
+});
 		const navItems = document.getElementsByClassName('nav-item');
 		const hoverLine = document.getElementById('hover-line');
 		const sortedArr = Array.prototype.map.call(navItems, (item, key) => {item.childNodes[0].onmouseover = function(e){
@@ -30,7 +30,6 @@ class Header extends React.Component {
 			hoverLine.style.left = e.target.offsetLeft + 'px';
 			hoverLine.style.top = e.target.offsetTop + e.target.offsetHeight + 10 + 'px'
 			hoverLine.style.width = e.target.offsetWidth + 'px'
-			console.log(hoverLine)
 		}; item.onmouseout = function(){
 			hoverLine.style.display = 'none'
 		}})
@@ -171,8 +170,8 @@ class Header extends React.Component {
 							<li className="nav-item">
 								<NavLink to="/about">ՄԵՐ ՄԱՍԻՆ</NavLink>
 							</li>
-              <li className="nav-item dropdown">
-              <Dropdown overlay={menu} onClick={() => window.location = "/lessons"}>
+              <li className="nav-item" onClick={() => window.location = "/lessons"}>
+              <Dropdown overlay={menu} >
               <NavLink
                 to="/lessons"
                 className="ant-dropdown-link"

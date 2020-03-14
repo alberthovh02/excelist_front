@@ -40,7 +40,7 @@ class Blog extends React.Component {
 					{data.length ? data.map((el, key) => {
 	          return (
 	            <div key={key} className="blog-item">
-	              <img src={`http://excelist-backend.herokuapp.com/${el.imageUrl}`} alt="image" style={{height: "100%"}}/>
+	              <img src={el.imageUrl} alt="image" style={{height: "100%"}}/>
 	              <a className="blog-link">{el.title}</a>
 								<p className="blog-content" dangerouslySetInnerHTML={{__html: el.content.slice(0, 100)}}></p>
 								<a className="blog-see-more" href={`/blogpost/${el.generatedUrl}`}>Ավելին …</a>

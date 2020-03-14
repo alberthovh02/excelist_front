@@ -51,7 +51,7 @@ class Navbar extends React.Component {
         <Menu.Item key="/images">
           <Link to="/images"><Icon type="file-image"/> Images</Link>
         </Menu.Item>
-        <Menu.Item key="logout" onClick={() => localStorage.removeItem("admin")}>
+        <Menu.Item key="logout" onClick={() => {localStorage.removeItem("authorizedUser"); window.location.href="/"}}>
           <Icon type="logout" style={{color: "red"}}/>Logout
         </Menu.Item>
       </Menu>

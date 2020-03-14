@@ -1,5 +1,8 @@
 import React from "react";
-import { Form, Icon, Input, Button } from "antd";
+import { Form, Icon, Input, Button,message } from "antd";
+import {POST} from '../../../store/actionCreators';
+import { login } from '../../../store/api'
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
 	constructor(){
@@ -10,15 +13,25 @@ class Login extends React.Component {
 			authEror: ""
 		}
 	}
-	handleSubmit = e => {
+	handleSubmit = async(e) => {
 		const { username, password} = this.state;
+		const { dispatch } = this.props;
 		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
+		this.props.form.validateFields(async(err, values) => {
 			if (!err) {
 				console.log("Received values of form: ", values);
-				if(true){
-						localStorage.setItem("admin", true);
-						window.location.pathname = "/dashboard"
+				const data = {
+					login: username,
+					password: password
+				}
+				const response = await dispatch(POST(login, data))
+				console.log("RESPONSE", response)
+				if(response.code === 400){
+					message.error(response.message)
+				}else{
+					message.success(response.message)
+					localStorage.setItem("authorizedUser", response.token);
+					window.location.pathname = "/dashboard"
 				}
 			}
 		});
@@ -82,4 +95,4 @@ class Login extends React.Component {
 
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Login);
 
-export default WrappedNormalLoginForm;
+export default connect()(WrappedNormalLoginForm);
