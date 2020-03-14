@@ -71,7 +71,6 @@ class BlogAdmin extends React.Component {
 		}
 	}
 
-
 	async componentDidMount(){
 		const { dispatch } = this.props;
 		const response = await dispatch(GET(getBlogs, GET_ALL_BLOGS));

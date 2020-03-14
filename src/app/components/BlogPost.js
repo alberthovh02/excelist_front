@@ -35,7 +35,7 @@ class BlogPost extends React.Component {
           <div>
 
             <h2 className="videopost-title">{data.title}</h2>
-              { data &&  <div className="singleblog-container">
+              { data &&  <div className="singleblog-container" >
                   <div className="singleblog-content" dangerouslySetInnerHTML={{__html: data.content}}></div>
                 </div>
               }
