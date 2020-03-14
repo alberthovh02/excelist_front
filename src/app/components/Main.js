@@ -555,7 +555,7 @@ class Index extends React.Component {
 					<h1 className="about_heading main_heading">ԳՐԱՆՑՎԻ՛Ր ՄՈՏԱԿԱ ԴԱՍԸՆԹԱՑԻՆ</h1>
 					<div className="line"></div> </>}
 
-			{Lessons && Lessons.map((data, key) => {
+			{/*Lessons && Lessons.map((data, key) => {
 				const day = `${new Date(data.endTime).toLocaleString().split('.')[0]} `;
 				const month = `${new Date(data.endTime).toLocaleString().split('.')[1]} `;
 				const year = `${new Date(data.endTime).toLocaleString().split('.')[2].split(',')[0]}`;
@@ -568,7 +568,7 @@ class Index extends React.Component {
 					timeTillDate={parsedDate}
 					timeFormat="MM DD YYYY, h:mm a"
 				/></div> )
-			})}
+			})*/}
 					</div>
 
 					<div className="intro_partners">
