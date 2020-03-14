@@ -51,16 +51,15 @@ router.get("/", function(req, res, next){
 // })
 
 router.post("/create", upload.single('image'), function(req, res, next){
-  const { name, endMinutes, endTime } = req.body;
-	if (!name || !endMinutes || !endTime) {
+  const { name, date } = req.body;
+	if (!name || !date) {
     console.log("Error when getting data fields are empty")
 		res.json({message: "Something went wrong", code: 400})
 	} else {
 		const data = {
 			name,
 			imageUrl: req.file.path,
-      endTime,
-      endMinutes
+      date
 		}
 		Lesson.create({...data}, (err, post) => {
 			if (err){
@@ -73,10 +72,10 @@ router.post("/create", upload.single('image'), function(req, res, next){
 })
 
 router.delete("/:id", function(req, res, next){
-  console.log(">>>>>>>>>>.", req.body)
-  Lesson.findByIdAndRemove(req.body._id,(err, post) => {
+  console.log(">>>>>>>>>>.", req.params.id)
+  Lesson.findByIdAndRemove(req.params.id,(err, post) => {
     if(err) return next(err)
-    res.json(post);
+    res.json({code: 200, data: {post}, message: "Successfully deleted"});
   })
 })
 

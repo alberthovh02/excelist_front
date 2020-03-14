@@ -7,154 +7,118 @@ import {
 	Upload,
 	Icon,
 	Collapse,
+	Card,
 	message
 } from "antd";
 import moment from "moment";
 import Request from '../../../store/request';
 import parseDate from '../../functions/parseTime';
+import DateTimePicker from 'react-datetime-picker';
+
+//Redux
+import { connect } from 'react-redux';
+import { POST, DELETE } from '../../../store/actionCreators';
+import { createLesson, deleteLesson } from '../../../store/api';
+
 
 import Avatar from "../../functions/imageUpload";
 
 const {Dragger} = Upload;
 const {Panel} = Collapse;
+const { Meta } = Card;
 
 class Lesson extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: [],
 			name: null,
-			endTime: null,
-			endMinutes: null,
-			image: null
+			image: null,
+			date: new Date()
 		};
 	}
-	componentDidMount() {
-		fetch("//excelist-backend.herokuapp.com/lesson")
-			.then(response => response.json())
-			.then(result => this.setState({data: result}))
-			.catch(e => console.log(e));
-	}
-
-	onChange = (data, dataString) => {
-		this.setState({endTime: new Date(dataString).toISOString()});
-	};
-
-	onTimeChange = (data, dataString) => {
-		console.log(">>>>", new Date(dataString));
-		this.setState({endMinutes: dataString});
-	};
+	onChange = date => this.setState({ date })
 
 	handleNameChange = e => {
-		console.log("name", e.target.value);
 		this.setState({name: e.target.value});
 	};
 
 	postLesson = async e => {
 		e.preventDefault();
-		const {name, endTime, endMinutes, image} = this.state;
-		const formData = new FormData();
-		formData.append("name", name);
-		formData.append("endTime", endTime);
-		formData.append("endMinutes", endMinutes);
-		formData.append("image", image);
-		for (var value of formData.values()) {
-			console.log(value);
-		}
-		if (!name || !endTime || !endMinutes || !image) {
-			alert("Please enter all data");
+		const {name, date, image} = this.state;
+		const { dispatch } = this.props;
+		if (!name || !date || !image) {
+			message.warning("Please fill all data");
 			return false;
 		}
-		const response = await fetch(
-			"//excelist-backend.herokuapp.com/lesson/create",
-			{
-				method: "POST",
-				// headers: {"Content-Type": "application/json"},
-				body: formData
-			}
-		);
-		const res = await response.json();
-		if (res.code === 200) {
+		const formData = new FormData();
+		const isoDate = date.toISOString()
+		formData.append("name", name);
+		formData.append('date', isoDate);
+		formData.append("image", image);
+
+		const response = await dispatch(POST(createLesson, formData, true));
+		if (response.code === 200) {
 			message.success("successfull added");
+		}else{
+			message.error("Something went wrong")
 		}
 	};
 
-	deleteLesson = async item => {
+	deleteLessonFunc = async item => {
 		const {_id} = item;
-		fetch("//excelist-backend.herokuapp.com/lesson/:id", {
-			method: "DELETE",
-			headers: {"content-type": "application/json"},
-			body: JSON.stringify({_id})
-		})
-			.then(res => res.text()) // OR res.json()
-			.then(res => console.log(res));
+		console.log(_id)
+		const { dispatch } = this.props;
+			const response = await dispatch(DELETE(deleteLesson(_id)))
+			if(response.code !== 200){
+				message.error("Something went wrong");
+				return false
+			}
+			message.success("Lesson deleted")
 	};
 
 	onImageUpload = async info => {
 		if (info.file.status === 'uploading') {
 			this.setState({image:  info.file.originFileObj})
-			// const response = await dispatch(PUT(update_avatar, data, true));
-		// 	if (response.code === 200) {
-		// 		message.success(`${response.message}`);
-		// 		await dispatch(ActionCreator(UPDATE_PROFILE, { image: response.result }));
-		// 	} else {
-		// 		message.error(`${response.message} `);
-		// 	}
-		// } else if (info.file.status === 'error') {
-		// 	message.error(`${info.file.name} file upload failed.`);
-		// }
 	}
 	};
 
 	render() {
-		const {data} = this.state;
+		const { Lessons } = this.props;
+		console.log(this.state.date)
 		return (
 			<>
 				<Collapse accordion>
 					<Panel header="View lessons">
-						{data.length &&
-							data.map((item, key) => {
-								return (
-									<div key={key} className="videoblog-admin">
-										<img
-											src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`}
-											alt="image"
-											style={{height: "8%", width: "8%"}}
-										/>
-										<b>{item.name}</b>
-										<i>{parseDate(item.endTime)}</i>
-										<div>
-											<Button
-												type="danger"
-												onClick={this.deleteLesson.bind(null, item)}
-											>
-												DELETE
-											</Button>
-										</div>
-									</div>
-								);
+						{Lessons && Lessons.length &&
+							Lessons.map((item, key) => {
+								return (<Card
+									hoverable
+    							style={{ width: 240 }}
+    						cover={<img alt="example" src={item.imageUrl} />}
+								actions={[
+      			<Icon type="edit"/>,
+      			<Icon type="delete" onClick={this.deleteLessonFunc.bind(null, item)}/>,
+    			]}
+									>
+									<Meta title={item.name} description={parseDate(item.endTime)}/>
+								</Card>);
 							})}
 					</Panel>
 				</Collapse>
-				<div className="create-form">
+
+				<div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
 					<h2>Create new lesson</h2>
+					<div >
+					<DateTimePicker
+						onChange={this.onChange}
+						value={this.state.date}
+					/></div><br/>
+					<div className="create-form">
 					<form method="POST" action="/create" id="form">
 						<Input
 							placeholder="Enter lesson name"
 							className="lesson_name"
 							onChange={e => this.handleNameChange(e)}
-						/>
-						<br />
-						<DatePicker
-							className="datepicker"
-							onChange={(date, dateString) => this.onChange(date, dateString)}
-						/>
-						<br />
-						<TimePicker
-							onChange={(date, dateString) =>
-								this.onTimeChange(date, dateString)
-							}
-							defaultOpenValue={moment("00:00:00", "HH:mm:ss")}
 						/>
 						<br />
 						<Dragger onChange={this.onImageUpload} multiple={false} customRequest={() => setTimeout(() => {console.log("ok")}, 0)}>
@@ -174,10 +138,15 @@ class Lesson extends React.Component {
 							Create Lesson
 						</Button>
 					</form>
+					</div>
 				</div>
 			</>
 		);
 	}
 }
 
-export default Lesson;
+const get = state => {
+	return { Lessons: state.Lessons }
+}
+
+export default connect(get)(Lesson);

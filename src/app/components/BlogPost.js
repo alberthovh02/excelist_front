@@ -31,7 +31,7 @@ class BlogPost extends React.Component {
       </Helmet>
         <Header />
         <div className="videopost-single-post">
-        <img src={data.imageUrl} alt="image" />
+
           <div>
 
             <h2 className="videopost-title">{data.title}</h2>
@@ -39,8 +39,7 @@ class BlogPost extends React.Component {
                   <div className="singleblog-content" dangerouslySetInnerHTML={{__html: data.content}}></div>
                 </div>
               }
-              <p>Բաժանորդագրվե’ք /Subscribe/<strong > <a href="https://www.youtube.com/c/MsExcelOnlineLessons" className='green-text' target="_blank">մեր յութուբյան ալիքին</a></strong>։</p>
-              <p>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ֆորման:</p>
+
               {data._id && <Comments parentId={ data._id } parentType='blog'/>}
           </div>
             <Sidebar/>

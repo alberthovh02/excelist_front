@@ -60,8 +60,8 @@ class Index extends React.Component {
 		fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
 		.then(response => response.json())
 		.then(result => this.setState({youtubeSubscribersCount: result}))
-
 	}
+
 	render() {
 		const customPanelStyle = {
 			background: "#f7f7f7",
@@ -70,7 +70,7 @@ class Index extends React.Component {
 			border: 0,
 			overflow: "hidden"
 		};
-		const { Lessons } = this.props;
+		const { Lessons, Feedbacks } = this.props;
 		return (
 			<>
 			<Helmet>
@@ -615,6 +615,18 @@ class Index extends React.Component {
 						</div>
 					</div>
 
+					<div >
+						{
+							Feedbacks && Feedbacks.length && Feedbacks.map((item, key) => {
+								return <div key={key}>
+									<img src={item.imageUrl}/>
+									<a href={item.link}><p>{item.username}</p></a>
+									<p>{item.comment}</p>
+								</div>
+							})
+						}
+					</div>
+
 					<div className="intro_partners">
 						<h1 className="about_heading main_heading">
 							ՀԱՃԱԽ ՏՐՎՈՂ ՀԱՐՑԵՐԻ ՊԱՏԱՍԽԱՆՆԵՐ
@@ -980,7 +992,7 @@ class Main extends React.Component {
 }
 
 const get = state => {
-	return { Lessons: state.Lessons}
+	return { Lessons: state.Lessons, Feedbacks: state.Feedbacks}
 }
 
 export default connect(get)(Main);

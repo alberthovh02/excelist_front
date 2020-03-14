@@ -2,6 +2,9 @@
 // export const AddUserCount = "students/count";
 // export const GetUserCount = "students/";
 export const getLessons = 'lesson';
+export const createLesson = 'lesson/create';
+export const deleteLesson = id => `lesson/${id}`;
+export const updateLesson = 'lesson/update';
 
 //Login
 export const login = 'login'
