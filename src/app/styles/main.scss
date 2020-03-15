@@ -16,89 +16,87 @@ body {
 
 .site-card-wrapper {
   .ant-col {
-    margin-top: 50px
+    margin-top: 50px;
   }
 }
 
-.backDropGreen{
+.backDropGreen {
   display: none;
   background-color: green;
   width: 200px;
-      height: 200px;
+  height: 200px;
   box-sizing: content-box;
-      border-radius: 50%;
-      opacity: 0.4;
-      position: absolute;
-      // top: -200px;
+  border-radius: 50%;
+  opacity: 0.4;
+  position: absolute;
+  // top: -200px;
 }
 
-.dashboard-welcome{
+.dashboard-welcome {
   font-size: 3em;
   // display: flex;
   // justify-content: center;
   text-align: center;
   padding-top: 50px;
-  line-height: 50px
   // height: 80vh;
+  line-height: 50px;
 }
 
-
 .countdown-wrapper {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .countdown-item {
-	color: #111;
-	font-size: 40px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-    line-height: 30px;
-	margin: 10px;
-    padding-top: 10px;
-	position: relative;
-	width: 100px;
-	height: 100px;
+  color: #111;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  line-height: 30px;
+  margin: 10px;
+  padding-top: 10px;
+  position: relative;
+  width: 100px;
+  height: 100px;
 }
 
 .countdown-item span {
-	color: #333;
-	font-size: 12px;
-	font-weight: 600;
-	text-transform: uppercase;
+  color: #333;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .countdown-svg {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100px;
-	height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
 }
 
 .slideText {
-    font-size: 48px;
-    line-height: 60px;
-    font-weight: 700;
-    color: rgb(33, 113, 66);
-    animation-duration: 3s;
+  font-size: 48px;
+  line-height: 60px;
+  font-weight: 700;
+  color: rgb(33, 113, 66);
+  animation-duration: 3s;
   animation-delay: 2s;
   animation-iteration-count: infinite;
-  max-width: 450px
+  max-width: 450px;
 }
 
-.intro_videoblog_see_more{
+.intro_videoblog_see_more {
   color: #ffffff !important;
-background-color: #217142 !important;
-padding: 6px 12px
+  background-color: #217142 !important;
+  padding: 6px 12px;
 }
 
 .introduction {
-
   background-image: url("../../assets/background_excel.jpg");
   background-color: transparent;
   padding: 0;
@@ -132,7 +130,7 @@ padding: 6px 12px
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-around;
-    padding: 0px 30px;
+    padding: 0 30px;
     align-items: center;
     transition: all 0.3s;
 
@@ -187,16 +185,16 @@ padding: 6px 12px
 
 .excelist_badge {
   background: rgba(33, 113, 66, 0.9);
-text-align: center;
-display: inline-block;
-font-size: 11px;
-font-weight: 700;
-line-height: 30px;
-padding: 0 20px;
-color: #fff;
-text-transform: uppercase;
-position: relative;
-top: -15px
+  text-align: center;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 30px;
+  padding: 0 20px;
+  color: #fff;
+  text-transform: uppercase;
+  position: relative;
+  top: -15px;
 }
 
 .intro_lessons,
@@ -205,23 +203,53 @@ top: -15px
   padding: 0 77px;
 }
 
-.intro_excelist , .intro_benefits, .main-albums{
-  background-color: #ededed;;
+.intro_benefits,
+.intro_excelist,
+.main-albums {
+  background-color: #ededed;
   width: 100%;
 }
 
 .album-subheading {
   text-transform: uppercase;
-    line-height: 40px;
-    font-size: 30px;
-    font-weight: 700;
-    margin: 0;
-    margin-bottom: 2px;
-    color: #217142;
-    text-align: center;
-    font-style: normal;
-    text-align: center;
-    margin-bottom: 50px
+  line-height: 40px;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 2px;
+  color: #217142;
+  text-align: center;
+  font-style: normal;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.rev-slider-text {
+  white-space: nowrap;
+  font-size: 42px;
+  line-height: 50px;
+  font-weight: 700;
+  color: rgb(33, 113, 66);
+}
+
+.slider-reg {
+  white-space: nowrap;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+  color: rgb(255, 255, 255) !important;
+  padding: 10px 30px;
+  border-color: rgba(51, 51, 51, 0);
+  outline: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  // visibility: inherit;
+  transition: none 0s ease 3s;
+  border-radius: 0;
+  font-style: normal;
+  border-width: 0;
+  border-style: none;
+  background-color: rgb(33, 113, 66);
 }
 
 .partners_row {
@@ -244,7 +272,7 @@ top: -15px
 }
 
 .partners_desc {
-  width: 90%
+  width: 90%;
 }
 
 .benefits_desc {
@@ -254,6 +282,7 @@ top: -15px
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+
   .row {
     // width: 90%;
     // float: right;
@@ -324,6 +353,7 @@ top: -15px
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+
     .our_team {
       display: flex;
       justify-content: space-around;
@@ -400,19 +430,19 @@ top: -15px
 
 .register-for-lesson {
   box-sizing: border-box;
-    width: 250px;
-    max-width: 100%;
-    font-size: 1.3em;
-    padding: 1em 2em;
-    background: #217142;
-    color: #ffffff !important;
-    border: 1px solid #217142;
-    border-width: 1px 0;
-    -webkit-border-radius: 0.25em;
-    -moz-border-radius: 0.25em;
-    border-radius: 0.25em;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
-    text-align: center;
+  width: 250px;
+  max-width: 100%;
+  font-size: 1.3em;
+  padding: 1em 2em;
+  background: #217142;
+  color: #ffffff !important;
+  border: 1px solid #217142;
+  border-width: 1px 0;
+  -webkit-border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
+  border-radius: 0.25em;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  text-align: center;
 }
 
 .lesson-title {
@@ -439,14 +469,12 @@ top: -15px
     margin-bottom: 10px;
   }
 
-  .single-title{
+  .single-title {
     color: #217142 !important;
     font-weight: 600 !important;
     font-size: 18px;
-    margin-bottom: 10px !important
+    margin-bottom: 10px !important;
   }
-
-
 }
 
 .lessons_desc {
@@ -458,6 +486,7 @@ top: -15px
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+
   .single_lesson {
     width: 255px;
     padding: 0 15px;
@@ -490,10 +519,10 @@ top: -15px
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+
   .ant-collapse {
     max-width: 48%;
   }
-
 
   .ant-collapse-header {
     line-height: 30px !important;
@@ -525,6 +554,7 @@ top: -15px
   width: 90%;
   margin-right: auto;
   margin-left: auto;
+
   .row {
     display: flex;
     flex-direction: row;
@@ -535,64 +565,67 @@ top: -15px
     }
   }
 }
-
-
 @media screen and (max-width: '1200px') {
-  .about_heading{
+  .about_heading {
     // margin-top: 20px !important
   }
-  .introduction{
+
+  .introduction {
     background-size: cover;
-    margin-top: -27px
+    margin-top: -27px;
   }
-  .footer_contact{
-    padding: 15px
+
+  .footer_contact {
+    padding: 15px;
   }
 }
-
-@media screen and (max-width: '950px'){
-  .introduction-bars{
+@media screen and (max-width: '950px') {
+  .introduction-bars {
     flex-wrap: wrap;
+
     .intro-bar-item {
       width: 49%;
-      margin: 0 5px 5px 0
+      margin: 0 5px 5px 0;
     }
   }
+
   .lessons_desc {
     flex-wrap: wrap;
   }
+
   .videblog_desc {
     flex-direction: column;
     flex-wrap: wrap;
   }
-  .single_videoblog{
-    margin-bottom: 20px !important
+
+  .single_videoblog {
+    margin-bottom: 20px !important;
   }
-  .get_files{
-    h2{
-      text-align: center !important
+
+  .get_files {
+    h2 {
+      text-align: center !important;
     }
   }
 }
-
-@media screen and (max-width: '890px'){
-  .footer_coll_2{
-    width: 45%
+@media screen and (max-width: '890px') {
+  .footer_coll_2 {
+    width: 45%;
   }
-
 }
-
-@media screen and (max-width: '850px'){
-  .footer_contact{
+@media screen and (max-width: '850px') {
+  .footer_contact {
     flex-direction: column !important;
   }
-  .footer_coll_1{
+
+  .footer_coll_1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  .footer_coll_2{
+
+  .footer_coll_2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -600,109 +633,127 @@ top: -15px
     text-align: center;
     width: 100%;
   }
-  .footer_heading_2{
+
+  .footer_heading_2 {
     margin-bottom: 0 !important;
-    p{
-      margin-bottom: 0 !important
+
+    p {
+      margin-bottom: 0 !important;
     }
   }
+
   .videblog_desc {
-    padding: 0
+    padding: 0;
   }
 }
-
-@media screen and (max-width: '670px'){
-  .main_statistics, .our_team{
+@media screen and (max-width: '670px') {
+  .main_statistics,
+  .our_team {
     flex-wrap: wrap;
   }
+
   .faq_desc {
     flex-direction: column;
     align-items: center;
+
     .ant-collapse {
       max-width: 100%;
-      margin-bottom: 20px
+      margin-bottom: 20px;
     }
   }
+
   .lessons_desc {
     justify-content: center;
   }
 }
-
-@media screen and (max-width: '600px'){
+@media screen and (max-width: '600px') {
   .benefits_desc {
     flex-direction: column !important;
     align-items: center !important;
     padding-left: 0;
+
     .coll {
       justify-content: flex-start !important;
     }
   }
-  .introduction-bars{
+
+  .introduction-bars {
     justify-content: center !important;
   }
+
   .intro-bar-item {
-    width: 90% !important
+    width: 90% !important;
   }
-  .intro_benefits{
-    padding: 0 !important
+
+  .intro_benefits {
+    padding: 0 !important;
   }
+
   .main_statistics {
     height: auto;
   }
+
   form {
     width: 90vw;
   }
+
   #sendButton {
     width: 90vw !important;
   }
+
   .footer-contact {
     width: 90vw !important;
   }
-  .footer_heading_1{
+
+  .footer_heading_1 {
     text-align: center;
   }
-  .intro_partners{
-    padding: 0 !important
+
+  .intro_partners {
+    padding: 0 !important;
   }
+
   .location {
     iframe {
-      width: 100vw !important
+      width: 100vw !important;
     }
   }
 
-    .footer_social_links{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-    .footer_links {
-      display: flex;
-      flex-direction: column !important;
-    }
-    .made_by {
-      text-align: center;
-    }
-    .benefits_desc {
-      .col {
-          padding-left: 0 !important;
-          left: -15px;
-      }
-    }
-}
+  .footer_social_links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 
-@media screen and (max-width: '400px'){
+  .footer_links {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .made_by {
+    text-align: center;
+  }
+
+  .benefits_desc {
+    .col {
+      padding-left: 0 !important;
+      left: -15px;
+    }
+  }
+}
+@media screen and (max-width: '400px') {
   .quality_exams {
-    .row_1, .row_2 {
+    .row_1,
+    .row_2 {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       .row_item {
         justify-content: center;
-        width: 90%
+        width: 90%;
       }
     }
   }
-
-
 }

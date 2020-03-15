@@ -15,6 +15,8 @@ import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet';
 import Request from '../../store/request'
 import Countdown from '../functions/countDown';
+import Fade from 'react-reveal/Fade';
+
 // import createBrowserHistory from "history";
 
 //app routes
@@ -25,7 +27,8 @@ import {Collapse, Icon} from "antd";
 
 import Header from "./Header";
 import Footer from "./Footer";
-import Navbar from './admin/Navbar'
+import Navbar from './admin/Navbar';
+
 
 const createBrowserHistory = require("history")
 const {Panel} = Collapse;
@@ -53,6 +56,7 @@ class Index extends React.Component {
 		this.state = {
 			data: [],
 			youtubeSubscribersCount: null,
+			order: 1
 		}
 	}
 	componentDidMount(){
@@ -63,6 +67,10 @@ class Index extends React.Component {
 		fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
 		.then(response => response.json())
 		.then(result => this.setState({youtubeSubscribersCount: result}))
+
+		setInterval(()=> {
+			this.setState({order: this.state.order <= 3 ? this.state.order + 1 : 1})
+		}, 6000)
 	}
 
 	render() {
@@ -81,11 +89,56 @@ class Index extends React.Component {
 			</Helmet>
 				<Header />
 				<div className="introduction">
+
+				<div style={{display: 'flex',flexDirection: 'column', justifyContent: 'center', width: '90%', marginLeft: 'auto'}}>
 				<div className='animated-text'>
-					<div className="animated fadeInRight slideText">
-						Excel-ի և Excel-ից ածանցյալ դասընթացներ
-					</div>
-				</div><br/>
+				{ this.state.order === 1 && 	<div>
+					<Fade bottom cascade>
+						<h1 className="rev-slider-text">
+							Excel-ի և Excel-ից
+						</h1>
+					</Fade><br/>
+					<Fade right big cascade>
+						<h1 className="rev-slider-text">
+							ածանցյալ դասընթացներ
+						</h1>
+					</Fade><br/>
+					<Fade bottom cascade>
+						<a className="slider-reg" href="/register" target="_blank">Գրանցվել</a>
+					</Fade><br/>
+					</div>}
+					{ this.state.order === 2 && 	<div>
+						<Fade bottom cascade>
+							<h1 className="rev-slider-text">
+								Անհատների և
+							</h1>
+						</Fade><br/>
+						<Fade right big cascade>
+							<h1 className="rev-slider-text">
+								ֆիրմաների համար
+							</h1>
+						</Fade><br/>
+						<Fade bottom cascade>
+							<a className="slider-reg" href="/register" target="_blank">Գրանցվել</a>
+						</Fade><br/>
+						</div>}
+						{ this.state.order === 3 && 	<div>
+							<Fade bottom cascade>
+								<h1 className="rev-slider-text">
+									Օնլայն և
+								</h1>
+							</Fade><br/>
+							<Fade right big cascade>
+								<h1 className="rev-slider-text">
+									օֆլայն ֆորմատներով
+								</h1>
+							</Fade><br/>
+							<Fade bottom cascade>
+								<a className="slider-reg" href="/register" target="_blank">Գրանցվել</a>
+							</Fade><br/>
+							</div>}
+
+				</div><br/><br/><br/>
 					<div className="introduction-bars">
 						<div className="intro-bar-item">
 							<div>
@@ -109,6 +162,7 @@ class Index extends React.Component {
 							<i className="fa fa-play-circle-o"></i>
 						</div>
 					</div>
+				</div>
 				</div>
 				<div className="intro_lessons">
 					<h1 className="about_heading main_heading">ԴԱՍԸՆԹԱՑՆԵՐ</h1>
@@ -646,7 +700,8 @@ class Index extends React.Component {
 						</div>
 					</div>
 
-					<div >
+					<div>
+
 						{
 							Feedbacks && Feedbacks.length && Feedbacks.map((item, key) => {
 								return <div key={key}>
@@ -656,6 +711,7 @@ class Index extends React.Component {
 								</div>
 							})
 						}
+
 					</div>
 
 					<div className="intro_partners">
