@@ -31,3 +31,8 @@ export const GET_ALL_COMMENTS = 'GET_ALL_COMMENTS';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 // export const UPDATE_COURSE = 'UPDATE_COURSE';
 export const CREATE_COMMENT = 'CREATE_COMMENT';
+
+export const GET_ALL_ALBUMS= 'GET_ALBUMS';
+export const DELETE_ALBUM = 'DELETE_ALBUM';
+export const UPDATE_ALBUM = 'UPDATE_ALBUM';
+export const CREATE_ALBUM = 'CREATE_ALBUM';

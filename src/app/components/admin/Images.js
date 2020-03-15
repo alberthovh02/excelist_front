@@ -1,85 +1,101 @@
 import React from 'react';
 import Header from './Header';
-import { Select, Upload, Icon, Modal, Button } from 'antd';
+import { Input, Upload, Icon, Modal, Button, message, Collapse, Card } from 'antd';
+import { ImageCropper, HiddenCropper } from "react-bootstrap-image-cropper";
+//redux
+import { connect } from 'react-redux';
+import { actionCreator, POST, DELETE, PUT } from '../../../store/actionCreators';
+import { createAlbum, updateAlbum, deleteAlbum } from '../../../store/api';
+import { CREATE_ALBUM, UPDATE_ALBUM, DELETE_ALBUM, GET_ALBUMS, ADD_ALBUM_IMAGE } from '../../../store/actionTypes';
 
-const { Option } = Select;
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
+const { Panel } = Collapse;
+const { Meta } = Card;
 
 class Images extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      imageType: null,
-      previewVisible: false,
-      previewImage: '',
-      fileList: []
+      fileList: [],
+      name: null
     }
   }
 
-  handleSelectChange = (value) => {
-    this.setState({imageType: value})
+  handleSubmit = async() => {
+    const { name, fileList } = this.state;
+    const { dispatch } = this.props;
+    if(!name || !fileList){
+      message.warning("Empty fields");
+      return false;
+    }
+
+    const data = new FormData();
+    data.append("name", name);
+    data.append("image", fileList)
+
+    const response = await dispatch(POST(createAlbum, data, true));
+    if(response.code !== 200){
+      message.error("Something went wrong")
+    }else{
+      message.success("Album created")
+    }
+
+    console.log(this.state.fileList)
   }
 
-  handleCancel = () => this.setState({ previewVisible: false });
+  handleInput = (e) => {
+    const { name, value } = e.target;
+    this.setState({[name]: value})
+  }
 
-
-  handlePreview = async file => {
-   if (!file.url && !file.preview) {
-     file.preview = await getBase64(file.originFileObj);
-   }
-
-   this.setState({
-     previewImage: file.url || file.preview,
-     previewVisible: true,
-   });
- };
-
- handleChange = ({ fileList }) => this.setState({ fileList });
-
- uploadImages = () => {
-   const { imageType, fileList } = this.state;
-   console.log(imageType, fileList)
- }
+  handleCrop = (crop) => {
+    console.log(crop)
+    this.setState({fileList: crop})
+  }
 
   render(){
-    const { previewVisible, previewImage, fileList } = this.state;
-   const uploadButton = (
-     <div>
-       <Icon type="plus" />
-       <div className="ant-upload-text">Upload</div>
-     </div>
-   );
+    const { fileList } = this.state;
+    const { Albums } = this.props;
     return(
       <div className="images-container">
-        <Select defaultValue="free" style={{ width: 120 }} onChange={this.handleSelectChange}>
-          <Option value="free">Outdoor</Option>
-          <Option value="lesson">Lessons</Option>
-        </Select><br/>
-        <div className="clearfix">
-        <Upload
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
-          onChange={this.handleChange}
-        >
-          {fileList.length >= 8 ? null : uploadButton}
-        </Upload>
-        <Button type="primary" onClick={ this.uploadImages }>Add images</Button>
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
-      </div>
+      <Collapse>
+        <Panel header="Albums" key="1">
+          { Albums && Albums.map((item, key) => {
+          return <Card
+          style={{ width: 300 }}
+          cover={
+              <img
+                alt="example"
+                src={item.imageUrl}
+                />
+              }
+          actions={[
+            <Icon type="edit"/>,
+            <Icon type="delete"/>,
+            <Icon type="file"/>
+          ]}
+            >
+            <Meta
+              title={item.name}
+              />
+            </Card>
+          })}
+        </Panel>
+      </Collapse>
+        <Input placeholder="Enter album name" name="name" onChange={ this.handleInput }/><br/>
+        <ImageCropper
+          onChange={this.handleCrop}
+          cropOptions={{ aspect: 4 / 3, maxZoom: 10 }}
+          outputOptions={{ maxWidth: 400, maxHeight: 300 }}
+          previewOptions={{ width: 400, height: 300 }}
+        /><br/>
+        <Button onClick={ this.handleSubmit }>Add album</Button>
       </div>
     )
   }
 }
 
-export default Images
+const get = state => {
+  return {Albums: state.Albums}
+}
+
+export default connect(get)(Images)

@@ -39,8 +39,8 @@ class Footer extends React.Component{
       const { mode } = this.props
         return(
             <footer>
-                { mode === "main" ? <div className="footer_contact">
-                    <div className="footer_coll_1">
+                { mode === "main" ? <div className="footer_contact col-sm-12">
+                    <div className="footer_coll_1 col-sm-6">
                         <div className="footer_heading_1">
                             <h2>ՄԵԶ ԿԱՐՈՂ ԵՍ ԳՏՆԵԼ</h2>
                             <p>Ողջու՛յն, էքսելի՛ստ: Ուրախ ենք, որ մեզ հետ ես: )))</p>
@@ -118,7 +118,7 @@ class Footer extends React.Component{
                           </NavLink>
                         </div>
                     </div>
-                    <div className="footer_coll_2">
+                    <div className="footer_coll_2 col-sm-6">
                         <div className="footer_heading_2">
                             <h2>ԳՐԻ՛Ր ՄԵԶ</h2>
                             <p>Սպասում ենք քո նամակին:</p>

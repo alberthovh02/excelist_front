@@ -36,8 +36,16 @@ export const deleteCourse = id => `course/${id}`
 export const getSingledata = 'students';
 export const updateSingleData = 'students/count';
 
-
 //comments
 export const getComments = 'comments';
 export const delteComment = id =>  `comments/${id}`;
 export const createComment = 'comments/create';
+
+//albums
+export const getAlbums = 'albums';
+export const createAlbum = 'albums/create';
+export const updateAlbum = id =>  `albums/${id}`;
+export const deleteAlbum = id => `albums/${id}`;
+
+//album Images
+export const createAlbumImage = id => `album-image/create/${id}`;

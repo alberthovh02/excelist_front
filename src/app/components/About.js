@@ -2,7 +2,9 @@ import React from "react";
 import {Icon} from "semantic-ui-react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet';
+import CountUp from 'react-countup';
+
 import Request from '../../store/request'
 import { connect } from 'react-redux';
 
@@ -12,13 +14,19 @@ class AboutUs extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
+			youtubeSubscribersCount: 0
 		}
 	}
 
-
+	componentDidMount(){
+		fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
+		.then(response => response.json())
+		.then(result => this.setState({youtubeSubscribersCount: result}))
+	}
 
 	render() {
 		const { SingleData, Feedbacks } = this.props;
+		const { youtubeSubscribersCount } = this.state;
 		return (
 			<>
 			<Helmet>
@@ -82,20 +90,41 @@ class AboutUs extends React.Component {
 						</p>
 					</div>
 
-					<div className="about_statistics">
-						<div className="statistic_item">
-							2500
-							<br />
+					<div className="about_statistics col-sm-12">
+						<div className="statistic_item col-sm-4">
+						<CountUp
+							start={0}
+							end={2500}
+							duration={4}
+							style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
+							delay={2}
+							separator=" "
+							decimal=","
+						/>
 							<span>ՈՒՍԱՆՈՂ</span>
 						</div>
-						<div className="statistic_item">
-							16150
-							<br />
+						<div className="statistic_item col-sm-4">
+						<CountUp
+							start={0}
+							end={16150}
+							duration={4}
+							style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
+							delay={2}
+							separator=" "
+							decimal=","
+						/>
 							<span>ՀԵՏԵՎՈՂ ՖԵՅՍԲՈՒՔՈՒՄ</span>
 						</div>
-						<div className="statistic_item">
-							318827
-							<br />
+						<div className="statistic_item col-sm-4">
+						{this.state.youtubeSubscribersCount && <CountUp
+							start={0}
+							end={this.state.youtubeSubscribersCount.items[0].statistics.viewCount}
+							duration={4}
+							style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
+							delay={2}
+							separator=" "
+							decimal=","
+						/> }
 							<span>ԴԻՏՈՒՄ YOUTUBE-ՈՒՄ</span>
 						</div>
 					</div>
@@ -105,24 +134,53 @@ class AboutUs extends React.Component {
 					<div className="about_images">
 						<div className="about_images_lessons">ԴԱՍԵՐ</div>
 						<div className="about_images_rest">ԺԱՄԱՆՑ</div>
-						<div className="about_statistics">
-							<div className="statistic_item">
-								11
-								<br />
+						<div className="about_statistics col-sm-12">
+							<div className="statistic_item col-sm-3">
+							<CountUp
+								start={0}
+								end={11}
+								duration={4}
+								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
+								delay={2}
+								separator=" "
+								decimal=","
+							/>
 								<span>ԱՌԱՐԿԱ</span>
 							</div>
-							<div className="statistic_item">
-								5<br />
+							<div className="statistic_item  col-sm-3">
+							<CountUp
+								start={0}
+								end={5}
+								duration={4}
+								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
+								delay={2}
+								separator=" "
+								decimal=","
+							/>
 								<span>ՄԱՍՆԱԳԻՏԱՑՎԱԾ ԹՐԵՅՆԵՐ</span>
 							</div>
-							<div className="statistic_item">
-								7797
-								<br />
+							<div className="statistic_item  col-sm-3">
+							<CountUp
+								start={0}
+								end={7797}
+								duration={4}
+								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
+								delay={2}
+								separator=" "
+								decimal=","
+							/>
 								<span>ԱԿՈՒՄԲԻ ԱՆԴԱՄ</span>
 							</div>
-							<div className="statistic_item">
-								50
-								<br />
+							<div className="statistic_item col-sm-3">
+							<CountUp
+								start={0}
+								end={50}
+								duration={4}
+								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
+								delay={2}
+								separator=" "
+								decimal=","
+							/>
 								<span>ԵՐԿՐԻՑ ՀԵՏԵՎՈՐԴ</span>
 							</div>
 						</div>
@@ -178,10 +236,12 @@ class AboutUs extends React.Component {
 										alt="TEAM MEMBER"
 									/>{" "}
 									<p className="member_name">
-										<a href="#" target="_blank">
-											ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ
+										<a href="#" target="_blank" className="innerTexts">
+											<a href="https://web.facebook.com/armen.petrosyan.25?_rdc=1&_rdr" target="_blank"><i className="fa fa-facebook"></i></a>
+											<a href="https://www.linkedin.com/in/armen-petrosyan-47751229/ru" target="_blank"><i className="fa fa-linkedin"></i></a>
 										</a>
 									</p>
+									<p className='name-title'>ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ</p>
 									<p>Էքսելիստ</p>
 								</div>
 								<div className="team_member">
@@ -190,10 +250,13 @@ class AboutUs extends React.Component {
 										alt="TEAM MEMBER"
 									/>{" "}
 									<p className="member_name">
-										<a href="#" target="_blank">
-											ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ
+										<a href="#" target="_blank" className="innerTexts">
+										<a href="https://web.facebook.com/Mr.Excelist?_rdc=1&_rdr" target="_blank"><i className="fa fa-facebook"></i></a>
+										<a target="_blank"><i className="fa fa-skype"></i></a>
+										<a href="https://www.linkedin.com/in/excelist/" target="_blank"><i className="fa fa-linkedin"></i></a>
 										</a>
 									</p>
+									<p className="name-title">ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ</p>
 									<p>Էքսելիստ</p>
 								</div>
 								<div className="team_member">
@@ -202,10 +265,11 @@ class AboutUs extends React.Component {
 										alt="TEAM MEMBER"
 									/>
 									<p className="member_name">
-										<a href="#" target="_blank">
-											ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ
+										<a href="#" target="_blank" className="innerTexts">
+											<a href="https://web.facebook.com/arman.harutyunyan.y" target="_blank"><i className="fa fa-facebook"></i></a>
 										</a>
 									</p>
+									<p className="name-title">ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ</p>
 									<p>Էքսելիստ</p>
 								</div>
 							</div>

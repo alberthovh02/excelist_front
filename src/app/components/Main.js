@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 
 import CountUp from 'react-countup';
+import {default as ImageCarousel , Modal, ModalGateway } from 'react-images';
+
 import { connect } from 'react-redux'
 
 import { Helmet } from 'react-helmet';
@@ -19,6 +21,7 @@ import Countdown from '../functions/countDown';
 import {PublicRoutes, PrivateRoutes} from "../../config/routes";
 import {Carousel} from "antd";
 import {Collapse, Icon} from "antd";
+
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -70,7 +73,7 @@ class Index extends React.Component {
 			border: 0,
 			overflow: "hidden"
 		};
-		const { Lessons, Feedbacks } = this.props;
+		const { Lessons, Feedbacks, Albums } = this.props;
 		return (
 			<>
 			<Helmet>
@@ -78,6 +81,11 @@ class Index extends React.Component {
 			</Helmet>
 				<Header />
 				<div className="introduction">
+				<div className='animated-text'>
+					<div className="animated fadeInRight slideText">
+						Excel-ի և Excel-ից ածանցյալ դասընթացներ
+					</div>
+				</div><br/>
 					<div className="introduction-bars">
 						<div className="intro-bar-item">
 							<div>
@@ -238,6 +246,7 @@ class Index extends React.Component {
 							</button>
 						</NavLink>
 					</div>
+				</div>
 
 					<div className="intro_lessons">
 						<h1 className="about_heading main_heading">ԲԼՈԳ</h1>
@@ -275,7 +284,7 @@ class Index extends React.Component {
 					</div>
 
 					<div className="intro_videoblog">
-						<h1 className="about_heading">ՎԻԴԵՈԲԼՈԳ</h1>
+						<h1 className="excelist_heading">ՎԻԴԵՈԲԼՈԳ</h1>
 						<div className="line"></div>
 						<div className="videblog_desc">
 							<div className="single_videoblog">
@@ -304,8 +313,8 @@ class Index extends React.Component {
 					<div className="intro_benefits">
 						<h1 className="about_heading main_heading">ԻՆՉՈՒ՞ ԸՆՏՐԵԼ ՄԵԶ</h1>
 						<div className="line"></div>
-						<div className="benefits_desc">
-							<div className="col">
+						<div className="benefits_desc col-sm-12">
+							<div className="col-sm-5">
 								<div className="row">
 									<i
 										className="fa fa-user"
@@ -376,7 +385,7 @@ class Index extends React.Component {
 									</h3>
 								</div>
 							</div>
-							<div className="col">
+							<div className="col-sm-5">
 								<div className="row">
 									<i
 										className="fa fa-refresh"
@@ -449,7 +458,7 @@ class Index extends React.Component {
 						</div>
 					</div>
 
-					<div className="main_statistics">
+					<div className="main_statistics main-page-statistics">
 						<div className="statistic_item">
 							<i
 								className="fa fa-mortar-board"
@@ -463,6 +472,7 @@ class Index extends React.Component {
 									end={item.count}
 									duration={4}
 									delay={2}
+									style={{fontWeight: 'bold', fontSize: '0.8em', marginBottom: 0}}
 									separator=" "
 									decimal=","
 								/>
@@ -480,6 +490,7 @@ class Index extends React.Component {
 								end={16150}
 								duration={4}
 								delay={2}
+								style={{fontWeight: 'bold', fontSize: '0.8em', marginBottom: 0}}
 								separator=" "
 								decimal=","
 							/> <span>ՀԵՏԵՎՈՂ ՖԵՅՍԲՈՒՔՈՒՄ</span>
@@ -498,6 +509,7 @@ class Index extends React.Component {
 									end={this.state.youtubeSubscribersCount.items[0].statistics.viewCount}
 									duration={4}
 									delay={2}
+									style={{fontWeight: 'bold', fontSize: '0.8em', marginBottom: 0}}
 									separator=" "
 									decimal=","
 								/> } <span>ԴԻՏՈՒՄ YOUTUBE-ՈՒՄ</span>
@@ -506,75 +518,94 @@ class Index extends React.Component {
 					</div>
 
 					<div className="intro_excelist">
-						<h1 className="about_heading main_heading">
+						<h1 className="excelist_heading main_heading">
 							ԼԱՎԱԳՈՒՅՆ ԷՔՍԵԼԻՍՏՆԵՐԻՑ ...
 						</h1>
 						<div className="line"></div>
 						<div className="excelist_desc">
-							<div className="our_team">
-								<div className="team_member" key={0}>
-									<img
-										src={require("../../assets/images/our_team/member-1.jpg")}
-									/>
-									<p className="member_name">
-										<a href="#" target="_blank">
-											ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ
-										</a>
-									</p>
-									<p>Էքսելիստ</p>
-								</div>
-								<div className="team_member" key={1}>
-									<img
-										src={require("../../assets/images/our_team/member-2.jpg")}
-									/>
-									<p className="member_name">
-										<a href="#" target="_blank">
-											ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ
-										</a>
-									</p>
-									<p>Էքսելիստ</p>
-								</div>
-								<div className="team_member" key={2}>
-									<img
-										src={require("../../assets/images/our_team/member-3.jpg")}
-									/>
-									<div className='backDropGreen'>fb linked</div>
-									<p className="member_name">
-										<a href="#" target="_blank">
-											ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ
-										</a>
-									</p>
-									<p>Էքսելիստ</p>
-								</div>
+						<div className="our_team">
+							<div className="team_member">
+								<img
+									src={require("../../assets/images/our_team/member-1.jpg")}
+									alt="TEAM MEMBER"
+								/>{" "}
+								<p className="member_name">
+									<a href="#" target="_blank" className="innerTexts">
+										<a href="https://web.facebook.com/armen.petrosyan.25?_rdc=1&_rdr" target="_blank"><i className="fa fa-facebook"></i></a>
+										<a href="https://www.linkedin.com/in/armen-petrosyan-47751229/ru" target="_blank"><i className="fa fa-linkedin"></i></a>
+									</a>
+								</p>
+								<p className='name-title'>ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ</p>
+								<p>Էքսելիստ</p>
 							</div>
+							<div className="team_member">
+								<img
+									src={require("../../assets/images/our_team/member-2.jpg")}
+									alt="TEAM MEMBER"
+								/>{" "}
+								<p className="member_name">
+									<a href="#" target="_blank" className="innerTexts">
+									<a href="https://web.facebook.com/Mr.Excelist?_rdc=1&_rdr" target="_blank"><i className="fa fa-facebook"></i></a>
+									<a target="_blank"><i className="fa fa-skype"></i></a>
+									<a href="https://www.linkedin.com/in/excelist/" target="_blank"><i className="fa fa-linkedin"></i></a>
+									</a>
+								</p>
+								<p className="name-title">ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ</p>
+								<p>Էքսելիստ</p>
+							</div>
+							<div className="team_member">
+								<img
+									src={require("../../assets/images/our_team/member-3.jpg")}
+									alt="TEAM MEMBER"
+								/>
+								<p className="member_name">
+									<a href="#" target="_blank" className="innerTexts">
+										<a href="https://web.facebook.com/arman.harutyunyan.y" target="_blank"><i className="fa fa-facebook"></i></a>
+									</a>
+								</p>
+								<p className="name-title">ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ</p>
+								<p>Էքսելիստ</p>
+							</div>
+						</div>
 						</div>
 					</div>
 
 					<div className="lessons_timeline">
-					{ Lessons && Lessons.length && <>
-					<h1 className="about_heading main_heading">ԳՐԱՆՑՎԻ՛Ր ՄՈՏԱԿԱ ԴԱՍԸՆԹԱՑԻՆ</h1>
-					<div className="line"></div> </>}
 
-			{/*Lessons && Lessons.map((data, key) => {
-				const day = `${new Date(data.endTime).toLocaleString().split('.')[0]} `;
-				const month = `${new Date(data.endTime).toLocaleString().split('.')[1]} `;
-				const year = `${new Date(data.endTime).toLocaleString().split('.')[2].split(',')[0]}`;
-				const hour = `${new Date(data.endTime).toLocaleString().split(':')[0].split(',')[1]}:`;
-				const minutes = `${new Date(data.endTime).toLocaleString().split(':')[1]}am`;
-				const parsedDate = month.concat(day).concat(year).concat(hour).concat(minutes);
-				console.log(data)
-				return (<div><p>{data.name}</p> <img src={`//excelist-backend.herokuapp.com/${data.imageUrl}`}/>	<Countdown
-					key={key}
-					timeTillDate={parsedDate}
-					timeFormat="MM DD YYYY, h:mm a"
-				/></div> )
-			})*/}
+			{Lessons && Lessons.length && Lessons.map((data, key) => {
+				console.log(new Date(data.date).toLocaleString());
+				const localDate = new Date(data.date).toLocaleString();
+				const day = `0${localDate.split('/')[0]} `;
+				const month = `${localDate.split('/')[1]} `;
+				const year = `${localDate.split('/')[2].split(',')[0]},`;
+				const hour = `${localDate.split(',')[1].split(':')[0]}:`;
+				const minutes = `${localDate.split(':')[1]} pm`;
+				const parsedDate = day.concat(month).concat(year).concat(hour).concat(minutes);
+				console.log(parsedDate)
+				return (<div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+				<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+				<h1 className="about_heading main_heading">ԳՐԱՆՑՎԻ՛Ր ՄՈՏԱԿԱ ԴԱՍԸՆԹԱՑԻՆ</h1>
+				<div className="line"></div>
+						<Countdown
+						key={key}
+						timeTillDate={parsedDate}
+						timeFormat="MM DD YYYY, h:mm a"
+					/><br/>
+					<a className="register-for-lesson"><i className="fa fa-user-plus" style={{color: 'white'}}></i>  ԳՐԱՆՑՎԵԼ</a>
+					</div>
+					<div>
+
+						<img src={`//excelist-backend.herokuapp.com/${data.imageUrl}`}/>
+						<p className='lesson-title'>{data.name}</p>
+						</div>
+					</div> )
+			})}
 					</div>
 
 					<div className="intro_partners">
 						<h1 className="about_heading main_heading">ՄԵՐ ԳՈՐԾԸՆԿԵՐՆԵՐԸ</h1>
 						<div className="line"></div>
-						<div className="partners_desc">
+						<div className="partners_desc" style={{marginLeft: 'auto', marginRight: 'auto'}}>
 							<Carousel autoplay>
 								<div className="partners_row">
 									<img
@@ -757,13 +788,31 @@ class Index extends React.Component {
 						></iframe>
 					</div>
 
-					<div className="online_benefits">
+					<div className="main-albums col-sm-12">
+						<h2 className="albums_heading">
+							ՄԵՆՔ` ԼՈՒՍԱՆԿԱՐՆԵՐՈՎ
+							</h2>
+						<div className='album-container row'>
+
+							{ Albums && Albums.map((item, key) => {
+								const images = item.images.map(it => {return {src: it}})
+								 return this.state.albumModal === key && images.length ? <> <ModalGateway>
+	          			<Modal onClose={() => this.setState({albumModal: false})}>
+	            			<ImageCarousel views={images} />
+	          			</Modal>
+	      				</ModalGateway> <div className="col-sm-6" ><p className="album-subheading">{item.name}</p><br/><img src={item.imageUrl} onClick={() => this.setState({albumModal: key})} style={{width: '100%'}}/></div></>
+								: <div className="col-sm-6" ><p className="album-subheading">{item.name}</p><br/><img src={item.imageUrl} onClick={() => this.setState({albumModal: key})} style={{width: '100%'}}/></div>
+							})}
+						</div>
+					</div>
+
+					<div className="online_benefits col-sm-12">
 						<h2 className="about_heading main_heading">
 							ՕՆԼԱՅՆ EXCEL ՍՈՎՈՐԵԼՈՒ 10 ԱՌԱՎԵԼՈՒԹՅՈՒՆՆԵՐԸ
 						</h2>
 						<div className="line"></div>
 						<div className="benefits_desc">
-						<div className="col">
+						<div className="col-sm-6">
 							<div className="row">
 							<i
 								className="fa fa-user"
@@ -839,7 +888,7 @@ class Index extends React.Component {
 								</h3>
 							</div>
 						</div>
-						<div className="col">
+						<div className="col-sm-6">
 							<div className="row">
 							<i
 								className="fa fa-home"
@@ -922,7 +971,6 @@ class Index extends React.Component {
             <NavLink to="/get-files" target="_blank"><button className="get_files_button"><i className="fa fa-envelope" aria-hidden="true"></i> ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ</button></NavLink>
           </div>
 
-				</div>
 				<Footer mode="main" />
 				<Footer mode="simple" />
 			</>
@@ -992,7 +1040,7 @@ class Main extends React.Component {
 }
 
 const get = state => {
-	return { Lessons: state.Lessons, Feedbacks: state.Feedbacks}
+	return { Lessons: state.Lessons, Feedbacks: state.Feedbacks, Albums: state.Albums}
 }
 
 export default connect(get)(Main);

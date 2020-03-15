@@ -80,6 +80,17 @@ body {
 	height: 100px;
 }
 
+.slideText {
+    font-size: 48px;
+    line-height: 60px;
+    font-weight: 700;
+    color: rgb(33, 113, 66);
+    animation-duration: 3s;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+  max-width: 450px
+}
+
 .intro_videoblog_see_more{
   color: #ffffff !important;
 background-color: #217142 !important;
@@ -102,6 +113,7 @@ padding: 6px 12px
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   .introduction-bars {
     display: flex;
@@ -187,12 +199,29 @@ position: relative;
 top: -15px
 }
 
-.intro_benefits,
-.intro_excelist,
 .intro_lessons,
 .intro_partners {
   background-color: #ededed;
   padding: 0 77px;
+}
+
+.intro_excelist , .intro_benefits, .main-albums{
+  background-color: #ededed;;
+  width: 100%;
+}
+
+.album-subheading {
+  text-transform: uppercase;
+    line-height: 40px;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 2px;
+    color: #217142;
+    text-align: center;
+    font-style: normal;
+    text-align: center;
+    margin-bottom: 50px
 }
 
 .partners_row {
@@ -214,14 +243,20 @@ top: -15px
   padding-bottom: 30px;
 }
 
+.partners_desc {
+  width: 90%
+}
+
 .benefits_desc {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-
+  justify-content: space-around;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
   .row {
-    width: 90%;
-    float: right;
+    // width: 90%;
+    // float: right;
     margin-bottom: 60px;
     display: flex;
     flex-direction: row;
@@ -277,7 +312,8 @@ top: -15px
   flex-direction: column;
   align-items: center;
   padding-bottom: 60px;
-
+  justify-content: space-between;
+  // width: 100%;
   img {
     border-radius: 100px;
     width: 200px;
@@ -285,9 +321,12 @@ top: -15px
   }
 
   .excelist_desc {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     .our_team {
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
       margin-right: 20px;
     }
@@ -353,6 +392,39 @@ top: -15px
   align-items: center;
 }
 
+.album-container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.register-for-lesson {
+  box-sizing: border-box;
+    width: 250px;
+    max-width: 100%;
+    font-size: 1.3em;
+    padding: 1em 2em;
+    background: #217142;
+    color: #ffffff !important;
+    border: 1px solid #217142;
+    border-width: 1px 0;
+    -webkit-border-radius: 0.25em;
+    -moz-border-radius: 0.25em;
+    border-radius: 0.25em;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.lesson-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 28px;
+  margin: 10px 0;
+  text-decoration: none;
+  color: #217142;
+  text-align: center;
+}
+
 .videblog_desc {
   display: flex;
   width: 100%;
@@ -383,7 +455,9 @@ top: -15px
   justify-content: space-between;
   align-items: baseline;
   text-align: center;
-
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
   .single_lesson {
     width: 255px;
     padding: 0 15px;
@@ -403,14 +477,23 @@ top: -15px
   }
 }
 
+.quality_exams {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .faq_desc {
   display: flex !important;
   flex-direction: row;
   justify-content: space-around;
-
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
   .ant-collapse {
     max-width: 48%;
   }
+
 
   .ant-collapse-header {
     line-height: 30px !important;
@@ -433,9 +516,15 @@ top: -15px
     font-style: normal;
     color: #333;
   }
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .benefits_desc {
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
   .row {
     display: flex;
     flex-direction: row;
@@ -450,7 +539,7 @@ top: -15px
 
 @media screen and (max-width: '1200px') {
   .about_heading{
-    margin-top: 20px !important
+    // margin-top: 20px !important
   }
   .introduction{
     background-size: cover;
