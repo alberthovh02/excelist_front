@@ -673,7 +673,7 @@ class Index extends React.Component {
 					</div>
 					<div>
 
-						<img src={`//excelist-backend.herokuapp.com/${data.imageUrl}`}/>
+						<img src={data.imageUrl}}/>
 						<p className='lesson-title'>{data.name}</p>
 						</div>
 					</div> )
