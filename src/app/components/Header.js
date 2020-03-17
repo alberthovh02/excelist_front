@@ -15,9 +15,10 @@ class Header extends React.Component {
 // adding scroll event
 window.addEventListener('scroll', function(){
   // detects new state and compares it with the new one
-  if ((document.body.getBoundingClientRect()).top > scrollPos)
+  if ((document.body.getBoundingClientRect()).top > scrollPos )
 		header.classList = "fadeIn";
 	else
+		if(window.scrollY > 200)
 		header.classList = "fadeOut"
 	// saves the new position for iteration.
 	scrollPos = (document.body.getBoundingClientRect()).top;

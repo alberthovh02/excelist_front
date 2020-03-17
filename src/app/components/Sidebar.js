@@ -18,9 +18,8 @@ class Sidebar extends React.Component {
     const filterVideoblogs = Videoblogs && Videoblogs.length && Videoblogs.slice(0, 3);
     const filterBlogs = Blogs && Blogs.length && Blogs.slice(0, 3);
     const filterCourses = Courses && Courses.length && Courses.slice(0, 3);
-    console.log("3 videoblogs", filterVideoblogs)
     return(
-      <div style={{width: "25%"}}>
+      <div style={{width: "350px"}}>
         <div className="sidebar-item search">
           <p>Որոնել</p>
           <Search
@@ -56,8 +55,10 @@ class Sidebar extends React.Component {
           { filterCourses &&  filterCourses.map((item, key) => {
             return (
               <div key={key} className="sidebar-course">
-              <img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "100%"}}/>
-              <>{item.title}</>
+              <div >
+                <img src={item.imageUrl} alt="image" style={{width: '100%', height: '85px'}}/>
+              </div>
+              <span className="sidebar-title-text">{item.title}</span>
             </div>)
           })}
           </div>
@@ -66,10 +67,12 @@ class Sidebar extends React.Component {
           <p>ԲԼՈԳ</p>
           { filterBlogs && filterBlogs.map((item, key) => {
             return (
-              <div className="sidebar-course">
-                <img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "100%"}}/>
-                  <>{item.title}</>
+              <div key={key} className="sidebar-course">
+              <div >
+                <img src={item.imageUrl} alt="image" style={{width: '100%', height: '85px'}}/>
               </div>
+              <span className="sidebar-title-text">{item.title}</span>
+            </div>
             )
           } )}
         </div>
@@ -78,7 +81,7 @@ class Sidebar extends React.Component {
           { filterVideoblogs && filterVideoblogs.map((item, key) => {
             return (
               <div className="sidebar-course">
-                <img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "100%"}}/>
+                <img src={item.imageUrl} alt="image" style={{height: "85px", width: '85px'}}/>
                   <>{item.title}</>
               </div>
             )

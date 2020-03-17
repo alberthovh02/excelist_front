@@ -4,6 +4,8 @@ import Header from './Header';
 import Footer from "./Footer";
 import Sidebar from './Sidebar';
 import { Helmet } from 'react-helmet';
+import { Container, Row, Col } from 'react-bootstrap';
+
 
 import Request from '../../store/request';
 
@@ -26,30 +28,34 @@ class Lessons extends React.Component {
     const { data } = this.state;
     return(
       <>
-        <Header/>
-          <div className="lessons-container">
-            <div className="lessons-content">
-            <Helmet>
-               <title>{ title }</title>
-             </Helmet>
-              <div className="blog-wrapper">
-              <div className="blog-container">
-                {data.length ? data.map((el, key) => {
-                  return (
-                    <div key={key} className="blog-item">
-                      <img src={`http://excelist-backend.herokuapp.com/${el.imageUrl}`} alt="image" style={{height: "100%"}}/>
-                      <a className="blog-link">{el.title}</a>
-                      <p className="blog-content" dangerouslySetInnerHTML={{__html: el.content.slice(0, 100)}}></p>
-                      <a className="blog-see-more" href={`/course/${el.generatedUrl}`}>Ավելին …</a>
-                    </div>
-                  )
-                }) : "There are no data"}
-                </div>
-              </div>
-            </div>
-            <Sidebar/>
-          </div>
-        <Footer mode="simple"/>
+      <Helmet>
+         <title>{ title }</title>
+       </Helmet>
+        <Header />
+        <div style={{width: '82%', marginLeft: 'auto', marginRight:"auto"}}>
+        <Container fluid>
+        <Row sm={12}>
+          <Col sm={9}>
+            <Row sm={10}>
+          {data.length ? data.map((el, key) => {
+            return (
+              <Col sm={5} key={key} className="course-item" >
+                <img src={el.imageUrl} alt="image" style={{height: "100%", width: '100%'}}/>
+                <a className="blog-link">{el.title}</a>
+                <p className="blog-content" dangerouslySetInnerHTML={{__html: `${el.content.slice(0, 150)} ...`}}></p>
+                <a className="blog-see-more" href={`/course/${el._id}`}>Ավելին</a>
+              </Col>
+            )
+          }) : "There are no data"}
+          </Row>
+          </Col>
+
+          <Col sm={3}><Sidebar/></Col>
+        </Row>
+        </Container>
+        </div>
+        <Footer mode="simple" />
+
       </>
     )
   }

@@ -70,7 +70,7 @@ class Index extends React.Component {
 
 		setInterval(()=> {
 			this.setState({order: this.state.order <= 3 ? this.state.order + 1 : 1})
-		}, 6000)
+		}, 4000)
 	}
 
 	render() {
@@ -88,7 +88,7 @@ class Index extends React.Component {
 				<title>{title}</title>
 			</Helmet>
 				<Header />
-				<div className="introduction">
+				<div className="introduction" style={{marginTop: 155}}>
 
 				<div style={{display: 'flex',flexDirection: 'column', justifyContent: 'center', width: '90%', marginLeft: 'auto'}}>
 				<div className='animated-text'>
@@ -513,7 +513,7 @@ class Index extends React.Component {
 					</div>
 
 					<div className="main_statistics main-page-statistics">
-						<div className="statistic_item">
+						<div className="statistic_item" style={{textAlign: 'center'}}>
 							<i
 								className="fa fa-mortar-board"
 								style={{color: "black", fontSize: "50px"}}
@@ -533,7 +533,7 @@ class Index extends React.Component {
 								})} <span>ՈՒՍԱՆՈՂ</span>
 							</p>
 						</div>
-						<div className="statistic_item">
+						<div className="statistic_item" style={{textAlign: 'center'}}>
 							<i
 								className="fa fa-facebook-square"
 								style={{color: "#3b5998", fontSize: "50px"}}
@@ -552,7 +552,7 @@ class Index extends React.Component {
 						</div>
 
 
-						<div className="statistic_item">
+						<div className="statistic_item" style={{textAlign: 'center'}}>
 							<i
 								className="fa fa-youtube"
 								style={{color: "#e52d27", fontSize: "50px"}}

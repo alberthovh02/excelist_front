@@ -21,15 +21,24 @@
 .sidebar-course {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  img {
-    max-height: 100px
-  }
+  align-items: flex-start;
+  padding-left: 10px;
+  border-left: 1px solid #e5e5e5;
+}
+
+.sidebar-title-text {
+  font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    margin: -4px 0 14px;
+    color: #333;
+    margin-left: 10px;
 }
 
 .sidebar-item {
   margin-bottom: 50px;
   padding-left: 20px;
+  width: 300px;
   p {
     color: #333;
     font-size: 18px;

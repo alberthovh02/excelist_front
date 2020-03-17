@@ -4,6 +4,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Helmet } from 'react-helmet';
 import CountUp from 'react-countup';
+import {default as ImageCarousel , Modal, ModalGateway } from 'react-images';
+
 
 import Request from '../../store/request'
 import { connect } from 'react-redux';
@@ -25,7 +27,7 @@ class AboutUs extends React.Component {
 	}
 
 	render() {
-		const { SingleData, Feedbacks } = this.props;
+		const { SingleData, Feedbacks, Albums } = this.props;
 		const { youtubeSubscribersCount } = this.state;
 		return (
 			<>
@@ -128,12 +130,27 @@ class AboutUs extends React.Component {
 							<span>ԴԻՏՈՒՄ YOUTUBE-ՈՒՄ</span>
 						</div>
 					</div>
-					<h1 className="about_heading">ՄԵՆՔ՝ ԼՈՒՍԱՆԿԱՐՆԵՐՈՎ</h1>
-					<div className="line"></div>
+					<div className=" col-sm-12">
+						<h2 className="albums_heading">
+							ՄԵՆՔ` ԼՈՒՍԱՆԿԱՐՆԵՐՈՎ
+							</h2>
+							<div className="line" style={{marginBottom: 50}}></div>
+						<div className='album-container row' style={{marginBottom: 50}}>
+
+							{ Albums && Albums.map((item, key) => {
+								const images = item.images.map(it => {return {src: it}})
+								 return this.state.albumModal === key && images.length ? <> <ModalGateway>
+	          			<Modal onClose={() => this.setState({albumModal: false})}>
+	            			<ImageCarousel views={images} />
+	          			</Modal>
+	      				</ModalGateway> <div className="col-sm-6" ><p className="album-subheading">{item.name}</p><br/><img src={item.imageUrl} onClick={() => this.setState({albumModal: key})} style={{width: '100%'}}/></div></>
+								: <div className="col-sm-6" ><p className="album-subheading">{item.name}</p><br/><img src={item.imageUrl} onClick={() => this.setState({albumModal: key})} style={{width: '100%'}}/></div>
+							})}
+						</div>
+					</div>
+
 
 					<div className="about_images">
-						<div className="about_images_lessons">ԴԱՍԵՐ</div>
-						<div className="about_images_rest">ԺԱՄԱՆՑ</div>
 						<div className="about_statistics col-sm-12">
 							<div className="statistic_item col-sm-3">
 							<CountUp
@@ -299,7 +316,7 @@ class AboutUs extends React.Component {
 }
 
 const get = state => {
-	return { SingleData: state.SingleData, Feedbacks: state.Feedbacks }
+	return { SingleData: state.SingleData, Feedbacks: state.Feedbacks, Albums: state.Albums }
 }
 
 export default connect(get)(AboutUs);
