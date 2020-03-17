@@ -661,7 +661,7 @@ class Index extends React.Component {
 				const parsedDate = day.concat(month).concat(year).concat(hour).concat(minutes).concat(night);
 				console.log(parsedDate)
 				return (<div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
-				<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+				<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:'center'}}>
 				<h1 className="about_heading main_heading">ԳՐԱՆՑՎԻ՛Ր ՄՈՏԱԿԱ ԴԱՍԸՆԹԱՑԻՆ</h1>
 				<div className="line"></div>
 						<Countdown
@@ -671,9 +671,9 @@ class Index extends React.Component {
 					/><br/>
 					<a className="register-for-lesson"><i className="fa fa-user-plus" style={{color: 'white'}}></i>  ԳՐԱՆՑՎԵԼ</a>
 					</div>
-					<div>
+					<div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
 
-						<img src={data.imageUrl}/>
+						<img src={data.imageUrl} style={{width: '50%'}}/>
 						<p className='lesson-title'>{data.name}</p>
 						</div>
 					</div> )
