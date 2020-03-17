@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import Timer from 'react-compound-timer';
 
 
 class Countdown extends React.Component {
@@ -7,7 +8,8 @@ class Countdown extends React.Component {
 		days: undefined,
 		hours: undefined,
 		minutes: undefined,
-		seconds: undefined
+		seconds: undefined,
+		myDate: null
 	}
 
 	componentDidMount() {
@@ -16,13 +18,13 @@ class Countdown extends React.Component {
 			const then = moment(timeTillDate, timeFormat);
 			const now = moment();
 			const countdown = moment(then - now);
-			console.log("Countdown ", moment().endOf(then).fromNow())
+			console.log("Countdown ", moment(new Date(then)).diff(moment(new Date())))
 			const days = countdown.format('D');
 			const hours = countdown.format('HH');
 			const minutes = countdown.format('mm');
 			const seconds = countdown.format('ss');
-
-			this.setState({ days, hours, minutes, seconds });
+			const myDate = moment(new Date(then)).diff(moment(new Date()))
+			this.setState({ days, hours, minutes, seconds, myDate });
 		}, 1000);
 	}
 
@@ -45,36 +47,38 @@ class Countdown extends React.Component {
 
 		return (
 			<div>
+			<Timer initialTime={this.state.myDate}>
 				<div className='countdown-wrapper'>
 					{days && (
 						<div className='countdown-item'>
-							<SVGCircle radius={daysRadius} />
-							{days}
+							<SVGCircle radius={mapNumber(days, 30, 0, 0, 360)} />
+							<Timer.Days />
 							<span>days</span>
 						</div>
 					)}
 					{hours && (
 						<div className='countdown-item'>
 							<SVGCircle radius={hoursRadius} />
-							{hours}
+							<Timer.Hours />
 							<span>hours</span>
 						</div>
 					)}
 					{minutes && (
 						<div className='countdown-item'>
 							<SVGCircle radius={minutesRadius} />
-							{minutes}
+							<Timer.Minutes />
 							<span>minutes</span>
 						</div>
 					)}
 					{seconds && (
 						<div className='countdown-item'>
 							<SVGCircle radius={secondsRadius} />
-							{seconds}
+							<Timer.Seconds />
 							<span>seconds</span>
 						</div>
 					)}
 				</div>
+				</Timer>
 			</div>
 		);
 	}

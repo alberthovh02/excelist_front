@@ -65,7 +65,9 @@ class Sidebar extends React.Component {
         </div>
         <div className="sidebar-item blog">
           <p>ԲԼՈԳ</p>
+          { console.log('filterblogs', filterBlogs) }
           { filterBlogs && filterBlogs.map((item, key) => {
+            console.log("Blogs", filterBlogs)
             return (
               <div key={key} className="sidebar-course">
               <div >

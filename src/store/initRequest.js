@@ -1,6 +1,6 @@
 import { GET } from './actionCreators';
-import { GET_ALL_LESSONS, GET_ALL_FEEDBACKS, GET_ALL_COURSES, GET_ALL_SINGLE_DATA, GET_ALL_COMMENTS, GET_ALL_VIDEOBLOGS, GET_ALL_ALBUMS } from './actionTypes';
-import { getLessons, getFeedbacks, getCourses, getSingledata, getComments, getVideoblogs, getAlbums } from './api';
+import { GET_ALL_LESSONS, GET_ALL_FEEDBACKS, GET_ALL_COURSES, GET_ALL_SINGLE_DATA, GET_ALL_COMMENTS, GET_ALL_VIDEOBLOGS, GET_ALL_ALBUMS,GET_ALL_BLOGS } from './actionTypes';
+import { getLessons, getFeedbacks, getCourses, getSingledata, getComments, getVideoblogs, getAlbums, getBlogs } from './api';
 
 // get initial data
 export const InitRequest = async dispatch => {
@@ -13,6 +13,7 @@ export const InitRequest = async dispatch => {
     await dispatch(GET(getComments, GET_ALL_COMMENTS));
     await dispatch(GET(getVideoblogs, GET_ALL_VIDEOBLOGS));
     await dispatch(GET(getAlbums, GET_ALL_ALBUMS))
+    await dispatch(GET(getBlogs, GET_ALL_BLOGS))
   } catch (err) {
     console.error(err);
   }

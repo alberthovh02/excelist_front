@@ -17,6 +17,9 @@ import Request from '../../store/request'
 import Countdown from '../functions/countDown';
 import Fade from 'react-reveal/Fade';
 
+import {default as FeedbackCarousel} from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
 // import createBrowserHistory from "history";
 
 //app routes
@@ -56,7 +59,8 @@ class Index extends React.Component {
 		this.state = {
 			data: [],
 			youtubeSubscribersCount: null,
-			order: 1
+			order: 1,
+			currentSlide: 1
 		}
 	}
 	componentDidMount(){
@@ -81,6 +85,25 @@ class Index extends React.Component {
 			border: 0,
 			overflow: "hidden"
 		};
+		const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 5,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 		const { Lessons, Feedbacks, Albums } = this.props;
 		return (
 			<>
@@ -629,12 +652,13 @@ class Index extends React.Component {
 			{Lessons && Lessons.length && Lessons.map((data, key) => {
 				console.log(new Date(data.date).toLocaleString());
 				const localDate = new Date(data.date).toLocaleString();
-				const day = `0${localDate.split('/')[0]} `;
+				const day = `${localDate.split('/')[0]} `;
 				const month = `${localDate.split('/')[1]} `;
 				const year = `${localDate.split('/')[2].split(',')[0]},`;
 				const hour = `${localDate.split(',')[1].split(':')[0]}:`;
-				const minutes = `${localDate.split(':')[1]} pm`;
-				const parsedDate = day.concat(month).concat(year).concat(hour).concat(minutes);
+				const minutes = `${localDate.split(':')[1]}`;
+				const night = ` ${localDate.split(", ")[1].split(" ")[1]}`
+				const parsedDate = day.concat(month).concat(year).concat(hour).concat(minutes).concat(night);
 				console.log(parsedDate)
 				return (<div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
 				<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -700,18 +724,19 @@ class Index extends React.Component {
 						</div>
 					</div>
 
-					<div>
-
-						{
-							Feedbacks && Feedbacks.length && Feedbacks.map((item, key) => {
-								return <div key={key}>
+					<div style={{width: "50%", marginLeft: 'auto', marginRight: 'auto'}}>
+					<h1 className="about_heading main_heading">ԿԱՐԾԻՔՆԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ</h1>
+					<div className="line"></div>
+					{ Feedbacks && <FeedbackCarousel infinite={true} responsive={responsive} afterChange={(previousSlide, { currentSlide, onMove }) => {this.setState({currentSlide})}}>
+						 {Feedbacks.length && Feedbacks.map((item, key) => {
+								return <div key={key} className="feedback-item">
 									<img src={item.imageUrl}/>
-									<a href={item.link}><p>{item.username}</p></a>
-									<p>{item.comment}</p>
+									{this.state.currentSlide-1 === key+3 ?<><a href={item.link} className='feedback-name'><p>{item.username}</p></a>
+									<p>{item.comment}</p></> : null}
 								</div>
 							})
 						}
-
+					</FeedbackCarousel> }
 					</div>
 
 					<div className="intro_partners">

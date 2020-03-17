@@ -21,6 +21,7 @@
     "react-animations": "^1.0.0",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-bootstrap-image-cropper": "^0.3.0",
+    "react-compound-timer": "^1.1.15",
     "react-countdown-circle-timer": "^1.0.6",
     "react-countdown-now": "^2.1.2",
     "react-countup": "^4.3.3",

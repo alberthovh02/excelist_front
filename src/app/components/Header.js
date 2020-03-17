@@ -37,7 +37,7 @@ window.addEventListener('scroll', function(){
 	}
 
 	render() {
-    const menu = (<Menu>
+    const menu = (<Menu >
       <Menu.Item>
         <a href="#">«ԽՈՐԱՑՎԱԾ MS EXCEL» ԴԱՍԸՆԹԱՑ</a>
       </Menu.Item>
@@ -90,6 +90,7 @@ window.addEventListener('scroll', function(){
       <Menu.Item>
         <a href="#">«ԽՈՐԱՑՎԱԾ MS ACCESS» ԴԱՍԸՆԹԱՑ</a>
       </Menu.Item>
+
     </Menu>)
 
     const videoMenu = (<Menu>
@@ -172,7 +173,7 @@ window.addEventListener('scroll', function(){
 								<NavLink to="/about">ՄԵՐ ՄԱՍԻՆ</NavLink>
 							</li>
               <li className="nav-item" onClick={() => window.location = "/lessons"}>
-              <Dropdown overlay={menu} >
+              <Dropdown overlay={menu} overlayClassName="navbar-lessons">
               <NavLink
                 to="/lessons"
                 className="ant-dropdown-link"
