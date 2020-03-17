@@ -18,7 +18,7 @@ window.addEventListener('scroll', function(){
   if ((document.body.getBoundingClientRect()).top > scrollPos )
 		header.classList = "fadeIn";
 	else
-		if(window.scrollY > 200)
+		if(window.scrollY > 155)
 		header.classList = "fadeOut"
 	// saves the new position for iteration.
 	scrollPos = (document.body.getBoundingClientRect()).top;

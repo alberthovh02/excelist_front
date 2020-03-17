@@ -27,7 +27,7 @@ header {
 }
 
 .fadeIn {
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     transition-property: all;
@@ -38,7 +38,7 @@ header {
 }
 
 .fadeOut {
-  position: fixed;
+  position: sticky;
   top: 0;
 transform: translate(0,-100%);
   width: 100%;

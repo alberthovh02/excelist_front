@@ -87,8 +87,8 @@ class Index extends React.Component {
 			<Helmet>
 				<title>{title}</title>
 			</Helmet>
-				<Header />
-				<div className="introduction" style={{marginTop: 155}}>
+				<Header/>
+				<div className="introduction">
 
 				<div style={{display: 'flex',flexDirection: 'column', justifyContent: 'center', width: '90%', marginLeft: 'auto'}}>
 				<div className='animated-text'>
