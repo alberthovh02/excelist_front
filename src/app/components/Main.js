@@ -213,7 +213,7 @@ class Index extends React.Component {
 						</div>
 					</div>
 					<div className="get_files">
-						<NavLink to="/course">
+						<NavLink to="/lessons">
 							<button className="get_files_button">
 								<i className="fa fa-chevron-circle-down" aria-hidden="true"></i> Այլ
 								դասընթացներ{" "}

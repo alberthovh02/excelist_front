@@ -58,7 +58,7 @@ class Videos extends React.Component{
         {data.length ? data.map((el, key) => {
           return (
             <div key={key} className="blog-item">
-              <img src={`http://excelist-backend.herokuapp.com/${el.imageUrl}`} alt="image" style={{height: "100%"}} className='blog-image-config'/>
+              <img src={el.imageUrl} alt="image" style={{height: "100%"}} className='blog-image-config'/>
               <a className="blog-link">{el.title}</a>
               <p className="blog-text">Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։ Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ...</p>
               <a className="blog-see-more" href={`/videoblogpost/${el.generatedUrl}`}>Ավելին …</a>
