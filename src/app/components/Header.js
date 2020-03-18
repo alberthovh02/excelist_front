@@ -153,6 +153,7 @@ window.addEventListener('scroll', function(){
 						</a>
 					</div>
 				</div>
+				<div className="pos-f-l">
 				<nav className="navbar navbar-expand-lg navbar-light header_links web_links">
 					<NavLink to="/">
 						<img
@@ -164,8 +165,8 @@ window.addEventListener('scroll', function(){
 					</NavLink>
 
 					<div
-						className="collapse navbar-collapse"
-						id="navbarTogglerDemo03 navContent"
+						className="navbar-collapse collapse"
+						id="navbarTogglerDemo03"
 					>
 					<span id="hover-line"></span>
 						<ul className="navbar-nav mr-auto mt-2 mt-lg-0 myNav">
@@ -222,6 +223,7 @@ window.addEventListener('scroll', function(){
 						<span className="navbar-toggler-icon"></span>
 					</button>
 				</nav>
+				</div>
 			</header>
 		);
 	}
