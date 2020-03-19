@@ -51,40 +51,40 @@ class Sidebar extends React.Component {
         </div>
         <div className="sidebar-item lessons">
           <p>ԴԱՍԸՆԹԱՑՆԵՐ</p>
-          <div className="lessons-container">
+          <div className="lessons-container col-sm-12">
           { filterCourses &&  filterCourses.map((item, key) => {
             return (
-              <div key={key} className="sidebar-course">
-              <div >
-                <img src={item.imageUrl} alt="image" style={{width: '100%', height: '85px'}}/>
+              <div key={key} className="sidebar-course col-sm-12" style={{width: '100%', height: '85px'}}>
+              <div className="col-sm-6">
+                <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
               </div>
-              <span className="sidebar-title-text">{item.title}</span>
+              <span className="sidebar-title-text col-sm-6">{item.title}</span>
             </div>)
           })}
           </div>
         </div>
-        <div className="sidebar-item blog">
+        <div className="sidebar-item blog col-sm-12">
           <p>ԲԼՈԳ</p>
-          { console.log('filterblogs', filterBlogs) }
           { filterBlogs && filterBlogs.map((item, key) => {
-            console.log("Blogs", filterBlogs)
             return (
-              <div key={key} className="sidebar-course">
-              <div >
-                <img src={item.imageUrl} alt="image" style={{width: '100%', height: '85px'}}/>
+              <div key={key} className="sidebar-course col-sm-12" style={{width: '100%', height: '85px'}}>
+              <div className="col-sm-6">
+                <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
               </div>
-              <span className="sidebar-title-text">{item.title}</span>
+              <span className="sidebar-title-text col-sm-6">{item.title}</span>
             </div>
             )
           } )}
         </div>
-        <div className="sidebar-item viedoblog">
+        <div className="sidebar-item viedoblog col-sm-12">
           <p>ՎԻԴԵՈԲԼՈԳ</p>
           { filterVideoblogs && filterVideoblogs.map((item, key) => {
             return (
-              <div className="sidebar-course">
-                <img src={item.imageUrl} alt="image" style={{height: "85px", width: '85px'}}/>
-                  <>{item.title}</>
+              <div className="sidebar-course col-sm-12" style={{width: '100%', height: '85px'}}>
+              <div className="col-sm-6">
+                <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
+                </div>
+                <span className="sidebar-title-text col-sm-6">{item.title}</span>
               </div>
             )
           } )}
