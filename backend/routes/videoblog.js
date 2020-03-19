@@ -52,23 +52,27 @@ router.post("/create",  verifyToken ,upload.any(), function(req, res, next){
 
   jwt.verify(req.token, 'mysecretkey', async(err, authData) => {
     if(!err){
-
-      const resp = await cloudinary.uploader.upload(req.files[0].path,{ public_id: "sample_spreadsheet.xlsx",resource_type: "auto" }, function(error, result){
-        if(error){
-          return error
-        }
-        return result
-      })
-
-      const respFile = await cloudinary.uploader.upload(req.files[1].path, function(error, result){
-        if(error){
-          return error
-        }
-        return result
-      })
-
-      const { language, title, video_link } = req.body;
+    const { language, title, video_link } = req.body;
       const generatedUrl = `${title.trim()}_${language}`;
+      console.log(req.files[1])
+      const resp = await cloudinary.uploader.upload(req.files[0].path, function(error, result){
+        if(error){
+          return error
+        }
+        return result
+      })
+      if(req.files[1]){
+        var respFile = await cloudinary.uploader.upload(req.files[1].path, { public_id: req.files[1].originalname,resource_type: "auto" }, function(error, result){
+          if(error){
+            return error
+          }
+          return result
+        })
+      }
+
+
+
+
       console.log("GENERATED URL", generatedUrl);
       if (!language || !title || !video_link) {
         console.log("Error when getting data fields are empty")
@@ -80,8 +84,8 @@ router.post("/create",  verifyToken ,upload.any(), function(req, res, next){
             language,
             title,
             video_link,
-            file_link: resp.url,
-            imageUrl: respFile.url,
+            file_link: respFile.url,
+            imageUrl: resp.url,
             generatedUrl
           }
         }else {
@@ -89,7 +93,7 @@ router.post("/create",  verifyToken ,upload.any(), function(req, res, next){
             language,
             title,
             video_link,
-            imageUrl: respFile.url,
+            imageUrl: resp.url,
             generatedUrl
           }
         }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import ReactPaginate from 'react-paginate';
+import { Container, Row, Col } from 'react-bootstrap';
+
 
 import Header from './Header';
 import Footer from "./Footer";
@@ -53,41 +55,30 @@ class Videos extends React.Component{
       <title>{ title  }</title>
      </Helmet>
       <Header/>
-      <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-      <div className="blog-container">
-        {data.length ? data.map((el, key) => {
-          return (
-            <div key={key} className="blog-item">
-              <img src={el.imageUrl} alt="image" style={{height: "100%"}} className='blog-image-config'/>
-              <a className="blog-link">{el.title}</a>
-              <p className="blog-text">Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։ Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ...</p>
-              <a className="blog-see-more" href={`/videoblogpost/${el.generatedUrl}`}>Ավելին …</a>
-            </div>
-          )
-        }) : null}
-        <ReactPaginate
-          previousLabel={'<<'}
-          nextLabel={'>>'}
-          breakLabel={'...'}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={this.handlePageClick}
-          subContainerClassName={'pages pagination'}
 
-          breakClassName={'page-item'}
-breakLinkClassName={'page-link'}
-containerClassName={'pagination'}
-pageClassName={'page-item'}
-pageLinkClassName={'page-link'}
-previousClassName={'page-item'}
-previousLinkClassName={'page-link'}
-nextClassName={'page-item'}
-nextLinkClassName={'page-link'}
-activeClassName={'active'}
-        />
-        </div>
-        <Sidebar/>
+
+        <div  style={{width: '82%', marginLeft: 'auto', marginRight: 'auto'}}>
+        <Container  fluid>
+          <Row>
+            <Col sm={9}>
+            <Row sm={12}>
+            {data.length ? data.map((el, key) => {
+              return (
+                <Col sm={4} key={key} className="blog-item" style={{minWidth: 250, marginBottom: 40}}>
+                  <img src={el.imageUrl} alt="image" style={{height: "100%", width: '90%'}}/>
+                  <a className="blog-link">{el.title}</a>
+                  <p className="blog-content" >Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։ Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ...</p>
+                  <a className="blog-see-more" href={`/videoblogpost/${el.generatedUrl}`}>Ավելին …</a>
+                </Col>
+              )
+            }) : "There are no data"}
+            </Row>
+            </Col>
+            <Col sm={3}><Sidebar /></Col>
+          </Row>
+
+
+        </Container>
         </div>
       <Footer mode="simple"/>
      </div>
