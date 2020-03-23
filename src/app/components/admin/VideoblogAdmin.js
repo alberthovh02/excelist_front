@@ -125,7 +125,7 @@ class VideoBlogAdmin extends React.Component {
 					<Panel header="View videoblogs">
 						{Videoblogs && Videoblogs.map((item, key) => {
 							return <div key={key} className="videoblog-admin">
-								<img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "8%", width: "8%"}}/>
+								<img src={item.imageUrl} alt="image" style={{height: "8%", width: "8%"}}/>
 								<b>{item.title}</b>
 								<i>{item.language}</i>
 								<div>

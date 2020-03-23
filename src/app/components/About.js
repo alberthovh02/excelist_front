@@ -5,6 +5,8 @@ import Footer from "./Footer";
 import { Helmet } from 'react-helmet';
 import CountUp from 'react-countup';
 import {default as ImageCarousel , Modal, ModalGateway } from 'react-images';
+import {default as FeedbackCarousel} from 'react-multi-carousel';
+
 
 
 import Request from '../../store/request'
@@ -29,6 +31,26 @@ class AboutUs extends React.Component {
 	render() {
 		const { SingleData, Feedbacks, Albums } = this.props;
 		const { youtubeSubscribersCount } = this.state;
+		const responsive = {
+			superLargeDesktop: {
+			  // the naming can be any, depends on you.
+			  breakpoint: { max: 4000, min: 3000 },
+			  items: 5,
+			},
+			desktop: {
+			  breakpoint: { max: 3000, min: 1024 },
+			  items: 5,
+			},
+			tablet: {
+			  breakpoint: { max: 1024, min: 464 },
+			  items: 2,
+			},
+			mobile: {
+			  breakpoint: { max: 464, min: 0 },
+			  items: 1,
+			},
+		  };
+				  
 		return (
 			<>
 			<Helmet>
@@ -295,20 +317,21 @@ class AboutUs extends React.Component {
 						</div>
 
 						<div className="staff_images"></div>
-						<h1 className="about_heading">ԿԱՐԾԻՔՆԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ</h1>
-						<div className="line"></div>
-						<div className="users_feedbacks">
-							{ Feedbacks && Feedbacks.length && Feedbacks.map((item, key) => {
-								return (
-									<div className="single-feedback">
-										<img src={item.imageUrl}/>
-										<a href={item.link} target="_blank">{item.username}</a>
-										<p>{item.comment}</p>
-									</div>
-								)
-
-							})}
-						</div>
+						
+						<div style={{width: "50%", marginLeft: 'auto', marginRight: 'auto'}}>
+					<h1 className="about_heading main_heading">ԿԱՐԾԻՔՆԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ</h1>
+					<div className="line"></div>
+					{ Feedbacks && <FeedbackCarousel infinite={true} responsive={responsive} afterChange={(previousSlide, { currentSlide, onMove }) => {this.setState({currentSlide})}}>
+						 {Feedbacks.length && Feedbacks.map((item, key) => {
+								return <div key={key} className="feedback-item" style={{maxWidth: 200}}>
+									<img src={item.imageUrl}/>
+									{<><a href={item.link} className='feedback-name'><p>{item.username}</p></a>
+									<p>{item.comment}</p></> }
+								</div>
+							})
+						}
+					</FeedbackCarousel> }
+					</div>
 					</div>
 				</div>
 				<Footer mode="simple" />

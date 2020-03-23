@@ -4,7 +4,7 @@ import { Input, Upload, Icon, Modal, Button, message, Collapse, Card } from 'ant
 import { ImageCropper, HiddenCropper } from "react-bootstrap-image-cropper";
 //redux
 import { connect } from 'react-redux';
-import { actionCreator, POST, DELETE, PUT } from '../../../store/actionCreators';
+import { actionCreator, POST, DELETE, PUT, ActionCreator } from '../../../store/actionCreators';
 import { createAlbum, updateAlbum, deleteAlbum } from '../../../store/api';
 import { CREATE_ALBUM, UPDATE_ALBUM, DELETE_ALBUM, GET_ALBUMS, ADD_ALBUM_IMAGE } from '../../../store/actionTypes';
 
@@ -37,6 +37,7 @@ class Images extends React.Component{
       message.error("Something went wrong")
     }else{
       message.success("Album created")
+      await dispatch(ActionCreator(CREATE_ALBUM, response.data));
     }
 
     console.log(this.state.fileList)
@@ -50,6 +51,29 @@ class Images extends React.Component{
   handleCrop = (crop) => {
     console.log(crop)
     this.setState({fileList: crop})
+  }
+
+  deleteGallery = async(item) => {
+    console.log('OOOO', item._id)
+    const { dispatch } = this.props;
+		const response = await dispatch(DELETE(deleteAlbum(item._id)));
+		if (response.code === 200) {
+			message.success("Ալբոմը հաջողությամբ ջնջվել է");
+			await dispatch(ActionCreator(DELETE_ALBUM, response.data));
+		} else {
+			message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
+		}
+  }
+
+  addImage = async(item) => {
+    console.log("VVVV", item._id);
+    // const response = await dispatch(POST(createAlbum, data, true));
+    // if(response.code !== 200){
+    //   message.error("Something went wrong")
+    // }else{
+    //   message.success("Album created")
+    //   await dispatch(ActionCreator(CREATE_ALBUM, response.data));
+    // }
   }
 
   render(){
@@ -70,8 +94,8 @@ class Images extends React.Component{
               }
           actions={[
             <Icon type="edit"/>,
-            <Icon type="delete"/>,
-            <Icon type="file"/>
+            <Icon type="delete" onClick={() => this.deleteGallery(item)}/>,
+            <Icon type="file" onClick={() => this.addImage(item)}/>
           ]}
             >
             <Meta

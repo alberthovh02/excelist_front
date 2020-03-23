@@ -23,7 +23,7 @@ class Blog extends React.Component {
 
 	render() {
 		const { Blogs } = this.props;
-		// if(!this.state.slicedBlogs && Blogs) this.setState({ slicedBlogs: Blogs.slice(0, 12)})
+		if(Blogs && !this.state.slicedBlogs.length) this.setState({ slicedBlogs: Blogs.slice(0, 12)})
 		const { slicedBlogs } = this.state;
 		console.log("SLCED", slicedBlogs)
 		return (
@@ -34,12 +34,12 @@ class Blog extends React.Component {
 				<Header />
 				<div  style={{width: '82%', marginLeft: 'auto', marginRight: 'auto'}}>
 				<Container  fluid>
-					<Row>
+					<Row style={{height: '100%'}}>
 						<Col sm={9}>
 						<Row sm={12}>
-						{Blogs && Blogs.length ? Blogs.map((el, key) => {
+						{slicedBlogs && slicedBlogs.length ? slicedBlogs.map((el, key) => {
 		          return (
-		            <Col sm={4} key={key} className="blog-item" >
+		            <Col sm={4} key={key} className="blog-item" style={{height: '100%'}}>
 		              <a href={`/blogpost/${el.generatedUrl}`}><img src={el.imageUrl} alt="image" style={{height: "100%", width: '90%'}}/></a>
 		              <a className="blog-link" href={`/blogpost/${el.generatedUrl}`}>{el.title}</a>
 									<p className="blog-content" dangerouslySetInnerHTML={{__html: `${el.content.slice(0, 150)} ...`}}></p>
@@ -48,12 +48,14 @@ class Blog extends React.Component {
 		          )
 		        }) : <div style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}><Spin size='large'/></div>}
 						</Row>
+						{slicedBlogs && slicedBlogs.length && <Pagination defaultCurrent={1} total={Blogs && Blogs.length} pageSize={12} onChange={(page, size) => {this.setState( { slicedBlogs: Blogs.slice((page-1)*12,page*size) } ); window.scrollTo({top: 0, behavior: 'smooth'})}}/> }
+
 						</Col>
 						<Col sm={3}><Sidebar /></Col>
 					</Row>
+					
 					</Container>
 					</div>
-			{/* {Blogs && Blogs.length && <Pagination defaultCurrent={1} total={Blogs && Blogs.length} pageSize={12} onChange={(page, size) => this.setState( { slicedBlogs: Blogs.slice(page*12,page*size) } ) }/> } */}
 				
 				
 				<Footer mode="simple" />

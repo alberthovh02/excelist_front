@@ -278,7 +278,7 @@ body {
   font-weight: 700;
   padding: 15px 0;
   text-transform: uppercase;
-  margin: 0 0 60px;
+  margin: 0 0 20px;
   font-size: 18px;
   position: relative;
   line-height: 30px;
@@ -304,6 +304,18 @@ body {
   line-height: 50px;
   font-weight: 700;
   color: rgb(33, 113, 66);
+}
+
+.interested-link {
+  color: #217c41 !important;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+.interested-wrapped div {
+  width: 90%;
 }
 
 .slider-reg {

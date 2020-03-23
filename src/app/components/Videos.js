@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import ReactPaginate from 'react-paginate';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Spin } from 'antd'
+import { Spin, Pagination } from 'antd'
 
 import Header from './Header';
 import Footer from "./Footer";
@@ -16,7 +16,8 @@ class Videos extends React.Component{
       data: [],
       language: null,
       title: null,
-      limit: 12
+      limit: 12,
+      slicedVideoblogs: []
     }
   }
   componentDidMount(){
@@ -29,15 +30,12 @@ class Videos extends React.Component{
 			.catch(e => console.log(e));
   }
 
-  handlePageClick = (data) => {
-    let selected = data.selected;
-  let offset = Math.ceil(selected * this.state.limit);
-  this.setState({offset})
-  }
  render(){
    const { data, language } = this.state;
-   const pageCount = Math.ceil(data.length / this.state.limit);
-   console.log("Count ", pageCount)
+   if(data && data.length && !this.state.slicedVideoblogs.length){
+     this.setState({ slicedVideoblogs: data.slice(0, 12)})
+   }
+   const { slicedVideoblogs } = this.state;
    let title = null;
    switch (language) {
      case 'arm':
@@ -62,7 +60,7 @@ class Videos extends React.Component{
           <Row>
             <Col sm={9}>
             <Row sm={12}>
-            {data.length ? data.map((el, key) => {
+            {slicedVideoblogs.length ? slicedVideoblogs.map((el, key) => {
               return (
                 <Col sm={4} key={key} className="blog-item" style={{minWidth: 250, marginBottom: 40}}>
                   <a href={`/videoblogpost/${el.generatedUrl}`}><img src={el.imageUrl} alt="image" style={{height: "100%", width: '90%'}}/></a>
@@ -73,8 +71,11 @@ class Videos extends React.Component{
               )
             }) : <div style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}><Spin size='large'/></div>}
             </Row>
+            {slicedVideoblogs && slicedVideoblogs.length && <Pagination defaultCurrent={1} total={data && data.length} pageSize={12} onChange={(page, size) => {this.setState( { slicedVideoblogs: data.slice((page-1)*12,page*size) } ); window.scrollTo({top: 0, behavior: 'smooth'})}}/> }
+
             </Col>
             <Col sm={3}><Sidebar /></Col>
+
           </Row>
 
 

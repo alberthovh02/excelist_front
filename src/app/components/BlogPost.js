@@ -6,6 +6,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import Comments from './Comments';
+import Interested from './Interested'
 
 class BlogPost extends React.Component {
   constructor(props){
@@ -39,6 +40,7 @@ class BlogPost extends React.Component {
                   <div className="singleblog-content" dangerouslySetInnerHTML={{__html: data.content}}></div>
                 </div>
               }
+                <Interested parent='Blogs'/>
 
               {data._id && <Comments parentId={ data._id } parentType='blog'/>}
           </div>

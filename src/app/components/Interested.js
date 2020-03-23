@@ -9,12 +9,24 @@ class Interested extends React.Component {
         const { Blogs, Videoblogs, Courses, parent} = this.props
         return(
             <div className="interested-wrapped" >
-                <h3 className="interested">ՁԵԶ ԿՀԵՏԱՔՐՔՐԻ ՆԱԵՎ…</h3><br/>
+                <h3 className="interested">ՁԵԶ ԿՀԵՏԱՔՐՔՐԻ ՆԱԵՎ…</h3>
                 <div style={{ display:'flex', justifyContent: 'space-between'}}>
                     {parent && parent === 'Videoblogs' && Videoblogs && Videoblogs.slice(0,3).map((item, key) => {
                         return <div style={{marginBottom: 40, width: 200}}>
                             <a href="#"><img src={item.imageUrl} style={{width: '100%'}}/></a>
-                            <p>{item.title}</p>
+                            <a  href={item.generatedUrl}><p className="interested-link">{item.title}</p></a>
+                        </div>
+                    })}
+                    {parent && parent === 'Blogs' && Blogs && Blogs.slice(0,3).map((item, key) => {
+                        return <div style={{marginBottom: 40, width: 200}}>
+                            <a href="#"><img src={item.imageUrl} style={{width: '100%'}}/></a>
+                            <a  href={item.generatedUrl}><p className="interested-link">{item.title}</p></a>
+                        </div>
+                    })}
+                    {parent && parent === 'Courses' && Courses && Courses.slice(0,3).map((item, key) => {
+                        return <div style={{marginBottom: 40, width: 200}}>
+                            <a href="#"><img src={item.imageUrl} style={{width: '100%'}}/></a>
+                            <a  href={item.generatedUrl}><p className="interested-link">{item.title}</p></a>
                         </div>
                     })}
                 </div>

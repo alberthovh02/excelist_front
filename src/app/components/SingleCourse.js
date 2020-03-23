@@ -8,6 +8,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import Comments from './Comments';
+import Interested from './Interested'
 
 class SingleCourse extends React.Component {
   constructor(){
@@ -126,6 +127,8 @@ class SingleCourse extends React.Component {
 								</a>
 								</div>
 						</div>
+						<Interested parent='Courses'/>
+
                   {course && course[0]._id && <Comments parentId={ course[0]._id } parentType='course'/>}
               </div>
                 <div className="col-sm-2">
