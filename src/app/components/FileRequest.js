@@ -50,14 +50,16 @@ class FileRequest extends React.Component{
         <Helmet>
           <title>ՖԱՅԼԻ ՍՏԱՑՄԱՆ ՀԱՅՏ</title>
         </Helmet>
-          <div className="filerequest-container">
+          <div className="filerequest-container col-sm-10">
             <Form>
               <Input placeholder="Անուն և ազգանուն / Имя и фамилия" name="name" onChange={ this.handleInput }/>
               <Input placeholder="Ձեր մասնագիտությունը / Ваша профессия" name="profecion" onChange={ this.handleInput }/>
               <Input placeholder="Ձեր e-mail-ը / Ваш e-mail" name="email" onChange={ this.handleInput }/>
               <Button type='primary' onClick={ this.sendRequest }>Ուղարկել</Button>
             </Form>
+            <div className="col-sm-2">
             <Sidebar/>
+            </div>
           </div>
         <Footer mode="simple" />
       </div>

@@ -40,8 +40,9 @@ class AdminCourse extends React.Component {
 		super(props);
 		this.state = {
 			text: "",
-      image: null,
-      text: ''
+      		image: null,
+			text: '',
+			caption: null  
 		};
 	}
 
@@ -61,11 +62,12 @@ class AdminCourse extends React.Component {
 	handleSubmit = async(event) => {
     event.preventDefault();
 		const { dispatch } = this.props;
-		const {title, image, text} = this.state;
+		const {title, image, text, caption } = this.state;
 		const data = new FormData();
 		data.append("image", image);
 		data.append("content", text);
 		data.append("title", title);
+		data.append('caption', caption);
 		const response = await dispatch(POST(createCourse, data, true));
 
 		if (response.code === 200) {
@@ -93,16 +95,22 @@ class AdminCourse extends React.Component {
 		}
 	};
 
+	onInnerImageUpload = async info => {
+		if(info.file.status === 'uploading'){
+			this.setState({caption: info.file.originFileObj})
+		}
+	}
+
 	render() {
 		const {getFieldDecorator} = this.props.form;
 		const { Courses } = this.props;
 		return (
 			<div>
 			<Collapse accordion>
-				<Panel header="View courses">
+				<Panel header="Բոլոր դասընթացները">
 					{Courses && Courses.map((item, key) => {
 						return <div key={key} className="videoblog-admin">
-							<img src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`} alt="image" style={{height: "8%", width: "8%"}}/>
+							<img src={item.imageUrl} alt="image" style={{height: "8%", width: "8%"}}/>
 							<b>{item.title}</b>
 							<i>{item.language}</i>
 							<div>
@@ -117,9 +125,9 @@ class AdminCourse extends React.Component {
 					labelCol={{span: 4}}
 					className="admin-course-form"
 				>
-					<Form.Item label="Choose photo">
+					<Form.Item>
 						{getFieldDecorator("photos")}
-							<Upload
+							<p>Ընտրեք մենյուի նկար: </p><Upload
 								onChange={this.onImageUpload}
 								multiple={false}
 								showUploadList={false}
@@ -130,13 +138,30 @@ class AdminCourse extends React.Component {
 								}
 							>
 								<Button>
-									<Icon type="upload" /> Click to Upload
+									<Icon type="upload" /> Ընտրել
+								</Button>
+							</Upload>
+					</Form.Item>
+					<Form.Item>
+						{getFieldDecorator("innerImage")}
+						<p>Ընտրեք գլխամասային նկար: </p><Upload
+								onChange={this.onInnerImageUpload}
+								multiple={false}
+								showUploadList={false}
+								customRequest={() =>
+									setTimeout(() => {
+										console.log("ok");
+									}, 0)
+								}
+							>
+								<Button>
+									<Icon type="upload" /> Ընտրել
 								</Button>
 							</Upload>
 					</Form.Item>
 					<Form.Item>
 						<Input
-							placeholder="Enter title"
+							placeholder="Ներմուծեք վերնագիրը"
 							name="title"
 							onChange={this.handleInput}
 						/>
@@ -154,7 +179,7 @@ class AdminCourse extends React.Component {
 						</div>
 					</Form.Item>
 					<Button type="primary" onClick={e => this.handleSubmit(e)}>
-						Submit
+						Ավելացնել
 					</Button>
 				</Form>
 			</div>

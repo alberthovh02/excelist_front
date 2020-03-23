@@ -2,7 +2,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import Header from './Header';
-import Footer from "./Footer"
+import Footer from "./Footer";
+import Sidebar from './Sidebar';
 
 const title = "ՎԻԴԵՈԲԼՈԳ | Excelist"
 
@@ -14,29 +15,32 @@ class Videoblog extends React.Component{
         <title>{ title }</title>
       </Helmet>
       <Header/>
-      <div className="intro_videoblog" style={{marginTop: "20px"}}>
-        <div className="videblog_desc">
-          <div className="single_videblog">
-            <img src={require("../../assets/images/intro/arm.png")} alt="Armenian videos"/>
-            <p>Հայերեն վիդեոներ</p>
+      <div className="intro_videoblog col-sm-12" style={{marginTop: "20px", width:'85%',display:'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
+        <div className="videblog_desc col-sm-10">
+          <div className="single_videblog" >
+            <a href="/videos?lang=arm"><img src={require("../../assets/images/intro/arm.png")} alt="Armenian videos"/></a>
+            <a href="/videos?lang=arm"><h4 className="single-title">Հայերեն վիդեոներ</h4></a>
             <a className="intro_videoblog_see_more" href="/videos?lang=arm" target="_blank">
               Տեսնել ավելին․․․
             </a>
           </div>
           <div className="single_videoblog">
-            <img src={require("../../assets/images/intro/rus.png")} alt="Russian videos"/>
-            <p>Русскоязычные видео</p>
+            <a href="/videos?lang=rus"><img src={require("../../assets/images/intro/rus.png")} alt="Russian videos"/></a>
+            <a href="/videos?lang=rus"><h4 className="single-title">Русскоязычные видео</h4></a>
             <a className="intro_videoblog_see_more" href="/videos?lang=rus" target="_blank">
               Տեսնել ավելին․․․
             </a>
           </div>
           <div className="single_videoblog">
-            <img src={require("../../assets/images/intro/en.png")} alt="English videos"/>
-            <p>English videos</p>
+            <a href="/videos?lang=eng"><img src={require("../../assets/images/intro/en.png")} alt="English videos"/></a>
+            <a href="/videos?lang=eng"><h4 className="single-title">English videos</h4></a>
             <a className="intro_videoblog_see_more" href="/videos?lang=eng" target="_blank">
               Տեսնել ավելին․․․
             </a>
           </div>
+        </div>
+        <div className='col-sm-2'>
+            <Sidebar/>
         </div>
       </div>
       <Footer mode="simple"/>

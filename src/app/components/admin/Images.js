@@ -84,9 +84,10 @@ class Images extends React.Component{
         <Input placeholder="Enter album name" name="name" onChange={ this.handleInput }/><br/>
         <ImageCropper
           onChange={this.handleCrop}
-          cropOptions={{ aspect: 4 / 3, maxZoom: 10 }}
-          outputOptions={{ maxWidth: 400, maxHeight: 300 }}
-          previewOptions={{ width: 400, height: 300 }}
+          cropOptions={{ width: 450, height: 450 }}
+          outputOptions={{ maxWidth: 600, maxHeight: 600 }}
+          previewOptions={{ width: 600, height: 600 }}
+          style={{width: '600px', height: '600px'}}
         /><br/>
         <Button onClick={ this.handleSubmit }>Add album</Button>
       </div>

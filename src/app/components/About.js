@@ -284,6 +284,8 @@ class AboutUs extends React.Component {
 									<p className="member_name">
 										<a href="#" target="_blank" className="innerTexts">
 											<a href="https://web.facebook.com/arman.harutyunyan.y" target="_blank"><i className="fa fa-facebook"></i></a>
+											<a href="https://www.linkedin.com/in/arman-harutyunyan-439ba8151/" target="_blank"><i className="fa fa-linkedin"></i></a>
+
 										</a>
 									</p>
 									<p className="name-title">ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ</p>

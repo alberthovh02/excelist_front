@@ -15,6 +15,7 @@ import Qualification from '../app/components/Qualification';
 import BlogPost from '../app/components/BlogPost';
 import FileRequest from '../app/components/FileRequest';
 import SingleCourse from '../app/components/SingleCourse';
+import OurTeam from '../app/components/OurTeam'
 //Private routes
 import Dashboard from "../app/components/admin/Dashboard";
 import Lesson from "../app/components/admin/Lesson";
@@ -44,7 +45,8 @@ export const PublicRoutes = [
     { id: 13, path: `/qualification`, component: Qualification},
     { id: 14, path: `/blogpost/:url`, component: BlogPost},
     { id: 15, path: `/filerequest/:video`, component: FileRequest},
-    { id: 17, path: `/course/:id`, component: SingleCourse}
+    { id: 17, path: `/course/:id`, component: SingleCourse},
+    { id: 18, path: `/our-team/:id`, component: OurTeam}
 ]
 
 

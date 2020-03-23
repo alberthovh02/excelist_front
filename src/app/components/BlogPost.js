@@ -30,7 +30,7 @@ class BlogPost extends React.Component {
         <title>{ data.title }</title>
       </Helmet>
         <Header />
-        <div className="videopost-single-post">
+        <div className="videopost-single-post col-sm-10">
 
           <div>
 
@@ -42,7 +42,9 @@ class BlogPost extends React.Component {
 
               {data._id && <Comments parentId={ data._id } parentType='blog'/>}
           </div>
-            <Sidebar/>
+              <div className="col-sm-2">
+               <Sidebar/>
+            </div>
         </div>
         <Footer mode="simple" />
       </div>

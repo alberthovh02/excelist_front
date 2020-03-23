@@ -22,8 +22,8 @@ class Automatic extends React.Component {
 				<title>{title}</title>
 			</Helmet>
       <Header/>
-			<div className="automatic-wrapper">
-				<div className="content">
+			<div className="automatic-wrapper col-sm-10 mr-auto ml-auto" style={{width: '100%'}}>
+				<div className="content col-sm-10" >
 					<div className="content_item">
 						<p>
 							<a href="/">«Excelist»</a> ակումբի հիմքի վրա ստեղծված <a href="http://macrolab.am/" target="_blank">«Մակրոլաբ» </a>
@@ -83,8 +83,9 @@ class Automatic extends React.Component {
 						</p>
 					</div>
 				</div>
-
+			<div className="col-sm-2">
 				<Sidebar/>
+				</div>
 				</div>
         <Footer mode="simple" />
 			</div>

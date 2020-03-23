@@ -24,8 +24,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 //app routes
 import {PublicRoutes, PrivateRoutes} from "../../config/routes";
-import {Carousel} from "antd";
-import {Collapse, Icon} from "antd";
+import {Carousel, Collapse, Icon, Popover} from "antd";
 
 
 import Header from "./Header";
@@ -78,6 +77,10 @@ class Index extends React.Component {
 	}
 
 	render() {
+		const { Lessons, Feedbacks, Albums, Blogs, Courses } = this.props;
+		console.log('Bloot', Blogs)
+		const FilteredBlogs = Blogs ? Blogs.slice(0, 4) : null;
+		const FilteredCourses = Courses ? Courses.slice(0, 4) : null;
 		const customPanelStyle = {
 			background: "#f7f7f7",
 			borderRadius: 4,
@@ -104,7 +107,7 @@ class Index extends React.Component {
     items: 1,
   },
 };
-		const { Lessons, Feedbacks, Albums } = this.props;
+		
 		return (
 			<>
 			<Helmet>
@@ -166,7 +169,7 @@ class Index extends React.Component {
 						<div className="intro-bar-item">
 							<div>
 								<h1>ԴԱՍԵՐ</h1>
-								<p><NavLink to="/courses" className="intro-more">ԱՎԵԼԻՆ</NavLink><i className="fa fa-chevron-right arrow"></i></p>
+								<p><NavLink to="/lessons" className="intro-more">ԱՎԵԼԻՆ</NavLink><i className="fa fa-chevron-right arrow"></i></p>
 							</div>
 							<i className="fa fa-book"></i>
 						</div>
@@ -188,29 +191,16 @@ class Index extends React.Component {
 				</div>
 				</div>
 				<div className="intro_lessons">
-					<h1 className="about_heading main_heading">ԴԱՍԸՆԹԱՑՆԵՐ</h1>
+					<h1 className="about_heading main_heading" style={{marginTop: 0}}>ԴԱՍԸՆԹԱՑՆԵՐ</h1>
 					<div className="line"></div>
 					<div className="lessons_desc">
-						<div className="single_lesson">
-							<img src={require("../../assets/images/intro/ms.png")} />
+						{ FilteredCourses && FilteredCourses.reverse().map((item, key) => {
+							return <div className="single_lesson">
+							<a  href={`/course/${item._id}`}><img src={item.imageUrl} style={{width: '100%'}}/>
 							<div className="excelist_badge">Excelist</div>
-							<p>«ԽՈՐԱՑՎԱԾ MS EXCEL» ԴԱՍԸՆԹԱՑ</p>
+							<p>{item.title}</p></a>
 						</div>
-						<div className="single_lesson">
-							<img src={require("../../assets/images/intro/excel.png")} />
-							<div className="excelist_badge">Excelist</div>
-							<p>«ՊՐՈՖԵՍԻՈՆԱԼ EXCEL» ԴԱՍԸՆԹԱՑ</p>
-						</div>
-						<div className="single_lesson">
-							<img src={require("../../assets/images/intro/vba.png")} />
-							<div className="excelist_badge">Excelist</div>
-							<p>«MS EXCEL & MACROS – VBA ԾՐԱԳՐԱՎՈՐՈՒՄ» ԴԱՍԸՆԹԱՑ</p>
-						</div>
-						<div className="single_lesson">
-							<img src={require("../../assets/images/intro/finance.png")} />
-							<div className="excelist_badge">Excelist</div>
-							<p>Ֆինանսական վերլուծություն (Excel-ի գործիքակազմի կիրառմամբ)</p>
-						</div>
+						})}
 					</div>
 					<div className="get_files">
 						<NavLink to="/lessons">
@@ -326,32 +316,19 @@ class Index extends React.Component {
 				</div>
 
 					<div className="intro_lessons">
-						<h1 className="about_heading main_heading">ԲԼՈԳ</h1>
+						<h1 className="about_heading main_heading" style={{marginTop: 10}}>ԲԼՈԳ</h1>
 						<div className="line"></div>
 						<div className="lessons_desc">
-							<div className="single_lesson">
-								<img src={require("../../assets/images/intro/blog-1.jpg")} />
+							{FilteredBlogs && FilteredBlogs.reverse().map((item, key) => {
+								return <div className="single_lesson">
+								<a  href={`/blogpost/${item.generatedUrl}`}><img src={item.imageUrl} style={{width: '100%'}}/>
 								<div className="excelist_badge">Excelist</div>
-								<p>Подсчет скрытых строк в таблице</p>
+								<p>{item.title}</p></a>
 							</div>
-							<div className="single_lesson">
-								<img src={require("../../assets/images/intro/blog-2.png")} />
-								<div className="excelist_badge">Excelist</div>
-								<p>ԻՆՉՔԱ՞Ն ՄԵԾ Է ՁԵՐ EXCEL SHEET-Ը</p>
+							})}
 							</div>
-							<div className="single_lesson">
-								<img src={require("../../assets/images/intro/blog-3.jpg")} />
-								<div className="excelist_badge">Excelist</div>
-								<p>EXCEL ՖԱՅԼԵՐԻ 3 ՖՈՐՄԱՏՆԵՐԻ ՄԱՍԻՆ</p>
-							</div>
-							<div className="single_lesson">
-								<img src={require("../../assets/images/intro/blog-4.jpg")} />
-								<div className="excelist_badge">Excelist</div>
-								<p>ՏԵՔՍՏ-ԱՄՍԱԹՎԵՐԻ ՎԵՐԱԾՈՒՄՆ ԻՐԱԿԱՆ ԱՄՍԱԹՎԵՐԻ</p>
-							</div>
-						</div>
 						<div className="get_files">
-							<a href="#" target="_blank">
+							<a href="/blog" target="_blank">
 								<button className="get_files_button">
 									<i className="fa fa-chevron-circle-down" aria-hidden="true"></i>{" "}
 									Այլ հոդվածներ{" "}
@@ -360,35 +337,35 @@ class Index extends React.Component {
 						</div>
 					</div>
 
-					<div className="intro_videoblog">
-						<h1 className="excelist_heading">ՎԻԴԵՈԲԼՈԳ</h1>
+					<div className="intro_videoblog" style={{marginTop: 30}}>
+						<h1 className="excelist_heading" >ՎԻԴԵՈԲԼՈԳ</h1>
 						<div className="line"></div>
 						<div className="videblog_desc">
 							<div className="single_videoblog">
-								<img src={require("../../assets/images/intro/arm.png")} />
-								<h4 className="single-title">Հայերեն վիդեոներ</h4>
-								<a className="intro_videoblog_see_more" target="_blank">
+								<a href="/videos?lang=arm"><img src={require("../../assets/images/intro/arm.png")} /></a>
+								<a href="/videos?lang=arm"><h4 className="single-title">Հայերեն վիդեոներ</h4></a>
+								<a className="intro_videoblog_see_more" href="/videos?lang=arm" target="_blank">
 									Տեսնել ավելին․․․
 								</a>
 							</div>
 							<div className="single_videoblog">
-								<img src={require("../../assets/images/intro/rus.png")} />
-								<h4 className="single-title">Русскоязычные видео</h4>
-								<a className="intro_videoblog_see_more" target="_blank">
+								<a href="/videos?lang=rus"><img src={require("../../assets/images/intro/rus.png")} /></a>
+								<a href="/videos?lang=rus"><h4 className="single-title">Русскоязычные видео</h4></a>
+								<a className="intro_videoblog_see_more" href="/videos?lang=rus" target="_blank">
 									Տեսնել ավելին․․․
 								</a>
 							</div>
 							<div className="single_videoblog">
-								<img src={require("../../assets/images/intro/en.png")} />
-								<h4 className="single-title">English videos</h4>
-								<a className="intro_videoblog_see_more" target="_blank">
+								<a href="/videos?lang=eng"><img src={require("../../assets/images/intro/en.png")} /></a>
+								<a href="/videos?lang=eng"><h4 className="single-title">English videos</h4></a>
+								<a className="intro_videoblog_see_more" href="/videos?lang=eng" target="_blank">
 									Տեսնել ավելին․․․
 								</a>
 							</div>
 						</div>
 					</div>
 					<div className="intro_benefits">
-						<h1 className="about_heading main_heading">ԻՆՉՈՒ՞ ԸՆՏՐԵԼ ՄԵԶ</h1>
+						<h1 className="about_heading main_heading" style={{marginTop: -50}}>ԻՆՉՈՒ՞ ԸՆՏՐԵԼ ՄԵԶ</h1>
 						<div className="line"></div>
 						<div className="benefits_desc col-sm-12">
 							<div className="col-sm-5">
@@ -542,18 +519,16 @@ class Index extends React.Component {
 								style={{color: "black", fontSize: "50px"}}
 							></i>
 							<p>
-								{this.state.data.length && this.state.data.map((item, key) => {
-									console.log(item)
-								return	item.dataType === "students_count" && <CountUp
+								<CountUp
 									start={0}
-									end={item.count}
+									end={2500}
 									duration={4}
 									delay={2}
 									style={{fontWeight: 'bold', fontSize: '0.8em', marginBottom: 0}}
 									separator=" "
 									decimal=","
 								/>
-								})} <span>ՈՒՍԱՆՈՂ</span>
+							<span>ՈՒՍԱՆՈՂ</span>
 							</p>
 						</div>
 						<div className="statistic_item" style={{textAlign: 'center'}}>
@@ -612,7 +587,7 @@ class Index extends React.Component {
 										<a href="https://www.linkedin.com/in/armen-petrosyan-47751229/ru" target="_blank"><i className="fa fa-linkedin"></i></a>
 									</a>
 								</p>
-								<p className='name-title'>ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ</p>
+								<a href="/our-team/1" target="_blank"><p className='name-title'>ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ</p></a>
 								<p>Էքսելիստ</p>
 							</div>
 							<div className="team_member">
@@ -627,7 +602,7 @@ class Index extends React.Component {
 									<a href="https://www.linkedin.com/in/excelist/" target="_blank"><i className="fa fa-linkedin"></i></a>
 									</a>
 								</p>
-								<p className="name-title">ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ</p>
+								<a href="/our-team/2" target="_blank"><p className="name-title">ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ</p></a>
 								<p>Էքսելիստ</p>
 							</div>
 							<div className="team_member">
@@ -638,9 +613,12 @@ class Index extends React.Component {
 								<p className="member_name">
 									<a href="#" target="_blank" className="innerTexts">
 										<a href="https://web.facebook.com/arman.harutyunyan.y" target="_blank"><i className="fa fa-facebook"></i></a>
+										
+										<a href="https://www.linkedin.com/in/arman-harutyunyan-439ba8151/" target="_blank"><i className="fa fa-linkedin"></i></a>
+
 									</a>
 								</p>
-								<p className="name-title">ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ</p>
+								<a href="/our-team/3" target="_blank"><p className="name-title">ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ</p></a>
 								<p>Էքսելիստ</p>
 							</div>
 						</div>
@@ -651,7 +629,8 @@ class Index extends React.Component {
 
 			{Lessons && Lessons.length && Lessons.map((data, key) => {
 				console.log(new Date(data.date).toLocaleString());
-				const localDate = new Date(data.date).toLocaleString();
+				if(new Date(data.date).getTime() - new Date(Date.now()).getTime() > 0){
+					const localDate = new Date(data.date).toLocaleString();
 				const day = `${localDate.split('/')[0]} `;
 				const month = `${localDate.split('/')[1]} `;
 				const year = `${localDate.split('/')[2].split(',')[0]},`;
@@ -660,23 +639,29 @@ class Index extends React.Component {
 				const night = ` ${localDate.split(", ")[1].split(" ")[1]}`
 				const parsedDate = day.concat(month).concat(year).concat(hour).concat(minutes).concat(night);
 				console.log(parsedDate)
-				return (<div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
-				<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:'center'}}>
+				return (<div  className="col-sm-12" style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+				<div className="col-sm-10" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:'center'}}>
 				<h1 className="about_heading main_heading">ԳՐԱՆՑՎԻ՛Ր ՄՈՏԱԿԱ ԴԱՍԸՆԹԱՑԻՆ</h1>
 				<div className="line"></div>
+				<div style={{display: 'flex', justifyContent: 'space-between', width:'85%',alignItems:'center'}}>
+				<div style={{display: 'flex', flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
 						<Countdown
 						key={key}
 						timeTillDate={parsedDate}
 						timeFormat="MM DD YYYY, h:mm a"
 					/><br/>
-					<a className="register-for-lesson"><i className="fa fa-user-plus" style={{color: 'white'}}></i>  ԳՐԱՆՑՎԵԼ</a>
+					<a className="register-for-lesson" target="_blank" href="/register"><i className="fa fa-user-plus" style={{color: 'white'}}></i>  ԳՐԱՆՑՎԵԼ</a>
 					</div>
 					<div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
 
-						<img src={data.imageUrl} style={{width: '50%'}}/>
+						<img src={data.imageUrl} style={{width: '100%'}}/>
 						<p className='lesson-title'>{data.name}</p>
 						</div>
-					</div> )
+					</div></div> </div>)
+				}else{
+					return false
+				}
+				
 			})}
 					</div>
 
@@ -729,10 +714,10 @@ class Index extends React.Component {
 					<div className="line"></div>
 					{ Feedbacks && <FeedbackCarousel infinite={true} responsive={responsive} afterChange={(previousSlide, { currentSlide, onMove }) => {this.setState({currentSlide})}}>
 						 {Feedbacks.length && Feedbacks.map((item, key) => {
-								return <div key={key} className="feedback-item">
+								return <div key={key} className="feedback-item" style={{maxWidth: 200}}>
 									<img src={item.imageUrl}/>
-									{this.state.currentSlide-1 === key+3 ?<><a href={item.link} className='feedback-name'><p>{item.username}</p></a>
-									<p>{item.comment}</p></> : null}
+									{<><a href={item.link} className='feedback-name'><p>{item.username}</p></a>
+									<p>{item.comment}</p></> }
 								</div>
 							})
 						}
@@ -869,7 +854,7 @@ class Index extends React.Component {
 						></iframe>
 					</div>
 
-					<div className="main-albums col-sm-12">
+					<div className="main-albums col-sm-12" style={{paddingBottom: 30}}>
 						<h2 className="albums_heading">
 							ՄԵՆՔ` ԼՈՒՍԱՆԿԱՐՆԵՐՈՎ
 							</h2>
@@ -881,8 +866,16 @@ class Index extends React.Component {
 	          			<Modal onClose={() => this.setState({albumModal: false})}>
 	            			<ImageCarousel views={images} />
 	          			</Modal>
-	      				</ModalGateway> <div className="col-sm-6" ><p className="album-subheading">{item.name}</p><br/><img src={item.imageUrl} onClick={() => this.setState({albumModal: key})} style={{width: '100%'}}/></div></>
-								: <div className="col-sm-6" ><p className="album-subheading">{item.name}</p><br/><img src={item.imageUrl} onClick={() => this.setState({albumModal: key})} style={{width: '100%'}}/></div>
+	      				</ModalGateway> <div className="col-sm-6" >
+							  <p className="album-subheading">{item.name}</p>
+							  <br/>
+							  <a className="gallery-popup" >
+							  <img src={item.imageUrl} onClick={() => this.setState({albumModal: key})} style={{width: '100%'}}/>
+							  </a>
+							  </div>
+							  </>
+								:
+								 <div className="col-sm-6" ><p className="album-subheading">{item.name}</p><br/><div className="gallery-popup" onClick={() => this.setState({albumModal: key})}><img src={item.imageUrl}  style={{width: '100%'}}/></div></div>
 							})}
 						</div>
 					</div>
@@ -1121,7 +1114,7 @@ class Main extends React.Component {
 }
 
 const get = state => {
-	return { Lessons: state.Lessons, Feedbacks: state.Feedbacks, Albums: state.Albums}
+	return { Lessons: state.Lessons, Feedbacks: state.Feedbacks, Albums: state.Albums, Blogs: state.Blogs, Courses: state.Courses}
 }
 
 export default connect(get)(Main);

@@ -7,7 +7,8 @@ import { NavLink } from 'react-router-dom';
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
-import Comments from './Comments'
+import Comments from './Comments';
+import Interested from './Interested'
 
 class VideoPost extends React.Component {
   constructor(props){
@@ -34,7 +35,7 @@ class VideoPost extends React.Component {
         <title>{title && title}</title>
       </Helmet>
 				<Header />
-				<div className="videopost-single-post">
+				<div className="videopost-single-post col-sm-10">
           <div>
             <h2 className="videopost-title">{data.title}</h2>
               { data &&  <div>
@@ -55,9 +56,13 @@ class VideoPost extends React.Component {
                 </div>
               }
 
+              <Interested parent='Videoblogs'/>
+
               {data._id && <Comments parentId={ data._id } parentType='videoblog'/>}
           </div>
+           <div className='col-sm-2'> 
             <Sidebar/>
+          </div>
         </div>
 				<Footer mode="simple" />
 			</div>

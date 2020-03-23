@@ -2,3 +2,20 @@
   display: flex;
   justify-content: space-around;
 }
+
+.course-item {
+  max-width: 50%;
+  // max-height: 80%;
+  .blog-content {
+    max-width: 100%;
+    word-break: break-all;
+  }
+}
+
+.ql-align-center {
+  text-align: center;
+}
+
+.single-course-icons {
+  width: 20%
+}

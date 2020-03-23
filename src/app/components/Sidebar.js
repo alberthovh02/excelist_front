@@ -19,7 +19,7 @@ class Sidebar extends React.Component {
     const filterBlogs = Blogs && Blogs.length && Blogs.slice(0, 3);
     const filterCourses = Courses && Courses.length && Courses.slice(0, 3);
     return(
-      <div style={{width: "350px"}}>
+      <div className='col'>
         <div className="sidebar-item search">
           <p>Որոնել</p>
           <Search

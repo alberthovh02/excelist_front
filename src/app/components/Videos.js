@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import ReactPaginate from 'react-paginate';
 import { Container, Row, Col } from 'react-bootstrap';
-
+import { Spin } from 'antd'
 
 import Header from './Header';
 import Footer from "./Footer";
@@ -65,13 +65,13 @@ class Videos extends React.Component{
             {data.length ? data.map((el, key) => {
               return (
                 <Col sm={4} key={key} className="blog-item" style={{minWidth: 250, marginBottom: 40}}>
-                  <img src={el.imageUrl} alt="image" style={{height: "100%", width: '90%'}}/>
-                  <a className="blog-link">{el.title}</a>
+                  <a href={`/videoblogpost/${el.generatedUrl}`}><img src={el.imageUrl} alt="image" style={{height: "100%", width: '90%'}}/></a>
+                  <a href={`/videoblogpost/${el.generatedUrl}`} className="blog-link">{el.title}</a>
                   <p className="blog-content" >Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։ Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ...</p>
                   <a className="blog-see-more" href={`/videoblogpost/${el.generatedUrl}`}>Ավելին …</a>
                 </Col>
               )
-            }) : "There are no data"}
+            }) : <div style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}><Spin size='large'/></div>}
             </Row>
             </Col>
             <Col sm={3}><Sidebar /></Col>
