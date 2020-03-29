@@ -4,7 +4,7 @@
 export const getLessons = 'lesson';
 export const createLesson = 'lesson/create';
 export const deleteLesson = id => `lesson/${id}`;
-export const updateLesson = 'lesson/update';
+export const updateLesson = id => `lesson/update/${id}`;
 
 //Login
 export const login = 'login'
@@ -18,7 +18,7 @@ export const deleteFeedback = id => `user-feedbacks/${id}`;
 //Videoblogs
 export const getVideoblogs = 'video-blog/blogs-desc';
 export const createVideoblog = 'video-blog/create';
-// export const updateVideoblog = 'video-blog/create';
+export const editVideoblog = id => `video-blog/${id}`;
 export const deleteVideoblog = id => `video-blog/${id}`;
 // export const getSinglepost =
 
@@ -49,3 +49,11 @@ export const deleteAlbum = id => `albums/${id}`;
 
 //album Images
 export const createAlbumImage = id => `album-image/create/${id}`;
+export const deleteAlbumImage = (albumId, imageId) => `album-image/delete/${albumId}/${imageId}`;
+
+//cv uplaod
+export const uploadCV = `join/`
+
+//subscribers
+export const getSubscribers = `subscribes/`;
+export const sendSubscribersMail = `subscribes/sendMail/`

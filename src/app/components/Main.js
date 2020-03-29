@@ -63,10 +63,6 @@ class Index extends React.Component {
 		}
 	}
 	componentDidMount(){
-		Request.get("students/")
-		.then(response => response.json())
-		.then(result => this.setState({data: result}))
-		.catch(e => console.log(e));
 		fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
 		.then(response => response.json())
 		.then(result => this.setState({youtubeSubscribersCount: result}))
@@ -77,7 +73,7 @@ class Index extends React.Component {
 	}
 
 	render() {
-		const { Lessons, Feedbacks, Albums, Blogs, Courses } = this.props;
+		const { Lessons, Feedbacks, Albums, Blogs, Courses,Students } = this.props;
 		console.log('Bloot', Blogs)
 		const FilteredBlogs = Blogs ? Blogs.slice(0, 4) : null;
 		const FilteredCourses = Courses ? Courses.slice(0, 4) : null;
@@ -521,7 +517,7 @@ class Index extends React.Component {
 							<p>
 								<CountUp
 									start={0}
-									end={2500}
+									end={Students && Students.length && Students[0].students_count}
 									duration={4}
 									delay={2}
 									style={{fontWeight: 'bold', fontSize: '0.8em', marginBottom: 0}}
@@ -539,7 +535,7 @@ class Index extends React.Component {
 							<p>
 							<CountUp
 								start={0}
-								end={16150}
+								end={Students && Students.length && Students[0].facebook_followers}
 								duration={4}
 								delay={2}
 								style={{fontWeight: 'bold', fontSize: '0.8em', marginBottom: 0}}
@@ -861,7 +857,7 @@ class Index extends React.Component {
 						<div className='album-container row'>
 
 							{ Albums && Albums.map((item, key) => {
-								const images = item.images.map(it => {return {src: it}})
+								const images = item.images.map(it => {return {src: it.url}})
 								 return this.state.albumModal === key && images.length ? <> <ModalGateway>
 	          			<Modal onClose={() => this.setState({albumModal: false})}>
 	            			<ImageCarousel views={images} />
@@ -1114,7 +1110,14 @@ class Main extends React.Component {
 }
 
 const get = state => {
-	return { Lessons: state.Lessons, Feedbacks: state.Feedbacks, Albums: state.Albums, Blogs: state.Blogs, Courses: state.Courses}
+	return { 
+		Lessons: state.Lessons,
+		Feedbacks: state.Feedbacks,
+		Albums: state.Albums, 
+		Blogs: state.Blogs, 
+		Courses: state.Courses,
+		Students: state.SingleData
+	}
 }
 
 export default connect(get)(Main);

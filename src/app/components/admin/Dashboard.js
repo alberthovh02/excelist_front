@@ -7,8 +7,8 @@ import { Route, Switch } from 'react-router-dom'
 import { PrivateRoutes } from '../../../config/routes';
 import { Card, Col, Row } from 'antd';
 import { connect } from 'react-redux';
-import { getBlogs, getVideoblogs } from '../../../store/api';
-import { GET_ALL_BLOGS, GET_ALL_VIDEOBLOGS } from '../../../store/actionTypes';
+import { getBlogs, getVideoblogs, getSubscribers } from '../../../store/api';
+import { GET_ALL_BLOGS, GET_ALL_VIDEOBLOGS, GET_SUBSCRIBERS } from '../../../store/actionTypes';
 import { ActionCreator, GET } from '../../../store/actionCreators';
 
 class Dashboard extends React.Component {
@@ -20,9 +20,10 @@ class Dashboard extends React.Component {
 		const { dispatch } = this.props;
 		 await dispatch(GET(getBlogs, GET_ALL_BLOGS));
 		 await dispatch(GET(getVideoblogs, GET_ALL_VIDEOBLOGS));
+		 await dispatch(GET(getSubscribers, GET_SUBSCRIBERS));
 	}
 	render() {
-		const { Comments,Blogs, Videoblogs } = this.props
+		const { Comments,Blogs, Videoblogs, Courses, Subscribes } = this.props
 		return (
 			<>
 				<p className='dashboard-welcome'>Բարի գալուստ Էքսելիստ կառավարման համակարգ</p>
@@ -30,7 +31,7 @@ class Dashboard extends React.Component {
     			<Row gutter={16}>
       			<Col span={8}>
         			<Card title="Դասընթացներ" style={{textAlign: 'center'}} bordered={true}>
-          			Card content
+          				{Courses && Courses.length}
         			</Card>
       			</Col>
       			<Col span={8}>
@@ -57,7 +58,7 @@ class Dashboard extends React.Component {
 					</Col>
 					<Col span={8}>
 						<Card title="Բաժանորդներ" style={{textAlign: 'center'}} bordered={true}>
-							Card content
+							{ Subscribes && Subscribes.length}
 					</Card>
 					</Col>
 			</Row>
@@ -77,7 +78,13 @@ class Dashboard extends React.Component {
 }
 
 const get = state => {
-	return {Comments: state.Comments, Blogs: state.Blogs, Videoblogs: state.Videoblogs};
+	return {
+		Comments: state.Comments, 
+		Blogs: state.Blogs, 
+		Videoblogs: state.Videoblogs, 
+		Courses: state.Courses,
+		Subscribes: state.Subscribes
+	};
 }
 
 export default connect(get)(Dashboard);

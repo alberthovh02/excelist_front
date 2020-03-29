@@ -27,3 +27,18 @@
     width: 50%
   }
 }
+
+.lessons-admin-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+}
+
+.admin-lesson-new {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}

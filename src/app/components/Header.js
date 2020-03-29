@@ -1,17 +1,36 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import { Menu, Dropdown, Icon } from 'antd';
-
+import { Menu, Dropdown, Icon, Popover } from 'antd';
+import { connect } from 'react-redux';
 
 class Header extends React.Component {
-	// constructor(){
+	constructor(props){
+		super()
+		this.state = {
+			Lessons: [],
+			Courses: []
+		}
+	}
 
+	static getDerivedStateFromProps(nextProps, prevState){
+   		if(nextProps.Lessons!==prevState.Lessons){
+     		return { Lessons: nextProps.Lessons};
+  		}
+  		if(nextProps.Courses !== prevState.Courses){
+  			return {Courses: nextProps.Courses}
+  		}
+  	else return null;
+	}
+
+
+	// componentWillRecieveProps(){
+	// 	const { Lessons, Courses } = this.;
+	// 	this.setState({Lessons, Courses})props
 	// }
 
 	componentDidMount(){
 		var scrollPos = 0;
 		const header = document.getElementsByTagName("header")[0];
-
 // adding scroll event
 window.addEventListener('scroll', function(){
   // detects new state and compares it with the new one
@@ -37,61 +56,92 @@ window.addEventListener('scroll', function(){
 	}
 
 	render() {
-    const menu = (<Menu >
-      <Menu.Item>
-        <a href="#">«ԽՈՐԱՑՎԱԾ MS EXCEL» ԴԱՍԸՆԹԱՑ</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">
-          «MS EXCEL & MACROS – VBA ԾՐԱԳՐԱՎՈՐՈՒՄ» ԴԱՍԸՆԹԱՑ
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">«POWER BI (BUSINESS INTELLIGENCE)» ԴԱՍԸՆԹԱՑ</a>
-      </Menu.Item>
+		const { Lessons, Courses } = this.state
+		// if(Courses && Courses.length > 0) {
+		// 	var menu = (<Menu>
+		// 		{Courses.map((item, key) => {
+		// 		return <Menu.Item>
+		// 			<a href={`/course/${item._id}`}>{item.title}</a>
+		// 		</Menu.Item>
+		// 	})}
+		// 		</Menu>)
+		// }
+		console.log(menu)
+		if(Courses && Courses.length > 0){
+			var menu = <div style={{background: 'white'}} className="navbar-lessons">
+			{Courses && Courses.length && Courses.map((item, key) => {
+				return <div className="">
+				<a href={`/course/${item._id}`}>{item.title}</a>
+				</div>
+			})}
+			{ Lessons && <div className="navbar-lessons-soon">
+					<div>
+						<img src={Lessons[0].imageUrl}/>
+						<p>{Lessons[0].name}</p>
+					</div>
+				
+				
+				</div>}
+		</div>
+		}
+		
+    // const menu = (<Menu >
+    //   <Menu.Item>
+    //     <a href="#">«ԽՈՐԱՑՎԱԾ MS EXCEL» ԴԱՍԸՆԹԱՑ</a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">
+    //       «MS EXCEL & MACROS – VBA ԾՐԱԳՐԱՎՈՐՈՒՄ» ԴԱՍԸՆԹԱՑ
+    //     </a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">«POWER BI (BUSINESS INTELLIGENCE)» ԴԱՍԸՆԹԱՑ</a>
+    //   </Menu.Item>
 
-      <Menu.Item>
-        <a href="#">
-          MS EXCEL. ՍԿՍՈՒՄ ԵՆՔ 0-ԻՑ (ԱՆՎՃԱՐ ՎԻԴԵՈԴԱՍԵՐ)
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">
-          MS EXCEL’S PIVOT TABLES – COMPLEX MASTER CLASS
-          (ՎԱՐՊԵՏՈՒԹՅԱՆ ՀԱՄԱԼԻՐ ԴԱՍ)
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">
-          MS EXCEL – ԽՈՐԱՑՎԱԾ ԴԱՍԸՆԹԱՑ ՎԱՂ ԱՌԱՎՈՏՅԱՆ ՖՈՐՄԱՏՈՎ
-        </a>
-      </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">
+    //       MS EXCEL. ՍԿՍՈՒՄ ԵՆՔ 0-ԻՑ (ԱՆՎՃԱՐ ՎԻԴԵՈԴԱՍԵՐ)
+    //     </a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">
+    //       MS EXCEL’S PIVOT TABLES – COMPLEX MASTER CLASS
+    //       (ՎԱՐՊԵՏՈՒԹՅԱՆ ՀԱՄԱԼԻՐ ԴԱՍ)
+    //     </a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">
+    //       MS EXCEL – ԽՈՐԱՑՎԱԾ ԴԱՍԸՆԹԱՑ ՎԱՂ ԱՌԱՎՈՏՅԱՆ ՖՈՐՄԱՏՈՎ
+    //     </a>
+    //   </Menu.Item>
 
-      <Menu.Item>
-        <a href="#">«ՊՐՈՖԵՍԻՈՆԱԼ EXCEL» ԴԱՍԸՆԹԱՑ</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">
-          Ֆինանսական վերլուծություն (Excel-ի գործիքակազմի կիրառմամբ)
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">MS EXCEL. ՍԿՍՈՒՄ ԵՆՔ 0-ԻՑ</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">«EXCEL HR-ՄԱՍՆԱԳԵՏՆԵՐԻ ՀԱՄԱՐ» ԴԱՍԸՆԹԱՑ</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">«MS EXCEL-Ի 160+1 ՖՈՒՆԿՑԻԱ» ԴԱՍԸՆԹԱՑ</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">MS ACCESS. ՍԿՍՈՒՄ ԵՆՔ 0-ԻՑ</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="#">«ԽՈՐԱՑՎԱԾ MS ACCESS» ԴԱՍԸՆԹԱՑ</a>
-      </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">«ՊՐՈՖԵՍԻՈՆԱԼ EXCEL» ԴԱՍԸՆԹԱՑ</a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">
+    //       Ֆինանսական վերլուծություն (Excel-ի գործիքակազմի կիրառմամբ)
+    //     </a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">MS EXCEL. ՍԿՍՈՒՄ ԵՆՔ 0-ԻՑ</a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">«EXCEL HR-ՄԱՍՆԱԳԵՏՆԵՐԻ ՀԱՄԱՐ» ԴԱՍԸՆԹԱՑ</a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">«MS EXCEL-Ի 160+1 ՖՈՒՆԿՑԻԱ» ԴԱՍԸՆԹԱՑ</a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">MS ACCESS. ՍԿՍՈՒՄ ԵՆՔ 0-ԻՑ</a>
+    //   </Menu.Item>
+    //   <Menu.Item>
+    //     <a href="#">«ԽՈՐԱՑՎԱԾ MS ACCESS» ԴԱՍԸՆԹԱՑ</a>
+    //   </Menu.Item>
 
-    </Menu>)
+    // </Menu>)
+
+
 
     const videoMenu = (<Menu>
         <Menu.Item>
@@ -173,7 +223,7 @@ window.addEventListener('scroll', function(){
 							<li className="nav-item">
 								<NavLink to="/about">ՄԵՐ ՄԱՍԻՆ</NavLink>
 							</li>
-              <li className="nav-item" onClick={() => window.location = "/lessons"}>
+             {/*{menu &&  <li className="nav-item" onClick={() => window.location = "/lessons"}>
               <Dropdown overlay={menu} overlayClassName="navbar-lessons">
               <NavLink
                 to="/lessons"
@@ -182,7 +232,17 @@ window.addEventListener('scroll', function(){
                 style={{display: "flex", alignItems: "center"}}
               >ԴԱՍԸՆԹԱՑՆԵՐ<Icon type="caret-down" /></NavLink>
               </Dropdown>
-              </li>
+              </li>}*/}
+              				<li className="nav-item">
+              					<Popover placement="bottom" content={menu ? menu : null}>
+              						  <NavLink
+                to="/lessons"
+                className="ant-dropdown-link"
+                data-toggle="dropdown"
+                style={{display: "flex", alignItems: "center"}}
+              >ԴԱՍԸՆԹԱՑՆԵՐ<Icon type="caret-down" /></NavLink>
+              					</Popover>
+              				</li>
 							<li className="nav-item">
 								<NavLink to="/blog">ԲԼՈԳ</NavLink>
 							</li>
@@ -207,9 +267,7 @@ window.addEventListener('scroll', function(){
 
 
 						</ul>
-						<form className="form-inline my-2 my-lg-0">
-							<i className="fa fa-search" aria-hidden="true"></i>
-						</form>
+						
 					</div>
 					<button
 						className="navbar-toggler"
@@ -229,4 +287,8 @@ window.addEventListener('scroll', function(){
 	}
 }
 
-export default Header;
+const get = state => {
+	return {Courses: state.Courses, lessons: state.lessons}
+}
+
+export default connect(get)(Header);

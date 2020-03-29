@@ -48,12 +48,12 @@ class VideoPost extends React.Component {
                 <div>
                   <p>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք <NavLink to={`/filerequest/:${data.title}`}>ֆորման</NavLink>:</p>
                 </div>
-                : <div>
+                : !data.isEmpty ? <div>
                   Մանրամասների համար դիմե՛ք․<br/>
                   🌐 www.macrolab.am<br/>
                   📞 Tel: 093 18 88 95,<br/>
                   ✉ E-mail: info@macrolab.am
-                </div>
+                </div> : null
               }
 
               <Interested parent='Videoblogs'/>

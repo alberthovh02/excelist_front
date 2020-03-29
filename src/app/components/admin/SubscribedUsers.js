@@ -2,7 +2,9 @@ import React from "react";
 import { Collapse, Input, Button, message, Upload, Icon } from "antd";
 import parseDate from '../../functions/parseTime';
 import { connect } from 'react-redux';
-import { POST } from '../../../store/actionCreators';
+import { getSubscribers, sendSubscribersMail } from '../../../store/api';
+import {  GET_SUBSCRIBERS } from '../../../store/actionTypes';
+import { ActionCreator, GET, POST } from '../../../store/actionCreators';
 //Table css
 import CssBaseline from '@material-ui/core/CssBaseline'
 import MaUTable from '@material-ui/core/Table'
@@ -98,23 +100,28 @@ class SubscribedUsers extends React.Component {
     this.setState({[name]: value})
   }
 
+  async componentDidMount(){
+    const { dispatch } = this.props;
+     await dispatch(GET(getSubscribers, GET_SUBSCRIBERS));
+  }
+
   sendMessage = async() => {
-    const { text, link, data, image } = this.state;
+    const { text, link, image } = this.state;
+    const { Subscribes } = this.props
     const { dispatch } = this.props;
 
     if(!text || !link || !image){
       message.warning({content: "Please fill data"})
     }
-    if(!data.length){
+    if(!Subscribes.length){
       message.error({content: "There are no subscribers"})
     }
     else{
       const formData = new FormData();
       formData.append('text', text);
       formData.append('link', link);
-      formData.append('data', data);
       formData.append('image', image)
-      const response = await dispatch(POST('//excelist-backend.herokuapp.com/subscribes/sendMail', data, true));
+      const response = await dispatch(POST(sendSubscribersMail, formData, true));
   		if (response.code === 200) {
   			message.success("Նամակը հաջողությամբ ուղարկվել է");
   		} else {
@@ -126,30 +133,12 @@ class SubscribedUsers extends React.Component {
   onImageUpload = async info => {
     if (info.file.status === "uploading") {
       this.setState({image: info.file.originFileObj});
-      // const response = await dispatch(PUT(update_avatar, data, true));
-      // 	if (response.code === 200) {
-      // 		message.success(`${response.message}`);
-      // 		await dispatch(ActionCreator(UPDATE_PROFILE, { image: response.result }));
-      // 	} else {
-      // 		message.error(`${response.message} `);
-      // 	}
-      // } else if (info.file.status === 'error') {
-      // 	message.error(`${info.file.name} file upload failed.`);
-      // }
     }
   };
 
-
-	componentDidMount() {
-		fetch("//excelist-backend.herokuapp.com/subscribes")
-			.then(response => response.json())
-			.then(result => this.setState({data: result}))
-			.catch(e => console.log(e));
-	}
-
 	render() {
-		const {data} = this.state;
-		const sortedUsers = data.map(item => {
+		const { Subscribes } = this.props;
+		const sortedUsers = Subscribes && Subscribes.map(item => {
 			return {
 				firstName: item.name,
 				email: item.email,
@@ -184,7 +173,7 @@ class SubscribedUsers extends React.Component {
         </Collapse>
 				<div>
 		      <CssBaseline />
-		      <div className="subscribe_users_list"><Table columns={this.column} data={sortedUsers.reverse()} /></div>
+		      { sortedUsers && <div className="subscribe_users_list"><Table columns={this.column} data={sortedUsers.reverse()} /></div>}
 	      </div>
 			</>
 		);

@@ -118,7 +118,7 @@ class AboutUs extends React.Component {
 						<div className="statistic_item col-sm-4">
 						<CountUp
 							start={0}
-							end={2500}
+							end={SingleData && SingleData[0].students_count || 0}
 							duration={4}
 							style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 							delay={2}
@@ -130,7 +130,7 @@ class AboutUs extends React.Component {
 						<div className="statistic_item col-sm-4">
 						<CountUp
 							start={0}
-							end={16150}
+							end={SingleData && SingleData[0].facebook_followers || 0}
 							duration={4}
 							style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 							delay={2}
@@ -177,7 +177,7 @@ class AboutUs extends React.Component {
 							<div className="statistic_item col-sm-3">
 							<CountUp
 								start={0}
-								end={11}
+								end={SingleData && SingleData[0].lessons_count || 0}
 								duration={4}
 								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 								delay={2}
@@ -189,7 +189,7 @@ class AboutUs extends React.Component {
 							<div className="statistic_item  col-sm-3">
 							<CountUp
 								start={0}
-								end={5}
+								end={SingleData && SingleData[0].teachers_count || 0}
 								duration={4}
 								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 								delay={2}
@@ -201,7 +201,7 @@ class AboutUs extends React.Component {
 							<div className="statistic_item  col-sm-3">
 							<CountUp
 								start={0}
-								end={7797}
+								end={SingleData && SingleData[0].members_count || 0}
 								duration={4}
 								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 								delay={2}
@@ -213,7 +213,7 @@ class AboutUs extends React.Component {
 							<div className="statistic_item col-sm-3">
 							<CountUp
 								start={0}
-								end={50}
+								end={SingleData && SingleData[0].supporters_count || 0}
 								duration={4}
 								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 								delay={2}

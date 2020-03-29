@@ -29,30 +29,45 @@ class Students extends React.Component {
   handleSubmit = async(e) => {
     e.preventDefault();
     const { dispatch } = this.props;
-    const { students_count, lessons_count, teachers_count, members_count, supporters_count } = this.state;
-    const data = {
-      students_count,
-      lessons_count,
-      teachers_count,
-      members_count,
-      supporters_count
+    const { 
+      students_count, 
+      lessons_count, 
+      teachers_count, 
+      members_count, 
+      supporters_count,
+      facebook_followers 
+    } = this.state;
+
+    let data = {}
+
+    if(students_count){
+      data.students_count = students_count
     }
-    // const dataType = "students_count";
+    if(lessons_count){
+      data.lessons_count = lessons_count
+    }
+    if(teachers_count){
+      data.teachers_count = teachers_count
+    }
+    if(members_count){
+      data.members_count = members_count
+    }
+    if(supporters_count){
+      data.supporters_count = supporters_count;
+    }
+    if(facebook_followers){
+      data.facebook_followers = facebook_followers
+    }
+
     const response = await dispatch(POST(updateSingleData, data));
 
     if (response.code === 200) {
-      message.success("Կուրսը հաջողությամբ ավելացվել է");
+      message.success("հաջողությամբ ավելացվել է");
       await dispatch(ActionCreator(UPDATE_SINGLE_DATA, response.data));
     } else {
       message.error("Ինչ որ բան գնաց ոչ այնպես");
     }
-    // const response = await fetch("//excelist-backend.herokuapp.com/students/count", {
-		// 	method: "POST",
-		// 	headers: {"Content-Type": "application/json"},
-		// 	body: JSON.stringify({students_count, lessons_count, teachers_count, members_count, supporters_count})
-		// });
-    // if(response.code === 200) alert("Success")
-    // else alert("Something went wrong")
+
   }
 
   render(){
@@ -61,37 +76,58 @@ class Students extends React.Component {
       <>
       <main>
       <Form className="students-board">
-        <h2>Static data changer</h2>
-        <Input placeholder="Enter students count"
-          name="students_count"
-          className="students_count"
-          defaultValue={SingleData && SingleData[0].students_count}
-          onChange={e => this.handleInputChange(e)}/>
-        <Input placeholder="Enter lessons count"
-          name="lessons_count"
-          className="students_count"
-          defaultValue={SingleData && SingleData[0].lessons_count || 0}
+        <h2>Թվային տվյալներ</h2>
+        <Form.Item label={`Ուսանողների թիվը: ${SingleData && SingleData.length && SingleData[0].students_count}`}>
+          <Input placeholder="Enter students count"
+            name="students_count"
+            style={{width: '100%'}}
+            className="students_count"
+            onChange={e => this.handleInputChange(e)}/>
+        </Form.Item>
 
-          onChange={e => this.handleInputChange(e)}/>
-        <Input placeholder="Enter teachers count"
-          name="teachers_count"
-          className="students_count"
-          defaultValue={SingleData && SingleData[0].teachers_count || 0}
+        <Form.Item label={`Առարկաների թիվը ${SingleData && SingleData[0].lessons_count || 0}`}>
+          <Input placeholder="Enter lessons count"
+            name="lessons_count"
+            style={{width: '100%'}}
+            className="students_count"
+            onChange={e => this.handleInputChange(e)}/>
+        </Form.Item>
 
-          onChange={e => this.handleInputChange(e)}/>
-        <Input placeholder="Enter members count"
-          name="members_count"
-          className="students_count"
-          defaultValue={SingleData && SingleData[0].members_count || 0}
+        <Form.Item label={`Ուսուցիչների թիվը ${SingleData && SingleData[0].teachers_count || 0}`}>
+          <Input placeholder="Enter teachers count"
+            name="teachers_count"
+            style={{width: '100%'}}
+            className="students_count"
+            onChange={e => this.handleInputChange(e)}/>
+        </Form.Item>
 
-          onChange={e => this.handleInputChange(e)}/>
-        <Input placeholder="Enter supporters count"
-          name="supporters_count"
-          defaultValue={SingleData && SingleData[0].supporters_count || 0}
+        <Form.Item label={`Մասնակիցների թիվը ${SingleData && SingleData[0].members_count || 0}`}>
+          <Input placeholder="Enter members count"
+            name="members_count"
+            style={{width: '100%'}}
+            className="students_count"
+            onChange={e => this.handleInputChange(e)}/>
+        </Form.Item>
 
-          className="students_count"
-          onChange={e => this.handleInputChange(e)}/>
-        <Button type="primary" className="submit_count" onClick={(e) => this.handleSubmit(e)}>Submit</Button>
+        <Form.Item label={`Այլ երկրից հետևորդների թիվը ${SingleData && SingleData[0].supporters_count || 0}`}>
+          <Input placeholder="Enter supporters count"
+            name="supporters_count"
+            style={{width: '100%'}}
+            className="students_count"
+            onChange={e => this.handleInputChange(e)}/>
+        </Form.Item>
+
+        <Form.Item label={`Ֆեյսբուքում հետևորդների թիվը ${SingleData && SingleData[0].facebook_followers || 0}`}>
+          <Input placeholder="Enter fb followers count"
+            name="facebook_followers"
+            style={{width: '100%'}}
+            className="facebook_followers"
+            onChange={e => this.handleInputChange(e)}/>
+        </Form.Item>
+        
+        <Form.Item>
+          <Button type="primary" className="submit_count" style={{width: '100%'}} onClick={(e) => this.handleSubmit(e)}>Հաստատել</Button>
+        </Form.Item>
       </Form>
       </main>
       </>

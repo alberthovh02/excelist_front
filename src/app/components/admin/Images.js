@@ -5,7 +5,7 @@ import { ImageCropper, HiddenCropper } from "react-bootstrap-image-cropper";
 //redux
 import { connect } from 'react-redux';
 import { actionCreator, POST, DELETE, PUT, ActionCreator } from '../../../store/actionCreators';
-import { createAlbum, updateAlbum, deleteAlbum } from '../../../store/api';
+import { createAlbum, updateAlbum, deleteAlbum, createAlbumImage, deleteAlbumImage } from '../../../store/api';
 import { CREATE_ALBUM, UPDATE_ALBUM, DELETE_ALBUM, GET_ALBUMS, ADD_ALBUM_IMAGE } from '../../../store/actionTypes';
 
 const { Panel } = Collapse;
@@ -16,7 +16,10 @@ class Images extends React.Component{
     super(props);
     this.state = {
       fileList: [],
-      name: null
+      name: null,
+      visible: false,
+      files: [],
+      editModal: false
     }
   }
 
@@ -65,20 +68,83 @@ class Images extends React.Component{
 		}
   }
 
-  addImage = async(item) => {
-    console.log("VVVV", item._id);
-    // const response = await dispatch(POST(createAlbum, data, true));
-    // if(response.code !== 200){
-    //   message.error("Something went wrong")
-    // }else{
-    //   message.success("Album created")
-    //   await dispatch(ActionCreator(CREATE_ALBUM, response.data));
-    // }
+  showModal = (item) => {
+   this.setState({visible: item._id})
   }
 
+    handleOk = async e => {
+    const { visible, files } = this.state;
+    const { dispatch } = this.props
+    console.log("FIle", visible)
+      const data = new FormData();
+      if(files.length > 0){
+        files.forEach(file => {
+          data.append('image', file)
+        })
+
+      }
+      const resp = await dispatch(POST(createAlbumImage(visible), data, true));
+      if(resp.code !== 200){
+        message.error("Something went wrong");
+        return false
+      }
+      message.success("Uploaded successfully")
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  };
+
+
+  editModal = (item) => {
+    this.setState({editModal: item._id})
+  }
+
+handleEditCancel = () => {
+  this.setState({
+    editModal: false
+  })
+}
+
+deleteAlbumImage = async(image) =>{
+  const { editModal } = this.state;
+  const { dispatch } = this.props;
+  const resp = await dispatch(DELETE(deleteAlbumImage(editModal, image.id)));
+  if(resp.code !== 200){
+    message.error("Somethin went wrong");
+    return false
+  }
+  message.success("Image deleted");
+}
+
   render(){
-    const { fileList } = this.state;
+    const { fileList, files } = this.state;
     const { Albums } = this.props;
+    const props = {
+      onRemove: file => {
+        this.setState(state => {
+          const index = state.files.indexOf(file);
+          const newFileList = state.files.slice();
+          newFileList.splice(index, 1);
+          return {
+            files: newFileList,
+          };
+        });
+      },
+      beforeUpload: file => {
+        this.setState(state => ({
+          files: [...state.files, file],
+        }));
+        return false;
+      },
+      files,
+    };
     return(
       <div className="images-container">
       <Collapse>
@@ -93,14 +159,40 @@ class Images extends React.Component{
                 />
               }
           actions={[
-            <Icon type="edit"/>,
+            <Icon type="edit" onClick={() => this.editModal(item)}/>,
             <Icon type="delete" onClick={() => this.deleteGallery(item)}/>,
-            <Icon type="file" onClick={() => this.addImage(item)}/>
+            <Icon type="file" onClick={() => this.showModal(item)}/>
           ]}
             >
             <Meta
               title={item.name}
               />
+              <Modal
+                visible={this.state.visible === item._id}
+                title="Add image"
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+              >
+                <Upload {...props}>
+                  <Button>Upload</Button>
+                </Upload>
+              </Modal>
+              
+              <Modal
+                visible={this.state.editModal === item._id}
+                title="Edit album"
+                onOk={this.handleEdit}
+                onCancel={this.handleEditCancel}
+              >
+                <div style={{display: 'flex', flexWrap: 'wrap', width: '100%'}}>
+                {item.images && item.images.map((image) => {
+                  return <div>
+                      <img src={image.url} width={200}/>
+                      <Button type="danger" onClick={() => this.deleteAlbumImage(image)}>DELETE</Button>
+                    </div> 
+                })}
+                </div>
+              </Modal>
             </Card>
           })}
         </Panel>

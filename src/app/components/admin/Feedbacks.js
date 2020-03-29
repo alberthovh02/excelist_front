@@ -40,38 +40,40 @@ class Feedbacks extends React.Component {
 	});
 };
 
-handleCancel = e => {
-	console.log(e);
-	this.setState({
-		visible: false,
-	});
-};
+	handleCancel = e => {
+		this.setState({
+			visible: false,
+		});
+	};
 
 	handleForm = async (e, type, item) => {
 		e.preventDefault();
 		const { dispatch } = this.props;
 		const {image, username, comment, link} = this.state;
+
 		const data = new FormData();
 		data.append("image", image);
 		data.append("username", username);
 		data.append("comment", comment);
 		data.append("link", link);
-    console.log(type)
-    if(type === 'update'){
+
+	    if(type === 'update'){
 			const response = await dispatch(PUT(updateFeedback(item._id), data, true));
-      if (response.code === 200) {
-        message.success("Կարծիքը հաջողությամբ թարմացվել է");
+      		if (response.code === 200) {
+        		message.success("Կարծիքը հաջողությամբ թարմացվել է");
+        		this.setState({visible: false})
 				await dispatch(ActionCreator(UPDATE_FEEDBACK, response.data));
-      } else {
-        message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
-      }
-    }else{
+      	} 	else {
+        		message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
+      		}
+    	}
+    	else{
 			const response = await dispatch(POST(createFeedback, data, true));
 
-      if (response.code === 200) {
-        message.success("Կարծիքը հաջողությամբ ավելացվել է");
+      	if (response.code === 200) {
+        		message.success("Կարծիքը հաջողությամբ ավելացվել է");
 				await dispatch(ActionCreator(CREATE_FEEDBACK, response.data));
-      } else {
+      		} else {
         message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
       }
     }
@@ -81,16 +83,6 @@ handleCancel = e => {
 	onImageUpload = async info => {
 		if (info.file.status === "uploading") {
 			this.setState({image: info.file.originFileObj});
-			// const response = await dispatch(PUT(update_avatar, data, true));
-			// 	if (response.code === 200) {
-			// 		message.success(`${response.message}`);
-			// 		await dispatch(ActionCreator(UPDATE_PROFILE, { image: response.result }));
-			// 	} else {
-			// 		message.error(`${response.message} `);
-			// 	}
-			// } else if (info.file.status === 'error') {
-			// 	message.error(`${info.file.name} file upload failed.`);
-			// }
 		}
 	};
 
@@ -111,24 +103,24 @@ handleCancel = e => {
 		this.setState({[target.name]: target.value});
 	};
 
-	showModal = () => {
-	this.setState({
-		visible: true,
-	});
-};
+	showModal = (item) => {
+		this.setState({
+			visible: item,
+		});
+	};
 
 	render() {
 		const { Feedbacks } = this.props;
 		return (
 			<>
 				<Collapse accordion>
-					<Panel header="Feedbacks" key="1">
+					<Panel header="Բոլոր կարծիքները" key="1">
 						{Feedbacks &&
 							Feedbacks.map((item, key) => {
 								return (
-									<div key={key} className="feedbacks-data">
+									<div key={key} className="feedbacks-data" >
 										<img
-											src={`http://excelist-backend.herokuapp.com/${item.imageUrl}`}
+											src={item.imageUrl}
 											alt="image"
 											style={{height: "8%", width: "8%"}}
 										/>
@@ -148,14 +140,14 @@ handleCancel = e => {
 													backgroundColor: "orange",
 													borderColor: "orange"
 												}}
-												onClick={this.showModal}
+												onClick={() => this.showModal(item._id)}
 											>
 												EDIT
 											</Button>
 										</div>
 										<Modal
 				 							title="Edit feedback"
-				 							visible={this.state.visible}
+				 							visible={this.state.visible === item._id}
 				 							onOk={(e) => this.handleForm(e, 'update', item)}
 				 							onCancel={this.handleCancel}
 											key={key}
@@ -189,6 +181,7 @@ handleCancel = e => {
 											<TextArea
 												placeholder="Enter feedback"
 												name="comment"
+												defaultValue={item.comment}
 												onChange={this.handleInputs}
 											/>
 			 							</Modal>
