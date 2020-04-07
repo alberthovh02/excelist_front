@@ -1,11 +1,11 @@
 import React from "react";
-import {Input, Icon, Form, Button, Upload, message, Collapse} from "antd";
+import {Input, Icon, Form, Button, Upload, message, Collapse, Modal} from "antd";
 import ReactQuill from "react-quill";
 
 import { connect } from 'react-redux';
-import { getBlogs, createBlog, deleteBlog } from '../../../store/api';
-import { GET_ALL_BLOGS, CREATE_BLOG, DELETE_BLOG } from '../../../store/actionTypes';
-import { ActionCreator, DELETE, GET, POST } from '../../../store/actionCreators';
+import { getBlogs, createBlog, deleteBlog, updateBlog } from '../../../store/api';
+import { GET_ALL_BLOGS, CREATE_BLOG, DELETE_BLOG, UPDATE_BLOG } from '../../../store/actionTypes';
+import { ActionCreator, DELETE, GET, POST, PUT } from '../../../store/actionCreators';
 
 const { Panel } = Collapse
 
@@ -16,6 +16,9 @@ class BlogAdmin extends React.Component {
 			title: null,
 			image: null,
 			text: "",
+			visible: false,
+			edit_title: null,
+			edit_text: null
 		};
 	}
 
@@ -47,6 +50,10 @@ class BlogAdmin extends React.Component {
 		this.setState({text: value});
 	};
 
+	handleTextEdit = value => {
+		this.setState({edit_text: value})
+	}
+
 	handleInputChange = e => {
 		console.log(e.target.value);
 		const {name, value} = e.target;
@@ -76,22 +83,69 @@ class BlogAdmin extends React.Component {
 		const response = await dispatch(GET(getBlogs, GET_ALL_BLOGS));
 	}
 
+	handleCancel = () => {
+		this.setState({visible: false})
+	}
+
+	handleOk = async() => {
+		const { edit_text, edit_title, visible } = this.state;
+		const { dispatch } = this.props;
+		if(!edit_text && !edit_title){
+			message.error("Please fill form");
+			return false
+		}
+		let data = {}
+		if(edit_title) data.title = edit_title;
+		if(edit_text) data.text = edit_text;
+
+		const response = await dispatch(PUT(updateBlog(visible), data));
+		if(response.code !== 200 ){
+			message.error("Something went wrong");
+			return false
+		}
+
+		message.success("Edited");
+		this.setState({
+			edit_title: null,
+			edit_text: null,
+			visible: false
+		})
+		await dispatch(ActionCreator(UPDATE_BLOG, response.data))
+	}
+
 	render() {
 		const { Blogs } = this.props;
 		return (
 			<div>
 			<Collapse accordion>
-				<Panel header="View blogs">
+				<Panel header="Բոլոր բլոգները">
 					{Blogs && Blogs.map((item, key) => {
 						return <div key={key} className="videoblog-admin">
 							<img src={`${item.imageUrl}`} alt="image" style={{height: "8%", width: "8%"}}/>
 							<b>{item.title}</b>
 							<i>{item.language}</i>
 							<div>
+							<Modal
+								title="Edit blog"
+								visible={this.state.visible === item._id}
+								onOk={this.handleOk}
+								onCancel={this.handleCancel}
+							>
+								<Input defaultValue={item.title} name="edit_title" onChange={e => this.handleInputChange(e)}/>
+								<div style={{borderWidth: 1, borderStyle: "solid"}}>
+								<ReactQuill
+									defaultValue={item.content}
+									onChange={this.handleTextEdit}
+									modules={BlogAdmin.modules}
+									formats={BlogAdmin.formats}
+									/>
+								</div>
+							</Modal>
 								<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
-								<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}}>EDIT</Button>
+								<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}} onClick={() => this.setState({visible: item._id})}>EDIT</Button>
 							</div>
 							</div>
+							
 					}) }
 				</Panel>
 			</Collapse>
@@ -133,7 +187,7 @@ class BlogAdmin extends React.Component {
 						</div>
 					</Form.Item>
 					<Button type="primary" onClick={e => this.handleSubmit(e)}>
-						Submit
+						Հաստատել
 					</Button>
 				</form>
 			</div>

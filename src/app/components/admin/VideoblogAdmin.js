@@ -2,7 +2,7 @@ import React from "react";
 import {Input, Select, Icon, Form, Button, Upload,Collapse , message, Radio, Modal} from "antd";
 import { connect } from 'react-redux';
 import { getVideoblogs, createVideoblog, deleteVideoblog, editVideoblog } from '../../../store/api';
-import { GET_ALL_VIDEOBLOGS, CREATE_VIDEOBLOG, DELETE_VIDEOBLOG } from '../../../store/actionTypes';
+import { GET_ALL_VIDEOBLOGS, CREATE_VIDEOBLOG, DELETE_VIDEOBLOG, UPDATE_VIDEOBLOG } from '../../../store/actionTypes';
 import { ActionCreator, DELETE, GET, POST, PUT } from '../../../store/actionCreators';
 const {Option} = Select;
 const { Panel } = Collapse;
@@ -145,7 +145,7 @@ class VideoBlogAdmin extends React.Component {
 		data.append('video_link', edit_link)
 	}
 
-  	const response = await await dispatch(PUT(editVideoblog(visible), data, true));
+  	const response = await dispatch(PUT(editVideoblog(visible), data, true));
   	if(response.code !== 200){
   		message.error("Something went wrong");
   		this.setState({
@@ -158,13 +158,15 @@ class VideoBlogAdmin extends React.Component {
   		})
   		return false
   	}
-  	message.success("Updated");
+	  message.success("Updated");
+	  await dispatch(ActionCreator(UPDATE_VIDEOBLOG, response.data))
   	this.setState({
   			edit_name: null,
   			edit_language: null,
   			edit_fileList: [],
   			edit_image: null,
-  			edit_radio: null
+			  edit_radio: null,
+			visible: false
   		})
   }
 
@@ -225,7 +227,7 @@ class VideoBlogAdmin extends React.Component {
 			<div>
 				<form>
 				<Collapse accordion>
-					<Panel header="View videoblogs">
+					<Panel header="Բոլոր վիդեոբլոգերը">
 						{Videoblogs && Videoblogs.map((item, key) => {
 							return <div key={key} className="videoblog-admin">
 								<img src={item.imageUrl} alt="image" style={{height: "8%", width: "8%"}}/>
@@ -281,7 +283,7 @@ class VideoBlogAdmin extends React.Component {
 					</Panel>
 				</Collapse>
 					<Form.Item>
-						<p>Please choose language of videoblog</p>
+						<p>Ընտրեք վիդեոբլոգի լեզուն</p>
 						<Select
 							defaultValue="Language"
 							style={{width: 120, marginRight: 10}}
@@ -291,7 +293,7 @@ class VideoBlogAdmin extends React.Component {
 							<Option value="rus">Russian</Option>
 							<Option value="eng">English</Option>
 						</Select>
-						<p>Select an image</p>
+						<p>Կցել նկար</p>
 						<Upload onChange={this.onImageUpload} multiple={false} showUploadList={false} customRequest={() => setTimeout(() => {console.log("ok")}, 0)}>
 							<Button>
 								<Icon type="upload" name="image"/> Click to Upload
@@ -325,7 +327,7 @@ class VideoBlogAdmin extends React.Component {
 	        </Upload>
 	      </div> : null}
 					<Button type="primary" onClick={(e) => this.handleSubmit(e)}>
-						Submit
+						Հաստատել
 					</Button>
 				</form>
 			</div>

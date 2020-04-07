@@ -148,8 +148,8 @@ class SubscribedUsers extends React.Component {
 		return (
 			<>
         <Collapse accordion>
-          <Panel header="Send message" key="1">
-            <p>Enter message below</p>
+          <Panel header="Ուղարկել հաղորդագրություն" key="1">
+            <p>Մուտքագրեք նամակը</p>
             <TextArea rows={4} name="text" onChange={this.handleChange}/><br/><br/>
             <Input placeholder="Enter video link" name="link" onChange={this.handleChange}/><br/><br/>
             <Upload
@@ -167,7 +167,7 @@ class SubscribedUsers extends React.Component {
 							</Button>
 						</Upload>
             <Button type="primary" onClick={this.sendMessage}>
-              Send
+              Ուղարկել
             </Button><br/><br/>
           </Panel>
         </Collapse>

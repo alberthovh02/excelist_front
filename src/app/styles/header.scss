@@ -180,3 +180,62 @@ transform: translate(0,-100%);
     display: flex;
     justify-content: space-around;
   }
+
+
+.navbar-lessons {
+  display: flex;
+  justify-content: space-between;
+}
+.navbar-lessons-soon {
+ 
+    max-width: 300px;
+  img{
+    width: 100%
+  }
+  text-align: center
+}
+
+.navbar-lessons-link {
+  a {
+    color: #999;
+    padding: 8px 0;
+    display: block
+  }
+}
+
+.navbar-lessons-links-wrapper {
+  width: 50%
+}
+
+.soon-lesson-title {
+      text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    color: #666;
+    margin-top: 20px;
+}
+
+.soon-name {
+  font-size: 16px;
+    font-weight: 700;
+    line-height: 28px;
+    margin: 10px 0;
+        color: #217142;
+}
+
+.soon-register {
+  font-size: 1.3em;
+      background: #217142;
+    color: #ffffff !important;
+    border: 1px solid #217142;
+    border-width: 1px 0;
+    border-radius: 0.5em;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+    text-align: center;
+    line-height: 1em;
+      cursor: pointer;
+      padding: 10px 50px;
+      position: relative;
+      top: 20px;
+}

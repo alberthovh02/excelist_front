@@ -77,50 +77,50 @@ class Students extends React.Component {
       <main>
       <Form className="students-board">
         <h2>Թվային տվյալներ</h2>
-        <Form.Item label={`Ուսանողների թիվը: ${SingleData && SingleData.length && SingleData[0].students_count}`}>
-          <Input placeholder="Enter students count"
+        <Form.Item>
+        {`Ուսանողների թիվը: ${SingleData && SingleData.length && SingleData[0].students_count} `} <Input placeholder="Enter students count"
             name="students_count"
-            style={{width: '100%'}}
+            style={{width: '50%', display: 'inline-block'}}
             className="students_count"
             onChange={e => this.handleInputChange(e)}/>
         </Form.Item>
 
-        <Form.Item label={`Առարկաների թիվը ${SingleData && SingleData[0].lessons_count || 0}`}>
-          <Input placeholder="Enter lessons count"
+        <Form.Item>
+        {`Առարկաների թիվը ${SingleData && SingleData[0].lessons_count || 0} `} <Input placeholder="Enter lessons count"
             name="lessons_count"
-            style={{width: '100%'}}
+            style={{width: '50%', display: 'inline-block'}}
             className="students_count"
             onChange={e => this.handleInputChange(e)}/>
         </Form.Item>
 
-        <Form.Item label={`Ուսուցիչների թիվը ${SingleData && SingleData[0].teachers_count || 0}`}>
-          <Input placeholder="Enter teachers count"
+        <Form.Item>
+        {`Ուսուցիչների թիվը ${SingleData && SingleData[0].teachers_count || 0} `} <Input placeholder="Enter teachers count"
             name="teachers_count"
-            style={{width: '100%'}}
+            style={{width: '50%', display: 'inline-block'}}
             className="students_count"
             onChange={e => this.handleInputChange(e)}/>
         </Form.Item>
 
-        <Form.Item label={`Մասնակիցների թիվը ${SingleData && SingleData[0].members_count || 0}`}>
-          <Input placeholder="Enter members count"
+        <Form.Item>
+        {`Մասնակիցների թիվը ${SingleData && SingleData[0].members_count || 0} `} <Input placeholder="Enter members count"
             name="members_count"
-            style={{width: '100%'}}
+            style={{width: '50%', display: 'inline-block'}}
             className="students_count"
             onChange={e => this.handleInputChange(e)}/>
         </Form.Item>
 
-        <Form.Item label={`Այլ երկրից հետևորդների թիվը ${SingleData && SingleData[0].supporters_count || 0}`}>
-          <Input placeholder="Enter supporters count"
+        <Form.Item>
+        {`Այլ երկրից հետևորդների թիվը ${SingleData && SingleData[0].supporters_count || 0} `} <Input placeholder="Enter supporters count"
             name="supporters_count"
-            style={{width: '100%'}}
+            style={{width: '30%', display: 'inline-block'}}
             className="students_count"
             onChange={e => this.handleInputChange(e)}/>
         </Form.Item>
 
-        <Form.Item label={`Ֆեյսբուքում հետևորդների թիվը ${SingleData && SingleData[0].facebook_followers || 0}`}>
-          <Input placeholder="Enter fb followers count"
+        <Form.Item>
+        {`Ֆեյսբուքում հետևորդների թիվը ${SingleData && SingleData[0].facebook_followers || 0} `} <Input placeholder="Enter fb followers count"
             name="facebook_followers"
-            style={{width: '100%'}}
+            style={{width: '30%', display: 'inline-block'}}
             className="facebook_followers"
             onChange={e => this.handleInputChange(e)}/>
         </Form.Item>

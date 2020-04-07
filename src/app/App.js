@@ -28,6 +28,9 @@ class App extends React.Component {
     return(
         <div>
           <Main/>
+           <a onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} id="back-to-top" className="active">
+    <i className="fa fa-chevron-up"></i>
+  </a>
         </div>
     )
   }

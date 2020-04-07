@@ -8,7 +8,8 @@ class Header extends React.Component {
 		super()
 		this.state = {
 			Lessons: [],
-			Courses: []
+			Courses: [],
+			imageSource: null
 		}
 	}
 
@@ -56,7 +57,7 @@ window.addEventListener('scroll', function(){
 	}
 
 	render() {
-		const { Lessons, Courses } = this.state
+		const { Lessons, Courses, imageSource } = this.state
 		// if(Courses && Courses.length > 0) {
 		// 	var menu = (<Menu>
 		// 		{Courses.map((item, key) => {
@@ -66,18 +67,27 @@ window.addEventListener('scroll', function(){
 		// 	})}
 		// 		</Menu>)
 		// }
-		console.log(menu)
+		if(Courses && Courses.length && !imageSource){
+			this.setState({imageSource: Courses.filter(item => item._id === Lessons[0].lessonId)})
+		}
+		console.log(imageSource)
 		if(Courses && Courses.length > 0){
 			var menu = <div style={{background: 'white'}} className="navbar-lessons">
+				<div className="navbar-lessons-links-wrapper">
 			{Courses && Courses.length && Courses.map((item, key) => {
-				return <div className="">
+				return <div className="navbar-lessons-link">
 				<a href={`/course/${item._id}`}>{item.title}</a>
 				</div>
 			})}
-			{ Lessons && <div className="navbar-lessons-soon">
+			</div>
+			{ Lessons && new Date(Lessons[0].date).getTime() - new Date(Date.now()).getTime() > 0 && <div className="navbar-lessons-soon">
 					<div>
-						<img src={Lessons[0].imageUrl}/>
-						<p>{Lessons[0].name}</p>
+						<p className="soon-lesson-title">ՄՈՏԱԿԱ ԴԱՍԸՆԹԱՑ</p>
+						<a href={`/course/${imageSource && imageSource[0] && imageSource[0]._id}`}>
+						<img style={{maxWidth: '180px'}} src={imageSource && imageSource[0] && imageSource[0].imageUrl} alt="Lesson image"/>
+						<p className="soon-name">{Lessons[0].name}</p>
+						</a>
+						<a href="/register" className="soon-register" target="_blank">ԳՐԱՆՑՎԵԼ</a>
 					</div>
 				
 				
@@ -288,7 +298,7 @@ window.addEventListener('scroll', function(){
 }
 
 const get = state => {
-	return {Courses: state.Courses, lessons: state.lessons}
+	return {Courses: state.Courses, Lessons: state.Lessons}
 }
 
 export default connect(get)(Header);

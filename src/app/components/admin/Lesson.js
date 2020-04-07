@@ -1,18 +1,15 @@
 import React from "react";
 import {
 	Input,
-	DatePicker,
 	Button,
-	TimePicker,
 	Upload,
 	Icon,
 	Collapse,
 	Card,
 	message,
-	Modal
+	Modal,
+	Select
 } from "antd";
-import moment from "moment";
-import Request from '../../../store/request';
 import parseDate from '../../functions/parseTime';
 import DateTimePicker from 'react-datetime-picker';
 
@@ -23,18 +20,17 @@ import { createLesson, deleteLesson, updateLesson } from '../../../store/api';
 import { CREATE_LESSON, DELETE_LESSON, UPDATE_LESSON } from '../../../store/actionTypes';
 
 
-import Avatar from "../../functions/imageUpload";
-
 const {Dragger} = Upload;
 const {Panel} = Collapse;
 const { Meta } = Card;
+const { Option } = Select;
 
 class Lesson extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			name: null,
-			image: null,
+			lessonId: null,
 			date: new Date(),
 			editDate: new Date(),
 			edit_name: null,
@@ -50,19 +46,19 @@ class Lesson extends React.Component {
 
 	postLesson = async e => {
 		e.preventDefault();
-		const {name, date, image} = this.state;
+		const {name, date, lessonId} = this.state;
 		const { dispatch } = this.props;
-		if (!name || !date || !image) {
+		if (!name || !date) {
 			message.warning("Please fill all data");
 			return false;
 		}
-		const formData = new FormData();
 		const isoDate = date.toISOString()
-		formData.append("name", name);
-		formData.append('date', isoDate);
-		formData.append("image", image);
-
-		const response = await dispatch(POST(createLesson, formData, true));
+		let data = {
+			name,
+			date: isoDate,
+			lessonId
+		}
+		const response = await dispatch(POST(createLesson, data));
 		if (response.code === 200) {
 			message.success("Ավելացված է");
 			await dispatch(ActionCreator(CREATE_LESSON, response.data))
@@ -85,11 +81,11 @@ class Lesson extends React.Component {
 	};
 
 
-	onImageUpload = async info => {
-		if (info.file.status === 'uploading') {
-			this.setState({image:  info.file.originFileObj})
-		}
-	};
+	// onImageUpload = async info => {
+	// 	if (info.file.status === 'uploading') {
+	// 		this.setState({image:  info.file.originFileObj})
+	// 	}
+	// };
 
 	showModal = (item) => {
     	this.setState({
@@ -137,10 +133,15 @@ class Lesson extends React.Component {
     	this.setState({
       	visible: false,
     	});
-  	};
+	  };
+	  
+	handleChange = (value, item) => {
+		this.setState({name: value, lessonId: item.props.lessonId})
+	}
 
 	render() {
-		const { Lessons } = this.props;
+		const { Lessons, Courses } = this.props;
+		console.log(this.state.name)
 		return (
 			<>
 				<Collapse accordion>
@@ -148,10 +149,11 @@ class Lesson extends React.Component {
 						<div className="lessons-admin-container">
 						{Lessons && Lessons.length &&
 							Lessons.map( (item, key) => {
+								const imageSource = Courses && Courses.length && Courses.filter(it => it._id === item.lessonId)
 								return( <Card
 											hoverable
     										style={{ width: 240 }}
-    										cover={<img alt="example" src={item.imageUrl} />}
+    										cover={<img alt="example" src={imageSource && imageSource[0] && imageSource[0].imageUrl} />}
 											actions={[
       											<Icon type="edit" onClick={this.showModal.bind(null, item)}/>,
       											<Icon type="delete" onClick={this.deleteLessonFunc.bind(null, item)}/>,
@@ -190,25 +192,11 @@ class Lesson extends React.Component {
 					/></div><br/>
 					<div className="create-form">
 					<form method="POST" action="/create" id="form">
-						<Input
-							placeholder="Դասընթացի անվանումը"
-							className="lesson_name"
-							onChange={e => this.handleNameChange(e)}
-						/>
-						<br />
-						<Dragger onChange={this.onImageUpload} multiple={false} customRequest={() => setTimeout(() => {console.log("ok")}, 0)}>
-							<p className="ant-upload-drag-icon">
-								<Icon type="inbox" />
-							</p>
-							<p className="ant-upload-text">
-								Click or drag file to this area to upload
-							</p>
-							<p className="ant-upload-hint">
-								Support for a single or bulk upload. Strictly prohibit from
-								uploading company data or other band files
-							</p>
-						</Dragger>
-					
+						<Select defaultValue="Choose lesson" style={{ width: 300 }} onChange={this.handleChange}>
+							{ Courses && Courses.length && Courses.map((item, key) => {
+								return <Option value={item.title} lessonId={item._id}>{item.title}</Option>
+							})}
+    					</Select>
 						<br />
 						<Button type="primary" onClick={e => this.postLesson(e)}>
 							Հաստատել
@@ -222,7 +210,7 @@ class Lesson extends React.Component {
 }
 
 const get = state => {
-	return { Lessons: state.Lessons }
+	return { Lessons: state.Lessons, Courses: state.Courses }
 }
 
 export default connect(get)(Lesson);

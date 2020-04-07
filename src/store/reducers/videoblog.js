@@ -10,8 +10,8 @@ export default (state = null, action) => {
       return state.filter(item => item._id !== payload._id);
     case UPDATE_VIDEOBLOG:
       return state.map(item => {
-        if (item.id === payload[0].id) {
-          return { ...item, ...payload[0] };
+        if (item._id === payload._id) {
+          return { ...item, ...payload };
         }
         return item;
       });

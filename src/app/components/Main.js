@@ -554,7 +554,7 @@ class Index extends React.Component {
 							<p>
 								{this.state.youtubeSubscribersCount && <CountUp
 									start={0}
-									end={this.state.youtubeSubscribersCount.items[0].statistics.viewCount}
+									end={this.state.youtubeSubscribersCount && this.state.youtubeSubscribersCount.items[0].statistics.viewCount}
 									duration={4}
 									delay={2}
 									style={{fontWeight: 'bold', fontSize: '0.8em', marginBottom: 0}}
@@ -708,7 +708,8 @@ class Index extends React.Component {
 					<div style={{width: "50%", marginLeft: 'auto', marginRight: 'auto'}}>
 					<h1 className="about_heading main_heading">ԿԱՐԾԻՔՆԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ</h1>
 					<div className="line"></div>
-					{ Feedbacks && <FeedbackCarousel infinite={true} responsive={responsive} afterChange={(previousSlide, { currentSlide, onMove }) => {this.setState({currentSlide})}}>
+					<div style={{display: 'flex', justifyContent: 'center'}}>
+					{ Feedbacks && <FeedbackCarousel infinite={true} responsive={responsive} afterChange={(previousSlide, { currentSlide, onMove }) => {this.setState({currentSlide})}} >
 						 {Feedbacks.length && Feedbacks.map((item, key) => {
 								return <div key={key} className="feedback-item" style={{maxWidth: 200}}>
 									<img src={item.imageUrl}/>
@@ -718,6 +719,7 @@ class Index extends React.Component {
 							})
 						}
 					</FeedbackCarousel> }
+					</div>
 					</div>
 
 					<div className="intro_partners">

@@ -25,13 +25,14 @@ export const deleteVideoblog = id => `video-blog/${id}`;
 //blogs
 export const getBlogs = 'blogs';
 export const createBlog = 'blogs/create';
-// export const updateBlog = id => `user-feedbacks/${id}`;
+export const updateBlog = id => `blogs/${id}`;
 export const deleteBlog = id => `blogs/${id}`;
 
 //courses
 export const getCourses = 'course/';
 export const createCourse = 'course/create/';
 export const deleteCourse = id => `course/${id}`
+export const updateCourse = id => `course/${id}`
 
 export const getSingledata = 'students';
 export const updateSingleData = 'students/count';

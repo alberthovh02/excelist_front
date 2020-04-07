@@ -1,10 +1,10 @@
 import React from "react";
-import {Form, Upload, message, Button, Icon, Input, Collapse} from "antd";
+import {Form, Upload, message, Button, Icon, Input, Collapse, Modal} from "antd";
 import ReactQuill,{ Quill } from "react-quill";
 import { connect } from 'react-redux';
-import { createCourse, deleteCourse } from '../../../store/api';
-import { ActionCreator, DELETE, POST } from '../../../store/actionCreators';
-import { DELETE_COURSE, CREATE_COURSE } from '../../../store/actionTypes';
+import { createCourse, deleteCourse, updateCourse } from '../../../store/api';
+import { ActionCreator, DELETE, POST, PUT } from '../../../store/actionCreators';
+import { DELETE_COURSE, CREATE_COURSE, UPDATE_COURSE } from '../../../store/actionTypes';
 
 const { Panel } = Collapse;
 
@@ -42,7 +42,8 @@ class AdminCourse extends React.Component {
 			text: "",
       		image: null,
 			text: '',
-			caption: null  
+			caption: null,
+			visible: null  
 		};
 	}
 
@@ -101,6 +102,40 @@ class AdminCourse extends React.Component {
 		}
 	}
 
+	handleCancel = () => {
+		this.setState({visible: false})
+	}
+	
+	handleTextEdit = value => {
+		this.setState({edit_text: value})
+	}
+
+	handleOk = async() => {
+		const { edit_text, edit_title, visible } = this.state;
+		const { dispatch } = this.props;
+		if(!edit_text && !edit_title){
+			message.error("Please fill form");
+			return false
+		}
+		let data = {}
+		if(edit_title) data.title = edit_title;
+		if(edit_text) data.text = edit_text;
+
+		const response = await dispatch(PUT(updateCourse(visible), data));
+		if(response.code !== 200 ){
+			message.error("Something went wrong");
+			return false
+		}
+
+		message.success("Edited");
+		this.setState({
+			edit_title: null,
+			edit_text: null,
+			visible: false
+		})
+		await dispatch(ActionCreator(UPDATE_COURSE, response.data))
+	}
+
 	render() {
 		const {getFieldDecorator} = this.props.form;
 		const { Courses } = this.props;
@@ -114,8 +149,24 @@ class AdminCourse extends React.Component {
 							<b>{item.title}</b>
 							<i>{item.language}</i>
 							<div>
+							<Modal
+								title="Edit course"
+								visible={this.state.visible === item._id}
+								onOk={this.handleOk}
+								onCancel={this.handleCancel}
+							>
+								<Input defaultValue={item.title} name="edit_title" onChange={e => this.handleInput(e)}/>
+								<div style={{borderWidth: 1, borderStyle: "solid"}}>
+								<ReactQuill
+									defaultValue={item.content}
+									onChange={this.handleTextEdit}
+									modules={AdminCourse.modules}
+									formats={AdminCourse.formats}
+									/>
+								</div>
+							</Modal>
 								<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
-								<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}}>EDIT</Button>
+								<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}} onClick={() => this.setState({visible: item._id})}>EDIT</Button>
 							</div>
 							</div>
 					}) }

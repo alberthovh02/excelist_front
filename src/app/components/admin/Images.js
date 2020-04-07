@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import { Input, Upload, Icon, Modal, Button, message, Collapse, Card } from 'antd';
+import { Input, Upload, Icon, Modal, Button, message, Collapse, Card, Form } from 'antd';
 import { ImageCropper, HiddenCropper } from "react-bootstrap-image-cropper";
 //redux
 import { connect } from 'react-redux';
@@ -112,6 +112,27 @@ handleEditCancel = () => {
   })
 }
 
+handleUpdate = async() => {
+  const { editModal, edit_name } = this.state;
+  const { dispatch } = this.props;
+  if(!edit_name){
+    message.error("Album name can't be empty")
+    return false
+  }
+
+  const data = {
+    name: edit_name
+  }
+
+  const response = await dispatch(PUT(updateAlbum(editModal), data))
+  if(response.code !== 200){
+    message.error("Something went wrong");
+    return false
+  }
+  message.success("Successfully updated")
+  await dispatch(ActionCreator(UPDATE_ALBUM, response.data))
+}
+
 deleteAlbumImage = async(image) =>{
   const { editModal } = this.state;
   const { dispatch } = this.props;
@@ -148,7 +169,7 @@ deleteAlbumImage = async(image) =>{
     return(
       <div className="images-container">
       <Collapse>
-        <Panel header="Albums" key="1">
+        <Panel header="Բոլոր ալբոմները" key="1">
           { Albums && Albums.map((item, key) => {
           return <Card
           style={{ width: 300 }}
@@ -185,6 +206,10 @@ deleteAlbumImage = async(image) =>{
                 onCancel={this.handleEditCancel}
               >
                 <div style={{display: 'flex', flexWrap: 'wrap', width: '100%'}}>
+                  <Form.Item>
+                    <Input name="edit_name" onChange={this.handleInput}/>
+                    <Button onClick={this.handleUpdate}>Change</Button>
+                  </Form.Item>
                 {item.images && item.images.map((image) => {
                   return <div>
                       <img src={image.url} width={200}/>
@@ -205,7 +230,7 @@ deleteAlbumImage = async(image) =>{
           previewOptions={{ width: 600, height: 600 }}
           style={{width: '600px', height: '600px'}}
         /><br/>
-        <Button onClick={ this.handleSubmit }>Add album</Button>
+        <Button onClick={ this.handleSubmit }>Ավելացնել ալբոմ</Button>
       </div>
     )
   }

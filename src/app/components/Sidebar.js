@@ -88,12 +88,12 @@ class Sidebar extends React.Component {
             return (
               <div className="sidebar-course col-sm-12" style={{width: '100%', height: '85px'}}>
               <a target="_blank" href={item.generatedUrl}>
-              <div className="col-sm-6">
+              <div className="col-sm-10">
                 <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
                 </div>
               </a>
               <a  target="_blank" href={item.generatedUrl}>
-                <span className="sidebar-title-text col-sm-6">{item.title}</span>
+                <span className="sidebar-title-text col-sm-2">{item.title}</span>
               </a>
               </div>
             )

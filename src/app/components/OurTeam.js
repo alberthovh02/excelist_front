@@ -29,11 +29,25 @@ class OurTeam extends React.Component {
                 return  <><Helmet>
                 <title>{item.name}</title>
                     </Helmet>
-                    
+                    <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
                     <div>
-                    <p>{ item.name }</p>
+                        {item.id === 1 && <img src={require("../../assets/images/our_team/member-1.jpg")} style={{borderRadius: '50%'}}/>}
+                        {item.id === 2 && <img src={require("../../assets/images/our_team/member-2.jpg")} style={{borderRadius: '50%'}}/>}
+                        {item.id === 3 && <img src={require("../../assets/images/our_team/member-3.jpg")} style={{borderRadius: '50%'}}/>}
+                    </div>
                     <div>
+                    <p className="our-team-title">{ item.name }</p>
+                    <p className="our-team-position">Էքսելիստ</p>
+                    <div style={{maxWidth: "500px", display: 'flex', justifyContent: 'center'}}>
                         <p>{item.bio}</p>
+                    </div>
+                    </div>
+                    <div>
+                        
+             {item.links.phone && <div><i className="fa fa-phone" style={{color: '#217142', fontSize: 15}}/> {item.links.phone}</div>}
+             {item.links.email && <div><i className="fa fa-envelope" style={{color: '#217142', fontSize: 15}}/> {item.links.email}</div>}
+             {item.links.fb && <a href={item.links.fb} target="_blank"><i className="fa fa-facebook" style={{fontSize: 30, marginRight: 10}}/></a>}
+                        {item.links.linkedIn && <a href={item.links.linkedIn} target="_blank"><i className="fa fa-linkedin" style={{fontSize: 30}}/></a>}
                     </div>
                     </div>
                     </>

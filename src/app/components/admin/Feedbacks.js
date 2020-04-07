@@ -28,17 +28,19 @@ class Feedbacks extends React.Component {
 			username: null,
 			comment: null,
 			link: null,
-			visible: false
+			visible: false,
+			edit_username: null,
+			edit_link: null,
+			edit_comment: null
 		};
 	}
 
 
 	handleOk = e => {
-	console.log(e);
-	this.setState({
-		visible: false,
-	});
-};
+		this.setState({
+			visible: false,
+		});
+	};
 
 	handleCancel = e => {
 		this.setState({
@@ -49,7 +51,7 @@ class Feedbacks extends React.Component {
 	handleForm = async (e, type, item) => {
 		e.preventDefault();
 		const { dispatch } = this.props;
-		const {image, username, comment, link} = this.state;
+		const {image, username, comment, link, edit_comment, edit_link, edit_username} = this.state;
 
 		const data = new FormData();
 		data.append("image", image);
@@ -57,8 +59,14 @@ class Feedbacks extends React.Component {
 		data.append("comment", comment);
 		data.append("link", link);
 
+		const updateData = {
+			username: edit_username,
+			comment: edit_comment,
+			link: edit_link
+		}
+
 	    if(type === 'update'){
-			const response = await dispatch(PUT(updateFeedback(item._id), data, true));
+			const response = await dispatch(PUT(updateFeedback(item._id), updateData));
       		if (response.code === 200) {
         		message.success("Կարծիքը հաջողությամբ թարմացվել է");
         		this.setState({visible: false})
@@ -152,35 +160,22 @@ class Feedbacks extends React.Component {
 				 							onCancel={this.handleCancel}
 											key={key}
 			 								>
-											<Upload
-												onChange={this.onImageUpload}
-												multiple={false}
-												showUploadList={false}
-												customRequest={() =>
-													setTimeout(() => {
-														console.log("ok");
-													}, 0)
-												}
-											>
-												<Button>
-													<Icon type="upload" name="image" /> Click to Upload
-												</Button>
-											</Upload>
+											
 											<Input
 												placeholder="Enter user name"
-												name="username"
+												name="edit_username"
 												onChange={this.handleInputs}
 												defaultValue={item.username}
 											/>
 											<Input
 												placeholder="Enter comment link"
-												name="link"
+												name="edit_link"
 												defaultValue={item.link}
 												onChange={this.handleInputs}
 											/>
 											<TextArea
 												placeholder="Enter feedback"
-												name="comment"
+												name="edit_comment"
 												defaultValue={item.comment}
 												onChange={this.handleInputs}
 											/>
@@ -222,7 +217,7 @@ class Feedbacks extends React.Component {
 					/>
 					<Button type="primary" onClick={this.handleForm}>
 						ADD
-					</Button>
+					</Button><br/>
 				</div>
 			</>
 		);
