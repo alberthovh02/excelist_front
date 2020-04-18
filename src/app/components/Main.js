@@ -665,7 +665,7 @@ class Index extends React.Component {
 						<h1 className="about_heading main_heading">ՄԵՐ ԳՈՐԾԸՆԿԵՐՆԵՐԸ</h1>
 						<div className="line"></div>
 						<div className="partners_desc" style={{marginLeft: 'auto', marginRight: 'auto'}}>
-							<Carousel autoplay>
+							{window.innerWidth > 768 ? <Carousel autoplay>
 								<div className="partners_row">
 									<img
 										src={require("../../assets/images/partners/ardshinbank.png")}
@@ -701,7 +701,74 @@ class Index extends React.Component {
 										src={require("../../assets/images/partners/barsis.png")}
 									/>
 								</div>
+							</Carousel> : (
+								<Carousel autoplay>
+									<div className="partners_row">
+										<img
+											src={require("../../assets/images/partners/ardshinbank.png")}
+										/>
+									</div>
+									<div className="partners_row">
+									<img
+										src={require("../../assets/images/partners/idram.png")}
+									/>
+									</div>
+									<div className="partners_row">
+									<img
+										src={require("../../assets/images/partners/inecobank.png")}
+									/>
+									</div>
+									<div className="partners_row">
+									<img
+										src={require("../../assets/images/partners/ameriabank.png")}
+									/>
+									</div>
+									<div className="partners_row">
+									<img src={require("../../assets/images/partners/ucom.png")} />
+									</div>
+								{/* </div> */}
+								{/* <div className="partners_row"> */}
+								<div className="partners_row">
+									<img src={require("../../assets/images/partners/kt.png")} />
+									</div>
+									<div className="partners_row">
+									<img src={require("../../assets/images/partners/alfa.png")} />
+									</div>
+										<div className="partners_row">
+									<img
+										src={require("../../assets/images/partners/unicef.png")}
+									/>
+									</div>
+									<div className="partners_row">
+									<img
+										src={require("../../assets/images/partners/aregak.png")}
+									/>
+									</div>
+									<div className="partners_row">
+									<img src={require("../../assets/images/partners/card.png")} />
+									</div>
+								{/* </div> */}
+								{/* <div className="partners_row"> */}
+								<div className="partners_row">
+									<img src={require("../../assets/images/partners/nmc.png")} />
+									</div>
+									<div className="partners_row">
+									<img src={require("../../assets/images/partners/msf.png")} />
+									</div>
+									<div className="partners_row">
+									<img src={require("../../assets/images/partners/viva.png")} />
+									</div>
+									<div className="partners_row">
+									<img src={require("../../assets/images/partners/hec.png")} />
+									</div>
+									<div className="partners_row">
+									<img
+										src={require("../../assets/images/partners/barsis.png")}
+									/>
+									
+								</div>
 							</Carousel>
+							)}
 						</div>
 					</div>
 

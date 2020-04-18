@@ -266,7 +266,7 @@ class AboutUs extends React.Component {
 							<h1 className="about_heading">ԾԱՆՈԹԱՑԻ՛Ր ՄԵՐ ԹԻՄԻՆ</h1>
 							<div className="line"></div>
 							<div className="j_team">
-								<a href="">Միացի՛ր մեր թիմին</a>
+								<a href="/join" target="_blank">Միացի՛ր մեր թիմին</a>
 							</div>
 							<div className="our_team">
 								<div className="team_member">
@@ -280,7 +280,7 @@ class AboutUs extends React.Component {
 											<a href="https://www.linkedin.com/in/armen-petrosyan-47751229/ru" target="_blank"><i className="fa fa-linkedin"></i></a>
 										</a>
 									</p>
-									<p className='name-title'>ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ</p>
+									<a href="/our-team/1"><p className='name-title'>ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ</p></a>
 									<p>Էքսելիստ</p>
 								</div>
 								<div className="team_member">
@@ -295,7 +295,7 @@ class AboutUs extends React.Component {
 										<a href="https://www.linkedin.com/in/excelist/" target="_blank"><i className="fa fa-linkedin"></i></a>
 										</a>
 									</p>
-									<p className="name-title">ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ</p>
+									<a href="/our-team/2"><p className="name-title">ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ</p></a>
 									<p>Էքսելիստ</p>
 								</div>
 								<div className="team_member">
@@ -310,7 +310,7 @@ class AboutUs extends React.Component {
 
 										</a>
 									</p>
-									<p className="name-title">ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ</p>
+									<a href="/our-team/3"><p className="name-title">ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ</p></a>
 									<p>Էքսելիստ</p>
 								</div>
 							</div>

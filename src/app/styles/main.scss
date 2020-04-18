@@ -558,6 +558,10 @@ body {
   align-items: center;
 }
 
+.container {
+  overflow-x: hidden;
+}
+
 .album-container {
   width: 90%;
   margin-left: auto;
@@ -782,6 +786,13 @@ body {
     padding: 0;
   }
 }
+
+@media screen and (max-width: '768px'){
+  .partners_row{
+    justify-content: center;
+  }
+}
+
 @media screen and (max-width: '670px') {
   .main_statistics,
   .our_team {

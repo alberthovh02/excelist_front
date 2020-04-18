@@ -55,7 +55,7 @@ class Videos extends React.Component{
       <Header/>
 
 
-        <div  style={{width: '82%', marginLeft: 'auto', marginRight: 'auto'}}>
+        <div className="videoblog-video-wrapper">
         <Container  fluid>
           <Row>
             <Col sm={9}>

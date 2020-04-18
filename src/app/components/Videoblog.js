@@ -15,9 +15,9 @@ class Videoblog extends React.Component{
         <title>{ title }</title>
       </Helmet>
       <Header/>
-      <div className="intro_videoblog col-sm-12" style={{marginTop: "20px", width:'85%',display:'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
+      <div className="intro_videoblog col-sm-12">
         <div className="videblog_desc col-sm-10">
-          <div className="single_videblog" >
+          <div className="single_videoblog" >
             <a href="/videos?lang=arm"><img src={require("../../assets/images/intro/arm.png")} alt="Armenian videos"/></a>
             <a href="/videos?lang=arm"><h4 className="single-title">Հայերեն վիդեոներ</h4></a>
             <a className="intro_videoblog_see_more" href="/videos?lang=arm" target="_blank">

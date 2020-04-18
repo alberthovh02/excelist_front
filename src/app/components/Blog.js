@@ -32,7 +32,7 @@ class Blog extends React.Component {
 				 <title>{ title }</title>
 			 </Helmet>
 				<Header />
-				<div  style={{width: '82%', marginLeft: 'auto', marginRight: 'auto'}}>
+				<div className="blog-wrapper" >
 				<Container  fluid>
 					<Row style={{height: '100%'}}>
 						<Col sm={9}>

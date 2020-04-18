@@ -243,3 +243,21 @@
   width: 35px;
   margin: 0 auto 30px;
 }
+
+
+@media screen and (max-width: 768px){
+  .about_statistics {
+    flex-direction: column;
+    align-items: center;
+    .statistic_item {
+      span {
+        line-height: 45px;
+      }
+    }
+  }
+  .album-container, .lesson_benefits, .our_team  {
+    flex-direction: column;
+    align-items: center;
+  }
+
+}
