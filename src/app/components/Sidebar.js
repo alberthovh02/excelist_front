@@ -53,13 +53,13 @@ class Sidebar extends React.Component {
           <p>ԴԱՍԸՆԹԱՑՆԵՐ</p>
           { filterCourses &&  filterCourses.map((item, key) => {
             return (
-              <div key={key} className="sidebar-course col-sm-12" style={{width: '100%', height: '85px'}}>
-              <a target="_blank"  href={`/course/${item._id}`}>
-              <div className="col-sm-6">
+              <div key={key} className="sidebar-course" style={{width: '100%', height: '85px'}}>
+              <a target="_blank"  href={`/course/${item._id}`}  style={{width: "50%"}}>
+              <div className="">
                 <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
               </div>
               </a>
-              <a target="_blank"  href={`/course/${item._id}`}>
+              <a target="_blank"  href={`/course/${item._id}`} style={{width: "50%", marginLeft: 10}}>
               <span className="sidebar-title-text col-sm-6">{item.title}</span>
               </a>
             </div>)
@@ -69,13 +69,13 @@ class Sidebar extends React.Component {
           <p>ԲԼՈԳ</p>
           { filterBlogs && filterBlogs.map((item, key) => {
             return (
-              <div key={key} className="sidebar-course col-sm-12" style={{width: '100%', height: '85px'}}>
-              <a target="_blank" href={`/blogpost/${item.generatedUrl}`}>
-              <div className="col-sm-6">
+              <div key={key} className="sidebar-course" style={{width: '100%', height: '85px'}}>
+              <a target="_blank" href={`/blogpost/${item.generatedUrl}`} style={{width: "50%"}}>
+              <div className="">
                 <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
               </div>
               </a>
-              <a target="_blank" href={`/blogpost/${item.generatedUrl}`}>
+              <a target="_blank" href={`/blogpost/${item.generatedUrl}`} style={{width: "50%", marginLeft: 10}}>
               <span className="sidebar-title-text col-sm-6">{item.title}</span>
               </a>
             </div>
@@ -86,13 +86,13 @@ class Sidebar extends React.Component {
           <p>ՎԻԴԵՈԲԼՈԳ</p>
           { filterVideoblogs && filterVideoblogs.map((item, key) => {
             return (
-              <div className="sidebar-course col-sm-12" style={{width: '100%', height: '85px'}}>
-              <a target="_blank" href={item.generatedUrl}>
-              <div className="col-sm-10">
+              <div className="sidebar-course" style={{width: '100%', height: '85px'}}>
+              <a target="_blank" href={item.generatedUrl} style={{width: "50%"}}>
+              <div>
                 <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
                 </div>
               </a>
-              <a  target="_blank" href={item.generatedUrl}>
+              <a  target="_blank" href={item.generatedUrl} style={{width: "50%", marginLeft: 10}}>
                 <span className="sidebar-title-text col-sm-2">{item.title}</span>
               </a>
               </div>
