@@ -72,9 +72,20 @@ class Index extends React.Component {
 		}, 4000)
 	}
 
+	static getDerivedStateFromProps(nextProps, prevState){
+		if(nextProps.Lessons!==prevState.Lessons){
+		  return { Lessons: nextProps.Lessons};
+	   }
+	   if(nextProps.Courses !== prevState.Courses){
+		   return {Courses: nextProps.Courses}
+	   }
+   else return null;
+ }
+
 	render() {
 		const { Lessons, Feedbacks, Albums, Blogs, Courses,Students } = this.props;
 		console.log('Bloot', Blogs)
+		const { imageSource } = this.state;
 		const FilteredBlogs = Blogs ? Blogs.slice(0, 4) : null;
 		const FilteredCourses = Courses ? Courses.slice(0, 4) : null;
 		const customPanelStyle = {
@@ -103,6 +114,9 @@ class Index extends React.Component {
     items: 1,
   },
 };
+if(Courses && Courses.length && !imageSource && Lessons && Lessons[0]){
+	this.setState({imageSource: Courses.filter(item => item._id === Lessons[0].lessonId)})
+}
 		
 		return (
 			<>
@@ -554,7 +568,7 @@ class Index extends React.Component {
 							<p>
 								{this.state.youtubeSubscribersCount && <CountUp
 									start={0}
-									end={this.state.youtubeSubscribersCount && this.state.youtubeSubscribersCount.items[0].statistics.viewCount}
+									end={this.state.youtubeSubscribersCount && this.state.youtubeSubscribersCount.items && this.state.youtubeSubscribersCount.items[0].statistics.viewCount}
 									duration={4}
 									delay={2}
 									style={{fontWeight: 'bold', fontSize: '0.8em', marginBottom: 0}}
@@ -649,8 +663,8 @@ class Index extends React.Component {
 					<a className="register-for-lesson" target="_blank" href="/register"><i className="fa fa-user-plus" style={{color: 'white'}}></i>  ԳՐԱՆՑՎԵԼ</a>
 					</div>
 					<div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
-
-						<img src={data.imageUrl} style={{width: '100%'}}/>
+					{console.log("IMG", imageSource)}
+						<img src={imageSource && imageSource[0] && imageSource[0].imageUrl} style={{width: '50%'}}/>
 						<p className='lesson-title'>{data.name}</p>
 						</div>
 					</div></div> </div>)

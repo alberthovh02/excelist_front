@@ -11,7 +11,8 @@ class GetFiles extends React.Component {
 		super(props)
 		this.state = {
 			name: null,
-			email: null
+			email: null,
+			loading: false
 		}
 	}
 	handleNameChange = (e) => {
@@ -27,11 +28,19 @@ class GetFiles extends React.Component {
 	handleSubmit = async(e) => {
 		e.preventDefault();
 		const { name, email } = this.state;
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		var valid = re.test(email)
+		if(!valid){
+		  toast.error("Ոչ ճիշտ էլ․ հասցե");
+		  return false
+		}
 		if(!email || !name){
 			toast.error("Խնդրում ենք լրացնել բոլոր պարտադիր դաշտերը");
 			return false;
 		}
+		this.setState({loading: true})
 		const response = await Request.postJson('get-files/send', { name, email})
+		this.setState({loading: false})
 		if(response.status === 200){
 			toast.success('Նամակը հաջողությամբ ուղարկվել է')
 		}else{
@@ -40,6 +49,7 @@ class GetFiles extends React.Component {
 	}
 
 	render() {
+		const { loading } = this.state;
 		return (
 			<>
 				<Header />
@@ -60,7 +70,7 @@ class GetFiles extends React.Component {
 						placeholder="Լրացրե՛ք Ձեր էլեկտրոնային հասցեն (e-mail)"
 						onChange={(e) => this.handleMailChange(e)}
 					/><br/>
-					<Button type="primary" onClick={(e) => this.handleSubmit(e)}>Ուղարկել</Button>
+					<Button loading={loading} type="primary" onClick={(e) => this.handleSubmit(e)}>Ուղարկել</Button>
 				</div>
         </div>
 				<div style={{position: "absolute", bottom: 0, width: "100%"}}>
