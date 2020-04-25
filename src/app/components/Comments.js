@@ -27,7 +27,12 @@ class Comments extends React.Component {
   handleSubmit = async() => {
     const { comment, name, email, parentId, parentType } = this.state;
     const { dispatch } = this.props;
-    console.log('pID', parentId, parentType)
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var valid = re.test(email)
+    if(!valid){
+      message.error("Ոչ ճիշտ էլ․ հասցե");
+      return false
+    }
     if(!comment || !name || !email){
       message.error('Խնդրում ենք լրացրեք բոլոր դաշտերը')
       return false;
@@ -56,8 +61,8 @@ class Comments extends React.Component {
         </Form.Item>
         <Form.Item >
           <div style={{display: 'flex !important', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
-          <Input name='name' placeholder="Անուն" onChange={ this.handleChange } style={{width: '30%', padding: '4px 10px !important'}}/>
-          <Input name='email' placeholder="Էլ. փոստ" onChange={ this.handleChange } style={{width: '40%', padding: '4px 10px !important'}}/>
+          <Input name='name' placeholder="Անուն" onChange={ this.handleChange } style={{width: '30%', padding: '4px 10px !important', marginRight: 10}}/>
+          <Input name='email' placeholder="Էլ. փոստ" onChange={ this.handleChange } style={{width: '40%', padding: '4px 10px !important', marginRight: 10}}/>
           <button className="comment-button" onClick={this.handleSubmit} style={{width: '20%'}}>Մեկնաբանել</button>
           </div>
         </Form.Item>

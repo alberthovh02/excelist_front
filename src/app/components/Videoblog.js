@@ -1,5 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Container, Row, Col } from "react-bootstrap";
+
 
 import Header from './Header';
 import Footer from "./Footer";
@@ -15,8 +17,12 @@ class Videoblog extends React.Component{
         <title>{ title }</title>
       </Helmet>
       <Header/>
-      <div className="intro_videoblog col-sm-12">
-        <div className="videblog_desc col-sm-10">
+      <Container fluid>
+            <Row style={{ height: "100%" }}>
+              <Col sm={9}>
+                <Row sm={12}>
+                <div className="intro_videoblog ">
+        <div className="videblog_desc ">
           <div className="single_videoblog" >
             <a href="/videos?lang=arm"><img src={require("../../assets/images/intro/arm.png")} alt="Armenian videos"/></a>
             <a href="/videos?lang=arm"><h4 className="single-title">Հայերեն վիդեոներ</h4></a>
@@ -38,11 +44,15 @@ class Videoblog extends React.Component{
               Տեսնել ավելին․․․
             </a>
           </div>
-        </div>
-        <div className='col-sm-2'>
-            <Sidebar/>
-        </div>
-      </div>
+        </div></div>
+                  </Row>
+                  </Col>
+                  <Col sm={3}>
+                <Sidebar />
+              </Col>
+                  </Row>
+                  </Container>
+     
       <Footer mode="simple"/>
      </div>
    )
