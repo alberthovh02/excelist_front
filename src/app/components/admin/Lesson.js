@@ -34,7 +34,8 @@ class Lesson extends React.Component {
 			date: new Date(),
 			editDate: new Date(),
 			edit_name: null,
-			checked: false
+			checked: false,
+			loading: false
 		};
 	}
 	onChange = date => this.setState({ date })
@@ -58,7 +59,9 @@ class Lesson extends React.Component {
 			date: isoDate,
 			lessonId
 		}
+		this.setState({loading: true})
 		const response = await dispatch(POST(createLesson, data));
+		this.setState({loading: false})
 		if (response.code === 200) {
 			message.success("Ավելացված է");
 			await dispatch(ActionCreator(CREATE_LESSON, response.data))
@@ -114,9 +117,11 @@ class Lesson extends React.Component {
   		}
   		if(new Date(editDate) !== Date.now() && this.state.checked){
   			data.date = isoDate
-  		}
+		  }
+		  this.setState({loading: true})
   		const response = await dispatch(PUT(updateLesson(visible), data));
-  		if(response.code !== 200){
+		  this.setState({loading: false})  
+		  if(response.code !== 200){
   			message.error("Ինչ որ բան սխալ գնաց");
   			return false
   		}
@@ -141,7 +146,7 @@ class Lesson extends React.Component {
 
 	render() {
 		const { Lessons, Courses } = this.props;
-		console.log(this.state.name)
+		const { loading } = this.state
 		return (
 			<>
 				<Collapse accordion>
@@ -198,7 +203,7 @@ class Lesson extends React.Component {
 							})}
     					</Select>
 						<br />
-						<Button type="primary" onClick={e => this.postLesson(e)}>
+						<Button type="primary" loading={loading} onClick={e => this.postLesson(e)} >
 							Հաստատել
 						</Button>
 					</form>

@@ -20,33 +20,38 @@ class Navbar extends React.Component {
 
   render(){
     return (
-      <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
+      <Menu 
+        onClick={this.handleClick} 
+        selectedKeys={[this.state.current]} 
+        mode="inline" 
+        theme="dark" 
+        style={{ width: 256, position: "absolute", left: 0, top:0, height: '100vh' }}>
         <Menu.Item key="/create-lesson">
-          <Link to="/create-lesson" style={{color: 'green', fontWeight: 'bold'}}><Icon type="code" />Մոտակա դասընթացներ</Link>
+          <Link to="/create-lesson"><Icon type="code" />Մոտակա դասընթացներ</Link>
         </Menu.Item>
         <Menu.Item key="/students">
-          <Link to="/students" style={{color: 'green', fontWeight: 'bold'}}><Icon type="user"/>Թվային տվյալներ</Link>
+          <Link to="/students"><Icon type="user"/>Թվային տվյալներ</Link>
         </Menu.Item>
         <Menu.Item key="/feedbacks">
-          <Link to="/feedbacks" style={{color: 'green', fontWeight: 'bold'}}><Icon type="like"/>Կարծիքներ</Link>
+          <Link to="/feedbacks" ><Icon type="like"/>Կարծիքներ</Link>
         </Menu.Item>
         <Menu.Item key="/subscribes">
-          <Link to="/subscribes" style={{color: 'green', fontWeight: 'bold'}}><Icon type="mail"/>Բաժանորդագրվածներ</Link>
+          <Link to="/subscribes" ><Icon type="mail"/>Բաժանորդագրվածներ</Link>
         </Menu.Item>
         <Menu.Item key="/registered_users">
-          <Link to="/registered_users" style={{color: 'green', fontWeight: 'bold'}}><Icon type="user-add"/>Registerd users</Link>
+          <Link to="/registered_users" ><Icon type="user-add"/>Registerd users</Link>
         </Menu.Item>
         <Menu.Item key="/video-blog">
-          <Link to="/video-blog" style={{color: 'green', fontWeight: 'bold'}}><Icon type="video-camera"/>Վիդեոբլոգ</Link>
+          <Link to="/video-blog" ><Icon type="video-camera"/>Վիդեոբլոգ</Link>
         </Menu.Item>
         <Menu.Item key="/blogs">
-          <Link to="/blogs" style={{color: 'green', fontWeight: 'bold'}}><Icon type="highlight"/>Բլոգ</Link>
+          <Link to="/blogs" ><Icon type="highlight"/>Բլոգ</Link>
         </Menu.Item>
         <Menu.Item key="/course">
-          <Link to="/course" style={{color: 'green', fontWeight: 'bold'}}><Icon type="book"/>Դասընթացներ</Link>
+          <Link to="/course" ><Icon type="book"/>Դասընթացներ</Link>
         </Menu.Item>
         <Menu.Item key="/images">
-          <Link to="/images" style={{color: 'green', fontWeight: 'bold'}}><Icon type="file-image"/>Ալբոմներ</Link>
+          <Link to="/images" ><Icon type="file-image"/>Ալբոմներ</Link>
         </Menu.Item>
         <Menu.Item key="logout" style={{color: 'red', fontWeight: 'bold'}} onClick={() => {localStorage.removeItem("authorizedUser"); window.location.href="/"}}>
           <Icon type="logout" style={{color: "red"}}/>Դուրս գալ

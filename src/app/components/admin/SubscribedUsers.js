@@ -121,9 +121,16 @@ class SubscribedUsers extends React.Component {
       formData.append('text', text);
       formData.append('link', link);
       formData.append('image', image)
+      this.setState({loading: true})
       const response = await dispatch(POST(sendSubscribersMail, formData, true));
-  		if (response.code === 200) {
-  			message.success("Նամակը հաջողությամբ ուղարկվել է");
+      this.setState({loading: false})
+      if (response.code === 200) {
+        message.success("Նամակը հաջողությամբ ուղարկվել է");
+        this.setState({
+          text: null,
+          link: null,
+          image: null
+        })
   		} else {
   			message.error("Ինչ որ բան գնաց ոչ այնպես");
   		}
@@ -137,7 +144,8 @@ class SubscribedUsers extends React.Component {
   };
 
 	render() {
-		const { Subscribes } = this.props;
+    const { Subscribes } = this.props;
+    const { loading } = this.state
 		const sortedUsers = Subscribes && Subscribes.map(item => {
 			return {
 				firstName: item.name,
@@ -166,7 +174,7 @@ class SubscribedUsers extends React.Component {
 								<Icon type="upload" name="image" /> Click to Upload
 							</Button>
 						</Upload>
-            <Button type="primary" onClick={this.sendMessage}>
+            <Button type="primary" onClick={this.sendMessage} loading={loading}>
               Ուղարկել
             </Button><br/><br/>
           </Panel>

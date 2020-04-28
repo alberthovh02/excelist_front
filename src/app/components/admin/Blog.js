@@ -18,7 +18,8 @@ class BlogAdmin extends React.Component {
 			text: "",
 			visible: false,
 			edit_title: null,
-			edit_text: null
+			edit_text: null,
+			loading: false
 		};
 	}
 
@@ -34,7 +35,9 @@ class BlogAdmin extends React.Component {
 		data.append("image", image);
 		data.append("content", text);
 		data.append("title", title);
+		this.setState({loading: true})
 		const response = await dispatch(POST(createBlog, data, true));
+		this.setState({loading: false})
 		if (response.code === 200) {
 			message.success("Բլոգը հաջողությամբ ավելացվել է");
 			await dispatch(ActionCreator(CREATE_BLOG, response.data));
@@ -115,6 +118,7 @@ class BlogAdmin extends React.Component {
 
 	render() {
 		const { Blogs } = this.props;
+		const { loading } = this.state
 		return (
 			<div>
 			<Collapse accordion>
@@ -186,7 +190,7 @@ class BlogAdmin extends React.Component {
 							/>
 						</div>
 					</Form.Item>
-					<Button type="primary" onClick={e => this.handleSubmit(e)}>
+					<Button type="primary" onClick={e => this.handleSubmit(e)} loading={loading}>
 						Հաստատել
 					</Button>
 				</form>

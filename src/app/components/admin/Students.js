@@ -14,7 +14,8 @@ class Students extends React.Component {
       lessons_count: null,
       teachers_count: null,
       members_count: null,
-      supporters_count: null
+      supporters_count: null,
+      loading: false
     }
   }
   handleNumberChange = (e) => {
@@ -58,9 +59,9 @@ class Students extends React.Component {
     if(facebook_followers){
       data.facebook_followers = facebook_followers
     }
-
+    this.setState({loading: true})
     const response = await dispatch(POST(updateSingleData, data));
-
+    this.setState({loading: false})
     if (response.code === 200) {
       message.success("հաջողությամբ ավելացվել է");
       await dispatch(ActionCreator(UPDATE_SINGLE_DATA, response.data));
@@ -71,7 +72,8 @@ class Students extends React.Component {
   }
 
   render(){
-    const { SingleData } = this.props
+    const { SingleData } = this.props;
+    const { loading } = this.state
     return(
       <>
       <main>
@@ -126,7 +128,13 @@ class Students extends React.Component {
         </Form.Item>
         
         <Form.Item>
-          <Button type="primary" className="submit_count" style={{width: '100%'}} onClick={(e) => this.handleSubmit(e)}>Հաստատել</Button>
+          <Button 
+            type="primary" 
+            className="submit_count" 
+            style={{width: '100%'}} 
+            onClick={(e) => this.handleSubmit(e)}
+            loading={loading}
+            >Հաստատել</Button>
         </Form.Item>
       </Form>
       </main>

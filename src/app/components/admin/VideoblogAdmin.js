@@ -23,7 +23,8 @@ class VideoBlogAdmin extends React.Component {
 				edit_language: null,
 				edit_fileList: [],
 				edit_radio: null,
-				edit_name: null
+				edit_name: null,
+				loading: false
 		}
 	}
 	handleSubmit = async (e) => {
@@ -45,9 +46,9 @@ class VideoBlogAdmin extends React.Component {
 		this.setState({
 			uploading: true,
 		});
-
+		this.setState({loading: true})
 		const response = await dispatch(POST(createVideoblog, data, true));
-
+		this.setState({loading: false})
 		if (response.code === 200) {
 			message.success("Վիդեոբլոգը հաջողությամբ ավելացվել է");
 			await dispatch(ActionCreator(CREATE_VIDEOBLOG, response.data));
@@ -144,8 +145,9 @@ class VideoBlogAdmin extends React.Component {
 	if(edit_link){
 		data.append('video_link', edit_link)
 	}
-
-  	const response = await dispatch(PUT(editVideoblog(visible), data, true));
+	this.setState({loading: true})
+	  const response = await dispatch(PUT(editVideoblog(visible), data, true));
+	  this.setState({loading: false})
   	if(response.code !== 200){
   		message.error("Something went wrong");
   		this.setState({
@@ -183,7 +185,7 @@ class VideoBlogAdmin extends React.Component {
   }
 
 	render() {
-		const { uploading, fileList, radio, edit_fileList } = this.state;
+		const { fileList, radio, edit_fileList, loading } = this.state;
 		const { Videoblogs } = this.props;
 		const props = {
       onRemove: file => {
@@ -326,7 +328,7 @@ class VideoBlogAdmin extends React.Component {
 	          </Button>
 	        </Upload>
 	      </div> : null}
-					<Button type="primary" onClick={(e) => this.handleSubmit(e)}>
+					<Button type="primary" onClick={(e) => this.handleSubmit(e)} loading={loading}>
 						Հաստատել
 					</Button>
 				</form>

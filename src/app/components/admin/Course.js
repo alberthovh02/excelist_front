@@ -43,7 +43,8 @@ class AdminCourse extends React.Component {
       		image: null,
 			text: '',
 			caption: null,
-			visible: null  
+			visible: null,
+			loading: false
 		};
 	}
 
@@ -69,8 +70,9 @@ class AdminCourse extends React.Component {
 		data.append("content", text);
 		data.append("title", title);
 		data.append('caption', caption);
+		this.setState({loading: true})
 		const response = await dispatch(POST(createCourse, data, true));
-
+		this.setState({loading: false})
 		if (response.code === 200) {
 			message.success("Կուրսը հաջողությամբ ավելացվել է");
 			await dispatch(ActionCreator(CREATE_COURSE, response.data));
@@ -139,6 +141,7 @@ class AdminCourse extends React.Component {
 	render() {
 		const {getFieldDecorator} = this.props.form;
 		const { Courses } = this.props;
+		const { loading } = this.state
 		return (
 			<div>
 			<Collapse accordion>
@@ -229,7 +232,7 @@ class AdminCourse extends React.Component {
 							/>
 						</div>
 					</Form.Item>
-					<Button type="primary" onClick={e => this.handleSubmit(e)}>
+					<Button type="primary" onClick={e => this.handleSubmit(e)} loading={loading}>
 						Ավելացնել
 					</Button>
 				</Form>

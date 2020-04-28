@@ -1168,14 +1168,14 @@ class Main extends React.Component {
 					})}
 
 					{authorized && <><Navbar/>{PrivateRoutes.map((item, key) => {
-						return (
+						return (<div style={{marginLeft: 270}}>
 							<Switch key={key}>
 							<><Route
 								exact={item.id === 1}
 								path={item.path}
 								render={(props) => <item.component/> }
 							/></>
-							</Switch>
+							</Switch></div>
 						)
 					})}</>}
 					{authorized ?

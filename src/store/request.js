@@ -1,6 +1,6 @@
 class Request {
   constructor(){
-    this.mainRoute = "//excelist-backend.herokuapp.com/"
+    this.mainRoute = "http://159.65.216.209:3000/"
     // this.mainRoute = '//localhost:5000/'
   }
 

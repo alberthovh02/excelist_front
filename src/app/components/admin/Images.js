@@ -19,7 +19,8 @@ class Images extends React.Component{
       name: null,
       visible: false,
       files: [],
-      editModal: false
+      editModal: false,
+      loading: false
     }
   }
 
@@ -34,8 +35,9 @@ class Images extends React.Component{
     const data = new FormData();
     data.append("name", name);
     data.append("image", fileList)
-
+    this.setState({loading: true})
     const response = await dispatch(POST(createAlbum, data, true));
+    this.setState({loading: false})
     if(response.code !== 200){
       message.error("Something went wrong")
     }else{
@@ -123,8 +125,9 @@ handleUpdate = async() => {
   const data = {
     name: edit_name
   }
-
+  this.setState({loading: true})
   const response = await dispatch(PUT(updateAlbum(editModal), data))
+  this.setState({loading: false})
   if(response.code !== 200){
     message.error("Something went wrong");
     return false
@@ -145,7 +148,7 @@ deleteAlbumImage = async(image) =>{
 }
 
   render(){
-    const { fileList, files } = this.state;
+    const { loading, files } = this.state;
     const { Albums } = this.props;
     const props = {
       onRemove: file => {
@@ -230,7 +233,7 @@ deleteAlbumImage = async(image) =>{
           previewOptions={{ width: 600, height: 600 }}
           style={{width: '600px', height: '600px'}}
         /><br/>
-        <Button onClick={ this.handleSubmit }>Ավելացնել ալբոմ</Button>
+        <Button onClick={ this.handleSubmit } loading={loading}>Ավելացնել ալբոմ</Button>
       </div>
     )
   }

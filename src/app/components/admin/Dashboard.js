@@ -63,6 +63,7 @@ class Dashboard extends React.Component {
 					</Col>
 			</Row>
   		</div>
+		  <div style={{marginLeft: 270}}>
 				<Switch>
 				{
 					PrivateRoutes.map((item, key) =>
@@ -72,6 +73,7 @@ class Dashboard extends React.Component {
 					render={(props) => <item.component/> }
 				/></>)}
 				</Switch>
+				</div>
 			</>
 		);
 	}
