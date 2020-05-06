@@ -34,21 +34,21 @@ class Header extends React.Component {
       // saves the new position for iteration.
       scrollPos = document.body.getBoundingClientRect().top;
     });
-    const navItems = document.getElementsByClassName("nav-item");
-    const hoverLine = document.getElementById("hover-line");
-    const sortedArr = Array.prototype.map.call(navItems, (item, key) => {
-      item.childNodes[0].onmouseover = function (e) {
-        hoverLine.style.display = "inline-block";
-        hoverLine.style.position = "absolute";
-        hoverLine.style.left = e.target.offsetLeft + "px";
-        hoverLine.style.top =
-          e.target.offsetTop + e.target.offsetHeight + 10 + "px";
-        hoverLine.style.width = e.target.offsetWidth + "px";
-      };
-      item.onmouseout = function () {
-        hoverLine.style.display = "none";
-      };
-    });
+    // const navItems = document.getElementsByClassName("nav-item");
+    // const hoverLine = document.getElementById("hover-line");
+    // const sortedArr = Array.prototype.map.call(navItems, (item, key) => {
+    //   item.childNodes[0].onmouseover = function (e) {
+    //     hoverLine.style.display = "inline-block";
+    //     hoverLine.style.position = "absolute";
+    //     hoverLine.style.left = e.target.offsetLeft + "px";
+    //     hoverLine.style.top =
+    //       e.target.offsetTop + e.target.offsetHeight + 10 + "px";
+    //     hoverLine.style.width = e.target.offsetWidth + "px";
+    //   };
+    //   item.onmouseout = function () {
+    //     hoverLine.style.display = "none";
+    //   };
+    // });
   }
 
   render() {
@@ -59,7 +59,6 @@ class Header extends React.Component {
         imageSource: Courses.filter((item) => item._id === Lessons[0].lessonId),
       });
     }
-    console.log(imageSource);
     if (Courses && Courses.length > 0) {
       var menu = (
         <div style={{ background: "white" }} className="navbar-lessons">
@@ -92,7 +91,7 @@ class Header extends React.Component {
                       src={
                         imageSource && imageSource[0] && imageSource[0].imageUrl
                       }
-                      alt="Lesson image"
+                      alt="Lessons"
                     />
                     <p className="soon-name">{Lessons[0].name}</p>
                   </a>
@@ -130,6 +129,7 @@ class Header extends React.Component {
             <a
               href="https://www.facebook.com/Excel.lessons/?fref=ts"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <span
                 className="zoom-social_icons-list-span socicon fa fa-facebook"
@@ -150,6 +150,7 @@ class Header extends React.Component {
             <a
               href="https://www.youtube.com/channel/UCIhWQ4k5FSaXrn8uKuLin7A"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <span
                 className="zoom-social_icons-list-span fa fa-youtube"
@@ -189,6 +190,7 @@ class Header extends React.Component {
                   <Popover placement="bottom" content={menu ? menu : <Spin indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />}/>}>
                     <NavLink
                       to="/lessons"
+                      target="_blank"
                       className="ant-dropdown-link"
                       data-toggle="dropdown"
                       style={{ display: "flex", alignItems: "center" }}

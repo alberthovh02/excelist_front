@@ -13,7 +13,7 @@ import {default as ImageCarousel , Modal, ModalGateway } from 'react-images';
 import { connect } from 'react-redux'
 
 import { Helmet } from 'react-helmet';
-import Request from '../../store/request'
+// import Request from '../../store/request'
 import Countdown from '../functions/countDown';
 import Fade from 'react-reveal/Fade';
 
@@ -24,7 +24,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 //app routes
 import {PublicRoutes, PrivateRoutes} from "../../config/routes";
-import {Carousel, Collapse, Icon, Popover} from "antd";
+import {Carousel, Collapse, Icon} from "antd";
 
 
 import Header from "./Header";
@@ -37,19 +37,19 @@ const {Panel} = Collapse;
 const history = createBrowserHistory.createBrowserHistory();
 const title = 'Excelist.am';
 
-const renderTime = value => {
-  if (value === 0) {
-    return <div className="timer">Too lale...</div>;
-  }
+// const renderTime = value => {
+//   if (value === 0) {
+//     return <div className="timer">Too lale...</div>;
+//   }
 
-  return (
-    <div className="timer">
-      <div className="text">Remaining</div>
-      <div className="value">{value}</div>
-      <div className="text">seconds</div>
-    </div>
-  );
-};
+//   return (
+//     <div className="timer">
+//       <div className="text">Remaining</div>
+//       <div className="value">{value}</div>
+//       <div className="text">seconds</div>
+//     </div>
+//   );
+// };
 
 
 class Index extends React.Component {
@@ -84,7 +84,6 @@ class Index extends React.Component {
 
 	render() {
 		const { Lessons, Feedbacks, Albums, Blogs, Courses,Students } = this.props;
-		console.log('Bloot', Blogs)
 		const { imageSource } = this.state;
 		const FilteredBlogs = Blogs ? Blogs.slice(0, 4) : null;
 		const FilteredCourses = Courses ? Courses.slice(0, 4) : null;
@@ -315,14 +314,14 @@ if(Courses && Courses.length && !imageSource && Lessons && Lessons[0]){
 							</div>
 						</div>
 					</div>
-					<div className="get_files" style={{backgroundColor: "transparent"}}>
+					{/* <div className="get_files" style={{backgroundColor: "transparent"}}>
 						<NavLink to="/qualification" target="_blank">
 							<button className="get_files_button">
 								<i className="fa fa-chevron-circle-down" aria-hidden="true"></i>{" "}
 								ԾԱՆՈԹԱՆԱԼ{" "}
 							</button>
 						</NavLink>
-					</div>
+					</div> */}
 				</div>
 
 					<div className="intro_lessons">

@@ -11,12 +11,13 @@ import Register from '../app/components/Register';
 import GetFiles from '../app/components/GetFiles';
 import Videos from '../app/components/Videos';
 import VideoPost from '../app/components/VideoPost';
-import Qualification from '../app/components/Qualification';
+// import Qualification from '../app/components/Qualification';
 import BlogPost from '../app/components/BlogPost';
 import FileRequest from '../app/components/FileRequest';
 import SingleCourse from '../app/components/SingleCourse';
 import OurTeam from '../app/components/OurTeam';
 import Join from '../app/components/Join';
+import Search from '../app/components/Search';
 //Private routes
 import Dashboard from "../app/components/admin/Dashboard";
 import Lesson from "../app/components/admin/Lesson";
@@ -43,12 +44,13 @@ export const PublicRoutes = [
     { id: 10, path: `/get-files`, component: GetFiles },
     { id: 11, path: `/videos`, component: Videos},
     { id: 12, path: `/videoblogpost/:url`, component: VideoPost},
-    { id: 13, path: `/qualification`, component: Qualification},
+    // { id: 13, path: `/qualification`, component: Qualification},
     { id: 14, path: `/blogpost/:url`, component: BlogPost},
     { id: 15, path: `/filerequest/:video`, component: FileRequest},
     { id: 17, path: `/course/:id`, component: SingleCourse},
     { id: 18, path: `/our-team/:id`, component: OurTeam},
-    { id: 19, path: `/join`, component: Join}
+    { id: 19, path: `/join`, component: Join},
+    { id: 20, path: `/search/:keyword`, component: Search }
 ]
 
 

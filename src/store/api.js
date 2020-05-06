@@ -58,3 +58,7 @@ export const uploadCV = `join/`
 //subscribers
 export const getSubscribers = `subscribes/`;
 export const sendSubscribersMail = `subscribes/sendMail/`
+
+
+//search
+export const search = (keyword) => `search/${keyword}`

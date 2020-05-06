@@ -33,7 +33,7 @@
     line-height: 21px;
     // margin: -4px 0 14px;
     color: #333;
-    margin-left: 10px;
+    // margin-left: 10px;
     width: calc(100% - 75px);
 }
 
@@ -53,4 +53,8 @@
     flex-direction: column;
   }
 
+}
+
+.sidebar-image {
+  margin-right: 10px;
 }

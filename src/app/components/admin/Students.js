@@ -80,7 +80,7 @@ class Students extends React.Component {
       <Form className="students-board">
         <h2>Թվային տվյալներ</h2>
         <Form.Item>
-        {`Ուսանողների թիվը: ${SingleData && SingleData.length && SingleData[0].students_count} `} <Input placeholder="Enter students count"
+        {`Ուսանողների թիվը: ${SingleData && SingleData[0] && SingleData[0].students_count} `} <Input placeholder="Enter students count"
             name="students_count"
             style={{width: '50%', display: 'inline-block'}}
             className="students_count"
@@ -88,7 +88,7 @@ class Students extends React.Component {
         </Form.Item>
 
         <Form.Item>
-        {`Առարկաների թիվը ${SingleData && SingleData[0].lessons_count || 0} `} <Input placeholder="Enter lessons count"
+        {`Առարկաների թիվը ${(SingleData && SingleData[0] && SingleData[0].lessons_count) || 0} `} <Input placeholder="Enter lessons count"
             name="lessons_count"
             style={{width: '50%', display: 'inline-block'}}
             className="students_count"
@@ -96,7 +96,7 @@ class Students extends React.Component {
         </Form.Item>
 
         <Form.Item>
-        {`Ուսուցիչների թիվը ${SingleData && SingleData[0].teachers_count || 0} `} <Input placeholder="Enter teachers count"
+        {`Ուսուցիչների թիվը ${(SingleData && SingleData[0] && SingleData[0].teachers_count) || 0} `} <Input placeholder="Enter teachers count"
             name="teachers_count"
             style={{width: '50%', display: 'inline-block'}}
             className="students_count"
@@ -104,7 +104,7 @@ class Students extends React.Component {
         </Form.Item>
 
         <Form.Item>
-        {`Մասնակիցների թիվը ${SingleData && SingleData[0].members_count || 0} `} <Input placeholder="Enter members count"
+        {`Մասնակիցների թիվը ${(SingleData &&  SingleData[0] && SingleData[0].members_count) || 0} `} <Input placeholder="Enter members count"
             name="members_count"
             style={{width: '50%', display: 'inline-block'}}
             className="students_count"
@@ -112,7 +112,7 @@ class Students extends React.Component {
         </Form.Item>
 
         <Form.Item>
-        {`Այլ երկրից հետևորդների թիվը ${SingleData && SingleData[0].supporters_count || 0} `} <Input placeholder="Enter supporters count"
+        {`Այլ երկրից հետևորդների թիվը ${(SingleData && SingleData[0] && SingleData[0].supporters_count) || 0} `} <Input placeholder="Enter supporters count"
             name="supporters_count"
             style={{width: '30%', display: 'inline-block'}}
             className="students_count"
@@ -120,7 +120,7 @@ class Students extends React.Component {
         </Form.Item>
 
         <Form.Item>
-        {`Ֆեյսբուքում հետևորդների թիվը ${SingleData && SingleData[0].facebook_followers || 0} `} <Input placeholder="Enter fb followers count"
+        {`Ֆեյսբուքում հետևորդների թիվը ${(SingleData && SingleData[0] && SingleData[0].facebook_followers) || 0} `} <Input placeholder="Enter fb followers count"
             name="facebook_followers"
             style={{width: '30%', display: 'inline-block'}}
             className="facebook_followers"

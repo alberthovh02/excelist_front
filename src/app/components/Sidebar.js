@@ -1,9 +1,10 @@
 import React from 'react';
 import { Input } from 'antd';
-import Request from '../../store/request';
-import { connect } from 'react-redux';
-const { Search } = Input;
 
+import { connect } from 'react-redux';
+import { search } from '../../store/api';
+
+const { Search } = Input;
 
 class Sidebar extends React.Component {
   constructor(props){
@@ -24,11 +25,11 @@ class Sidebar extends React.Component {
           <p>Որոնել</p>
           <Search
                placeholder="search"
-               onSearch={value => console.log(value)}
+               onSearch={value => window.location.href = `/search/${value}`}
                style={{ width: 200 }}
              />
         </div>
-        <div className="sidebar-item exams">
+        {/* <div className="sidebar-item exams">
           <p>ՈՐԱԿԱՎՈՐՄԱՆ ՔՆՆՈՒԹՅՈՒՆՆԵՐ</p>
           <a href="/qualification" target="_blank">
             <button className="sidebar-learnmore">
@@ -36,7 +37,7 @@ class Sidebar extends React.Component {
               ԾԱՆՈԹԱՆԱԼ{" "}
             </button>
           </a>
-        </div>
+        </div> */}
         <div className="sidebar-item facebook">
           <div className="fb-page fb_iframe_widget" data-href="https://www.facebook.com/Excel.lessons/?fref=ts" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="adapt_container_width=true&amp;app_id=552044051643659&amp;container_width=230&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2FExcel.lessons%2F%3Ffref%3Dts&amp;locale=en_GB&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false"><span style={{verticalAlign: "bottom", width: 230, height: 214}}><iframe name="f30f0bf6a40b4cc" width="1000px" height="1000px" title="fb:page Facebook Social Plugin" frameBorder="0" allowFullScreen={true} scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v2.7/plugins/page.php?adapt_container_width=true&amp;app_id=552044051643659&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D45%23cb%3Df1da0ca7ba1be1c%26domain%3Dexcelist.am%26origin%3Dhttps%253A%252F%252Fexcelist.am%252Ff3d70489d90bd7c%26relation%3Dparent.parent&amp;container_width=230&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2FExcel.lessons%2F%3Ffref%3Dts&amp;locale=en_GB&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false" style={{border: "none", visibility: "visible", width: 230, height: 214}}></iframe></span></div>
         </div>
@@ -54,13 +55,18 @@ class Sidebar extends React.Component {
           { filterCourses &&  filterCourses.map((item, key) => {
             return (
               <div key={key} className="sidebar-course" style={{width: '100%', height: '85px'}}>
-              <a target="_blank"  href={`/course/${item._id}`}  style={{width: "50%"}}>
-              <div className="">
-                <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
+              <a target="_blank" rel="noopener noreferrer" href={`/course/${item._id}`}  style={{width: "50%"}}>
+              <div className="sidebar-image">
+                <img src={item.imageUrl} alt="course" style={{width: '100%'}}/>
               </div>
               </a>
-              <a target="_blank"  href={`/course/${item._id}`} style={{width: "50%", marginLeft: 10}}>
-              <span className="sidebar-title-text col-sm-6">{item.title}</span>
+              <a 
+                target="_blank" 
+                rel="noopener noreferrer"  
+                href={`/course/${item._id}`} 
+                style={{width: "50%"}}
+                >
+                <span className="sidebar-title-text col-sm-6">{item.title}</span>
               </a>
             </div>)
           })}
@@ -70,12 +76,17 @@ class Sidebar extends React.Component {
           { filterBlogs && filterBlogs.map((item, key) => {
             return (
               <div key={key} className="sidebar-course" style={{width: '100%', height: '85px'}}>
-              <a target="_blank" href={`/blogpost/${item.generatedUrl}`} style={{width: "50%"}}>
-              <div className="">
-                <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
+              <a target="_blank" rel="noopener noreferrer" href={`/blogpost/${item.generatedUrl}`} style={{width: "50%"}}>
+              <div className="sidebar-image">
+                <img src={item.imageUrl} alt="blogs" style={{width: '100%'}}/>
               </div>
               </a>
-              <a target="_blank" href={`/blogpost/${item.generatedUrl}`} style={{width: "50%", marginLeft: 10}}>
+              <a 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                href={`/blogpost/${item.generatedUrl}`} 
+                style={{width: "50%"}}
+                >
               <span className="sidebar-title-text col-sm-6">{item.title}</span>
               </a>
             </div>
@@ -86,15 +97,19 @@ class Sidebar extends React.Component {
           
           <p>ՎԻԴԵՈԲԼՈԳ</p>
           { filterVideoblogs && filterVideoblogs.map((item, key) => {
-            console.log("SIDEBAR", item)
             return (
-              <div className="sidebar-course" style={{width: '100%', height: '85px'}}>
-              <a target="_blank" href={`/videoblogpost/${item.generatedUrl}`} style={{width: "50%"}}>
-              <div>
-                <img src={item.imageUrl} alt="image" style={{width: '100%'}}/>
+              <div className="sidebar-course" key={key} style={{width: '100%', height: '85px'}}>
+              <a target="_blank" rel="noopener noreferrer" href={`/videoblogpost/${item.generatedUrl}`} style={{width: "50%"}}>
+              <div className="sidebar-image">
+                <img src={item.imageUrl} alt="videoblogs" style={{width: '100%'}}/>
                 </div>
               </a>
-              <a  target="_blank" href={`/videoblogpost/${item.generatedUrl}`} style={{width: "50%", marginLeft: 10}}>
+              <a 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                href={`/videoblogpost/${item.generatedUrl}`} 
+                style={{width: "50%"}}
+                >
                 <span className="sidebar-title-text col-sm-2">{item.title}</span>
               </a>
               </div>

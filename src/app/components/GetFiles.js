@@ -15,31 +15,31 @@ class GetFiles extends React.Component {
 			loading: false
 		}
 	}
-	handleNameChange = (e) => {
-		console.log(e.target.value);
-		this.setState({name: e.target.value});
+	handleChange = (e) => {
+		const { name, value } = e.target
+		this.setState({[name]: value});
 	}
 
-	handleMailChange = (e) => {
-		console.log(e.target.value)
-		this.setState({email: e.target.value});
-	}
+	// handleMailChange = (e) => {
+	// 	console.log(e.target.value)
+	// 	this.setState({email: e.target.value});
+	// }
 
 	handleSubmit = async(e) => {
 		e.preventDefault();
-		const { name, email } = this.state;
+		const { name, email, proficent } = this.state;
 		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		var valid = re.test(email)
 		if(!valid){
 		  toast.error("Ոչ ճիշտ էլ․ հասցե");
 		  return false
 		}
-		if(!email || !name){
+		if(!email || !name || !proficent){
 			toast.error("Խնդրում ենք լրացնել բոլոր պարտադիր դաշտերը");
 			return false;
 		}
 		this.setState({loading: true})
-		const response = await Request.postJson('get-files/send', { name, email})
+		const response = await Request.postJson('get-files/send', { name, email, proficent })
 		this.setState({loading: false})
 		if(response.status === 200){
 			toast.success('Նամակը հաջողությամբ ուղարկվել է')
@@ -64,13 +64,27 @@ class GetFiles extends React.Component {
 					}}
 				>
 
-					<Input className="" placeholder="Լրացրե՛ք Ձեր անունը և ազգանունը:" onChange={(e) => this.handleNameChange(e)}/><br/>
+					<Input 
+						placeholder="Լրացրե՛ք Ձեր անունը և ազգանունը:" 
+						name="name"
+						onChange={(e) => this.handleChange(e)}/><br/>
+					<Input 
+						name="proficent"
+						placeholder="Լրացրե՛ք Ձեր մասնագիտությունը"
+						onChange={(e) => this.handleChange(e)}
+						/><br/>
 					<Input
-						className=""
+						name="email"
 						placeholder="Լրացրե՛ք Ձեր էլեկտրոնային հասցեն (e-mail)"
-						onChange={(e) => this.handleMailChange(e)}
+						onChange={(e) => this.handleChange(e)}
 					/><br/>
-					<Button loading={loading} type="primary" onClick={(e) => this.handleSubmit(e)}>Ուղարկել</Button>
+					<Button 
+						loading={loading} 
+						type="primary" 
+						onClick={(e) => this.handleSubmit(e)}
+						>
+							Ուղարկել
+					</Button>
 				</div>
         </div>
 				<div style={{position: "absolute", bottom: 0, width: "100%"}}>
