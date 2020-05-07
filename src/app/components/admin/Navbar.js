@@ -38,8 +38,8 @@ class Navbar extends React.Component {
         <Menu.Item key="/subscribes">
           <Link to="/subscribes" ><Icon type="mail"/>Բաժանորդագրվածներ</Link>
         </Menu.Item>
-        <Menu.Item key="/registered_users">
-          <Link to="/registered_users" ><Icon type="user-add"/>Registerd users</Link>
+        <Menu.Item key="/certificate">
+          <Link to="/certificate" ><Icon type="user-add"/>Սերտիֆիկատներ</Link>
         </Menu.Item>
         <Menu.Item key="/video-blog">
           <Link to="/video-blog" ><Icon type="video-camera"/>Վիդեոբլոգ</Link>

@@ -31,6 +31,16 @@ const FetchData = api => {
   return Request.get(api);
 };
 
+export const GETREQUEST = (api) => {
+  try {
+    return FetchData(api)
+        .then(resp => resp.json())
+    // .then(data =>, error => error)
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const GET = (api, type) => dispatch => {
   try {
     return FetchData(api)

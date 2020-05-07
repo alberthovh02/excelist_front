@@ -18,6 +18,7 @@ import SingleCourse from '../app/components/SingleCourse';
 import OurTeam from '../app/components/OurTeam';
 import Join from '../app/components/Join';
 import Search from '../app/components/Search';
+import Certificates from '../app/components/Certificates';
 //Private routes
 import Dashboard from "../app/components/admin/Dashboard";
 import Lesson from "../app/components/admin/Lesson";
@@ -50,7 +51,8 @@ export const PublicRoutes = [
     { id: 17, path: `/course/:id`, component: SingleCourse},
     { id: 18, path: `/our-team/:id`, component: OurTeam},
     { id: 19, path: `/join`, component: Join},
-    { id: 20, path: `/search/:keyword`, component: Search }
+    { id: 20, path: `/search/`, component: Search },
+    { id: 21, path: '/certificates', component: Certificates}
 ]
 
 

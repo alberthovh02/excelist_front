@@ -1,8 +1,10 @@
 import React from 'react';
-import { Input } from 'antd';
+import { Redirect, withRouter } from 'react-router-dom'
+import { Input, message } from 'antd';
 
 import { connect } from 'react-redux';
 import { search } from '../../store/api';
+import { GETREQUEST} from "../../store/actionCreators";
 
 const { Search } = Input;
 
@@ -10,23 +12,51 @@ class Sidebar extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-
+        loading: false
     }
+  }
+
+  handleSearch = async(keyword) => {
+      const { dispatch } = this.props;
+      if(keyword){
+          console.log("REQ", search(keyword))
+          const response = await GETREQUEST(search(keyword))
+          if(response.code !== 200){
+              message.error("Something went wrong");
+              return false
+          }
+         else if(response.data){
+             this.setState({
+                 redirect: response.data
+             })
+          }
+      }
+    console.log(keyword)
   }
 
   render(){
     const { Videoblogs, Blogs, Courses } = this.props;
+    const { loading, redirect } = this.state
     const filterVideoblogs = Videoblogs && Videoblogs.length && Videoblogs.slice(0, 3);
     const filterBlogs = Blogs && Blogs.length && Blogs.slice(0, 3);
     const filterCourses = Courses && Courses.length && Courses.slice(0, 3);
+    if(redirect){
+        return  <Redirect to={{
+            pathname: "/search/",
+            state: {
+                data: redirect
+            }
+        }} />
+    }
     return(
       <div className='col'>
         <div className="sidebar-item search">
           <p>Որոնել</p>
           <Search
                placeholder="search"
-               onSearch={value => window.location.href = `/search/${value}`}
+               onSearch={value => this.handleSearch(value) }
                style={{ width: 200 }}
+               loading={loading}
              />
         </div>
         {/* <div className="sidebar-item exams">
@@ -125,4 +155,4 @@ const get = state => {
   return {Videoblogs: state.Videoblogs, Blogs: state.Blogs, Courses: state.Courses}
 }
 
-export default connect(get)(Sidebar);
+export default withRouter(connect(get)(Sidebar));
