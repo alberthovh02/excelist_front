@@ -13,11 +13,16 @@
 
 .intro_videoblog {
   margin-top: 20px;
-  margin-bottom: 185px;
-  // width: 85%;
+  margin-bottom: 70px;
+  //flex-wrap: wrap;
+   width: 100%;
   // display: flex;
   // flex-direction: row;
   // align-items: flex-start;
+}
+
+.videoblog_desc {
+  flex-wrap: wrap;
 }
 
 .blog-item {
@@ -105,6 +110,10 @@
   width: 82%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.single_videoblog {
+  min-width: 200px;
 }
 
 .videopost-single-post {

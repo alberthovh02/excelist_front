@@ -10,9 +10,9 @@ class Interested extends React.Component {
         return(
             <div className="interested-wrapped" >
                 <h3 className="interested">ՁԵԶ ԿՀԵՏԱՔՐՔՐԻ ՆԱԵՎ…</h3>
-                <div style={{ display:'flex', justifyContent: 'space-between'}}>
+                <div style={{ display:'flex', justifyContent: 'space-between', width: '100%', flexWrap: 'wrap'}}>
                     {parent && parent === 'Videoblogs' && Videoblogs && Videoblogs.slice(0,3).map((item, key) => {
-                        return <div style={{marginBottom: 40, width: 200}}>
+                        return <div style={{marginBottom: 40, width: "33.3%"}}>
                             <a href={item.generatedUrl}><img src={item.imageUrl} style={{width: '100%'}}/></a>
                             <a  href={item.generatedUrl}><p className="interested-link">{item.title}</p></a>
                         </div>
@@ -24,7 +24,7 @@ class Interested extends React.Component {
                         </div>
                     })}
                     {parent && parent === 'Courses' && Courses && Courses.slice(0,3).map((item, key) => {
-                        return <div style={{marginBottom: 40, width: 200}}>
+                        return <div style={{marginBottom: 40, width: "30%", minWidth: 200}}>
                             <a href={item._id}><img src={item.imageUrl} style={{width: '100%'}}/></a>
                             <a  href={item._id}><p className="interested-link">{item.title}</p></a>
                         </div>

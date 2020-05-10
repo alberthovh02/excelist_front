@@ -17,7 +17,7 @@ class Videos extends React.Component{
       language: null,
       title: null,
       limit: 12,
-      slicedVideoblogs: []
+      // slicedVideoblogs: []
     }
   }
   componentDidMount(){
@@ -32,7 +32,7 @@ class Videos extends React.Component{
 
  render(){
    const { data, language } = this.state;
-   if(data && data.length && !this.state.slicedVideoblogs.length){
+   if(data && data.length && !this.state.slicedVideoblogs){
      this.setState({ slicedVideoblogs: data.slice(0, 12)})
    }
    const { slicedVideoblogs } = this.state;
@@ -60,7 +60,7 @@ class Videos extends React.Component{
           <Row>
             <Col sm={9}>
             <Row sm={12}>
-            {slicedVideoblogs.length ? slicedVideoblogs.map((el, key) => {
+            {slicedVideoblogs && slicedVideoblogs.length ? slicedVideoblogs.map((el, key) => {
               return (
                 <Col sm={4} key={key} className="blog-item" style={{minWidth: 250, marginBottom: 40}}>
                   <a href={`/videoblogpost/${el.generatedUrl}`}><img src={el.imageUrl} alt="image" style={{height: "100%", width: '90%'}}/></a>
@@ -69,7 +69,15 @@ class Videos extends React.Component{
                   <a className="blog-see-more" href={`/videoblogpost/${el.generatedUrl}`}>Ավելին …</a>
                 </Col>
               )
-            }) : <div style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}><Spin size='large'/></div>}
+            }) : ( slicedVideoblogs && !slicedVideoblogs.length ? "There are no video blogs" :
+                <div style={{
+                  display: "block",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}>
+                  <Spin size='large' tip="Please wait data is loading..."/>
+                </div>)
+            }
             </Row>
             {slicedVideoblogs && slicedVideoblogs.length && <Pagination defaultCurrent={1} total={data && data.length} pageSize={12} onChange={(page, size) => {this.setState( { slicedVideoblogs: data.slice((page-1)*12,page*size) } ); window.scrollTo({top: 0, behavior: 'smooth'})}}/> }
 

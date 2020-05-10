@@ -964,7 +964,7 @@ if(Courses && Courses.length && !imageSource && Lessons && Lessons[0]){
 						</h2>
 						<div className="line"></div>
 						<div className="benefits_desc">
-						<div className="col-sm-6">
+						<div className="col-sm-6" >
 							<div className="row">
 							<i
 								className="fa fa-user"
@@ -1040,7 +1040,7 @@ if(Courses && Courses.length && !imageSource && Lessons && Lessons[0]){
 								</h3>
 							</div>
 						</div>
-						<div className="col-sm-6">
+						<div className="col-sm-6" >
 							<div className="row">
 							<i
 								className="fa fa-home"

@@ -21,7 +21,6 @@ class SingleCourse extends React.Component {
 
   componentDidUpdate(){
     const metaDatas = document.getElementsByTagName('code');
-    console.log('metadatas', metaDatas)
     Array.prototype.map.call(metaDatas, (item, key) => {
       
       if(item.innerHTML === 'map'){
@@ -51,7 +50,6 @@ class SingleCourse extends React.Component {
       return item._id === this.props.params.id
     });
   
-    console.log('<<<<<<<<<', course)
 		return (
       <>
           <Helmet>
@@ -69,7 +67,10 @@ class SingleCourse extends React.Component {
                       <div className="singleblog-content" dangerouslySetInnerHTML={{__html: course[0].content}} ></div>
                     </div>
                   }
-                  <a className="register-for-lesson" style={{marginLeft: 'auto', marginRight: 'auto'}}><i className="fa fa-user-plus" style={{color: 'white'}}></i>  ԳՐԱՆՑՎԵԼ</a><br/>
+                  <a className="register-for-lesson">
+					  <i className="fa fa-user-plus" style={{color: 'white'}}></i>
+					  ԳՐԱՆՑՎԵԼ
+                  </a><br/>
                   <div className="feedback-first-line singleblog-content">
 							<blockquote>ՈՒՆԵ՞Ք ՀԱՐՑԵՐ</blockquote>
 							<div className="footer-contact first-line">

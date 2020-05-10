@@ -19,7 +19,6 @@ class Sidebar extends React.Component {
   handleSearch = async(keyword) => {
       const { dispatch } = this.props;
       if(keyword){
-          console.log("REQ", search(keyword))
           const response = await GETREQUEST(search(keyword))
           if(response.code !== 200){
               message.error("Something went wrong");
@@ -31,7 +30,6 @@ class Sidebar extends React.Component {
              })
           }
       }
-    console.log(keyword)
   }
 
   render(){

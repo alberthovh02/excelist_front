@@ -19,3 +19,12 @@
 .single-course-icons {
   width: 20%
 }
+
+.register-for-lesson {
+  margin-left: auto;
+  margin-right: auto;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #154a2b), color-stop(1, #217142));
+  &:hover {
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #185130), color-stop(1, #237947));
+  }
+}

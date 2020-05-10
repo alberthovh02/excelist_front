@@ -23,22 +23,21 @@ class Search extends React.Component {
     render(){
         const { title } = this.state;
         const { data } = this.props.location.state;
-        console.log("VVVV", data)
         return (
             <>
                 <Helmet>{ title }</Helmet>
                 <Header/>
                 <div>
                     <Container fluid>
-                        <Row style={{ height: "100%" }}>
-                            <Col sm={9}>
-                                //TODO: review design and videoblog content
-                                <Row sm={12}>
+                        <Row style={{ height: "100%" }} className="search_page_container">
+                            <Col sm={8}>
+                                <Row sm={8} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                    <div className="search_results">
                                     {
                                         data && data.map((item, key) => {
                                            return item.data && item.data.map((it, key) =>{
                                                 return (
-                                                    <div className="search_results" key={key}>
+                                                    <div key={key}>
                                                         {item.type === 'videoblog' && (
                                                             <div className="search_result">
                                                                 <img src={it.imageUrl} alt="Videoblog item"/>
@@ -65,7 +64,7 @@ class Search extends React.Component {
                                                                     dangerouslySetInnerHTML={{
                                                                         __html: `${it.content.slice(0, 150)} ...`,
                                                                     }}
-                                                                ></p>
+                                                                />
                                                                 <a
                                                                     className="blog-see-more"
                                                                     href={`/blogpost/${it.generatedUrl}`}
@@ -89,7 +88,7 @@ class Search extends React.Component {
                                                                     dangerouslySetInnerHTML={{
                                                                         __html: `${it.content.slice(0, 150)} ...`,
                                                                     }}
-                                                                ></p>
+                                                                />
                                                                 <a className="blog-see-more" href={`/course/${it._id}`}>
                                                                     Ավելին
                                                                 </a>
@@ -101,9 +100,10 @@ class Search extends React.Component {
 
                                         })
                                     }
+                                    </div>
                                 </Row>
                             </Col>
-                            <Col sm={3}>
+                            <Col sm={3} className="search_sidebar-container">
                                 <Sidebar />
                             </Col>
                         </Row>

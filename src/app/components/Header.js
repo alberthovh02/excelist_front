@@ -1,7 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Menu, Dropdown, Icon, Popover, Spin } from "antd";
+import {NavLink, Redirect} from "react-router-dom";
+import {Menu, Dropdown, Icon, Popover, Spin, Input, message} from "antd";
 import { connect } from "react-redux";
+import {search} from "../../store/api";
+import {GETREQUEST} from "../../store/actionCreators";
+
+const { Search } = Input
 
 class Header extends React.Component {
   constructor(props) {
@@ -10,6 +14,8 @@ class Header extends React.Component {
       Lessons: [],
       Courses: [],
       imageSource: null,
+      searchField: false,
+      redirect: false
     };
   }
 
@@ -51,8 +57,24 @@ class Header extends React.Component {
     // });
   }
 
+  handleSearch = async(keyword) => {
+    const { dispatch } = this.props;
+    if(keyword){
+      const response = await GETREQUEST(search(keyword))
+      if(response.code !== 200){
+        message.error("Something went wrong");
+        return false
+      }
+      else if(response.data){
+        this.setState({
+          redirect: response.data
+        })
+      }
+    }
+  }
+
   render() {
-    const { Lessons, Courses, imageSource } = this.state;
+    const { Lessons, Courses, imageSource, searchField, redirect } = this.state;
 
     if (Courses && Courses.length && !imageSource && Lessons && Lessons[0]) {
       this.setState({
@@ -118,6 +140,16 @@ class Header extends React.Component {
         </Menu.Item>
       </Menu>
     );
+
+
+    if(redirect) {
+      return <Redirect to={{
+        pathname: "/search/",
+        state: {
+          data: redirect
+        }
+      }}/>
+    }
     return (
       <header>
         <div className="header_text">
@@ -144,7 +176,7 @@ class Header extends React.Component {
                 }}
                 data-old-color="rgb(59, 89, 152)"
                 aria-hidden="true"
-              ></span>
+              />
             </a>
 
             <a
@@ -165,12 +197,12 @@ class Header extends React.Component {
                 }}
                 data-old-color="rgb(224, 42, 32)"
                 aria-hidden="true"
-              ></span>
+              />
             </a>
           </div>
         </div>
         <div className="pos-f-l">
-          <nav className="navbar navbar-expand-lg navbar-light header_links web_links">
+          <nav className="navbar navbar-expand-lg navbar-light sidebar-toggle header_links web_links">
             <NavLink to="/">
               <img
                 src={require("../../assets/exelist.png")}
@@ -181,7 +213,7 @@ class Header extends React.Component {
             </NavLink>
 
             <div className="navbar-collapse collapse" id="navbarTogglerDemo03">
-              <span id="hover-line"></span>
+              <span id="hover-line"/>
               <ul className="navbar-nav mr-auto mt-2 mt-lg-0 myNav">
                 <li className="nav-item">
                   <NavLink to="/about">ՄԵՐ ՄԱՍԻՆ</NavLink>
@@ -226,10 +258,27 @@ class Header extends React.Component {
                 <li className="nav-item">
                   <NavLink to="/feedback">ՀԵՏԱԴԱՐՁ ԿԱՊ</NavLink>
                 </li>
+                <li>
+                  <div>
+                  <Icon
+                      type="search"
+                      onClick={() => this.setState({searchField: !this.state.searchField})}
+                      className="navbar-search"
+                  />
+                  { searchField && (
+                      <Search
+                        placeholder="Search"
+                        className="nav-search-button"
+                        style={{width: '20%', marginTop: 10}}
+                        onSearch={(keyword) => this.handleSearch(keyword)}
+                      />
+                      )}
+                  </div>
+                </li>
               </ul>
             </div>
             <button
-              className="navbar-toggler"
+              className="navbar-toggler sidebar-toggler"
               type="button"
               data-toggle="collapse"
               data-target="#navbarTogglerDemo03"
@@ -241,6 +290,8 @@ class Header extends React.Component {
             </button>
           </nav>
         </div>
+
+
       </header>
     );
   }

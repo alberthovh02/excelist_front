@@ -1,0 +1,33 @@
+.search_results{
+  width: 70%;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center;
+}
+
+.search_result {
+  img{ width: 100%}
+  margin-bottom: 20px;
+  //width: 50%;
+}
+
+@media screen and (max-width: "950px"){
+  .search_page_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .search_results {
+    width: 100%;
+  }
+  .search_sidebar-container{
+    max-width: 100%;
+  }
+  .sidebar-image {
+    img {
+      width: 40% !important;
+    }
+  }
+}

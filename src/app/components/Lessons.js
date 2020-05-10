@@ -15,7 +15,7 @@ class Lessons extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      // data: [],
     };
   }
   componentDidMount() {
@@ -37,7 +37,7 @@ class Lessons extends React.Component {
           <Row style={{ height: "100%" }}>
             <Col sm={9}>
                 <Row sm={12} style={{justifyContent: "space-evenly"}}>
-                {data.length ? (
+                {data && data.length ? (
                   data.map((el, key) => {
                     return (
                       <div key={key} className="course-item col-sm-5">
@@ -61,7 +61,7 @@ class Lessons extends React.Component {
                       </div>
                     );
                   })
-                ) : (
+                ) : ( data && !data.length ? <p>There are no courses</p> :
                   <div
                     style={{
                       display: "block",
@@ -69,7 +69,7 @@ class Lessons extends React.Component {
                       marginRight: "auto",
                     }}
                   >
-                    <Spin size="large" />
+                    <Spin size="large" tip="Please wait data is loading..."/>
                   </div>
                 )}
                 </Row>

@@ -14,15 +14,16 @@ class Blog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      slicedBlogs: [],
+      // slicedBlogs: [],
     };
   }
 
   render() {
     const { Blogs } = this.props;
-    if (Blogs && !this.state.slicedBlogs.length)
-      this.setState({ slicedBlogs: Blogs.slice(0, 12) });
     const { slicedBlogs } = this.state;
+    if (Blogs && !this.state.slicedBlogs)
+      this.setState({ slicedBlogs: Blogs.slice(0, 12) });
+
     return (
       <>
         <Helmet>
@@ -32,7 +33,7 @@ class Blog extends React.Component {
         <div className="blog-wrapper">
           <Container fluid>
             <Row style={{ height: "100%" }}>
-              <Col sm={9}>
+              <Col sm={8}>
                 <Row sm={12}>
                   {slicedBlogs && slicedBlogs.length ? (
                     slicedBlogs.map((el, key) => {
@@ -71,7 +72,7 @@ class Blog extends React.Component {
                         </Col>
                       );
                     })
-                  ) : (
+                  ) : ( slicedBlogs && !slicedBlogs.length ? <p>There are no blogs</p> :
                     <div
                       style={{
                         display: "block",
@@ -79,7 +80,7 @@ class Blog extends React.Component {
                         marginRight: "auto",
                       }}
                     >
-                      <Spin size="large" />
+                      <Spin size="large" tip="Please wait data is loading..."/>
                     </div>
                   )}
                 </Row>
