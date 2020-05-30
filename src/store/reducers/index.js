@@ -8,7 +8,19 @@ import Courses from './courses';
 import SingleData from './singledata';
 import Comments from './comments';
 import Albums from './albums';
-import Subscribes from './subscribes'
+import Subscribes from './subscribes';
+import Certificates from './certificates';
 
 
-export default combineReducers({ Lessons, Feedbacks, Videoblogs, Blogs, Courses, SingleData, Comments, Albums, Subscribes })
+export default combineReducers({
+    Lessons,
+    Feedbacks,
+    Videoblogs,
+    Blogs,
+    Courses,
+    SingleData,
+    Comments,
+    Albums,
+    Subscribes,
+    Certificates
+})

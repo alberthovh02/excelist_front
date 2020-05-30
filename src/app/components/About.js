@@ -118,7 +118,7 @@ class AboutUs extends React.Component {
 						<div className="statistic_item col-sm-4">
 						<CountUp
 							start={0}
-							end={SingleData && SingleData[0].students_count || 0}
+							end={SingleData && SingleData[0] && SingleData[0].students_count || 0}
 							duration={4}
 							style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 							delay={2}
@@ -130,7 +130,7 @@ class AboutUs extends React.Component {
 						<div className="statistic_item col-sm-4">
 						<CountUp
 							start={0}
-							end={SingleData && SingleData[0].facebook_followers || 0}
+							end={SingleData && SingleData[0] && SingleData[0].facebook_followers || 0}
 							duration={4}
 							style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 							delay={2}
@@ -142,7 +142,8 @@ class AboutUs extends React.Component {
 						<div className="statistic_item col-sm-4">
 						{this.state.youtubeSubscribersCount && <CountUp
 							start={0}
-							end={this.state.youtubeSubscribersCount.items[0].statistics.viewCount}
+							end={this.state.youtubeSubscribersCount.items ?
+								this.state.youtubeSubscribersCount.items[0].statistics.viewCount : 0}
 							duration={4}
 							style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 							delay={2}
@@ -152,7 +153,7 @@ class AboutUs extends React.Component {
 							<span>ԴԻՏՈՒՄ YOUTUBE-ՈՒՄ</span>
 						</div>
 					</div>
-					<div className=" col-sm-12">
+					<div>
 						<h2 className="albums_heading">
 							ՄԵՆՔ` ԼՈՒՍԱՆԿԱՐՆԵՐՈՎ
 							</h2>
@@ -177,7 +178,7 @@ class AboutUs extends React.Component {
 							<div className="statistic_item col-sm-3">
 							<CountUp
 								start={0}
-								end={SingleData && SingleData[0].lessons_count || 0}
+								end={SingleData && SingleData[0] && SingleData[0].lessons_count || 0}
 								duration={4}
 								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 								delay={2}
@@ -189,7 +190,7 @@ class AboutUs extends React.Component {
 							<div className="statistic_item  col-sm-3">
 							<CountUp
 								start={0}
-								end={SingleData && SingleData[0].teachers_count || 0}
+								end={SingleData && SingleData[0] && SingleData[0].teachers_count || 0}
 								duration={4}
 								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 								delay={2}
@@ -201,7 +202,7 @@ class AboutUs extends React.Component {
 							<div className="statistic_item  col-sm-3">
 							<CountUp
 								start={0}
-								end={SingleData && SingleData[0].members_count || 0}
+								end={SingleData && SingleData[0] && SingleData[0].members_count || 0}
 								duration={4}
 								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 								delay={2}
@@ -213,7 +214,7 @@ class AboutUs extends React.Component {
 							<div className="statistic_item col-sm-3">
 							<CountUp
 								start={0}
-								end={SingleData && SingleData[0].supporters_count || 0}
+								end={SingleData && SingleData[0] && SingleData[0].supporters_count || 0}
 								duration={4}
 								style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 								delay={2}
@@ -318,7 +319,7 @@ class AboutUs extends React.Component {
 
 						<div className="staff_images"></div>
 						
-						<div style={{width: "50%", marginLeft: 'auto', marginRight: 'auto'}}>
+						<div style={{marginLeft: 'auto', marginRight: 'auto'}}>
 					<h1 className="about_heading main_heading">ԿԱՐԾԻՔՆԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ</h1>
 					<div className="line"></div>
 					{ Feedbacks && <FeedbackCarousel infinite={true} responsive={responsive} afterChange={(previousSlide, { currentSlide, onMove }) => {this.setState({currentSlide})}}>

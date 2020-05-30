@@ -1,34 +1,25 @@
 import React from 'react';
 import { Input, Form, Button, message } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux';
 import { updateSingleData } from '../../../store/api';
 import { ActionCreator, POST } from '../../../store/actionCreators';
 import { UPDATE_SINGLE_DATA } from '../../../store/actionTypes';
 
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
+
 class Students extends React.Component {
-  //Need to validate that data is number only
-  constructor(props){
-    super(props);
-    this.state = {
-      students_count: null,
-      lessons_count: null,
-      teachers_count: null,
-      members_count: null,
-      supporters_count: null,
-      loading: false
-    }
+  state = {
+    loading: false
   }
-  handleNumberChange = (e) => {
-    this.setState({count: Number(e.target.value)})
-  }
-
-  handleInputChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({[name]: value});
-  }
-
-  handleSubmit = async(e) => {
-    e.preventDefault();
+  handleSubmit = async(values) => {
     const { dispatch } = this.props;
     const { 
       students_count, 
@@ -37,7 +28,7 @@ class Students extends React.Component {
       members_count, 
       supporters_count,
       facebook_followers 
-    } = this.state;
+    } = values;
 
     let data = {}
 
@@ -59,92 +50,131 @@ class Students extends React.Component {
     if(facebook_followers){
       data.facebook_followers = facebook_followers
     }
-    this.setState({loading: true})
+    this.setState({ loading: true });
     const response = await dispatch(POST(updateSingleData, data));
-    this.setState({loading: false})
+    this.setState({ loading: false });
+
     if (response.code === 200) {
       message.success("հաջողությամբ ավելացվել է");
       await dispatch(ActionCreator(UPDATE_SINGLE_DATA, response.data));
-    } else {
-      message.error("Ինչ որ բան գնաց ոչ այնպես");
+      return true
     }
-
+      message.error("Ինչ որ բան գնաց ոչ այնպես");
+      return false
   }
 
   render(){
     const { SingleData } = this.props;
     const { loading } = this.state
-    return(
-      <>
-      <main>
-      <Form className="students-board">
+    const {
+      students_count,
+      lessons_count,
+      teachers_count,
+      members_count,
+      supporters_count,
+      facebook_followers
+    }  = SingleData ? SingleData[0] : {}
+    return !SingleData ? <div className='start-loader'><LoadingOutlined/></div> : (
+      <Form
+          {...layout}
+          className="students-board"
+          onFinish={(values) => this.handleSubmit(values)}
+          layout='vertical'
+          initialValues={{
+            students_count,
+            lessons_count,
+            teachers_count,
+            members_count,
+            supporters_count,
+            facebook_followers
+          }}
+      >
         <h2>Թվային տվյալներ</h2>
-        <Form.Item>
-        {`Ուսանողների թիվը: ${SingleData && SingleData[0] && SingleData[0].students_count} `} <Input placeholder="Enter students count"
+        <Form.Item
+            label={`Ուսանողների թիվը: ${SingleData && SingleData[0] && SingleData[0].students_count} `}
             name="students_count"
+            rules={[{required: true, message: 'Students count is required'}]}
+        >
+          <Input
+            placeholder="Enter students count"
             style={{width: '50%', display: 'inline-block'}}
-            className="students_count"
-            onChange={e => this.handleInputChange(e)}/>
+            className="students_count"/>
         </Form.Item>
 
-        <Form.Item>
-        {`Առարկաների թիվը ${(SingleData && SingleData[0] && SingleData[0].lessons_count) || 0} `} <Input placeholder="Enter lessons count"
+        <Form.Item
             name="lessons_count"
+            label={`Առարկաների թիվը ${(SingleData && SingleData[0] && SingleData[0].lessons_count) || 0} `}
+            rules={[{required: true, message: "Lessons count is required"}]}
+        >
+          <Input
+            placeholder="Enter lessons count"
             style={{width: '50%', display: 'inline-block'}}
             className="students_count"
-            onChange={e => this.handleInputChange(e)}/>
+          />
         </Form.Item>
 
-        <Form.Item>
-        {`Ուսուցիչների թիվը ${(SingleData && SingleData[0] && SingleData[0].teachers_count) || 0} `} <Input placeholder="Enter teachers count"
+        <Form.Item
             name="teachers_count"
+            label={`Ուսուցիչների թիվը ${(SingleData && SingleData[0] && SingleData[0].teachers_count) || 0} `}
+            rules={[{required: true, message: "Teachers count is required"}]}
+        >
+         <Input
+             placeholder="Enter teachers count"
             style={{width: '50%', display: 'inline-block'}}
-            className="students_count"
-            onChange={e => this.handleInputChange(e)}/>
+            />
         </Form.Item>
 
-        <Form.Item>
-        {`Մասնակիցների թիվը ${(SingleData &&  SingleData[0] && SingleData[0].members_count) || 0} `} <Input placeholder="Enter members count"
+        <Form.Item
             name="members_count"
+            label={`Մասնակիցների թիվը ${(SingleData &&  SingleData[0] && SingleData[0].members_count) || 0} `}
+            rules={[{required: true, message: "Members count is required"}]}
+        >
+         <Input
+             placeholder="Enter members count"
             style={{width: '50%', display: 'inline-block'}}
-            className="students_count"
-            onChange={e => this.handleInputChange(e)}/>
+           />
         </Form.Item>
 
-        <Form.Item>
-        {`Այլ երկրից հետևորդների թիվը ${(SingleData && SingleData[0] && SingleData[0].supporters_count) || 0} `} <Input placeholder="Enter supporters count"
+        <Form.Item
             name="supporters_count"
+            label={`Այլ երկրից հետևորդների թիվը ${(SingleData && SingleData[0] && SingleData[0].supporters_count) || 0} `}
+            rules={[{required: true, message: "Supporters count is required"}]}
+        >
+         <Input
+             placeholder="Enter supporters count"
             style={{width: '30%', display: 'inline-block'}}
-            className="students_count"
-            onChange={e => this.handleInputChange(e)}/>
+            />
         </Form.Item>
 
-        <Form.Item>
-        {`Ֆեյսբուքում հետևորդների թիվը ${(SingleData && SingleData[0] && SingleData[0].facebook_followers) || 0} `} <Input placeholder="Enter fb followers count"
+        <Form.Item
             name="facebook_followers"
+            rules={[{required: true, message: "Facebook followers count is required"}]}
+            label={`Ֆեյսբուքում հետևորդների թիվը ${(SingleData && SingleData[0] && SingleData[0].facebook_followers) || 0} `}
+        >
+         <Input
+            placeholder="Enter fb followers count"
             style={{width: '30%', display: 'inline-block'}}
-            className="facebook_followers"
-            onChange={e => this.handleInputChange(e)}/>
+            className="facebook_followers"/>
         </Form.Item>
         
         <Form.Item>
           <Button 
             type="primary" 
             className="submit_count" 
-            style={{width: '100%'}} 
-            onClick={(e) => this.handleSubmit(e)}
+            // style={{width: '100%'}}
+            htmlType='submit'
             loading={loading}
-            >Հաստատել</Button>
+            >
+            Հաստատել
+          </Button>
         </Form.Item>
       </Form>
-      </main>
-      </>
     )
   }
 }
 
 const get = state => {
-  return {SingleData: state.SingleData };
+  return { SingleData: state.SingleData };
 }
 
 export default connect(get)(Students);

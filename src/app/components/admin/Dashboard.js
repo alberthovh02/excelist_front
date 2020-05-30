@@ -1,8 +1,5 @@
 import React from "react";
 
-import Sidebar from "./Sidebar";
-import Container from './Container';
-import Navbar from './Navbar';
 import { Route, Switch } from 'react-router-dom'
 import { PrivateRoutes } from '../../../config/routes';
 import { Card, Col, Row } from 'antd';

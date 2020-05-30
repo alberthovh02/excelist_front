@@ -18,7 +18,6 @@ class Countdown extends React.Component {
 			const then = moment(timeTillDate, timeFormat);
 			const now = moment();
 			const countdown = moment(then - now);
-			console.log("Countdown ", moment(new Date(then)).diff(moment(new Date())))
 			const days = countdown.format('D');
 			const hours = countdown.format('HH');
 			const minutes = countdown.format('mm');

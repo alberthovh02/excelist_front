@@ -1,10 +1,12 @@
 import React from "react";
-import { Collapse, Input, Button, message, Upload, Icon } from "antd";
+import { Collapse, Input, Button, message, Upload } from "antd";
+import { UploadOutlined } from '@ant-design/icons'
+
 import parseDate from '../../functions/parseTime';
 import { connect } from 'react-redux';
 import { getSubscribers, sendSubscribersMail } from '../../../store/api';
 import {  GET_SUBSCRIBERS } from '../../../store/actionTypes';
-import { ActionCreator, GET, POST } from '../../../store/actionCreators';
+import { GET, POST } from '../../../store/actionCreators';
 //Table css
 import CssBaseline from '@material-ui/core/CssBaseline'
 import MaUTable from '@material-ui/core/Table'
@@ -171,7 +173,7 @@ class SubscribedUsers extends React.Component {
 							}
 						>
 							<Button>
-								<Icon type="upload" name="image" /> Click to Upload
+                                <UploadOutlined name='image'/> Click to Upload
 							</Button>
 						</Upload>
             <Button type="primary" onClick={this.sendMessage} loading={loading}>

@@ -9,7 +9,6 @@ export default (state = null, action) => {
     case DELETE_FEEDBACK:
       return state.filter(item => item._id !== payload._id);
     case UPDATE_FEEDBACK:
-    console.log(payload)
       return state.map(item => {
         if (item._id === payload._id) {
           return { ...item, ...payload };

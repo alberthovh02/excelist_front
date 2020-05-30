@@ -1,5 +1,7 @@
 import React from "react";
-import {Input, Icon, Form, Button, Upload, message, Collapse, Modal} from "antd";
+import { Input, Form, Button, Upload, message, Collapse, Modal } from "antd";
+import { UploadOutlined } from '@ant-design/icons'
+
 import ReactQuill from "react-quill";
 
 import { connect } from 'react-redux';
@@ -23,10 +25,10 @@ class BlogAdmin extends React.Component {
 		};
 	}
 
-	handleSubmit = async e => {
-		e.preventDefault();
+	handleSubmit = async(values) => {
 		const { dispatch } = this.props;
-		const {title, image, text} = this.state;
+		const { image, text} = this.state;
+		const { title } = values
 		if(!title || !image || !text){
 			message.warning("Լրացրեք բոլոր դաշտերը");
 			return false
@@ -46,9 +48,6 @@ class BlogAdmin extends React.Component {
 		}
 	};
 
-	handleChange = data => {
-		this.setState({language: data});
-	};
 	handleTextChange = value => {
 		this.setState({text: value});
 	};
@@ -83,7 +82,7 @@ class BlogAdmin extends React.Component {
 
 	async componentDidMount(){
 		const { dispatch } = this.props;
-		const response = await dispatch(GET(getBlogs, GET_ALL_BLOGS));
+		await dispatch(GET(getBlogs, GET_ALL_BLOGS));
 	}
 
 	handleCancel = () => {
@@ -153,9 +152,8 @@ class BlogAdmin extends React.Component {
 					}) }
 				</Panel>
 			</Collapse>
-				<form>
-					<Form.Item>
-						<p>Select an image</p>
+				<Form onFinish={values => this.handleSubmit(values)}>
+					<Form.Item label='Կցեք նկար' rules={[{required: true, message: "Image is required"}]}>
 						<Upload
 							onChange={this.onImageUpload}
 							multiple={false}
@@ -167,17 +165,12 @@ class BlogAdmin extends React.Component {
 							}
 						>
 							<Button>
-								<Icon type="upload" name="image" /> Click to Upload
+								<UploadOutlined name="image"/> Click to Upload
 							</Button>
 						</Upload>
 					</Form.Item>
-					<Form.Item>
-						Enter title
-						<Input
-							placeholder="Enter title"
-							name="title"
-							onChange={e => this.handleInputChange(e)}
-						/>
+					<Form.Item name='title' label='Վերնագիր' rules={[{required: true, message: 'Title is required'}]}>
+						<Input/>
 					</Form.Item>
 					<Form.Item>
 						<div style={{borderWidth: 1, borderStyle: "solid"}}>
@@ -190,10 +183,10 @@ class BlogAdmin extends React.Component {
 							/>
 						</div>
 					</Form.Item>
-					<Button type="primary" onClick={e => this.handleSubmit(e)} loading={loading}>
+					<Button type="primary" htmlType='submit' loading={loading}>
 						Հաստատել
 					</Button>
-				</form>
+				</Form>
 			</div>
 		);
 	}

@@ -4,7 +4,6 @@ export default (state = null, action) => {
   const payload = action.payload;
   switch (action.type) {
     case GET_ALL_ALBUMS:
-      console.log(payload)
       return payload;
     case DELETE_ALBUM:
       return state.filter(item => item._id !== payload._id);

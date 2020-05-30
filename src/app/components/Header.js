@@ -1,11 +1,14 @@
 import React from "react";
 import {NavLink, Redirect} from "react-router-dom";
-import {Menu, Dropdown, Icon, Popover, Spin, Input, message} from "antd";
+import {Menu, Dropdown, Popover, Spin, Input, message, Collapse} from "antd";
+import { CaretDownOutlined, LoadingOutlined, SearchOutlined } from '@ant-design/icons';
+
 import { connect } from "react-redux";
 import {search} from "../../store/api";
 import {GETREQUEST} from "../../store/actionCreators";
 
-const { Search } = Input
+const { Search } = Input;
+const { Panel } = Collapse
 
 class Header extends React.Component {
   constructor(props) {
@@ -73,6 +76,34 @@ class Header extends React.Component {
     }
   }
 
+  toggleNav = () => {
+    if(document.getElementById("mySidebar").style.width === '300px'){
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("root").style.position= "relative";
+      document.getElementById("root").style.right= "0";
+      document.getElementsByClassName('icon-bar')[0].style.transform = 'rotate(0deg)';
+      document.getElementsByClassName('icon-bar')[0].style.top = '10px';
+      document.getElementsByClassName('icon-bar')[1].style.transform = 'rotate(0deg)';
+      document.getElementsByClassName('icon-bar')[1].style.top = '15px';
+      document.getElementsByClassName('icon-bar')[2].style.transform = 'rotate(0deg)';
+      document.getElementsByClassName('icon-bar')[2].style.top = '20px';
+      document.getElementsByTagName("body")[0].style.position = 'absolute';
+    }
+    else{
+      document.getElementById("mySidebar").style.width = "300px";
+      document.getElementById("root").style.position = 'relative';
+      document.getElementById("root").style.right = '300px';
+      document.getElementsByTagName("body")[0].style.position = 'fixed';
+      document.getElementsByClassName('icon-bar')[0].style.transform = 'rotate(-45deg)';
+      document.getElementsByClassName('icon-bar')[0].style.top = '13px';
+      document.getElementsByClassName('icon-bar')[1].style.transform = 'rotate(-45deg)';
+      document.getElementsByClassName('icon-bar')[1].style.top = '13px';
+      document.getElementsByClassName('icon-bar')[2].style.transform = 'rotate(45deg)';
+      document.getElementsByClassName('icon-bar')[2].style.top = '13px';
+    }
+
+  }
+
   render() {
     const { Lessons, Courses, imageSource, searchField, redirect } = this.state;
 
@@ -89,7 +120,7 @@ class Header extends React.Component {
               Courses.length &&
               Courses.map((item, key) => {
                 return (
-                  <div className="navbar-lessons-link">
+                  <div key={key} className="navbar-lessons-link" style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}>
                     <a href={`/course/${item._id}`}>{item.title}</a>
                   </div>
                 );
@@ -152,6 +183,55 @@ class Header extends React.Component {
     }
     return (
       <header>
+        <div id="mySidebar" className="mySidebar">
+          {/*<a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>×</a>*/}
+          <a href="/about">ՄԵՐ ՄԱՍԻՆ</a>
+          <Collapse
+              bordered={false}
+              defaultActiveKey={['1']}
+              expandIconPosition={'right'}
+              expandIcon={({ isActive }) => <CaretDownOutlined rotate={isActive ? 180 : 0}/>}
+              style={{background: 'transparent'}}
+          >
+            <Panel key={'about'} header={'ԴԱՍԸՆԹԱՑՆԵՐ'}>
+              <ul>
+                {Courses &&
+                Courses.length &&
+                Courses.map((item, key) => {
+                  return (
+                      <li key={key} className="mobile-submenu">
+                        <a href={`/course/${item._id}`}>{item.title}</a>
+                      </li>
+                  );
+                })}
+              </ul>
+            </Panel>
+          </Collapse>
+          <a href="/blog">ԲԼՈԳ</a>
+          <Collapse
+              bordered={false}
+              defaultActiveKey={['1']}
+              expandIconPosition={'right'}
+              expandIcon={({ isActive }) => <CaretDownOutlined rotate={isActive ? 180 : 0}/> }
+              style={{background: 'transparent'}}
+          >
+            <Panel key={'videoblog'} header={'ՎԻԴԵՈԲԼՈԳ'}>
+                <ul>
+                  <li className='mobile-submenu'>
+                    <a href="/videos?lang=arm">Հայերեն վիդեոներ</a>
+                  </li>
+                  <li className='mobile-submenu'>
+                    <a href="/videos?lang=rus">Русскоязычные видео</a>
+                  </li>
+                  <li className='mobile-submenu'>
+                    <a href="/videos?lang=eng">English videos</a>
+                  </li>
+                </ul>
+            </Panel>
+          </Collapse>
+          <a href="/automatic">ԱՎՏՈՄԱՏԱՑՈՒՄ</a>
+          <a href="/feedback">ՀԵՏԱԴԱՐՁ ԿԱՊ</a>
+        </div>
         <div className="header_text">
           <div className="phone_contact">
             Ունե՞ք հարցեր <i className="material-icons phone_icon">phone</i>{" "}
@@ -202,12 +282,11 @@ class Header extends React.Component {
           </div>
         </div>
         <div className="pos-f-l">
-          <nav className="navbar navbar-expand-lg navbar-light sidebar-toggle header_links web_links">
+          <nav className="navbar navbar-expand-xl navbar-light header_links web_links">
             <NavLink to="/">
               <img
                 src={require("../../assets/exelist.png")}
-                width="145px"
-                height="45px"
+                width="108.75px"
                 alt="Excelist logo"
               />
             </NavLink>
@@ -219,7 +298,7 @@ class Header extends React.Component {
                   <NavLink to="/about">ՄԵՐ ՄԱՍԻՆ</NavLink>
                 </li>
                 <li className="nav-item"  onClick={() => (window.location = "/lessons")}>
-                  <Popover placement="bottom" content={menu ? menu : <Spin indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />}/>}>
+                  <Popover placement="bottom" content={menu ? menu : <Spin indicator={<LoadingOutlined style={{fontSize: 24}}/>}/>}>
                     <NavLink
                       to="/lessons"
                       target="_blank"
@@ -228,7 +307,8 @@ class Header extends React.Component {
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       ԴԱՍԸՆԹԱՑՆԵՐ
-                      <Icon type="caret-down" />
+                      {/*<Icon type="caret-down" />*/}
+                      <CaretDownOutlined />
                     </NavLink>
                   </Popover>
                 </li>
@@ -247,7 +327,8 @@ class Header extends React.Component {
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       ՎԻԴԵՈԲԼՈԳ
-                      <Icon type="caret-down" />
+                      {/*<Icon type="caret-down" />*/}
+                      <CaretDownOutlined />
                     </NavLink>
                   </Dropdown>
                 </li>
@@ -260,11 +341,10 @@ class Header extends React.Component {
                 </li>
                 <li>
                   <div>
-                  <Icon
-                      type="search"
-                      onClick={() => this.setState({searchField: !this.state.searchField})}
-                      className="navbar-search"
-                  />
+                    <SearchOutlined
+                        onClick={() => this.setState({searchField: !this.state.searchField})}
+                        className="navbar-search"
+                    />
                   { searchField && (
                       <Search
                         placeholder="Search"
@@ -278,15 +358,21 @@ class Header extends React.Component {
               </ul>
             </div>
             <button
-              className="navbar-toggler sidebar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarTogglerDemo03"
-              aria-controls="navbarTogglerDemo03"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
+              // className="navbar-toggler sidebar-toggler"
+              // type="button"
+              // data-toggle="collapse"
+              // data-target="#navbarTogglerDemo03"
+              // aria-controls="navbarTogglerDemo03"
+              // aria-expanded="false"
+              // aria-label="Toggle navigation"
+              onClick={ this.toggleNav }
+              className='navbar-toggler-mobile'
             >
-              <span className="navbar-toggler-icon"></span>
+              <span className='mobile-toggler'>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </span>
             </button>
           </nav>
         </div>

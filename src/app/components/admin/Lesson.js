@@ -2,14 +2,18 @@ import React from "react";
 import {
 	Input,
 	Button,
-	Upload,
-	Icon,
 	Collapse,
 	Card,
 	message,
 	Modal,
-	Select
+	Select,
+	DatePicker,
+	Form,
+	TimePicker
 } from "antd";
+import moment from 'moment';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+
 import parseDate from '../../functions/parseTime';
 import DateTimePicker from 'react-datetime-picker';
 
@@ -20,8 +24,7 @@ import { createLesson, deleteLesson, updateLesson } from '../../../store/api';
 import { CREATE_LESSON, DELETE_LESSON, UPDATE_LESSON } from '../../../store/actionTypes';
 
 
-const {Dragger} = Upload;
-const {Panel} = Collapse;
+const { Panel } = Collapse;
 const { Meta } = Card;
 const { Option } = Select;
 
@@ -82,13 +85,6 @@ class Lesson extends React.Component {
 			message.success("Ջնջված է")
 			await dispatch(ActionCreator(DELETE_LESSON, _id))
 	};
-
-
-	// onImageUpload = async info => {
-	// 	if (info.file.status === 'uploading') {
-	// 		this.setState({image:  info.file.originFileObj})
-	// 	}
-	// };
 
 	showModal = (item) => {
     	this.setState({
@@ -160,8 +156,8 @@ class Lesson extends React.Component {
     										style={{ width: 240 }}
     										cover={<img alt="example" src={imageSource && imageSource[0] && imageSource[0].imageUrl} />}
 											actions={[
-      											<Icon type="edit" onClick={this.showModal.bind(null, item)}/>,
-      											<Icon type="delete" onClick={this.deleteLessonFunc.bind(null, item)}/>,
+												<EditOutlined onClick={this.showModal.bind(null, item)}/>,
+												<DeleteOutlined onClick={this.deleteLessonFunc.bind(null, item)}/>
     										]}
 										>
 											<Modal
@@ -187,7 +183,27 @@ class Lesson extends React.Component {
 							</div>
 					</Panel>
 				</Collapse>
-
+				{/*<Form>*/}
+				{/*	<h2>Ավելացնել մոտակա դասընթաց</h2>*/}
+				{/*	<Form.Item>*/}
+				{/*		<DatePicker onChange={this.onChange}/>*/}
+				{/*	</Form.Item>*/}
+				{/*	<Form.Item>*/}
+				{/*		<TimePicker format={'HH:mm'} onChane={this.onChange}/>*/}
+				{/*	</Form.Item>*/}
+				{/*	<Form.Item>*/}
+				{/*		<Select defaultValue="Choose lesson" style={{ width: 300 }} onChange={this.handleChange}>*/}
+				{/*			{ Courses && Courses.length && Courses.map((item, key) => {*/}
+				{/*				return <Option value={item.title} lessonId={item._id}>{item.title}</Option>*/}
+				{/*			})}*/}
+				{/*		</Select>*/}
+				{/*	</Form.Item>*/}
+				{/*	<Form.Item>*/}
+				{/*		<Button type="primary" loading={loading} onClick={e => this.postLesson(e)} >*/}
+				{/*			Հաստատել*/}
+				{/*		</Button>*/}
+				{/*	</Form.Item>*/}
+				{/*</Form>*/}
 				<div className="admin-lesson-new">
 					<h2>Ավելացնել մոտակա դասընթաց</h2>
 					<div >

@@ -21,15 +21,30 @@
 }
 
 .content {
-  padding-top: 60px;
-  width: 60%;
+  width: 95%;
   padding: 0 15px;
+}
+
+.automatic-container {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .automatic-wrapper {
   display: flex;
   justify-content: center;
   align-items: baseline;
+}
+
+@media screen and (max-width: 950px){
+  .automatic-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .automatic-wrapper, .automatic-sidebar {
+    width: 90%;
+  }
 }
 
 

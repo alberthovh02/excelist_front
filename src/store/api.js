@@ -59,6 +59,12 @@ export const uploadCV = `join/`
 export const getSubscribers = `subscribes/`;
 export const sendSubscribersMail = `subscribes/sendMail/`
 
-
 //search
 export const search = (keyword) => `search/${keyword}`
+
+//certificates
+export const getAllCertificates = `certificates/`;
+export const getCertificateByUserId = (userId) => `certificates/${userId}`;
+export const createCertificate = `certificates/create`;
+export const deleteCertificate = (userId) => `certificates/${userId}`;
+export const updateCertificate = (userId) => `certificates/${userId}`;

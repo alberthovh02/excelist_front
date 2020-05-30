@@ -1,8 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
-import { Spin, Pagination } from "antd";
+import { Spin, Pagination, Row, Col } from "antd";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -32,19 +32,19 @@ class Blog extends React.Component {
         <Header />
         <div className="blog-wrapper">
           <Container fluid>
-            <Row style={{ height: "100%" }}>
-              <Col sm={8}>
-                <Row sm={12}>
+            <Row style={{ height: "100%" }} className={'blogs-container'}>
+              <Col span={16}>
+                <Row span={24} className={'blogs-single'}>
                   {slicedBlogs && slicedBlogs.length ? (
                     slicedBlogs.map((el, key) => {
                       return (
                         <Col
-                          sm={4}
+                          span={8}
                           key={key}
                           className="blog-item"
                           style={{ height: "100%" }}
                         >
-                          <a href={`/blogpost/${el.generatedUrl}`}>
+                          <a href={`/blogpost/${el.generatedUrl}`} target='_blank'>
                             <img
                               src={el.imageUrl}
                               alt="image"
@@ -54,6 +54,7 @@ class Blog extends React.Component {
                           <a
                             className="blog-link"
                             href={`/blogpost/${el.generatedUrl}`}
+                            target='_blank'
                           >
                             {el.title}
                           </a>
@@ -66,6 +67,7 @@ class Blog extends React.Component {
                           <a
                             className="blog-see-more"
                             href={`/blogpost/${el.generatedUrl}`}
+                            target='_blank'
                           >
                             Ավելին …
                           </a>
@@ -98,7 +100,7 @@ class Blog extends React.Component {
                   />
                 )}
               </Col>
-              <Col sm={3}>
+              <Col span={8}>
                 <Sidebar />
               </Col>
             </Row>

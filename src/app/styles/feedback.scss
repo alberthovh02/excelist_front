@@ -58,6 +58,10 @@
 .feedback_contact {
   display: flex;
   justify-content: space-around;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+
   input, textarea {
     border: 1px solid #e5e5e5;
     outline: none;
@@ -95,7 +99,27 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: '700px'){
+@media screen and (max-width: 968px){
+  .feedback_contact {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-contact {
+    width: 80vw !important;
+  }
+
+  .feedback-form {
+    width: 80vw !important;
+  }
+
+  .footer_heading_1, .feedback_heading_2 {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 700px){
   .feedback {
     width: 100vw;
     .feedback_heading_2 {

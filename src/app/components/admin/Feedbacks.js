@@ -1,8 +1,9 @@
 import React from "react";
-import { Input, Button, message, Upload, Icon, Collapse, Modal } from "antd";
-import Request from "../../../store/request";
+import { Input, Button, message, Upload, Collapse, Modal, Form } from "antd";
+import { UploadOutlined } from '@ant-design/icons'
+
 import { connect } from "react-redux";
-import { createFeedback, updateFeedback } from "../../../store/api";
+import { createFeedback, deleteFeedback, updateFeedback } from "../../../store/api";
 import {
   ActionCreator,
   DELETE,
@@ -17,29 +18,12 @@ import {
 
 const { TextArea } = Input;
 const { Panel } = Collapse;
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
 
 class Feedbacks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: null,
-      username: null,
-      comment: null,
-      link: null,
       visible: false,
-      edit_username: null,
-      edit_link: null,
-      edit_comment: null,
       loading: false,
     };
   }
@@ -56,18 +40,10 @@ class Feedbacks extends React.Component {
     });
   };
 
-  handleForm = async (e, type, item) => {
-    e.preventDefault();
+  handleForm = async (values, type, item) => {
     const { dispatch } = this.props;
-    const {
-      image,
-      username,
-      comment,
-      link,
-      edit_comment,
-      edit_link,
-      edit_username,
-    } = this.state;
+    const { image } = this.state;
+    const { username, comment, link, edit_comment, edit_link, edit_username } = values
 
     const data = new FormData();
     data.append("image", image);
@@ -115,18 +91,11 @@ class Feedbacks extends React.Component {
 
   deleteFeedback = async (item) => {
     const { dispatch } = this.props;
-    const resp = await Request.delete(`user-feedbacks/${item._id}`)
-      .then((response) => response.json())
-      .catch((e) => console.log(e));
-    if (resp.code === 200) {
+    const response = await dispatch(DELETE(deleteFeedback(item._id)))
+    if (response.code === 200) {
       await dispatch(ActionCreator(DELETE_FEEDBACK, item));
       message.success("Կարծիքը ջնջված է");
     } else message.error("Ինչ որ բան սխալ ընթացավ");
-  };
-
-  handleInputs = (event) => {
-    const { target } = event;
-    this.setState({ [target.name]: target.value });
   };
 
   showModal = (item) => {
@@ -175,35 +144,49 @@ class Feedbacks extends React.Component {
                     <Modal
                       title="Edit feedback"
                       visible={this.state.visible === item._id}
-                      onOk={(e) => this.handleForm(e, "update", item)}
+                      okButtonProps={{htmlType: 'submit', form: 'update-feedback-form'}}
                       onCancel={this.handleCancel}
                       key={key}
                     >
-                      <Input
-                        placeholder="Enter user name"
-                        name="edit_username"
-                        onChange={this.handleInputs}
-                        defaultValue={item.username}
-                      />
-                      <Input
-                        placeholder="Enter comment link"
-                        name="edit_link"
-                        defaultValue={item.link}
-                        onChange={this.handleInputs}
-                      />
-                      <TextArea
-                        placeholder="Enter feedback"
-                        name="edit_comment"
-                        defaultValue={item.comment}
-                        onChange={this.handleInputs}
-                      />
+                      <Form
+                        initialValues={{
+                          edit_username: item.username,
+                          edit_link: item.link,
+                          edit_comment: item.comment
+                        }}
+                        id='update-feedback-form'
+                        onFinish={(values) => this.handleForm(values, 'update', item)}
+                      >
+                        <Form.Item
+                            name="edit_username"
+                            label='User name'
+                        >
+                          <Input/>
+                        </Form.Item>
+                        <Form.Item
+                            label="Comment link"
+                            name="edit_link"
+                        >
+                          <Input/>
+                        </Form.Item>
+                        <Form.Item
+                            label="Feedback"
+                            name="edit_comment"
+                        >
+                          <TextArea/>
+                        </Form.Item>
+                      </Form>
                     </Modal>
                   </div>
                 );
               })}
           </Panel>
         </Collapse>
-        <div className="user-feedbacks">
+        <Form layout='vertical' onFinish={(values) => this.handleForm(values, 'create')}>
+          <Form.Item
+              label={"Choose image"}
+              rules={[{required: true, message: "Image is required"}]}
+          >
           <Upload
             onChange={this.onImageUpload}
             multiple={false}
@@ -215,29 +198,37 @@ class Feedbacks extends React.Component {
             }
           >
             <Button>
-              <Icon type="upload" name="image" /> Click to Upload
+              <UploadOutlined name='image '/> Click to Upload
             </Button>
           </Upload>
-          <Input
-            placeholder="Enter user name"
-            name="username"
-            onChange={this.handleInputs}
-          />
-          <Input
-            placeholder="Enter comment link"
-            name="link"
-            onChange={this.handleInputs}
-          />
-          <TextArea
-            placeholder="Enter feedback"
-            name="comment"
-            onChange={this.handleInputs}
-          />
-          <Button type="primary" onClick={this.handleForm} loading={loading}>
-            ADD
-          </Button>
-          <br />
-        </div>
+          </Form.Item>
+          <Form.Item
+              name="username"
+              label="User name"
+              rules={[{required: true, message: "User name is required"}]}
+          >
+            <Input/>
+          </Form.Item>
+          <Form.Item
+              name="link"
+              label="Comment link"
+              rules={[{required: true, message: "User name is required"}]}
+          >
+            <Input/>
+          </Form.Item>
+          <Form.Item
+              name="comment"
+              label="Feedback"
+              rules={[{required: true, message: "Feedback is required"}]}
+          >
+            <TextArea/>
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType='submit' loading={loading}>
+              ADD
+            </Button>
+          </Form.Item>
+        </Form>
       </>
     );
   }

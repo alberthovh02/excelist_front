@@ -58,14 +58,14 @@ export const PublicRoutes = [
 
 export const PrivateRoutes = [
   { id: 1, path: '/dashboard', component: Dashboard },
-  { id: 2, path: '/create-lesson', component: Lesson },
-  { id: 3, path: '/students', component: Students },
-  { id: 4, path: '/feedbacks', component: Feedbacks },
-  { id: 5, path: "/subscribes", component: SubscribedUsers},
-  { id: 6, path: '/registered_users', component: RegisteredUsers},
-  { id: 7, path: '/video-blog', component: VideoBlogAdmin},
-  { id: 8, path: '/blogs', component: BlogAdmin},
-  { id: 9, path: '/course', component: Course},
-  { id: 10, path: '/certificate', component: Certificate},
-  { id: 11, path: '/images', component: Images}
+  { id: 2, path: '/dashboard/create-lesson', component: Lesson },
+  { id: 3, path: '/dashboard/students', component: Students },
+  { id: 4, path: '/dashboard/feedbacks', component: Feedbacks },
+  { id: 5, path: "/dashboard/subscribes", component: SubscribedUsers},
+  { id: 6, path: '/dashboard/registered_users', component: RegisteredUsers},
+  { id: 7, path: '/dashboard/video-blog', component: VideoBlogAdmin},
+  { id: 8, path: '/dashboard/blogs', component: BlogAdmin},
+  { id: 9, path: '/dashboard/course', component: Course},
+  { id: 10, path: '/dashboard/certificate', component: Certificate},
+  { id: 11, path: '/dashboard/images', component: Images}
 ];

@@ -1,6 +1,7 @@
 import React from 'react';
 import Request from '../../store/request';
 import { Helmet } from 'react-helmet'
+import { Col, Row } from 'antd';
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -31,8 +32,8 @@ class BlogPost extends React.Component {
         <title>{ data.title }</title>
       </Helmet>
         <Header />
-        <div className="videopost-single-post col-sm-10">
-
+        <Row className={'blogpost-row'}>
+        <Col className="videopost-single-post" span={18}>
           <div>
 
             <h2 className="videopost-title">{data.title}</h2>
@@ -44,11 +45,14 @@ class BlogPost extends React.Component {
 
               {data._id && <Comments parentId={ data._id } parentType='blog'/>}
           </div>
-              <div className="col-sm-2">
-               <Sidebar/>
-            </div>
-        </div>
+        </Col>
+        <Col span={6} className={'blogpost-sidebar'}>
+          <Sidebar/>
+        </Col>
+        </Row>
+        <Row>
         <Footer mode="simple" />
+        </Row>
       </div>
     )
   }

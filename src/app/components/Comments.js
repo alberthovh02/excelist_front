@@ -63,7 +63,7 @@ class Comments extends React.Component {
           <div style={{display: 'flex !important', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
           <Input name='name' placeholder="Անուն" onChange={ this.handleChange } style={{width: '30%', padding: '4px 10px !important', marginRight: 10}}/>
           <Input name='email' placeholder="Էլ. փոստ" onChange={ this.handleChange } style={{width: '40%', padding: '4px 10px !important', marginRight: 10}}/>
-          <button className="comment-button" onClick={this.handleSubmit} style={{width: '20%'}}>Մեկնաբանել</button>
+          <button className="comment-button" onClick={this.handleSubmit} style={{width: '140px'}}>Մեկնաբանել</button>
           </div>
         </Form.Item>
       </Form>

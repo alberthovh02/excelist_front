@@ -1,6 +1,7 @@
 import React from 'react';
-import Header from './Header';
-import { Input, Upload, Icon, Modal, Button, message, Collapse, Card, Form } from 'antd';
+import { Input, Upload, Modal, Button, message, Collapse, Card, Form } from 'antd';
+import { EditOutlined, DeleteOutlined, FileOutlined } from '@ant-design/icons';
+
 import { ImageCropper, HiddenCropper } from "react-bootstrap-image-cropper";
 //redux
 import { connect } from 'react-redux';
@@ -183,9 +184,9 @@ deleteAlbumImage = async(image) =>{
                 />
               }
           actions={[
-            <Icon type="edit" onClick={() => this.editModal(item)}/>,
-            <Icon type="delete" onClick={() => this.deleteGallery(item)}/>,
-            <Icon type="file" onClick={() => this.showModal(item)}/>
+              <EditOutlined onClick={() => this.editModal(item)}/>,
+              <DeleteOutlined  onClick={() => this.deleteGallery(item)}/>,
+              <FileOutlined onClick={() => this.showModal(item)}/>
           ]}
             >
             <Meta

@@ -1,5 +1,7 @@
 import React from "react";
-import {Form, Upload, message, Button, Icon, Input, Collapse, Modal} from "antd";
+import { Form, Upload, message, Button, Input, Collapse, Modal } from "antd";
+import { UploadOutlined } from '@ant-design/icons'
+
 import ReactQuill,{ Quill } from "react-quill";
 import { connect } from 'react-redux';
 import { createCourse, deleteCourse, updateCourse } from '../../../store/api';
@@ -41,7 +43,6 @@ class AdminCourse extends React.Component {
 		this.state = {
 			text: "",
       		image: null,
-			text: '',
 			caption: null,
 			visible: null,
 			loading: false
@@ -53,26 +54,18 @@ class AdminCourse extends React.Component {
 		this.setState({[name]: value });
 	};
 
-  handleContent = (data) => {
-    this.setState({text: data})
-  }
-
-	// addMap = () => {
-	// 	this.setState({text: this.state.text + `${<Map/>}`})
-	// }
-
-	handleSubmit = async(event) => {
-    event.preventDefault();
+	handleSubmit = async(values) => {
 		const { dispatch } = this.props;
-		const {title, image, text, caption } = this.state;
+		const { title, text } = values
+		const { image, caption } = this.state;
 		const data = new FormData();
 		data.append("image", image);
 		data.append("content", text);
 		data.append("title", title);
 		data.append('caption', caption);
-		this.setState({loading: true})
+		this.setState({ loading: true })
 		const response = await dispatch(POST(createCourse, data, true));
-		this.setState({loading: false})
+		this.setState({ loading: false })
 		if (response.code === 200) {
 			message.success("Կուրսը հաջողությամբ ավելացվել է");
 			await dispatch(ActionCreator(CREATE_COURSE, response.data));
@@ -139,7 +132,6 @@ class AdminCourse extends React.Component {
 	}
 
 	render() {
-		const {getFieldDecorator} = this.props.form;
 		const { Courses } = this.props;
 		const { loading } = this.state
 		return (
@@ -178,61 +170,60 @@ class AdminCourse extends React.Component {
 				<Form
 					labelCol={{span: 4}}
 					className="admin-course-form"
+					onFinish={values => this.handleSubmit(values)}
 				>
-					<Form.Item>
-						{getFieldDecorator("photos")}
-							<p>Ընտրեք մենյուի նկար: </p><Upload
-								onChange={this.onImageUpload}
-								multiple={false}
-								showUploadList={false}
-								customRequest={() =>
-									setTimeout(() => {
-										console.log("ok");
-									}, 0)
+					<Form.Item
+						name='photos'
+						label='Ընտրեք մենյուի նկար:'
+						rules={[{required: true, message: "Image is required"}]}
+					>
+						<Upload
+							onChange={this.onImageUpload}
+							multiple={false}
+							showUploadList={false}
+							customRequest={() =>
+								setTimeout(() => {
+									console.log("ok");}, 0)
 								}
-							>
-								<Button>
-									<Icon type="upload" /> Ընտրել
-								</Button>
-							</Upload>
+						>
+							<Button>
+								<UploadOutlined/> Ընտրել
+							</Button>
+						</Upload>
 					</Form.Item>
-					<Form.Item>
-						{getFieldDecorator("innerImage")}
-						<p>Ընտրեք գլխամասային նկար: </p><Upload
-								onChange={this.onInnerImageUpload}
-								multiple={false}
-								showUploadList={false}
-								customRequest={() =>
-									setTimeout(() => {
-										console.log("ok");
-									}, 0)
+					<Form.Item
+						name='innerImage'
+						label='Ընտրեք գլխամասային նկար:'
+						rules={[{required: true, message: "Inner image is required"}]}
+					>
+						<Upload
+							onChange={this.onInnerImageUpload}
+							multiple={false}
+							showUploadList={false}
+							customRequest={() =>
+								setTimeout(() => {
+									console.log("ok");}, 0)
 								}
-							>
-								<Button>
-									<Icon type="upload" /> Ընտրել
-								</Button>
-							</Upload>
+						>
+							<Button>
+								<UploadOutlined/> Ընտրել
+							</Button>
+						</Upload>
 					</Form.Item>
-					<Form.Item>
-						<Input
-							placeholder="Ներմուծեք վերնագիրը"
-							name="title"
-							onChange={this.handleInput}
-						/>
+					<Form.Item name='title' label='Ներմուծեք վերնագիրը'>
+						<Input/>
 					</Form.Item>
-					<Form.Item>
+					<Form.Item name='text'>
 						<div style={{borderWidth: 1, borderStyle: "solid"}}>
 							<ReactQuill
 								id="editor"
 								value={this.state.text}
-								onChange={this.handleContent}
 								modules={AdminCourse.modules}
 								formats={AdminCourse.formats}
-                name='text'
 							/>
 						</div>
 					</Form.Item>
-					<Button type="primary" onClick={e => this.handleSubmit(e)} loading={loading}>
+					<Button type="primary" htmlType='submit' loading={loading}>
 						Ավելացնել
 					</Button>
 				</Form>
@@ -252,14 +243,10 @@ AdminCourse.modules = {
 
 	],
 	clipboard: {
-		// toggle to add extra line breaks when pasting HTML:
 		matchVisual: false
 	}
 };
-/*
- * Quill editor formats
- * See https://quilljs.com/docs/formats/
- */
+
 AdminCourse.formats = [
 	"header",
 	"font",
@@ -284,10 +271,8 @@ AdminCourse.formats = [
 	"video"
 ];
 
-const Course = Form.create()(AdminCourse);
-
 const get = state => {
-	return {Courses: state.Courses};
+	return { Courses: state.Courses };
 }
 
-export default connect(get)(Course);
+export default connect(get)(AdminCourse);
