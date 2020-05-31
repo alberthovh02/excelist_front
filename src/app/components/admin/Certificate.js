@@ -81,6 +81,7 @@ class Certificate extends React.Component {
 			<Form onFinish={this.handleSubmit}>
 				{ updateCertificate && <UpdateCertificates
 					data={updateCertificate}
+					closeModal={() => this.setState({updateCertificate: null})}
 				/>}
 			<div className="certificate">
 					<Collapse>

@@ -17,7 +17,14 @@ export default (state = null, action) => {
         case CREATE_CERTIFICATE:
             return [...state, payload]
         case ADD_CERTIFICATE:
-            return [...state, ...payload]
+            return [...state, ...payload];
+        case UPDATE_CERTIFICATE:
+            return state.map(item => {
+                if (item._id === payload._id) {
+                    return { ...item, ...payload };
+                }
+                return item;
+            });
         default:
             return state;
     }
