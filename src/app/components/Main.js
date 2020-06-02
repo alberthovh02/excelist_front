@@ -15,7 +15,7 @@ import {default as FeedbackCarousel} from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 //app routes
 import {PrivateRoutes, PublicRoutes} from "../../config/routes";
-import {Carousel, Collapse, Icon} from "antd";
+import {Carousel, Collapse} from "antd";
 import { CaretRightOutlined } from '@ant-design/icons'
 
 

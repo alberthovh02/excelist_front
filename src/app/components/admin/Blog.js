@@ -1,6 +1,6 @@
 import React from "react";
-import { Input, Form, Button, Upload, message, Collapse, Modal } from "antd";
-import { UploadOutlined } from '@ant-design/icons'
+import {Input, Form, Button, Upload, message, Collapse, Modal, Spin} from "antd";
+import { UploadOutlined, LoadingOutlined } from '@ant-design/icons'
 
 import ReactQuill from "react-quill";
 
@@ -122,7 +122,7 @@ class BlogAdmin extends React.Component {
 			<div>
 			<Collapse accordion>
 				<Panel header="Բոլոր բլոգները">
-					{Blogs && Blogs.map((item, key) => {
+					{Blogs && Blogs.length ? Blogs.map((item, key) => {
 						return <div key={key} className="videoblog-admin">
 							<img src={`${item.imageUrl}`} alt="image" style={{height: "8%", width: "8%"}}/>
 							<b>{item.title}</b>
@@ -149,7 +149,7 @@ class BlogAdmin extends React.Component {
 							</div>
 							</div>
 							
-					}) }
+					}) : Blogs && !Blogs.length ?  'No data' : <Spin indicator={<LoadingOutlined/>}  tip='Loading data...'/> }
 				</Panel>
 			</Collapse>
 				<Form onFinish={values => this.handleSubmit(values)}>
@@ -236,7 +236,7 @@ BlogAdmin.formats = [
 
 
 const get = state => {
-	return { Blogs: state.Blogs}
+	return { Blogs: state.Blogs }
 }
 
 export default connect(get)(BlogAdmin);

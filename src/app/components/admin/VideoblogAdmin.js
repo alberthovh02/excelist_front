@@ -1,6 +1,6 @@
 import React from "react";
-import { Input, Select, Form, Button, Upload,Collapse , message, Radio, Modal } from "antd";
-import { UploadOutlined } from '@ant-design/icons'
+import { Input, Select, Form, Button, Upload,Collapse , message, Radio, Modal, Spin } from "antd";
+import { UploadOutlined, LoadingOutlined } from '@ant-design/icons'
 
 import { connect } from 'react-redux';
 import { getVideoblogs, createVideoblog, deleteVideoblog, editVideoblog } from '../../../store/api';
@@ -231,7 +231,7 @@ class VideoBlogAdmin extends React.Component {
 			<div>
 				<Collapse accordion>
 					<Panel header="Բոլոր վիդեոբլոգերը">
-						{Videoblogs && Videoblogs.map((item, key) => {
+						{Videoblogs && Videoblogs.length ? Videoblogs.map((item, key) => {
 							return <div key={key} className="videoblog-admin">
 								<img src={item.imageUrl} alt="image" style={{height: "8%", width: "8%"}}/>
 								<b>{item.title}</b>
@@ -315,7 +315,7 @@ class VideoBlogAdmin extends React.Component {
 									<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}} onClick={this.showModal.bind(null, item)}>EDIT</Button>
 								</div>
 								</div>
-						}) }
+						}) : Videoblogs && !Videoblogs.length ? 'No data' : <Spin indicator={<LoadingOutlined/>}  tip='Loading data...'/>  }
 					</Panel>
 				</Collapse>
 					<Form

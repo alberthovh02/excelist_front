@@ -1,12 +1,11 @@
 import React from "react";
-import { Form, Upload, message, Button, Input, Collapse, Modal } from "antd";
-import { UploadOutlined } from '@ant-design/icons'
-
-import ReactQuill,{ Quill } from "react-quill";
+import {Form, Upload, message, Button, Input, Collapse, Modal} from "antd";
+import ReactQuill  from "react-quill";
 import { connect } from 'react-redux';
 import { createCourse, deleteCourse, updateCourse } from '../../../store/api';
 import { ActionCreator, DELETE, POST, PUT } from '../../../store/actionCreators';
 import { DELETE_COURSE, CREATE_COURSE, UPDATE_COURSE } from '../../../store/actionTypes';
+import {UploadOutlined} from "@ant-design/icons";
 
 const { Panel } = Collapse;
 
@@ -42,7 +41,8 @@ class AdminCourse extends React.Component {
 		super(props);
 		this.state = {
 			text: "",
-      		image: null,
+			image: null,
+			text: '',
 			caption: null,
 			visible: null,
 			loading: false
@@ -50,29 +50,37 @@ class AdminCourse extends React.Component {
 	}
 
 	handleInput = event => {
-    const { name, value } = event.target
+		const { name, value } = event.target
 		this.setState({[name]: value });
 	};
 
-	handleSubmit = async(values) => {
+	handleContent = (data) => {
+		this.setState({text: data})
+	}
+
+	// addMap = () => {
+	// 	this.setState({text: this.state.text + `${<Map/>}`})
+	// }
+
+	handleSubmit = async(event) => {
+		event.preventDefault();
 		const { dispatch } = this.props;
-		const { title, text } = values
-		const { image, caption } = this.state;
+		const {title, image, text, caption } = this.state;
 		const data = new FormData();
 		data.append("image", image);
 		data.append("content", text);
 		data.append("title", title);
 		data.append('caption', caption);
-		this.setState({ loading: true })
+		this.setState({loading: true})
 		const response = await dispatch(POST(createCourse, data, true));
-		this.setState({ loading: false })
+		this.setState({loading: false})
 		if (response.code === 200) {
 			message.success("Կուրսը հաջողությամբ ավելացվել է");
 			await dispatch(ActionCreator(CREATE_COURSE, response.data));
 		} else {
 			message.error("Ինչ որ բան գնաց ոչ այնպես");
 		}
-  };
+	};
 
 	deletePost = async(item) => {
 		const { dispatch } = this.props;
@@ -100,7 +108,7 @@ class AdminCourse extends React.Component {
 	handleCancel = () => {
 		this.setState({visible: false})
 	}
-	
+
 	handleTextEdit = value => {
 		this.setState({edit_text: value})
 	}
@@ -136,94 +144,93 @@ class AdminCourse extends React.Component {
 		const { loading } = this.state
 		return (
 			<div>
-			<Collapse accordion>
-				<Panel header="Բոլոր դասընթացները">
-					{Courses && Courses.map((item, key) => {
-						return <div key={key} className="videoblog-admin">
-							<img src={item.imageUrl} alt="image" style={{height: "8%", width: "8%"}}/>
-							<b>{item.title}</b>
-							<i>{item.language}</i>
-							<div>
-							<Modal
-								title="Edit course"
-								visible={this.state.visible === item._id}
-								onOk={this.handleOk}
-								onCancel={this.handleCancel}
-							>
-								<Input defaultValue={item.title} name="edit_title" onChange={e => this.handleInput(e)}/>
-								<div style={{borderWidth: 1, borderStyle: "solid"}}>
-								<ReactQuill
-									defaultValue={item.content}
-									onChange={this.handleTextEdit}
-									modules={AdminCourse.modules}
-									formats={AdminCourse.formats}
-									/>
+				<Collapse accordion>
+					<Panel header="Բոլոր դասընթացները">
+						{Courses && Courses.map((item, key) => {
+							return <div key={key} className="videoblog-admin">
+								<img src={item.imageUrl} alt="image" style={{height: "8%", width: "8%"}}/>
+								<b>{item.title}</b>
+								<i>{item.language}</i>
+								<div>
+									<Modal
+										title="Edit course"
+										visible={this.state.visible === item._id}
+										onOk={this.handleOk}
+										onCancel={this.handleCancel}
+									>
+										<Input defaultValue={item.title} name="edit_title" onChange={e => this.handleInput(e)}/>
+										<div style={{borderWidth: 1, borderStyle: "solid"}}>
+											<ReactQuill
+												defaultValue={item.content}
+												onChange={this.handleTextEdit}
+												modules={AdminCourse.modules}
+												formats={AdminCourse.formats}
+											/>
+										</div>
+									</Modal>
+									<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
+									<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}} onClick={() => this.setState({visible: item._id})}>EDIT</Button>
 								</div>
-							</Modal>
-								<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
-								<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}} onClick={() => this.setState({visible: item._id})}>EDIT</Button>
 							</div>
-							</div>
-					}) }
-				</Panel>
-			</Collapse>
+						}) }
+					</Panel>
+				</Collapse>
 				<Form
 					labelCol={{span: 4}}
 					className="admin-course-form"
-					onFinish={values => this.handleSubmit(values)}
 				>
-					<Form.Item
-						name='photos'
-						label='Ընտրեք մենյուի նկար:'
-						rules={[{required: true, message: "Image is required"}]}
+					<Form.Item name='photos'>
+						<p>Ընտրեք մենյուի նկար: </p><Upload
+						onChange={this.onImageUpload}
+						multiple={false}
+						showUploadList={false}
+						customRequest={() =>
+							setTimeout(() => {
+								console.log("ok");
+							}, 0)
+						}
 					>
-						<Upload
-							onChange={this.onImageUpload}
-							multiple={false}
-							showUploadList={false}
-							customRequest={() =>
-								setTimeout(() => {
-									console.log("ok");}, 0)
-								}
-						>
-							<Button>
-								<UploadOutlined/> Ընտրել
-							</Button>
-						</Upload>
+						<Button>
+							<UploadOutlined/> Ընտրել
+						</Button>
+					</Upload>
 					</Form.Item>
-					<Form.Item
-						name='innerImage'
-						label='Ընտրեք գլխամասային նկար:'
-						rules={[{required: true, message: "Inner image is required"}]}
+					<Form.Item name='innerImage'>
+						<p>Ընտրեք գլխամասային նկար: </p><Upload
+						onChange={this.onInnerImageUpload}
+						multiple={false}
+						showUploadList={false}
+						customRequest={() =>
+							setTimeout(() => {
+								console.log("ok");
+							}, 0)
+						}
 					>
-						<Upload
-							onChange={this.onInnerImageUpload}
-							multiple={false}
-							showUploadList={false}
-							customRequest={() =>
-								setTimeout(() => {
-									console.log("ok");}, 0)
-								}
-						>
-							<Button>
-								<UploadOutlined/> Ընտրել
-							</Button>
-						</Upload>
+						<Button>
+							<UploadOutlined/> Ընտրել
+						</Button>
+					</Upload>
 					</Form.Item>
-					<Form.Item name='title' label='Ներմուծեք վերնագիրը'>
-						<Input/>
+					<Form.Item>
+						<Input
+							placeholder="Ներմուծեք վերնագիրը"
+							name="title"
+							onChange={this.handleInput}
+						/>
 					</Form.Item>
-					<Form.Item name='text'>
+					<Form.Item>
 						<div style={{borderWidth: 1, borderStyle: "solid"}}>
 							<ReactQuill
 								id="editor"
 								value={this.state.text}
+								onChange={this.handleContent}
 								modules={AdminCourse.modules}
 								formats={AdminCourse.formats}
+								name='text'
 							/>
 						</div>
 					</Form.Item>
-					<Button type="primary" htmlType='submit' loading={loading}>
+					<Button type="primary" onClick={e => this.handleSubmit(e)} loading={loading}>
 						Ավելացնել
 					</Button>
 				</Form>
@@ -243,10 +250,14 @@ AdminCourse.modules = {
 
 	],
 	clipboard: {
+		// toggle to add extra line breaks when pasting HTML:
 		matchVisual: false
 	}
 };
-
+/*
+ * Quill editor formats
+ * See https://quilljs.com/docs/formats/
+ */
 AdminCourse.formats = [
 	"header",
 	"font",
@@ -272,7 +283,7 @@ AdminCourse.formats = [
 ];
 
 const get = state => {
-	return { Courses: state.Courses };
+	return {Courses: state.Courses};
 }
 
 export default connect(get)(AdminCourse);
