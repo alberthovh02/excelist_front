@@ -7,6 +7,9 @@ import { Spin, Pagination, Row, Col } from "antd";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
+import {ADD_BLOGS, CREATE_BLOG, GET_ALL_BLOGS} from "../../store/actionTypes";
+import {getBlogsPagination} from "../../store/api";
+import {GET} from "../../store/actionCreators";
 
 const title = "ԲԼՈԳ | Excelist";
 
@@ -14,16 +17,21 @@ class Blog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // slicedBlogs: [],
     };
+  }
+
+  componentDidMount() {
+    this.getNewPageData(1)
+  }
+
+  getNewPageData = async(page) => {
+    const { dispatch } = this.props;
+    await dispatch(GET(getBlogsPagination(page), ADD_BLOGS));
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   render() {
     const { Blogs } = this.props;
-    const { slicedBlogs } = this.state;
-    if (Blogs && !this.state.slicedBlogs)
-      this.setState({ slicedBlogs: Blogs.slice(0, 12) });
-
     return (
       <>
         <Helmet>
@@ -35,8 +43,8 @@ class Blog extends React.Component {
             <Row style={{ height: "100%" }} className={'blogs-container'}>
               <Col span={16}>
                 <Row span={24} className={'blogs-single'}>
-                  {slicedBlogs && slicedBlogs.length ? (
-                    slicedBlogs.map((el, key) => {
+                  {Blogs && Blogs.length ? (
+                      Blogs.map((el, key) => {
                       return (
                         <Col
                           span={8}
@@ -74,7 +82,7 @@ class Blog extends React.Component {
                         </Col>
                       );
                     })
-                  ) : ( slicedBlogs && !slicedBlogs.length ? <p>There are no blogs</p> :
+                  ) : ( Blogs && !Blogs.length ? <p>There are no blogs</p> :
                     <div
                       style={{
                         display: "block",
@@ -86,17 +94,12 @@ class Blog extends React.Component {
                     </div>
                   )}
                 </Row>
-                {slicedBlogs && slicedBlogs.length && (
+                {Blogs && Blogs.length && (
                   <Pagination
                     defaultCurrent={1}
-                    total={Blogs && Blogs.length}
+                    total={ Blogs[0]['pages'] }
                     pageSize={12}
-                    onChange={(page, size) => {
-                      this.setState({
-                        slicedBlogs: Blogs.slice((page - 1) * 12, page * size),
-                      });
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
+                    onChange={(page) => this.getNewPageData(page)}
                   />
                 )}
               </Col>

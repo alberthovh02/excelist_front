@@ -24,8 +24,8 @@ function Videoblog() {
                                     <div className="single_videoblog">
                                         <a href="/videos?lang=arm">
                                             <img
-                                            src={require("../../assets/images/intro/arm.png")}
-                                            alt="Armenian videos"/>
+                                                src={require("../../assets/images/intro/arm.png")}
+                                                alt="Armenian videos"/>
                                         </a>
                                         <a href="/videos?lang=arm">
                                             <h4 className="single-title">Հայերեն վիդեոներ</h4>
@@ -37,8 +37,8 @@ function Videoblog() {
                                     <div className="single_videoblog">
                                         <a href="/videos?lang=rus">
                                             <img
-                                            src={require("../../assets/images/intro/rus.png")}
-                                            alt="Russian videos"/>
+                                                src={require("../../assets/images/intro/rus.png")}
+                                                alt="Russian videos"/>
                                         </a>
                                         <a href="/videos?lang=rus">
                                             <h4 className="single-title">Русскоязычные видео</h4>

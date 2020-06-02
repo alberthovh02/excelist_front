@@ -7,7 +7,7 @@ export const InitRequest = async dispatch => {
   // console.clear();
   try {
     await dispatch(GET(getLessons, GET_ALL_LESSONS));
-    await dispatch(GET(getBlogs, GET_ALL_BLOGS))
+    // await dispatch(GET(getBlogs, GET_ALL_BLOGS))
     await dispatch(GET(getFeedbacks, GET_ALL_FEEDBACKS));
     await dispatch(GET(getCourses, GET_ALL_COURSES));
     await dispatch(GET(getSingledata, GET_ALL_SINGLE_DATA));

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import ReactPaginate from 'react-paginate';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Spin, Pagination } from 'antd'
 

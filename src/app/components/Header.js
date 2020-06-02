@@ -357,23 +357,12 @@ class Header extends React.Component {
                 </li>
               </ul>
             </div>
-            <button
-              // className="navbar-toggler sidebar-toggler"
-              // type="button"
-              // data-toggle="collapse"
-              // data-target="#navbarTogglerDemo03"
-              // aria-controls="navbarTogglerDemo03"
-              // aria-expanded="false"
-              // aria-label="Toggle navigation"
-              onClick={ this.toggleNav }
-              className='navbar-toggler-mobile'
-            >
-              <span className='mobile-toggler'>
+
+              <span className='mobile-toggler'  onClick={ this.toggleNav }>
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </span>
-            </button>
           </nav>
         </div>
 

@@ -21,6 +21,7 @@ export const GET_ALL_BLOGS = 'GET_ALL_BLOGS';
 export const DELETE_BLOG = 'DELETE_BLOG';
 export const UPDATE_BLOG = 'UPDATE_BLOG';
 export const CREATE_BLOG = 'CREATE_BLOG';
+export const ADD_BLOGS = 'ADD_BLOGS';
 
 //Courses
 export const GET_ALL_COURSES = 'GET_ALL_COURSES';

@@ -22,6 +22,9 @@ import { CaretRightOutlined } from '@ant-design/icons'
 import Header from "./Header";
 import Footer from "./Footer";
 import Navbar from './admin/Navbar';
+import {GET} from "../../store/actionCreators";
+import {getBlogsPagination} from "../../store/api";
+import {ADD_BLOGS} from "../../store/actionTypes";
 
 const createBrowserHistory = require("history")
 const {Panel} = Collapse;
@@ -39,6 +42,11 @@ class Index extends React.Component {
         }
     }
 
+    getPageDatas = async() => {
+        const { dispatch } = this.props;
+        await dispatch(GET(getBlogsPagination(1), ADD_BLOGS));
+    }
+
     componentDidMount() {
         fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
             .then(response => response.json())
@@ -47,7 +55,10 @@ class Index extends React.Component {
         setInterval(() => {
             this.setState({order: this.state.order <= 3 ? this.state.order + 1 : 1})
         }, 4000)
+        this.getPageDatas()
     }
+
+
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.Lessons !== prevState.Lessons) {
