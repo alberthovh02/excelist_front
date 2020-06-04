@@ -6,7 +6,7 @@ import {
     ADD_CERTIFICATE,
 } from '../actionTypes';
 
-export default (state = null, action) => {
+export default (state = [], action) => {
     const payload = action.payload;
     console.log("Pay", payload)
     switch (action.type) {

@@ -15,10 +15,8 @@ function Videoblog() {
                 <title>{title}</title>
             </Helmet>
             <Header/>
-            <div>
-                <Row>
-                    <Col span={16}>
-                        <Row span={12}>
+            <div style={{display: 'flex', flexDirection: 'row'}}>
+                    <div className={'content'}>
                             <div className="intro_videoblog ">
                                 <div className="videblog_desc ">
                                     <div className="single_videoblog">
@@ -62,12 +60,11 @@ function Videoblog() {
                                     </div>
                                 </div>
                             </div>
-                        </Row>
-                    </Col>
-                    <Col span={8}>
+                    </div>
+                    <div className={'singlecourse-navbar'}>
                         <Sidebar/>
-                    </Col>
-                </Row>
+                    </div>
+
             </div>
 
             <Footer mode="simple"/>

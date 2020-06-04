@@ -336,10 +336,6 @@ transform: translate(0,-100%);
   color: #f1f1f1;
 }
 
-.navbar-toggler-mobile {
-  display: none;
-}
-
 .mySidebar .closebtn {
   position: absolute;
   top: 0;
@@ -355,7 +351,7 @@ transform: translate(0,-100%);
 
 .mobile-toggler {
   float: right;
-  display: inline-block;
+  display: none;
   cursor: pointer;
   z-index: 1;
   vertical-align: middle;
@@ -394,8 +390,8 @@ transform: translate(0,-100%);
 }
 
 @media screen and (max-width: 1200px){
-  .navbar-toggler-mobile {
-    display: block;
+  .mobile-toggler {
+    display: inline-block;
   }
   .header_links {
     margin: 0;

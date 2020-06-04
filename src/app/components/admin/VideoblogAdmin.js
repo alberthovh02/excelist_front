@@ -362,12 +362,13 @@ class VideoBlogAdmin extends React.Component {
 						<Input/>
 					</Form.Item>
 					<Form.Item name='radio' label={'Content type'}>
-						<Radio.Group>
+						<Radio.Group onChange={(e) => this.setState({radio: e.target.value})}>
 							<Radio key={1} value={1}>Select file</Radio>
 							<Radio key={2} value={2}>Macro Lab</Radio>
 							<Radio key={3} value={3}>No Content</Radio>
 						</Radio.Group>
 					</Form.Item>
+					{console.log('radio ', this.state.radio)}
 					{ radio && radio === 1 ? <div>
 					<p>Select file</p>
 	        <Upload {...props}>

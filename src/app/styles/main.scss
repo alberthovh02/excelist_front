@@ -24,6 +24,10 @@ body {
   max-width: 300px
 }
 
+.content {
+  width: calc(100% - 310px)
+}
+
 .our-team-title {
   color: #333;
   font-size: 24px;
@@ -622,7 +626,7 @@ body {
   // flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  padding: 0 150px;
+  //padding: 0 150px;
   margin-top: 20px !important;
 
   img {

@@ -20,7 +20,7 @@ export const getVideoblogs = 'video-blog/blogs-desc';
 export const createVideoblog = 'video-blog/create';
 export const editVideoblog = id => `video-blog/${id}`;
 export const deleteVideoblog = id => `video-blog/${id}`;
-// export const getSinglepost =
+export const getSinglepost = url => `videoblogpost/${url}`;
 
 //blogs
 export const getBlogs = 'blogs';

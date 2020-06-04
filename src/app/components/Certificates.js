@@ -79,9 +79,6 @@ class Certificates extends React.Component{
                                          <Descriptions.Item label='Ամսաթիվ'>
                                              { certificate.date }
                                          </Descriptions.Item>
-                                         <Descriptions.Item label='Իդենտիֆիկատոր'>
-                                             { certificate.userId }
-                                         </Descriptions.Item>
                                      </Descriptions>
                                      <Descriptions key={key+1} bordered column={1}>
                                          <Descriptions.Item label='Full name'>
@@ -95,9 +92,6 @@ class Certificates extends React.Component{
                                          </Descriptions.Item>
                                          <Descriptions.Item label='Date'>
                                              { certificate.date }
-                                         </Descriptions.Item>
-                                         <Descriptions.Item label='User ID'>
-                                             { certificate.userId }
                                          </Descriptions.Item>
                                      </Descriptions>
                                  </> ): <div className='not-found-certificate'>

@@ -357,7 +357,6 @@ class Header extends React.Component {
                 </li>
               </ul>
             </div>
-
               <span className='mobile-toggler'  onClick={ this.toggleNav }>
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
