@@ -1,8 +1,8 @@
 import React from "react";
-import {Form, Upload, message, Button, Input, Collapse, Modal} from "antd";
+import {Form, Upload, message, Button, Input, Collapse, Modal, Descriptions, InputNumber } from "antd";
 import ReactQuill  from "react-quill";
 import { connect } from 'react-redux';
-import { createCourse, deleteCourse, updateCourse } from '../../../store/api';
+import { createCourse, deleteCourse, updateCourse, updateCourseOrder } from '../../../store/api';
 import { ActionCreator, DELETE, POST, PUT } from '../../../store/actionCreators';
 import { DELETE_COURSE, CREATE_COURSE, UPDATE_COURSE } from '../../../store/actionTypes';
 import {UploadOutlined} from "@ant-design/icons";
@@ -42,7 +42,6 @@ class AdminCourse extends React.Component {
 		this.state = {
 			text: "",
 			image: null,
-			text: '',
 			caption: null,
 			visible: null,
 			loading: false
@@ -139,20 +138,49 @@ class AdminCourse extends React.Component {
 		await dispatch(ActionCreator(UPDATE_COURSE, response.data))
 	}
 
+	changeOrder = async(itemId) => {
+		console.log("ITEM_ID", itemId);
+		console.log("ORDER_ID", this.state.currentOrderID)
+		const { dispatch } = this.props;
+		const response = await dispatch(PUT(updateCourseOrder(itemId), {orderId: this.state.currentOrderID}));
+		if(response.code !== 200){
+			message.error("Somrething went wrong");
+			return false
+		}
+		message.success("Edited")
+		await dispatch(ActionCreator(UPDATE_COURSE, response.data))
+	}
+
 	render() {
-		const { Courses } = this.props;
-		const { loading } = this.state
+		let { Courses } = this.props;
+		const { loading } = this.state;
+		Courses = Courses.sort((a, b) => Number(a.orderId) - Number(b.orderId))
 		return (
 			<div>
 				<Collapse accordion>
 					<Panel header="Բոլոր դասընթացները">
 						{Courses && Courses.map((item, key) => {
-							return <div key={key} className="videoblog-admin">
-								<img src={item.imageUrl} alt="image" style={{height: "8%", width: "8%"}}/>
-								<b>{item.title}</b>
-								<i>{item.language}</i>
-								<div>
-									<Modal
+							const myId = item._id
+						return <Descriptions key={key} bordered column={1} size='small'>
+							<Descriptions.Item label='Image' key={key}>
+								<img 
+									src={item.imageUrl} 
+									alt="admin course" 
+									style={{height: "100px", width: "180px"}}
+								/>
+							</Descriptions.Item>
+							<Descriptions.Item label='Title' key={key}>
+							<b>{item.title}</b>
+							</Descriptions.Item>
+							<Descriptions.Item label='Order ID' key={key}>
+								<InputNumber 
+									defaultValue={item.orderId} 
+									onChange={(value) => this.setState({'currentOrderID': value})}
+								/>
+								<Button onClick={() => this.changeOrder(item._id)}>Change order</Button>
+							</Descriptions.Item>
+							<Descriptions.Item label='Actions' key={key}>
+							<Modal
 										title="Edit course"
 										visible={this.state.visible === item._id}
 										onOk={this.handleOk}
@@ -170,9 +198,10 @@ class AdminCourse extends React.Component {
 									</Modal>
 									<Button type="danger" onClick={() => this.deletePost(item)}>DELETE</Button>{" "}
 									<Button type="primary" style={{backgroundColor: "orange",borderColor: "orange"}} onClick={() => this.setState({visible: item._id})}>EDIT</Button>
-								</div>
-							</div>
-						}) }
+								
+							</Descriptions.Item>
+						</Descriptions>
+					})}
 					</Panel>
 				</Collapse>
 				<Form

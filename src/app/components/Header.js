@@ -34,6 +34,8 @@ class Header extends React.Component {
   componentDidMount() {
     var scrollPos = 0;
     const header = document.getElementsByTagName("header")[0];
+    const { Courses } = this.props;
+    if(Courses && !this.state.Courses.length) this.setState({Courses})
     // adding scroll event
     window.addEventListener("scroll", function () {
       // detects new state and compares it with the new one
@@ -61,7 +63,7 @@ class Header extends React.Component {
   }
 
   handleSearch = async(keyword) => {
-    const { dispatch } = this.props;
+    // const { dispatch } = this.props;
     if(keyword){
       const response = await GETREQUEST(search(keyword))
       if(response.code !== 200){
@@ -120,9 +122,27 @@ class Header extends React.Component {
               Courses.length &&
               Courses.map((item, key) => {
                 return (
-                  <div key={key} className="navbar-lessons-link" style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}>
-                    <a href={`/course/${item._id}`}>{item.title}</a>
-                  </div>
+                  <>
+                    {
+                      key > 8 && key < 16 ? (
+                        <div 
+                          key={key} 
+                          className="navbar-lessons-link__sideblock" 
+                          // style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}
+                        >
+                          <a href={`/course/${item._id}`}>{item.title}</a>
+                        </div>
+                      ) : (
+                        <div 
+                          key={key} 
+                          className="navbar-lessons-link" 
+                          // style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}
+                        >
+                          <a href={`/course/${item._id}`}>{item.title}</a>
+                        </div>
+                      )
+                    }
+                  </>
                 );
               })}
           </div>

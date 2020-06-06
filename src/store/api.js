@@ -34,6 +34,7 @@ export const getCourses = 'course/';
 export const createCourse = 'course/create/';
 export const deleteCourse = id => `course/${id}`;
 export const updateCourse = id => `course/${id}`;
+export const updateCourseOrder = id => `course/orders/${id}`;
 export const getSingleCourse = id => `course/${id}`;
 
 export const getSingledata = 'students';

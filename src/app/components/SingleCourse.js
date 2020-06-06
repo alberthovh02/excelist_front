@@ -63,7 +63,7 @@ class SingleCourse extends React.Component {
                     <div className="single-course">
                         <h2 className="videopost-title">{data.title}</h2>
                         <div style={{width: '100%', height: '250px'}}>
-                            <img src={data.captionUrl} alt="course image"
+                            <img src={data.captionUrl} alt="course"
                                  style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
                         </div>
 

@@ -65,35 +65,41 @@ class Certificates extends React.Component{
                      : userData ?
                             userData.map((certificate, key) => {
                                  return certificate ? (<>
+                                 <div>
+                                 <div style={{textAlign: 'center'}}>«ԷՔՍԵԼԻՍՏ» ԱԿՈՒՄԲ</div>
                                      <Descriptions key={key} bordered column={1}>
                                          <Descriptions.Item label='Անուն Ազգանուն'>
                                              { certificate.name_ARM }
                                          </Descriptions.Item>
-                                         <Descriptions.Item label='Դասընթաց'>
+                                         <Descriptions.Item label='Դասընթացի անվանում'>
                                              { certificate.course_ARM }
                                          </Descriptions.Item>
+                                         <Descriptions.Item label='Դասընթացի տևողություն'>
+                                             { certificate.date }
+                                         </Descriptions.Item>
+                                         <Descriptions.Item label='Ընդամենը ժամ'>
+                                             { certificate.duration }
+                                         </Descriptions.Item>
+                                     </Descriptions>
+                                     </div>
+                                     <div>
+                                     <div style={{textAlign: 'center'}}>“EXCELIST” CLUB</div>
 
-                                         <Descriptions.Item label='Տևողություն'>
-                                             { certificate.duration }
-                                         </Descriptions.Item>
-                                         <Descriptions.Item label='Ամսաթիվ'>
-                                             { certificate.date }
-                                         </Descriptions.Item>
-                                     </Descriptions>
                                      <Descriptions key={key+1} bordered column={1}>
-                                         <Descriptions.Item label='Full name'>
+                                         <Descriptions.Item label='Name Surname'>
                                              { certificate.name_ENG }
                                          </Descriptions.Item>
-                                         <Descriptions.Item label='Course'>
+                                         <Descriptions.Item label='Course name'>
                                              { certificate.name_ENG }
                                          </Descriptions.Item>
-                                         <Descriptions.Item label='Duration'>
-                                             { certificate.duration }
-                                         </Descriptions.Item>
-                                         <Descriptions.Item label='Date'>
+                                         <Descriptions.Item label='Course duration'>
                                              { certificate.date }
                                          </Descriptions.Item>
+                                         <Descriptions.Item label='Total hours'>
+                                             { certificate.duration }
+                                         </Descriptions.Item>
                                      </Descriptions>
+                                     </div>
                                  </> ): <div className='not-found-certificate'>
                                      <FrownOutlined /> Sorry user not found
                                  </div>

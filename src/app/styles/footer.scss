@@ -114,7 +114,7 @@ footer {
 
   @media screen and (max-width: '1000px'){
   .footer_links{
-    flex-direction: column;
+    flex-direction: column-reverse !important;
     align-items: center;
   }
   }

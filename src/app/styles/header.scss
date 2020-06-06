@@ -186,6 +186,7 @@ transform: translate(0,-100%);
 .navbar-lessons {
   display: flex;
   justify-content: space-between;
+  width: 700px;
 }
 .navbar-lessons-soon {
  
@@ -197,15 +198,25 @@ transform: translate(0,-100%);
 }
 
 .navbar-lessons-link {
+  &__sideblock {
+    width: 45%;
+    display: inline-block;
+  }
+  width: 45%;
+  display: inline-block;
+  // background: red;
   a {
     color: #999;
     padding: 8px 0;
-    display: block
+    display: block;
+    &:hover {
+      color: black;
+    }
   }
 }
 
 .navbar-lessons-links-wrapper {
-  width: 50%
+  width: fit-content
 }
 
 .soon-lesson-title {

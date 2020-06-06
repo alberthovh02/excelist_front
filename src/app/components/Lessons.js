@@ -25,7 +25,8 @@ class Lessons extends React.Component {
       .catch((e) => console.log(e));
   }
   render() {
-    const { data } = this.state;
+    let { data } = this.state;
+    data = data ? data.sort((a, b) => Number(a.orderId) - Number(b.orderId)) : []
     return (
       <>
         <Helmet>

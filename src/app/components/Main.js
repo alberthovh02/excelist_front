@@ -192,6 +192,16 @@ class Index extends React.Component {
                                 </div>
                                 <i className="fa fa-play-circle-o"></i>
                             </div>
+                            <div className="intro-bar-item">
+                                <div className='graduate'>
+                                    <h1>Հավաստագրեր</h1>
+                                    <p>
+                                        <NavLink to="/certificates" className="intro-more">ԱՎԵԼԻՆ</NavLink>
+                                        <i className="fa fa-chevron-right arrow"></i>
+                                    </p>
+                                </div>
+                                <i class="fa fa-graduation-cap"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -996,11 +1006,11 @@ class Index extends React.Component {
                 <div className="get_files" style={{marginBottom: 30}}>
                     <h2>ԼՐԱՑՐՈ՛Ւ ԷԼ.ՀԱՍՑԵԴ ԵՎ ՍՏԱՑԻ՛Ր ՄԱՍՆԱԳԻՏԱԿԱՆ ՆՅՈՒԹԵՐ</h2>
                     <div className="line"></div>
-                    <NavLink to="/get-files" target="_blank">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeU8kXIAG5VYSn2s2McxsbzmvcABIO4KUN8Cp8QzNhmWhajSA/viewform?c=0&w=1" target="_blank">
                         <button className="get_files_button"><i className="fa fa-envelope"
                                                                 aria-hidden="true"/> ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ
                         </button>
-                    </NavLink>
+                    </a>
                 </div>
 
                 <Footer mode="main"/>

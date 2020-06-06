@@ -1,7 +1,7 @@
 class Request {
   constructor(){
-    // this.mainRoute = "http://159.65.216.209:3000/"
-    this.mainRoute = '//localhost:5000/'
+    this.mainRoute = "http://159.65.216.209:3000/"
+    // this.mainRoute = '//localhost:5000/'
   }
 
   get = url => this.sendRequest("GET", url);
