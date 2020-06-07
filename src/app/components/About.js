@@ -9,7 +9,7 @@ import {default as FeedbackCarousel} from 'react-multi-carousel';
 
 
 
-import Request from '../../store/request'
+// import Request from '../../store/request'
 import { connect } from 'react-redux';
 
 const title = 'ՄԵՐ ՄԱՍԻՆ | Excelist'
@@ -140,10 +140,10 @@ class AboutUs extends React.Component {
 							<span>ՀԵՏԵՎՈՂ ՖԵՅՍԲՈՒՔՈՒՄ</span>
 						</div>
 						<div className="statistic_item col-sm-4">
-						{this.state.youtubeSubscribersCount && <CountUp
+						{ youtubeSubscribersCount && <CountUp
 							start={0}
-							end={this.state.youtubeSubscribersCount.items ?
-								this.state.youtubeSubscribersCount.items[0].statistics.viewCount : 0}
+							end={ youtubeSubscribersCount.items ?
+								youtubeSubscribersCount.items[0].statistics.viewCount : 0}
 							duration={4}
 							style={{fontWeight: 'bold', fontSize: '1em', color: 'black', marginBottom: 0}}
 							delay={2}
@@ -153,24 +153,47 @@ class AboutUs extends React.Component {
 							<span>ԴԻՏՈՒՄ YOUTUBE-ՈՒՄ</span>
 						</div>
 					</div>
-					<div>
-						<h2 className="albums_heading">
-							ՄԵՆՔ` ԼՈՒՍԱՆԿԱՐՆԵՐՈՎ
-							</h2>
-							<div className="line" style={{marginBottom: 50}}></div>
-						<div className='album-container row' style={{marginBottom: 50}}>
-
-							{ Albums && Albums.map((item, key) => {
-								const images = item.images.map(it => {return {src: it}})
-								 return this.state.albumModal === key && images.length ? <> <ModalGateway>
-	          			<Modal onClose={() => this.setState({albumModal: false})}>
-	            			<ImageCarousel views={images} />
-	          			</Modal>
-	      				</ModalGateway> <div className="col-sm-6" ><p className="album-subheading">{item.name}</p><br/><img src={item.imageUrl} onClick={() => this.setState({albumModal: key})} style={{width: '100%'}}/></div></>
-								: <div className="col-sm-6" ><p className="album-subheading">{item.name}</p><br/><img src={item.imageUrl} onClick={() => this.setState({albumModal: key})} style={{width: '100%'}}/></div>
-							})}
-						</div>
-					</div>
+					 <div style={{marginBottom: '30px'}}>
+                    <h2 className="albums_heading">
+                        ՄԵՆՔ` ԼՈՒՍԱՆԿԱՐՆԵՐՈՎ
+                    </h2>
+                    <div className='album-container row'>
+                        {Albums && Albums.map((item, key) => {
+                            const images = item.images.map(it => {
+                                return {src: it.url}
+                            })
+                            return this.state.albumModal === key && images.length ? <> <ModalGateway>
+                                    <Modal onClose={() => this.setState({albumModal: false})}>
+                                        <ImageCarousel views={images}/>
+                                    </Modal>
+                                </ModalGateway>
+                                    <div className="col-sm-6" key={key}>
+                                        <p className="album-subheading">{item.name}</p>
+                                        <br/>
+                                        <a className="gallery-popup">
+                                            <img
+                                                alt='gallery'
+                                                src={item.imageUrl}
+                                                onClick={() => this.setState({albumModal: key})}
+                                                style={{width: '100%'}}
+                                            />
+                                        </a>
+                                    </div>
+                                </>
+                                :
+                                <div className="col-sm-6" key={key}>
+                                    <p className="album-subheading">{item.name}</p>
+                                    <br/>
+                                    <div
+                                        className="gallery-popup"
+                                        onClick={() => this.setState({albumModal: key})}
+                                    >
+                                        <img src={item.imageUrl} style={{width: '100%'}}/>
+                                    </div>
+                                </div>
+                        })}
+                    </div>
+                </div>
 
 
 					<div className="about_images">
@@ -322,16 +345,22 @@ class AboutUs extends React.Component {
 						<div style={{marginLeft: 'auto', marginRight: 'auto'}}>
 					<h1 className="about_heading main_heading">ԿԱՐԾԻՔՆԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ</h1>
 					<div className="line"></div>
-					{ Feedbacks && <FeedbackCarousel infinite={true} responsive={responsive} afterChange={(previousSlide, { currentSlide, onMove }) => {this.setState({currentSlide})}}>
-						 {Feedbacks.length && Feedbacks.map((item, key) => {
-								return <div key={key} className="feedback-item" style={{maxWidth: 200}}>
-									<img src={item.imageUrl}/>
-									{<><a href={item.link} className='feedback-name'><p>{item.username}</p></a>
-									<p>{item.comment}</p></> }
+						<div className='user_feedbacks__wrapper'>
+						{ Feedbacks &&  Feedbacks.map((feedback, key) => {
+							return <React.Fragment key={key}>
+								<div className='feedback-item'>
+									<img src={feedback.imageUrl} alt='Feedback user'/>
+									<>
+										<a href={feedback.link} className='feedback-name'>
+											<p>{feedback.username}</p>
+										</a>
+										<p>{feedback.comment}</p>
+									</>
 								</div>
-							})
+							</React.Fragment>
+							})	
 						}
-					</FeedbackCarousel> }
+						</div>
 					</div>
 					</div>
 				</div>

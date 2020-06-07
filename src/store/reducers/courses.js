@@ -1,6 +1,6 @@
 import { GET_ALL_COURSES, DELETE_COURSE, UPDATE_COURSE, CREATE_COURSE } from '../actionTypes';
 
-export default (state = [], action) => {
+export default (state = null, action) => {
   const payload = action.payload;
   switch (action.type) {
     case GET_ALL_COURSES:
@@ -15,7 +15,7 @@ export default (state = [], action) => {
         return item;
       });
     case CREATE_COURSE:
-      return [...state, payload]
+      return state ? [...state, payload] : [payload]
     default:
       return state;
   }

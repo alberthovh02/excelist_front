@@ -1,6 +1,7 @@
 import React from "react";
 import {Form, Upload, message, Button, Input, Collapse, Modal, Descriptions, InputNumber } from "antd";
 import ReactQuill  from "react-quill";
+import { LoadingOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux';
 import { createCourse, deleteCourse, updateCourse, updateCourseOrder } from '../../../store/api';
 import { ActionCreator, DELETE, POST, PUT } from '../../../store/actionCreators';
@@ -139,10 +140,9 @@ class AdminCourse extends React.Component {
 	}
 
 	changeOrder = async(itemId) => {
-		console.log("ITEM_ID", itemId);
-		console.log("ORDER_ID", this.state.currentOrderID)
 		const { dispatch } = this.props;
 		const response = await dispatch(PUT(updateCourseOrder(itemId), {orderId: this.state.currentOrderID}));
+		this.setState({currentOrderID: null})
 		if(response.code !== 200){
 			message.error("Somrething went wrong");
 			return false
@@ -154,7 +154,8 @@ class AdminCourse extends React.Component {
 	render() {
 		let { Courses } = this.props;
 		const { loading } = this.state;
-		Courses = Courses.sort((a, b) => Number(a.orderId) - Number(b.orderId))
+		Courses = Courses ? Courses.sort((a, b) => Number(a.orderId) - Number(b.orderId)) : null
+		if(!Courses) return <div className='start-loader'><LoadingOutlined/></div>
 		return (
 			<div>
 				<Collapse accordion>

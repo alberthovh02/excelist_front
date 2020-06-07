@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, Upload, Modal, Button, message, Collapse, Card, Form } from 'antd';
-import { EditOutlined, DeleteOutlined, FileOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, FileOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import { ImageCropper, HiddenCropper } from "react-bootstrap-image-cropper";
 //redux
@@ -45,8 +45,6 @@ class Images extends React.Component{
       message.success("Album created")
       await dispatch(ActionCreator(CREATE_ALBUM, response.data));
     }
-
-    console.log(this.state.fileList)
   }
 
   handleInput = (e) => {
@@ -55,12 +53,10 @@ class Images extends React.Component{
   }
 
   handleCrop = (crop) => {
-    console.log(crop)
     this.setState({fileList: crop})
   }
 
   deleteGallery = async(item) => {
-    console.log('OOOO', item._id)
     const { dispatch } = this.props;
 		const response = await dispatch(DELETE(deleteAlbum(item._id)));
 		if (response.code === 200) {
@@ -78,7 +74,6 @@ class Images extends React.Component{
     handleOk = async e => {
     const { visible, files } = this.state;
     const { dispatch } = this.props
-    console.log("FIle", visible)
       const data = new FormData();
       if(files.length > 0){
         files.forEach(file => {
@@ -98,7 +93,6 @@ class Images extends React.Component{
   };
 
   handleCancel = e => {
-    console.log(e);
     this.setState({
       visible: false,
     });
@@ -151,6 +145,7 @@ deleteAlbumImage = async(image) =>{
   render(){
     const { loading, files } = this.state;
     const { Albums } = this.props;
+    if(!Albums) return <div className='start-loader'><LoadingOutlined/></div>
     const props = {
       onRemove: file => {
         this.setState(state => {
@@ -217,7 +212,12 @@ deleteAlbumImage = async(image) =>{
                 {item.images && item.images.map((image) => {
                   return <div>
                       <img src={image.url} width={200}/>
-                      <Button type="danger" onClick={() => this.deleteAlbumImage(image)}>DELETE</Button>
+                      <Button 
+                        type="danger" 
+                        onClick={() => this.deleteAlbumImage(image)}
+                      >
+                        DELETE
+                      </Button>
                     </div> 
                 })}
                 </div>

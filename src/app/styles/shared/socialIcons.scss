@@ -1,0 +1,36 @@
+.socialIcons {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    padding-top: 40px;
+    @include -lg() {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+    .fa {
+        font-size: 18px;
+        border-radius: 100px;
+        color: white;
+    }
+    .fa-facebook {
+        background-color: #3b5998;
+        padding: 8px 12px;
+    }
+    .fa-youtube {
+        background-color: red;
+        padding: 8px;
+    }
+    .fa-linkedin {
+        background-color: #0077B5;
+        padding: 8px;
+    }
+    .fa-edit {
+        background-color: #72c752;
+        padding: 8px;
+    }
+    .fa-play-circle {
+        background-color: #72c752;
+        padding: 8px;
+    }
+}

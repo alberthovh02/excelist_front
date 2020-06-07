@@ -1,6 +1,6 @@
 import { GET_ALL_BLOGS, DELETE_BLOG, UPDATE_BLOG, CREATE_BLOG, ADD_BLOGS } from '../actionTypes';
 
-export default (state = [], action) => {
+export default (state = null, action) => {
   const payload = action.payload;
   switch (action.type) {
     case GET_ALL_BLOGS:
@@ -17,7 +17,7 @@ export default (state = [], action) => {
     case ADD_BLOGS:
       return [...payload.data];
     case CREATE_BLOG:
-      return [...state, payload]
+      return state ? [...state, payload] : [payload]
     default:
       return state;
   }

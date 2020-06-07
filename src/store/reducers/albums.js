@@ -15,7 +15,7 @@ export default (state = null, action) => {
         return item;
       });
     case CREATE_ALBUM:
-      return [...state, payload]
+      return state ? [...state, payload] : [payload]
     default:
       return state;
   }

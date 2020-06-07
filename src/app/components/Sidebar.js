@@ -1,10 +1,10 @@
 import React from 'react';
 import { Redirect, withRouter } from 'react-router-dom'
-import { Input, message } from 'antd';
+import { Input, message, Row, Col } from 'antd';
 
 import { connect } from 'react-redux';
 import { search } from '../../store/api';
-import { GETREQUEST} from "../../store/actionCreators";
+import { GETREQUEST } from "../../store/actionCreators";
 
 const { Search } = Input;
 
@@ -17,7 +17,7 @@ class Sidebar extends React.Component {
   }
 
   handleSearch = async(keyword) => {
-      const { dispatch } = this.props;
+      // const { dispatch } = this.props;
       if(keyword){
           const response = await GETREQUEST(search(keyword))
           if(response.code !== 200){
@@ -47,8 +47,8 @@ class Sidebar extends React.Component {
         }} />
     }
     return(
-      <div className='col'>
-        <div className="sidebar-item search">
+      <Col span={24}>
+        <div className="layout__sidebar__item search">
           <p>Որոնել</p>
           <Search
                placeholder="search"
@@ -66,27 +66,45 @@ class Sidebar extends React.Component {
             </button>
           </a>
         </div> */}
-        <div className="sidebar-item facebook">
-          <div className="fb-page fb_iframe_widget" data-href="https://www.facebook.com/Excel.lessons/?fref=ts" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="adapt_container_width=true&amp;app_id=552044051643659&amp;container_width=230&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2FExcel.lessons%2F%3Ffref%3Dts&amp;locale=en_GB&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false"><span style={{verticalAlign: "bottom", width: 230, height: 214}}><iframe name="f30f0bf6a40b4cc" width="1000px" height="1000px" title="fb:page Facebook Social Plugin" frameBorder="0" allowFullScreen={true} scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v2.7/plugins/page.php?adapt_container_width=true&amp;app_id=552044051643659&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D45%23cb%3Df1da0ca7ba1be1c%26domain%3Dexcelist.am%26origin%3Dhttps%253A%252F%252Fexcelist.am%252Ff3d70489d90bd7c%26relation%3Dparent.parent&amp;container_width=230&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2FExcel.lessons%2F%3Ffref%3Dts&amp;locale=en_GB&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false" style={{border: "none", visibility: "visible", width: 230, height: 214}}></iframe></span></div>
+        <div className="layout__sidebar__item facebook">
+          <div className="fb-page fb_iframe_widget" 
+          data-href="https://www.facebook.com/Excel.lessons/?fref=ts" 
+          data-small-header="false" 
+          data-adapt-container-width="true" 
+          data-hide-cover="false" 
+          data-show-facepile="true" 
+          fb-xfbml-state="rendered" 
+          fb-iframe-plugin-query="adapt_container_width=true&amp;app_id=552044051643659&amp;container_width=230&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2FExcel.lessons%2F%3Ffref%3Dts&amp;locale=en_GB&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false">
+              <iframe 
+                name="f30f0bf6a40b4cc" title="fb:page Facebook Social Plugin" frameBorder="0" allowFullScreen={true} scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v2.7/plugins/page.php?adapt_container_width=true&amp;app_id=552044051643659&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D45%23cb%3Df1da0ca7ba1be1c%26domain%3Dexcelist.am%26origin%3Dhttps%253A%252F%252Fexcelist.am%252Ff3d70489d90bd7c%26relation%3Dparent.parent&amp;container_width=230&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2FExcel.lessons%2F%3Ffref%3Dts&amp;locale=en_GB&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false" style={{border: "none", visibility: "visible", width: 'auto', height: 214}}></iframe>
+              </div>
         </div>
-        <div className="sidebar-item files">
+        <div className="layout__sidebar__item files">
           <p>ԼՐԱՑՐՈ՛Ւ ԷԼ. ՀԱՍՑԵԴ ԵՒ ՍՏԱՑԻ՛Ր ՄԱՍՆԱԳԻՏԱԿԱՆ ՆՅՈՒԹԵՐ</p>
-            <a href="/get-files" target="_blank">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeU8kXIAG5VYSn2s2McxsbzmvcABIO4KUN8Cp8QzNhmWhajSA/viewform?c=0&w=1" target="_blank">
               <button className="sidebar-learnmore">
                 <i className="fa fa-envelope"></i>{" "}
                 ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ{" "}
               </button>
             </a>
         </div>
-        <div className="sidebar-item lessons col-sm-12">
+        <div className="layout__sidebar__item lessons">
           <p>ԴԱՍԸՆԹԱՑՆԵՐ</p>
           { filterCourses &&  filterCourses.map((item, key) => {
             return (
-              <div key={key} className="sidebar-course" style={{width: '100%', height: '85px'}}>
-              <a target="_blank" rel="noopener noreferrer" href={`/course/${item._id}`}  style={{width: "50%"}}>
-              <div className="sidebar-image">
-                <img src={item.imageUrl} alt="course" style={{width: '100%'}}/>
-              </div>
+              <div 
+                key={key} 
+                className="layout__sidebar__item__course" 
+              >
+                <a 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href={`/course/${item._id}`}  
+                  style={{width: "50%"}}
+                >
+                  <div className="layout__sidebar__item__course__image">
+                    <img src={item.imageUrl} alt="course" />
+                  </div>
               </a>
               <a 
                 target="_blank" 
@@ -94,20 +112,31 @@ class Sidebar extends React.Component {
                 href={`/course/${item._id}`} 
                 style={{width: "50%"}}
                 >
-                <span className="sidebar-title-text col-sm-6">{item.title}</span>
+                <span className="layout__sidebar__item__course__text">
+                  {/* {`${item.title.slice(0, 20)} ...`} */}
+                  {item.title}
+                </span>
               </a>
             </div>)
           })}
         </div>
-        <div className="sidebar-item blog col-sm-12">
+        <div className="layout__sidebar__item blog">
           <p>ԲԼՈԳ</p>
           { filterBlogs && filterBlogs.map((item, key) => {
             return (
-              <div key={key} className="sidebar-course" style={{width: '100%', height: '85px'}}>
-              <a target="_blank" rel="noopener noreferrer" href={`/blogpost/${item.generatedUrl}`} style={{width: "50%"}}>
-              <div className="sidebar-image">
-                <img src={item.imageUrl} alt="blogs" style={{width: '100%'}}/>
-              </div>
+              <div 
+                key={key} 
+                className="layout__sidebar__item__course" 
+              >
+                <a 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href={`/blogpost/${item.generatedUrl}`} 
+                  style={{width: "50%"}}
+                >
+                <div className="layout__sidebar__item__course__image">
+                  <img src={item.imageUrl} alt="blogs"/>
+                </div>
               </a>
               <a 
                 target="_blank" 
@@ -115,36 +144,50 @@ class Sidebar extends React.Component {
                 href={`/blogpost/${item.generatedUrl}`} 
                 style={{width: "50%"}}
                 >
-              <span className="sidebar-title-text col-sm-6">{item.title}</span>
+              <span className="layout__sidebar__item__course__text">
+                {/* {`${item.title.slice(0, 20)} ...`} */}
+                {item.title}
+              </span>
               </a>
             </div>
             )
           } )}
         </div>
-        <div className="sidebar-item viedoblog col-sm-12">
+        <div className="layout__sidebar__item viedoblog">
           
           <p>ՎԻԴԵՈԲԼՈԳ</p>
           { filterVideoblogs && filterVideoblogs.map((item, key) => {
             return (
-              <div className="sidebar-course" key={key} style={{width: '100%', height: '85px'}}>
-              <a target="_blank" rel="noopener noreferrer" href={`/videoblogpost/${item.generatedUrl}`} style={{width: "50%"}}>
-              <div className="sidebar-image">
-                <img src={item.imageUrl} alt="videoblogs" style={{width: '100%'}}/>
-                </div>
-              </a>
-              <a 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                href={`/videoblogpost/${item.generatedUrl}`} 
-                style={{width: "50%"}}
+              <div 
+                className="layout__sidebar__item__course" 
+                key={key} 
+              >
+                <a 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href={`/videoblogpost/${item.generatedUrl}`} 
+                  style={{width: "50%"}}
                 >
-                <span className="sidebar-title-text col-sm-2">{item.title}</span>
-              </a>
+                  <div className="layout__sidebar__item__course__image">
+                    <img src={item.imageUrl} alt="videoblogs"/>
+                  </div>
+                </a>
+                <a 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href={`/videoblogpost/${item.generatedUrl}`} 
+                  style={{width: "50%"}}
+                >
+                  <span className="layout__sidebar__item__course__text">
+                    {/* {`${item.title.slice(0, 20)} ...`} */}
+                    {item.title}
+                  </span>
+                </a>
               </div>
             )
           } )}
         </div>
-      </div>
+      </Col>
     )
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Input, Button, message, Upload, Collapse, Modal, Form } from "antd";
-import { UploadOutlined } from '@ant-design/icons'
+import { UploadOutlined, LoadingOutlined } from '@ant-design/icons'
 
 import { connect } from "react-redux";
 import { createFeedback, deleteFeedback, updateFeedback } from "../../../store/api";
@@ -106,7 +106,8 @@ class Feedbacks extends React.Component {
 
   render() {
 	const { Feedbacks } = this.props;
-	const { loading } = this.state;
+  const { loading } = this.state;
+  if(!Feedbacks) return <div className='start-loader'><LoadingOutlined/></div>
     return (
       <>
         <Collapse accordion>

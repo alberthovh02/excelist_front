@@ -139,7 +139,9 @@ class VideoBlogAdmin extends React.Component {
   		data.append('image', edit_image)
   	}
   	if(edit_fileList.length){
-  		data.append('file', edit_fileList)
+		  edit_fileList.forEach(file => {
+			data.append('file', file)
+		  })
   	}
   	if(edit_radio === 3){
 		data.append('isEmpty', true)
@@ -187,8 +189,9 @@ class VideoBlogAdmin extends React.Component {
   }
 
 	render() {
-		const { fileList, radio, edit_fileList, loading } = this.state;
+		const { fileList, radio, edit_fileList, loading, edit_radio } = this.state;
 		const { Videoblogs } = this.props;
+		if(!Videoblogs) return <div className='start-loader'><LoadingOutlined/></div>
 		const props = {
       onRemove: file => {
         this.setState(state => {
@@ -242,7 +245,6 @@ class VideoBlogAdmin extends React.Component {
           							onCancel={this.handleCancel}
 									okButtonProps={{htmlType: 'submit', form: 'edit-form'}}
         						>
-									{console.log("Item", item)}
 									<Form
 										id='edit-form'
 										onFinish={(values) => this.handleOk(values)}
@@ -294,13 +296,13 @@ class VideoBlogAdmin extends React.Component {
 											label='Content type'
 											rules={[{required: true, message: "Content type is required"}]}
 										>
-											<Radio.Group>
+											<Radio.Group onChange={(e) => this.setState({edit_radio: e.target.value})}>
 												<Radio key={1} value={1}>Select file</Radio>
 												<Radio key={2} value={2}>Macro Lab</Radio>
 												<Radio key={3} value={3}>No file</Radio>
 											</Radio.Group>
 										</Form.Item>
-									{ this.state.edit_radio && this.state.edit_radio === 1 ? <div>
+									{ edit_radio && edit_radio === 1 ? <div>
 										<p>Select file</p>
 	       									<Upload {...edit_props}>
 	          									<Button>
@@ -368,7 +370,6 @@ class VideoBlogAdmin extends React.Component {
 							<Radio key={3} value={3}>No Content</Radio>
 						</Radio.Group>
 					</Form.Item>
-					{console.log('radio ', this.state.radio)}
 					{ radio && radio === 1 ? <div>
 					<p>Select file</p>
 	        <Upload {...props}>

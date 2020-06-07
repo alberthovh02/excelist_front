@@ -20,11 +20,6 @@ class GetFiles extends React.Component {
 		this.setState({[name]: value});
 	}
 
-	// handleMailChange = (e) => {
-	// 	console.log(e.target.value)
-	// 	this.setState({email: e.target.value});
-	// }
-
 	handleSubmit = async(e) => {
 		e.preventDefault();
 		const { name, email, proficent } = this.state;

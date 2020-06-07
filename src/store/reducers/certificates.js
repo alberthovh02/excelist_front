@@ -6,18 +6,17 @@ import {
     ADD_CERTIFICATE,
 } from '../actionTypes';
 
-export default (state = [], action) => {
+export default (state = null, action) => {
     const payload = action.payload;
-    console.log("Pay", payload)
     switch (action.type) {
         case GET_ALL_CERTIFICATES:
             return payload;
         case DELETE_CERTIFICATE:
             return state.filter(item => item.userId !== payload.userId);
         case CREATE_CERTIFICATE:
-            return [...state, payload]
+            return state ? [...state, payload] : [payload]
         case ADD_CERTIFICATE:
-            return [...state, ...payload];
+            return state ? [...state, ...payload] : [...payload];
         case UPDATE_CERTIFICATE:
             return state.map(item => {
                 if (item._id === payload._id) {

@@ -1,22 +1,23 @@
-footer {
+.footer {
     background-color: #217142;
     color: white;
     width: 100%;
-    // position: absolute;
-    // bottom: 0
+    &__contact {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      @include -lg(){
+        flex-direction: column;
+      }
+    }
+  
   }
 
   .fa-viber {
     color: blueviolet !important;
-  }
-
-  .footer_contact {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .form_container form {
@@ -117,4 +118,10 @@ footer {
     flex-direction: column-reverse !important;
     align-items: center;
   }
+  }
+
+  @include -lg() {
+    .footer__contact {
+      flex-direction: column !important;
+    }
   }

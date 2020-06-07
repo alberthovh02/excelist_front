@@ -1,0 +1,46 @@
+.interested{
+    width: 90%;
+    &__title {
+        font-weight: 700;
+        padding: 15px 0;
+        text-transform: uppercase;
+        margin: 0 0 20px;
+        font-size: 18px;
+        position: relative;
+        line-height: 30px;
+        padding-bottom: 22px;
+    }
+    &__items {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        flex-wrap: wrap;
+        @include -md() {
+            justify-content: center !important;
+        }
+        &__item {
+            margin-bottom: 40px;
+            width: 33.3%;
+            max-width: 350px;
+            min-width: 200px;
+            padding: 20px;
+            @include -lg() {
+                padding: 10px;
+            }
+            @include -md() {
+                padding: 5px;
+                width: 80%;
+            }
+            img {
+                width: 100%;
+            }
+            &__link {
+                color: #217c41 !important;
+                font-weight: 600;
+                font-size: 18px;
+                margin-bottom: 10px;
+                text-decoration: none;
+            }
+        }
+    }
+  }

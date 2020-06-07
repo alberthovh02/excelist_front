@@ -201,6 +201,14 @@ transform: translate(0,-100%);
   &__sideblock {
     width: 45%;
     display: inline-block;
+    a {
+      color: #999;
+      padding: 8px 0;
+      display: block;
+      &:hover {
+        color: black;
+      }
+    }
   }
   width: 45%;
   display: inline-block;

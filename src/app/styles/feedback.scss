@@ -84,10 +84,6 @@
   color: black
 }
 
-.feedback-social {
-  width: 30%
-}
-
 .send {
   background: #217142 !important;
   color: #333 !important;
@@ -97,6 +93,12 @@
 .feedbacks-data {
   display: flex;
   justify-content: space-between;
+}
+
+.user_feedbacks__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 @media screen and (max-width: 968px){

@@ -18,9 +18,7 @@ class OurTeam extends React.Component {
         this.setState({id: this.props.params.id})
     }
 
-    render(){
-        console.log(members)
-       
+    render(){       
         return (<>
             <Header/>
             <div>

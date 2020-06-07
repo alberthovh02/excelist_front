@@ -8,7 +8,7 @@ export default (state = null, action) => {
     case DELETE_SUBSCRIBER:
       return state.filter(item => item._id !== payload);
     case CREATE_SUBSCRIBER:
-      return [...state, payload]
+      return state ? [...state, payload] : [payload]
     default:
       return state;
   }

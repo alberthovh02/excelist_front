@@ -1,33 +1,35 @@
 import React from "react";
-import {BrowserRouter as Router, NavLink, Redirect, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from "react-router-dom";
 
 import CountUp from 'react-countup';
-import {default as ImageCarousel, Modal, ModalGateway} from 'react-images';
+import { default as ImageCarousel, Modal, ModalGateway } from 'react-images';
 
-import {connect} from 'react-redux'
+// redux
+import { connect } from 'react-redux'
+import { GET } from "../../store/actionCreators";
+import { getBlogsPagination } from "../../store/api";
+import { ADD_BLOGS } from "../../store/actionTypes";
 
-import {Helmet} from 'react-helmet';
-// import Request from '../../store/request'
-import Countdown from '../functions/countDown';
-import Fade from 'react-reveal/Fade';
+
+import { Helmet } from 'react-helmet';
 
 import {default as FeedbackCarousel} from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import Countdown from '../functions/countDown';
+import Fade from 'react-reveal/Fade';
+
 //app routes
-import {PrivateRoutes, PublicRoutes} from "../../config/routes";
-import {Carousel, Collapse} from "antd";
+import { PrivateRoutes, PublicRoutes } from "../../config/routes";
+import { Carousel, Collapse } from "antd";
 import { CaretRightOutlined } from '@ant-design/icons'
 
-
+// subcomponents
 import Header from "./Header";
 import Footer from "./Footer";
 import Navbar from './admin/Navbar';
-import {GET} from "../../store/actionCreators";
-import {getBlogsPagination} from "../../store/api";
-import {ADD_BLOGS} from "../../store/actionTypes";
 
 const createBrowserHistory = require("history")
-const {Panel} = Collapse;
+const { Panel } = Collapse;
 const history = createBrowserHistory.createBrowserHistory();
 const title = 'Excelist.am';
 
@@ -70,8 +72,8 @@ class Index extends React.Component {
     }
 
     render() {
-        const {Lessons, Feedbacks, Albums, Blogs, Courses, Students} = this.props;
-        const {imageSource} = this.state;
+        const { Lessons, Feedbacks, Albums, Blogs, Courses, Students } = this.props;
+        const { imageSource } = this.state;
         const FilteredBlogs = Blogs ? Blogs.slice(0, 4) : null;
         const FilteredCourses = Courses ? Courses.slice(0, 4) : null;
         const customPanelStyle = {
@@ -108,16 +110,11 @@ class Index extends React.Component {
                 <Helmet>
                     <title>{title}</title>
                 </Helmet>
-                <Header/>
-                <div className="introduction" id='header-nav-body'>
 
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        width: '90%',
-                        marginLeft: 'auto'
-                    }}>
+                <Header/>
+
+                <div className="introduction" id='header-nav-body'>
+                    <div className='animated-text__wrapper'>
                         <div className='animated-text'>
                             {this.state.order === 1 && <div>
                                 <Fade bottom cascade>
@@ -167,8 +164,8 @@ class Index extends React.Component {
 
                         </div>
                         <br/><br/><br/>
-                        <div className="introduction-bars">
-                            <div className="intro-bar-item">
+                        <div className="introduction__bars">
+                            <div className="introduction__bars__item">
                                 <div>
                                     <h1>ԴԱՍԵՐ</h1>
                                     <p><NavLink to="/lessons" className="intro-more">ԱՎԵԼԻՆ</NavLink><i
@@ -176,7 +173,7 @@ class Index extends React.Component {
                                 </div>
                                 <i className="fa fa-book"></i>
                             </div>
-                            <div className="intro-bar-item">
+                            <div className="introduction__bars__item">
                                 <div>
                                     <h1>ԲԼՈԳ</h1>
                                     <p><NavLink to="/blog" className="intro-more">ԱՎԵԼԻՆ</NavLink><i
@@ -184,7 +181,7 @@ class Index extends React.Component {
                                 </div>
                                 <i className="fa fa-edit"></i>
                             </div>
-                            <div className="intro-bar-item">
+                            <div className="introduction__bars__item">
                                 <div>
                                     <h1>ՎԻԴԵՈԲԼՈԳ</h1>
                                     <p><NavLink to="/videoblog" className="intro-more">ԱՎԵԼԻՆ</NavLink><i
@@ -192,7 +189,7 @@ class Index extends React.Component {
                                 </div>
                                 <i className="fa fa-play-circle-o"></i>
                             </div>
-                            <div className="intro-bar-item">
+                            <div className="introduction__bars__item">
                                 <div className='graduate'>
                                     <h1>Հավաստագրեր</h1>
                                     <p>

@@ -8,7 +8,7 @@ export default (state = null, action) => {
     case DELETE_COMMENT:
       return state.filter(item => item._id !== payload._id);
     case CREATE_COMMENT:
-      return [...state, payload]
+      return state ? [...state, payload] : [payload]
     default:
       return state;
   }

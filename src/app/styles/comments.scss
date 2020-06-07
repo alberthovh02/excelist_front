@@ -1,94 +1,120 @@
-.write-comment-header {
-  font-weight: 700;
+.commentbox {
+  width: 100%;
+  &__title {
+    font-weight: 700;
     padding: 15px 0;
     margin-bottom: 0;
     text-transform: uppercase;
     font-size: 18px;
     margin-top: 25px;
-}
-
-.comment-button {
-  background: #217142;
-    color: #333;
-    text-shadow: none;
-    box-shadow: none;
-    border: none;
-    line-height: 30px;
-    padding: 5px 25px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 13px;
-    cursor: pointer;
-    border-radius: 0 !important
-}
-
-.write-comment-subtitle {
-  color: #999;
+  }
+  &__subtitle {
+    color: #999;
     position: relative;
     padding-bottom: 23px;
     margin-bottom: 55px;
     &:before {
       content: '';
-    width: 35px;
-    height: 1px;
-    background: #000;
-    bottom: 0;
-    position: absolute;
-    left: 0;
+      width: 35px;
+      height: 1px;
+      background: #000;
+      bottom: 0;
+      position: absolute;
+      left: 0;
     }
-}
+  }
 
-.comments-block {
-  .comment-title{
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 18px;
-    padding: 15px 0;
-    margin-bottom: 60px;
-    margin-top: 50px;
-    position: relative;
-    line-height: 30px;
-    padding-bottom: 22px;
-    &:before{
-      content: '';
-    width: 35px;
-    height: 1px;
-    background: #000;
-    bottom: 0;
-    position: absolute;
-    left: 0;
+  &__form {
+    &__input {
+      width: 30%;
+      padding: 4px 10px !important;
+      margin-right: 10px;
+      min-width: 250px;
+      @include -lg() {
+        margin-bottom: 10px;
+      }
+    }
+    &__secondline {
+      display: flex !important;
+      flex-direction: row;
+      @include -lg() {
+        flex-direction: column !important;
+      }
+      justify-content: space-between;
+      width: 100%;
+    }
+    &__button {
+      background: $brand-color;
+      color: #333;
+      text-shadow: none;
+      box-shadow: none;
+      border: none;
+      line-height: 30px;
+      padding: 0px 25px;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 0 !important;
+      width: 140px;
     }
   }
-  img {
-    width: 70px;
-    height: 70px;
-    float: left;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 30px;
-    display: inline-block;
-  }
-    .single-comment-block {
-      overflow: hidden;
+
+  &__comments {
+    &__title {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 18px;
+      padding: 15px 0;
+      margin-bottom: 60px;
+      margin-top: 50px;
+      position: relative;
+      line-height: 30px;
+      padding-bottom: 22px;
+      &:before{
+        content: '';
+        width: 35px;
+        height: 1px;
+        background: #000;
+        bottom: 0;
+        position: absolute;
+        left: 0;
+      }
+    }
+    &__comment {
+        overflow: hidden;
         padding: 45px 0;
         border-top: 1px solid #eee;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        img {
+          width: 90px;
+          height: 90px;
+          // float: left;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-right: 30px;
+          display: inline-block;
+        }
+        &__content {
+          &__name {
+            color: #333;
+            font-size: 1em;
+            font-weight: 700;
+          }
+          &__date {
+            font-size: 13px;
+            font-weight: 400;
+            color: #ccc;
+            margin-left: 15px;
+          }
+          &__data {
+            padding: 15px 30px 0 0
+          }
+        }
     }
-  .comment-name {
-    color: #333;
-    font-size: 1em;
-    font-weight: 700;
   }
-  .comment-date {
-    font-size: 13px;
-    font-weight: 400;
-    color: #ccc;
-    margin-left: 15px;
-  }
-  .comment-comment{
-    padding: 15px 30px 0 0
-  }
+
 }

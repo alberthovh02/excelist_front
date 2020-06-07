@@ -57,10 +57,8 @@ class BlogAdmin extends React.Component {
 	}
 
 	handleInputChange = e => {
-		console.log(e.target.value);
 		const {name, value} = e.target;
 		this.setState({[name]: value});
-		console.log(this.state);
 	};
 
 	onImageUpload = async info => {
@@ -117,7 +115,8 @@ class BlogAdmin extends React.Component {
 
 	render() {
 		const { Blogs } = this.props;
-		const { loading } = this.state
+		const { loading } = this.state;
+		if(!Blogs) return <div className='start-loader'><LoadingOutlined/></div>
 		return (
 			<div>
 			<Collapse accordion>

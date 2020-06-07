@@ -37,7 +37,6 @@ class Join extends React.Component{
 		}
 		message.success("message sended")
 		this.setState({fileList: []})
-		console.log('fileList', fileList)
 	}
 
 	render(){
@@ -67,9 +66,10 @@ class Join extends React.Component{
 				<Helmet>
 					<title> { title} </title>
 				</Helmet>
-				<div className="col-sm-12" style={{display: 'flex', justifyContent: 'center'}}>
-				 <div className="join-us-content-wrapper">
-					<div className="join-us col-sm-9">
+				<div className='layout'>
+				<div className="layout__content">
+				 <div>
+					<div className="">
 						<h1 className="join-us-title">Միացի՛ր մեր թիմին</h1>
 						<p className="join-us-description">Եթե ցանկանում եք միանալ պրոֆեսիոնալ էքսելիստների թիմին և աշխատել մեզ մոտ, բեռնիր քո CV-ն հնարավորինս մանրամասն ներկայացնելով Excel-ով աշխատանքի և/կամ դրա դասավանդման փորձը:</p>
 						Uplaod CV: <Upload {...props}>
@@ -80,10 +80,13 @@ class Join extends React.Component{
 	        			<Button onClick={ this.sendCV }>Send</Button>
 	        			
 					</div>
-					<div className="col-sm-3">
+					
+				 </div>
+				 
+				 </div>
+				 <div className="layout__sidebar">
 						<Sidebar/>
 					</div>
-				 </div>
 				</div>
 				<Footer mode='simple' />
 			</React.Fragment>

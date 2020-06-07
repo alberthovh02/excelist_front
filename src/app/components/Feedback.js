@@ -5,6 +5,7 @@ import Request from "../../store/request";
 
 import Header from "./Header";
 import Footer from "./Footer";
+import SocialIcons from './shared/SocialIcons';
 
 const title = "ՀԵՏԱԴԱՐՁ ԿԱՊ | Excelist";
 
@@ -121,53 +122,7 @@ class Feedback extends React.Component {
                   </p>
                 </div>
               </div>
-              <div className="footer-social-icons feedback-social">
-                <a
-                  href="https://www.facebook.com/Excel.lessons/?fref=ts"
-                  target="_blank"
-                >
-                  <i
-                    className="fa fa-facebook"
-                    style={{
-                      backgroundColor: "#3b5998",
-                      fontSize: "18px",
-                      padding: "8px 12px",
-                      borderRadius: "100px",
-                      color: "white",
-                    }}
-                  />
-                </a>
-                <a
-                  href="https://www.youtube.com/channel/UCIhWQ4k5FSaXrn8uKuLin7A"
-                  target="_blank"
-                >
-                  <i
-                    className="fa fa-youtube"
-                    style={{
-                      backgroundColor: "red",
-                      fontSize: "18px",
-                      padding: "8px",
-                      borderRadius: "100px",
-                      color: "white",
-                    }}
-                  />
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/13211031?trk=tyah&trkInfo=clickedVertical%3Acompany%2CclickedEntityId%3A13211031%2Cidx%3A1-1-1%2CtarId%3A1474012711640%2Ctas%3A%D4%B7%D6%84%D5%BD"
-                  target="_blank"
-                >
-                  <i
-                    className="fa fa-linkedin"
-                    style={{
-                      backgroundColor: "#0077B5",
-                      fontSize: "18px",
-                      padding: "8px",
-                      borderRadius: "100px",
-                      color: "white",
-                    }}
-                  />
-                </a>
-              </div>
+             <SocialIcons/>
             </div>
             <div className="feedback-form">
               <div className="feedback_heading_2">

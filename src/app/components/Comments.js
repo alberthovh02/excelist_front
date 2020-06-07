@@ -1,93 +1,125 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Input, message, Form } from 'antd';
-import { createComment } from '../../store/api';
-import { CREATE_COMMENT } from '../../store/actionTypes';
-import { ActionCreator, POST } from '../../store/actionCreators';
-import parseDate from '../functions/parseTime';
+import React from "react";
+import { connect } from "react-redux";
+import { Input, message, Form } from "antd";
+import { createComment } from "../../store/api";
+import { CREATE_COMMENT } from "../../store/actionTypes";
+import { ActionCreator, POST } from "../../store/actionCreators";
+import parseDate from "../functions/parseTime";
 
 const { TextArea } = Input;
 class Comments extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      comment: '',
-      name: '',
-      email: '',
+      comment: "",
+      name: "",
+      email: "",
       parentId: this.props.parentId,
       parentType: this.props.parentType
-    }
+    };
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     const { name, value } = e.target;
-    this.setState({[name]: value});
-  }
+    this.setState({ [name]: value });
+  };
 
-  handleSubmit = async() => {
+  handleSubmit = async () => {
     const { comment, name, email, parentId, parentType } = this.state;
     const { dispatch } = this.props;
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var valid = re.test(email)
-    if(!valid){
+    var valid = re.test(email);
+    if (!valid) {
       message.error("Ոչ ճիշտ էլ․ հասցե");
-      return false
-    }
-    if(!comment || !name || !email){
-      message.error('Խնդրում ենք լրացրեք բոլոր դաշտերը')
       return false;
     }
-    const data = { comment, name, email, parentId, parentType }
-    const response = await dispatch(POST(createComment, data))
+    if (!comment || !name || !email) {
+      message.error("Խնդրում ենք լրացրեք բոլոր դաշտերը");
+      return false;
+    }
+    const data = { comment, name, email, parentId, parentType };
+    const response = await dispatch(POST(createComment, data));
     if (response.code === 200) {
       message.success("Մեկնաբանությունը հաջողությամբ ավելացվել է");
       await dispatch(ActionCreator(CREATE_COMMENT, response.data));
     } else {
-      message.error({content: "Ինչ որ բան գնաց ոչ այնպես"});
+      message.error({ content: "Ինչ որ բան գնաց ոչ այնպես" });
     }
-  }
+  };
 
-  render(){
+  render() {
     const { Comments } = this.props;
-    const { parentId } = this.state
-    const CurrentComments = Comments && Comments.filter((item, key) => item.parentId === parentId)
-    return(
-      <div style={{width: '100%'}}>
-      <p className="write-comment-header">Մեկնաբանել</p>
-      <p className='write-comment-subtitle'>Ձեր էլ. փոստը չի հրապարակվելու</p>
-      <Form>
-        <Form.Item>
-          <TextArea rows={5} placeholder="Մեկնաբանություն" name='comment' onChange={ this.handleChange }/>
-        </Form.Item>
-        <Form.Item >
-          <div style={{display: 'flex !important', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
-          <Input name='name' placeholder="Անուն" onChange={ this.handleChange } style={{width: '30%', padding: '4px 10px !important', marginRight: 10}}/>
-          <Input name='email' placeholder="Էլ. փոստ" onChange={ this.handleChange } style={{width: '40%', padding: '4px 10px !important', marginRight: 10}}/>
-          <button className="comment-button" onClick={this.handleSubmit} style={{width: '140px'}}>Մեկնաբանել</button>
-          </div>
-        </Form.Item>
-      </Form>
-      <div class='comments-block'>
-        <p className='comment-title'>{CurrentComments && CurrentComments.length} Comments</p>
-        {CurrentComments && CurrentComments.map((comment, key) => {
-          return (
-            <div className='single-comment-block'>
-              <img alt="" src="https://secure.gravatar.com/avatar/c282d7320b0178dec2a637ba27ed2912?s=90&amp;d=mm&amp;r=g" height={90} width={90}/>
-              <div className='comment-content'>
-                <p className='comment-name'>{comment.name} <span className='comment-date'>{parseDate(comment.createdAt)}</span></p>
-                <p className='comment-comment'>{comment.comment}</p>
-              </div>
-            </div>
-          )
-        })}
+    const { parentId } = this.state;
+    const CurrentComments =
+      Comments && Comments.filter((item, key) => item.parentId === parentId);
+    return (
+      <div className="commentbox">
+        <p className="commentbox__title">Մեկնաբանել</p>
+        <p className="commentbox__subtitle">Ձեր էլ. փոստը չի հրապարակվելու</p>
+        <Form className="commentbox__form">
+          <Form.Item>
+            <TextArea
+              rows={5}
+              placeholder="Մեկնաբանություն"
+              name="comment"
+              onChange={this.handleChange}
+            />
+          </Form.Item>
+          <Form.Item className="commentbox__form__secondline">
+            <Input
+              name="name"
+              placeholder="Անուն"
+              onChange={this.handleChange}
+              className="commentbox__form__input"
+            />
+            <Input
+              name="email"
+              placeholder="Էլ. փոստ"
+              onChange={this.handleChange}
+              className="commentbox__form__input"
+            />
+            <button
+              className="commentbox__form__button"
+              onClick={this.handleSubmit}
+            >
+              Մեկնաբանել
+            </button>
+          </Form.Item>
+        </Form>
+        <div class="commentbox__comments">
+          <p className="commentbox__comments__title">
+            {CurrentComments && CurrentComments.length} Comments
+          </p>
+          {CurrentComments &&
+            CurrentComments.map((comment, key) => {
+              return (
+                <div key={key} className="commentbox__comments__comment">
+                  <img
+                    alt="avatar"
+                    src="https://secure.gravatar.com/avatar/c282d7320b0178dec2a637ba27ed2912?s=90&amp;d=mm&amp;r=g"
+                  />
+                  <div className="commentbox__comments__comment__content">
+                    <p className="commentbox__comments__comment__content__name">
+                      {comment.name}{" "}
+                      <span className="commentbox__comments__comment__content__date">
+                        {parseDate(comment.createdAt)}
+                      </span>
+                    </p>
+                    <p className="commentbox__comments__comment__content__data">
+                      {comment.comment}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
       </div>
-      </div>
-    )
+    );
   }
 }
 
 const get = state => {
-  return { Comments: state.Comments }
-}
+  return { Comments: state.Comments };
+};
 
-export default connect(get)(Comments)
+export default connect(get)(Comments);

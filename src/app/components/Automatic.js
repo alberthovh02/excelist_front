@@ -17,9 +17,10 @@ function Automatic() {
 				<title>{title}</title>
 			</Helmet>
 			<Header/>
-			<Row className='automatic-container'>
-				<Col span={15} className='automatic-wrapper'>
-					<div className="content ">
+			<div className='layout'>
+			{/* <Row className='automatic-container'> */}
+				{/* <Col span={15} className='automatic-wrapper'> */}
+					<div className="layout__content">
 						<div className="content_item">
 							<p>
 								<a href="/">«Excelist»</a> ակումբի հիմքի վրա ստեղծված <a href="http://macrolab.am/"
@@ -86,16 +87,19 @@ function Automatic() {
 							</p>
 						</div>
 					</div>
-				</Col>
-				<Col span={8} className='automatic-sidebar'>
+				{/* </Col> */}
+				{/* <Col span={8} className='automatic-sidebar'> */}
+				<div className='layout__sidebar'>
 					<Sidebar/>
-				</Col>
-			</Row>
-			<Row>
+					</div>
+				{/* </Col> */}
+			{/* </Row> */}
+			{/* // <Row> */}
+			</div>
 				<Col span={24}>
 					<Footer mode="simple"/>
 				</Col>
-			</Row>
+			{/* </Row> */}
 		</div>
 	);
 }

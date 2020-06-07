@@ -24,16 +24,14 @@ class FileRequest extends React.Component{
     const videoLink = this.props.params.video.split(':')[1];
 
     if(!name || !profecion || !email){
-      message.error('Please fill all fields');
+      message.error('Խնդրում ենք լրացնել բոլոր դաշտերը');
       return false
     }
-    console.log(name, profecion, email)
     const resp = await Request.postJson('filerequest/sendFile', { name, profecion, email, videoLink })
-    console.log(resp)
     if(resp.status === 200){
-      message.success('successfully sended')
+      message.success('Ստուգեք Ձեր էլ.փոստը')
     }else{
-      message.error("Something went wrong, try again later")
+      message.error("Ինչ որ բան սխալ գնաց, փորձեք քիչ հետո")
     }
   }
 
@@ -43,7 +41,6 @@ class FileRequest extends React.Component{
   }
 
   render(){
-    console.log(this.props.params.video.split(':')[1])
     return(
       <div>
         <Header/>

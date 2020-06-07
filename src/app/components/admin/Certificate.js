@@ -1,6 +1,6 @@
 import React from "react";
 import { Collapse, Input, Button, Form, message, Descriptions} from "antd";
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { EditOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons'
 
 import { connect } from 'react-redux'
 import { POST, GET, ActionCreator, DELETE } from "../../../store/actionCreators";
@@ -77,6 +77,7 @@ class Certificate extends React.Component {
 	render() {
     const { updateCertificate } = this.state;
 	const { Certificates } = this.props;
+	if(!Certificates) return <div className='start-loader'><LoadingOutlined/></div>
 		return (
 			<Form onFinish={this.handleSubmit}>
 				{ updateCertificate && <UpdateCertificates
