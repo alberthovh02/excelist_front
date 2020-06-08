@@ -168,7 +168,7 @@ class Header extends React.Component {
                     />
                     <p className="soon-name">{Lessons[0].name}</p>
                   </a>
-                  <a href="/register" className="soon-register" target="_blank">
+                    <a href="/register" className="soon-register" target="_blank">
                     ԳՐԱՆՑՎԵԼ
                   </a>
                 </div>
@@ -317,7 +317,7 @@ class Header extends React.Component {
                 <li className="nav-item">
                   <NavLink to="/about">ՄԵՐ ՄԱՍԻՆ</NavLink>
                 </li>
-                <li className="nav-item"  onClick={() => (window.location = "/lessons")}>
+                <li className="nav-item" >
                   <Popover placement="bottom" content={menu ? menu : <Spin indicator={<LoadingOutlined style={{fontSize: 24}}/>}/>}>
                     <NavLink
                       to="/lessons"
@@ -326,7 +326,7 @@ class Header extends React.Component {
                       data-toggle="dropdown"
                       style={{ display: "flex", alignItems: "center" }}
                     >
-                      ԴԱՍԸՆԹԱՑՆԵՐ
+                      <a  onClick={() => (window.location = "/lessons")}>ԴԱՍԸՆԹԱՑՆԵՐ</a>
                       {/*<Icon type="caret-down" />*/}
                       <CaretDownOutlined />
                     </NavLink>

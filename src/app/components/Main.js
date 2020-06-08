@@ -6,7 +6,7 @@ import { default as ImageCarousel, Modal, ModalGateway } from 'react-images';
 
 // redux
 import { connect } from 'react-redux'
-import { GET } from "../../store/actionCreators";
+import { GET, GETREQUEST } from "../../store/actionCreators";
 import { getBlogsPagination } from "../../store/api";
 import { ADD_BLOGS } from "../../store/actionTypes";
 
@@ -38,7 +38,7 @@ class Index extends React.Component {
         super(props);
         this.state = {
             data: [],
-            youtubeSubscribersCount: null,
+            youtubeSubscribersCount: 0,
             order: 1,
             currentSlide: 1
         }
@@ -49,11 +49,11 @@ class Index extends React.Component {
         await dispatch(GET(getBlogsPagination(1), ADD_BLOGS));
     }
 
-    componentDidMount() {
-        fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
-            .then(response => response.json())
-            .then(result => this.setState({youtubeSubscribersCount: result}))
-
+    async componentDidMount() {
+       const response = await GETREQUEST("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
+        if(response) {
+            this.setState({youtubeSubscribersCount: response})
+        }  
         setInterval(() => {
             this.setState({order: this.state.order <= 3 ? this.state.order + 1 : 1})
         }, 4000)
@@ -584,12 +584,12 @@ class Index extends React.Component {
                     {Lessons && Lessons.length && Lessons.map((data, key) => {
                         if (new Date(data.date).getTime() - new Date(Date.now()).getTime() > 0) {
                             const localDate = new Date(data.date).toLocaleString();
-                            const day = `${localDate.split('/')[0]} `;
-                            const month = `${localDate.split('/')[1]} `;
-                            const year = `${localDate.split('/')[2].split(',')[0]},`;
-                            const hour = `${localDate.split(',')[1].split(':')[0]}:`;
-                            const minutes = `${localDate.split(':')[1]}`;
-                            const night = ` ${localDate.split(", ")[1].split(" ")[1]}`
+                            const day = `${ localDate && localDate.split('/')[0]} `;
+                            const month = `${ localDate && localDate.split('/')[1]} `;
+                            const year = `${ localDate && localDate.split('/')[2] && localDate.split('/')[2].split(',')[0]},`;
+                            const hour = `${ localDate && localDate.split(',')[1] && localDate.split(',')[1].split(':')[0]}:`;
+                            const minutes = `${ localDate && localDate.split(':')[1]}`;
+                            const night = ` ${ localDate && localDate.split(", ")[1].split(" ")[1]}`
                             const parsedDate = day.concat(month).concat(year).concat(hour).concat(minutes).concat(night);
                             return (<div className="col-sm-12" style={{
                                 display: 'flex',
@@ -937,7 +937,7 @@ class Index extends React.Component {
                                 </h3>
                             </div>
                             <div className="row">
-                                <i lassName="fa fa-clock-o benefit-icon"/>
+                                <i lassName="fa fa-clock benefit-icon"/>
                                 <h3>
                                     Ժամանակ չենք կորցնում այս կամ այն տեղն այցելելու և տուն
                                     վերադառնալու վրա՝ խնայելով նաև մեր ուժերը

@@ -87,8 +87,8 @@ class SingleCourse extends React.Component {
                 dangerouslySetInnerHTML={{ __html: data.content }}
               ></div>
             </div>
-
-            <a className="register-for-lesson">
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+            <a className="register-for-lesson" href='/register' style={{marginBottom: 20, marginTop: 20}}>
               <i className="fa fa-user-plus" style={{ color: "white" }}></i>
               ԳՐԱՆՑՎԵԼ
             </a>
@@ -149,6 +149,7 @@ class SingleCourse extends React.Component {
                 </p>
               </div>
               <SocialIcons style={{width: '20%'}}/>
+            </div>
             </div>
             <Interested parent="Courses" />
 
