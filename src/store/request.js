@@ -1,6 +1,6 @@
 class Request {
   constructor(){
-    this.mainRoute = "https://159.65.216.209:3000/"
+    this.mainRoute = "//159.65.216.209:3000/"
     // this.mainRoute = '//localhost:5000/'
   }
 
