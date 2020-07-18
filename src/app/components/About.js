@@ -1,16 +1,13 @@
 import React from "react";
-import {Icon} from "semantic-ui-react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Helmet } from 'react-helmet';
 import CountUp from 'react-countup';
 import {default as ImageCarousel , Modal, ModalGateway } from 'react-images';
-import {default as FeedbackCarousel} from 'react-multi-carousel';
-
-
-
-// import Request from '../../store/request'
+// import {default as FeedbackCarousel} from 'react-multi-carousel';
 import { connect } from 'react-redux';
+
+import DynamicImages from './shared/DynamicImages';
 
 const title = 'ՄԵՐ ՄԱՍԻՆ | Excelist'
 
@@ -31,25 +28,6 @@ class AboutUs extends React.Component {
 	render() {
 		const { SingleData, Feedbacks, Albums } = this.props;
 		const { youtubeSubscribersCount } = this.state;
-		const responsive = {
-			superLargeDesktop: {
-			  // the naming can be any, depends on you.
-			  breakpoint: { max: 4000, min: 3000 },
-			  items: 5,
-			},
-			desktop: {
-			  breakpoint: { max: 3000, min: 1024 },
-			  items: 5,
-			},
-			tablet: {
-			  breakpoint: { max: 1024, min: 464 },
-			  items: 2,
-			},
-			mobile: {
-			  breakpoint: { max: 464, min: 0 },
-			  items: 1,
-			},
-		  };
 				  
 		return (
 			<>
@@ -171,12 +149,17 @@ class AboutUs extends React.Component {
                                         <p className="album-subheading">{item.name}</p>
                                         <br/>
                                         <a className="gallery-popup">
-                                            <img
+											<DynamicImages 
+												url={item.imageUrl} 
+												onClick={() => this.setState({albumModal: key})}
+												style={{width: '100%'}}
+											/>
+                                            {/* <img
                                                 alt='gallery'
                                                 src={item.imageUrl}
                                                 onClick={() => this.setState({albumModal: key})}
                                                 style={{width: '100%'}}
-                                            />
+                                            /> */}
                                         </a>
                                     </div>
                                 </>
@@ -188,7 +171,12 @@ class AboutUs extends React.Component {
                                         className="gallery-popup"
                                         onClick={() => this.setState({albumModal: key})}
                                     >
-                                        <img src={item.imageUrl} style={{width: '100%'}}/>
+										<DynamicImages 
+												url={item.imageUrl} 
+												// onClick={() => this.setState({albumModal: key})}
+												style={{width: '100%'}}
+											/>
+                                        {/* <img src={item.imageUrl} style={{width: '100%'}}/> */}
                                     </div>
                                 </div>
                         })}
@@ -349,7 +337,12 @@ class AboutUs extends React.Component {
 						{ Feedbacks &&  Feedbacks.map((feedback, key) => {
 							return <React.Fragment key={key}>
 								<div className='feedback-item'>
-									<img src={feedback.imageUrl} alt='Feedback user'/>
+									<DynamicImages 
+												url={feedback.imageUrl} 
+												onClick={() => this.setState({albumModal: key})}
+												style={{width: '100%'}}
+											/>
+									{/* <img src={feedback.imageUrl} alt='Feedback user'/> */}
 									<>
 										<a href={feedback.link} className='feedback-name'>
 											<p>{feedback.username}</p>

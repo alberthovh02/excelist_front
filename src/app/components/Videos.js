@@ -5,6 +5,8 @@ import { Spin, Pagination } from "antd";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
+import DynamicImages from './shared/DynamicImages';
+
 import Request from "../../store/request";
 
 class Videos extends React.Component {
@@ -71,11 +73,11 @@ class Videos extends React.Component {
                     className="layout__content__card layout__content__card__small"
                   >
                     <a href={`/videoblogpost/${el.generatedUrl}`}>
-                      <img
-                        src={el.imageUrl}
-                        alt="image"
+                    <DynamicImages 
+												url={el.imageUrl} 
                         style={{ height: "100%", width: "90%" }}
-                      />
+                        />
+                     
                     </a>
                     <a
                       href={`/videoblogpost/${el.generatedUrl}`}

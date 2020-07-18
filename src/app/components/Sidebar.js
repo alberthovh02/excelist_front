@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { search } from '../../store/api';
 import { GETREQUEST } from "../../store/actionCreators";
 
+import DynamicImages from './shared/DynamicImages';
+
 const { Search } = Input;
 
 class Sidebar extends React.Component {
@@ -103,7 +105,11 @@ class Sidebar extends React.Component {
                   style={{width: "50%"}}
                 >
                   <div className="layout__sidebar__item__course__image">
-                    <img src={item.imageUrl} alt="course" />
+                  <DynamicImages 
+												url={item.imageUrl} 
+												// style={{ height: "100%", width: "100%" }}
+											/>
+                    {/* <img src={item.imageUrl} alt="course" /> */}
                   </div>
               </a>
               <a 
@@ -135,7 +141,11 @@ class Sidebar extends React.Component {
                   style={{width: "50%"}}
                 >
                 <div className="layout__sidebar__item__course__image">
-                  <img src={item.imageUrl} alt="blogs"/>
+                <DynamicImages 
+												url={item.imageUrl} 
+												// style={{ height: "100%", width: "100%" }}
+											/>
+                  {/* <img src={item.imageUrl} alt="blogs"/> */}
                 </div>
               </a>
               <a 
@@ -169,7 +179,11 @@ class Sidebar extends React.Component {
                   style={{width: "50%"}}
                 >
                   <div className="layout__sidebar__item__course__image">
-                    <img src={item.imageUrl} alt="videoblogs"/>
+                  <DynamicImages 
+												url={item.imageUrl} 
+												// style={{ height: "100%", width: "100%" }}
+											/>
+                    {/* <img src={item.imageUrl} alt="videoblogs"/> */}
                   </div>
                 </a>
                 <a 

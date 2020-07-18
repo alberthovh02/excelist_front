@@ -3,6 +3,8 @@ import {NavLink, Redirect} from "react-router-dom";
 import {Menu, Dropdown, Popover, Spin, Input, message, Collapse} from "antd";
 import { CaretDownOutlined, LoadingOutlined, SearchOutlined } from '@ant-design/icons';
 
+import DynamicImages from './shared/DynamicImages';
+
 import { connect } from "react-redux";
 import {search} from "../../store/api";
 import {GETREQUEST} from "../../store/actionCreators";
@@ -159,13 +161,17 @@ class Header extends React.Component {
                       imageSource && imageSource[0] && imageSource[0]._id
                     }`}
                   >
-                    <img
+                    <DynamicImages 
+												url={ imageSource && imageSource[0] && imageSource[0].imageUrl} 
+                        style={{ maxWidth: "180px" }}
+											/>
+                    {/* <img
                       style={{ maxWidth: "180px" }}
                       src={
                         imageSource && imageSource[0] && imageSource[0].imageUrl
                       }
                       alt="Lessons"
-                    />
+                    /> */}
                     <p className="soon-name">{Lessons[0].name}</p>
                   </a>
                     <a href="/register" className="soon-register" target="_blank">

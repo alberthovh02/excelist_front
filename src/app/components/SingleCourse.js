@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import Comments from "./Comments";
 import Interested from "./Interested";
+import DynamicImages from './shared/DynamicImages';
 
 import { GETREQUEST } from "../../store/actionCreators";
 import { getSingleCourse } from "../../store/api";
@@ -74,11 +75,15 @@ class SingleCourse extends React.Component {
           <div className="layout__content">
             <h2 className="singleLesson__title">{data.title}</h2>
             <div style={{ width: "100%", height: "250px" }}>
-              <img
+            <DynamicImages 
+												url={data.captionUrl} 
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+											/>
+              {/* <img
                 src={data.captionUrl}
                 alt="course"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
+              /> */}
             </div>
 
             <div className="singleLesson">

@@ -3,10 +3,10 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
+import DynamicImages from './shared/DynamicImages';
 import { Helmet } from "react-helmet";
 import { Spin } from "antd";
 
-import Request from "../../store/request";
 import { connect } from 'react-redux';
 
 const title = "ԴԱՍԸՆԹԱՑՆԵՐ | Excelist";
@@ -35,11 +35,15 @@ class Lessons extends React.Component {
                     return (
                       <div key={key} className="layout__content__card">
                         <a href={`/course/${el._id}`} target="_blank">
-                          <img
+                        <DynamicImages
+                      url={el.imageUrl}
+                      style={{ height: "100%", width: "100%" }}
+                    />
+                          {/* <img
                             src={el.imageUrl}
                             alt="course desc"
                             style={{ height: "100%", width: "100%" }}
-                          />
+                          /> */}
                         </a>
                         <a className="blog-link">{el.title}</a>
                         <p

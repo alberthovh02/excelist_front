@@ -24,6 +24,7 @@ import { Carousel, Collapse } from "antd";
 import { CaretRightOutlined } from '@ant-design/icons'
 
 // subcomponents
+import DynamicImages from './shared/DynamicImages';
 import Header from "./Header";
 import Footer from "./Footer";
 import Navbar from './admin/Navbar';
@@ -208,7 +209,12 @@ class Index extends React.Component {
                     <div className="lessons_desc">
                         {FilteredCourses && FilteredCourses.reverse().map((item, key) => {
                             return <div className="single_lesson" key={key}>
-                                <a href={`/course/${item._id}`}><img src={item.imageUrl} style={{width: '100%'}}/>
+                                <a href={`/course/${item._id}`}>
+                                <DynamicImages
+                      url={item.imageUrl}
+                      style={{width: '100%'}}
+                    />
+                                    {/* <img src={item.imageUrl} style={{width: '100%'}}/> */}
                                     <div className="excelist_badge">Excelist</div>
                                     <p>{item.title}</p></a>
                             </div>
@@ -333,8 +339,13 @@ class Index extends React.Component {
                     <div className="lessons_desc">
                         {FilteredBlogs && FilteredBlogs.reverse().map((item, key) => {
                             return <div className="single_lesson" key={key}>
-                                <a href={`/blogpost/${item.generatedUrl}`}><img src={item.imageUrl}
-                                                                                style={{width: '100%'}}/>
+                                <a href={`/blogpost/${item.generatedUrl}`}>
+                                <DynamicImages
+                      url={item.imageUrl}
+                    //   onClick={() => this.setState({albumModal: key})}
+                      style={{width: '100%'}}
+                    />
+                                    {/* <img src={item.imageUrl} style={{width: '100%'}}/> */}
                                     <div className="excelist_badge">Excelist</div>
                                     <p>{item.title}</p></a>
                             </div>
@@ -615,8 +626,12 @@ class Index extends React.Component {
                                                 className="fa fa-user-plus" style={{color: 'white'}}/> ԳՐԱՆՑՎԵԼ</a>
                                         </div>
                                         <div className='perfect_column_center'>
-                                            <img src={imageSource && imageSource[0] && imageSource[0].imageUrl}
-                                                 style={{width: '50%'}}/>
+                                        <DynamicImages
+                      url={imageSource && imageSource[0] && imageSource[0].imageUrl}
+                      style={{width: '50%'}}
+                    />
+                                            {/* <img src={imageSource && imageSource[0] && imageSource[0].imageUrl}
+                                                 style={{width: '50%'}}/> */}
                                             <p className='lesson-title'>{data.name}</p>
                                         </div>
                                     </div>
@@ -745,7 +760,10 @@ class Index extends React.Component {
                                                         }}>
                             {Feedbacks.length && Feedbacks.map((item, key) => {
                                 return <div key={key} className="feedback-item" style={{maxWidth: 200}}>
-                                    <img src={item.imageUrl}/>
+                                    <DynamicImages
+                      url={item.imageUrl}
+                    />
+                                    {/* <img src={item.imageUrl}/> */}
                                     {<><a href={item.link} className='feedback-name'><p>{item.username}</p></a>
                                         <p>{item.comment}</p></>}
                                 </div>
@@ -886,7 +904,7 @@ class Index extends React.Component {
                     <div className='album-container row'>
                         {Albums && Albums.map((item, key) => {
                             const images = item.images.map(it => {
-                                return {src: it.url}
+                                return {src: `https://excelist.am/api/v1/public${it.url}`}
                             })
                             return this.state.albumModal === key && images.length ? <> <ModalGateway>
                                     <Modal onClose={() => this.setState({albumModal: false})}>
@@ -897,12 +915,17 @@ class Index extends React.Component {
                                         <p className="album-subheading">{item.name}</p>
                                         <br/>
                                         <a className="gallery-popup">
-                                            <img
+                                        <DynamicImages
+                      url={item.imageUrl}
+                      onClick={() => this.setState({albumModal: key})}
+                      style={{width: '100%'}}
+                    />
+                                            {/* <img
                                                 alt='gallery'
                                                 src={item.imageUrl}
                                                 onClick={() => this.setState({albumModal: key})}
                                                 style={{width: '100%'}}
-                                            />
+                                            /> */}
                                         </a>
                                     </div>
                                 </>
@@ -914,7 +937,12 @@ class Index extends React.Component {
                                         className="gallery-popup"
                                         onClick={() => this.setState({albumModal: key})}
                                     >
-                                        <img src={item.imageUrl} style={{width: '100%'}}/>
+                                        <DynamicImages
+                      url={item.imageUrl}
+                    //   onClick={() => this.setState({albumModal: key})}
+                      style={{width: '100%'}}
+                    />
+                                        {/* <img src={item.imageUrl} style={{width: '100%'}}/> */}
                                     </div>
                                 </div>
                         })}
@@ -937,7 +965,7 @@ class Index extends React.Component {
                                 </h3>
                             </div>
                             <div className="row">
-                                <i lassName="fa fa-clock benefit-icon"/>
+                                <i className="fa fa-clock benefit-icon"/>
                                 <h3>
                                     Ժամանակ չենք կորցնում այս կամ այն տեղն այցելելու և տուն
                                     վերադառնալու վրա՝ խնայելով նաև մեր ուժերը

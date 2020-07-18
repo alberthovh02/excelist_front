@@ -4,13 +4,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import { withRouter } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { GETREQUEST} from '../../store/actionCreators';
-import { search } from "../../store/api";
 
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
-import {message} from "antd";
+import DynamicImages from './shared/DynamicImages';
 
 class Search extends React.Component {
     constructor(props){
@@ -40,7 +38,11 @@ class Search extends React.Component {
                                                     <div key={key}>
                                                         {item.type === 'videoblog' && (
                                                             <div className="search_result">
-                                                                <img src={it.imageUrl} alt="Videoblog item"/>
+                                                                <DynamicImages 
+												url={it.imageUrl} 
+												
+											/>
+                                                                {/* <img src={it.imageUrl} alt="Videoblog item"/> */}
                                                                 <h2>{it.title}</h2>
                                                                 <p>Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։
                                                                     Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ֆորման՝
@@ -52,7 +54,11 @@ class Search extends React.Component {
                                                         )}
                                                         {item.type === 'blog' && (
                                                             <div className="search_result">
-                                                                <img src={it.imageUrl} alt="Videoblog item"/>
+                                                                 <DynamicImages 
+												url={it.imageUrl} 
+												
+											/>
+                                                                {/* <img src={it.imageUrl} alt="Videoblog item"/> */}
                                                                 <a
                                                                     className="blog-link"
                                                                     href={`/blogpost/${it.generatedUrl}`}
@@ -76,11 +82,15 @@ class Search extends React.Component {
                                                         { item.type === "course" && (
                                                             <div className="search_result">
                                                                 <a href={`/course/${it._id}`} target="_blank">
-                                                                    <img
+                                                                <DynamicImages 
+												url={it.imageUrl} 
+												style={{ height: "100%", width: "100%" }}
+											/>
+                                                                    {/* <img
                                                                         src={it.imageUrl}
                                                                         alt="image"
                                                                         style={{ height: "100%", width: "100%" }}
-                                                                    />
+                                                                    /> */}
                                                                 </a>
                                                                 <a className="blog-link">{it.title}</a>
                                                                 <p

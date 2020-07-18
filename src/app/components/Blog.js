@@ -1,12 +1,13 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Container } from "react-bootstrap";
+// import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Spin, Pagination, Row, Col } from "antd";
 
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
+import DynamicImages from './shared/DynamicImages';
 import { ADD_BLOGS } from "../../store/actionTypes";
 import { getBlogsPagination } from "../../store/api";
 import { GET } from "../../store/actionCreators";
@@ -54,11 +55,15 @@ class Blog extends React.Component {
                           className="layout__content__card layout__content__card__small"
                         >
                           <a href={`/blogpost/${el.generatedUrl}`} target='_blank'>
-                            <img
+                          <DynamicImages 
+												url={el.imageUrl} 
+                        style={{ height: "100%", width: "90%" }}
+											/>
+                            {/* <img
                               src={el.imageUrl}
                               alt="image"
                               style={{ height: "100%", width: "90%" }}
-                            />
+                            /> */}
                           </a>
                           <a
                             className="blog-link"

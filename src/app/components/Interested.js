@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import DynamicImages from './shared/DynamicImages';
+
 class Interested extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,10 @@ class Interested extends React.Component {
               return (
                 <div key={key} className='interested__items__item' >
                   <a href={item.generatedUrl}>
-                    <img src={item.imageUrl} alt='videblog' />
+                    <DynamicImages
+                      url={item.imageUrl}
+                    />
+                    {/* <img src={item.imageUrl} alt='videblog' /> */}
                   </a>
                   <a href={item.generatedUrl}>
                     <p className="interested__items__item__link">{item.title}</p>
@@ -33,7 +38,10 @@ class Interested extends React.Component {
               return (
                 <div key={key} className='interested__items__item'>
                   <a href={item.generatedUrl}>
-                    <img src={item.imageUrl} alt='blogs'/>
+                  <DynamicImages
+                      url={item.imageUrl}
+                    />
+                    {/* <img src={item.imageUrl} alt='blogs'/> */}
                   </a>
                   <a href={item.generatedUrl}>
                     <p className="interested__items__item__link">{item.title}</p>
@@ -48,7 +56,10 @@ class Interested extends React.Component {
               return (
                 <div key={key} className='interested__items__item'>
                   <a href={item._id}>
-                    <img src={item.imageUrl} alt='courses'/>
+                  <DynamicImages
+                      url={item.imageUrl}
+                    />
+                    {/* <img src={item.imageUrl} alt='courses'/> */}
                   </a>
                   <a href={item._id}>
                     <p className="interested__items__item__link">{item.title}</p>
