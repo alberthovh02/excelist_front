@@ -1,6 +1,6 @@
 class Request {
   constructor(){
-    this.mainRoute = "//159.65.216.209:5000/"
+    this.mainRoute = "//159.65.216.209:5000/api/v1/"
     // this.mainRoute = 'https://excelist.tk:5000/'
     // this.mainRoute = 'https://excelist.am/api/v1/'
   }
