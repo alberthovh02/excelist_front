@@ -122,7 +122,8 @@ class Index extends React.Component {
                                     <h1 className="rev-slider-text">
                                         Excel-ի և Excel-ից
                                     </h1>
-                                </Fade><br/>
+                                </Fade>
+                                {/* <br/> */}
                                 <Fade right big cascade>
                                     <h1 className="rev-slider-text">
                                         ածանցյալ դասընթացներ
