@@ -104,7 +104,11 @@ transform: translate(0,-100%);
   .phone_contact {
     display: flex;
     align-items: center;
-    margin-left: 10%
+    margin-left: 10%;
+    @media (max-width: 360px) {
+      margin-left: 0px;
+    }
+    
   }
   .fb_icon {
    background-color: #ffffff;

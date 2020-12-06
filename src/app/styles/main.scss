@@ -191,6 +191,7 @@ body {
   
       .graduate { 
         max-width: 150px;
+        margin-left: 10px;
         h1 {
           font-size: 20px;
         }
@@ -791,6 +792,9 @@ body {
   .introduction {
     background-size: cover;
     margin-top: -27px;
+    @media screen and (max-width: 620px) {
+      background-position: center 45px;
+    }
   }
 
   .footer_contact {
@@ -927,6 +931,8 @@ body {
   }
 
 }
+
+
 @media screen and (max-width: 600px) {
   .benefits_desc {
     flex-direction: column !important;
@@ -1076,3 +1082,33 @@ body {
 }
 
 
+// ******************************************
+@media (max-width: 1024px) and (min-width: 781px) {
+ .benefits_desc {
+    flex-direction: column;
+ } 
+}
+@media (max-width: 880px) {
+  .benefits_desc {
+    flex-direction: column;
+  } 
+  .col-sm-6-excel {
+      flex: 0 0 100% !important;
+      max-width: 100%;
+      > div {
+        margin-bottom: 30px !important;
+        > i {
+          margin-top: 5px;
+        }
+        > h3 {
+          width: 85% !important;
+        }
+      }
+  }
+}
+
+@media (min-width: 576px){
+  .col-sm-6-excel {
+      flex: 0 0 47% !important;
+  }
+}

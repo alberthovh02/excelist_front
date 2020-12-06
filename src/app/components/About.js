@@ -22,7 +22,10 @@ class AboutUs extends React.Component {
 	componentDidMount(){
 		fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI")
 		.then(response => response.json())
-		.then(result => this.setState({youtubeSubscribersCount: result}))
+		.then(result => {
+			this.setState({ youtubeSubscribersCount: result })
+		})
+		.catch(err => console.log('err'))
 	}
 
 	render() {

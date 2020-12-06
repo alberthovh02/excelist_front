@@ -183,7 +183,7 @@ class Index extends React.Component {
                                 <i className="fa fa-edit"></i>
                             </div>
                             <div className="introduction__bars__item">
-                                <div>
+                                <div className='graduate'>
                                     <h1>ՎԻԴԵՈԲԼՈԳ</h1>
                                     <p><NavLink to="/videoblog" className="intro-more">ԱՎԵԼԻՆ</NavLink><i
                                         className="fa fa-chevron-right arrow"></i></p>
@@ -955,7 +955,7 @@ class Index extends React.Component {
                     </h2>
                     <div className="line"> </div>
                     <div className="benefits_desc">
-                        <div className="col-sm-6">
+                        <div className="col-sm-6 col-sm-6-excel">
                             <div className="row">
                                 <i className="fa fa-user benefit-icon"/>
                                 <h3>
@@ -965,7 +965,7 @@ class Index extends React.Component {
                                 </h3>
                             </div>
                             <div className="row">
-                                <i className="fa fa-clock benefit-icon"/>
+                                <i className="fa fa-clock-o benefit-icon"/>
                                 <h3>
                                     Ժամանակ չենք կորցնում այս կամ այն տեղն այցելելու և տուն
                                     վերադառնալու վրա՝ խնայելով նաև մեր ուժերը
@@ -991,7 +991,7 @@ class Index extends React.Component {
                                 </h3>
                             </div>
                         </div>
-                        <div className="col-sm-6">
+                        <div className="col-sm-6 col-sm-6-excel">
                             <div className="row">
                                 <i className="fa fa-home benefit-icon"/>
                                 <h3>
