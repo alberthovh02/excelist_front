@@ -5,7 +5,7 @@ import Request from "../../store/request";
 
 import Header from "./Header";
 import Footer from "./Footer";
-import SocialIcons from './shared/SocialIcons';
+import SocialIcons from "./shared/SocialIcons";
 
 const title = "ՀԵՏԱԴԱՐՁ ԿԱՊ | Excelist";
 
@@ -16,8 +16,8 @@ class Feedback extends React.Component {
       name: "",
       email: "",
       title: "",
-	  message: "",
-	  loading: false
+      message: "",
+      loading: false,
     };
   }
 
@@ -27,26 +27,26 @@ class Feedback extends React.Component {
   };
 
   sendMessage = async (e) => {
-	const { name, email, title, message } = this.state;
-	e.preventDefault()
-	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var valid = re.test(email)
-    if(!valid){
+    const { name, email, title, message } = this.state;
+    e.preventDefault();
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var valid = re.test(email);
+    if (!valid) {
       toast.error("Ոչ ճիշտ էլ․ հասցե");
-      return false
+      return false;
     }
     if (!email || !name || !message) {
       toast.error("Խնդրում ենք լրացնել բոլոր պարտադիր դաշտերը");
       return false;
     } else {
-		this.setState({loading: true})
+      this.setState({ loading: true });
       const resp = await Request.postJson("feedback/sendMessage", {
         name,
         email,
         title,
         message,
       });
-      this.setState({loading: false})
+      this.setState({ loading: false });
       if (resp.status === 200) {
         toast.success("Նամակը հաջողությամբ ուղարկվել է");
       } else {
@@ -56,7 +56,7 @@ class Feedback extends React.Component {
   };
 
   render() {
-	  const { loading } = this.state
+    const { loading } = this.state;
     return (
       <>
         <Helmet>
@@ -85,7 +85,7 @@ class Feedback extends React.Component {
                 <div className="footer_viber fc_item">
                   <i
                     className="fa fa-phone-square fa-2x"
-                    style={{ color: "#217142",  marginRight: 30 }}
+                    style={{ color: "#217142", marginRight: 30 }}
                   />
                   Viber
                   <br />{" "}
@@ -102,18 +102,24 @@ class Feedback extends React.Component {
                   <br />{" "}
                   <p className="feedback-footer-info">info@excelist.am</p>
                 </div>
-				<div
+                <div
                   className="footer_skype fc_item"
                   style={{ marginRight: 19 }}
                 >
-                  <i className="fa fa-skype fa-2x" style={{ color: "#217142" }}/>
+                  <i
+                    className="fa fa-skype fa-2x"
+                    style={{ color: "#217142" }}
+                  />
                   Skype
                   <br /> <p className="feedback-footer-info">msexcel_online</p>
                 </div>
               </div>
               <div className="footer-contact" style={{ width: "60%" }}>
                 <div className="fc_item">
-                  <i className="fa fa-map-marker fa-2x"   style={{ color: "#217142" }}/>
+                  <i
+                    className="fa fa-map-marker fa-2x"
+                    style={{ color: "#217142" }}
+                  />
                   Հասցե
                   <br />
                   <p className="feedback-footer-info">
@@ -122,7 +128,7 @@ class Feedback extends React.Component {
                   </p>
                 </div>
               </div>
-             <SocialIcons/>
+              <SocialIcons />
             </div>
             <div className="feedback-form">
               <div className="feedback_heading_2">
@@ -162,8 +168,8 @@ class Feedback extends React.Component {
                   />
                   <Button
                     htmlType="submit"
-					id="sendButton"
-					className="send"
+                    id="sendButton"
+                    className="send"
                     onClick={this.sendMessage}
                     loading={loading}
                   >
@@ -174,12 +180,12 @@ class Feedback extends React.Component {
             </div>
           </div>
 
-          <div className="get_files">
+          <div className="get_files about_heading">
             <h2>ԼՐԱՑՐՈ՛Ւ ԷԼ.ՀԱՍՑԵԴ ԵՎ ՍՏԱՑԻ՛Ր ՄԱՍՆԱԳԻՏԱԿԱՆ ՆՅՈՒԹԵՐ</h2>
             <div className="line"> </div>
             <a href="/get-files" target="_blank">
               <button className="get_files_button">
-                <i className="fa fa-envelope" aria-hidden="true"/>{" "}
+                <i className="fa fa-envelope" aria-hidden="true" />{" "}
                 ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ
               </button>
             </a>
