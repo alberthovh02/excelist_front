@@ -1,81 +1,81 @@
-  @mixin PerfectCenter() {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  @mixin FullyAbsolute() {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    left: 0;
-    top: 0;
-    overflow-x: hidden;
-    overflow-y: hidden;
-  }
-  @mixin ResetMargin {
-    margin: 0px 0px 0px 0px;
-  }
-  
-  @mixin ResetPadding {
-    padding: 0px 0px 0px 0px;
-  }
-  @mixin Transition {
-    transition: all 0.3s ease-in-out;
-  }
-  
-  @mixin Covered() {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
-  }
-  
-  // media query mixin
-  
-  @mixin -sm() {
-    @media (max-width: $sm-max) {
-      @content;
-    }
-  }
-  
-  @mixin -md() {
-    @media (max-width: $md) {
-      @content;
-    }
-  }
+@mixin PerfectCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  @mixin -md-small() {
-    @media (max-width: $md-small) {
-        @content;
-      }
+@mixin FullyAbsolute() {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+@mixin ResetMargin {
+  margin: 0px 0px 0px 0px;
+}
+
+@mixin ResetPadding {
+  padding: 0px 0px 0px 0px;
+}
+@mixin Transition {
+  transition: all 0.3s ease-in-out;
+}
+
+@mixin Covered() {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+// media query mixin
+
+@mixin -sm() {
+  @media (max-width: $sm-max) {
+    @content;
   }
-  
-  @mixin -lg() {
-    @media (max-width: $lg) {
-      @content;
-    }
+}
+
+@mixin -md() {
+  @media (max-width: $md) {
+    @content;
   }
-  
-  @mixin -xl() {
-    @media (max-width: $xl) {
-      @content;
-    }
+}
+
+@mixin -md-small() {
+  @media (max-width: $md-small) {
+    @content;
   }
-  @mixin -xxl-md() {
-    @media (max-width: $xxl-md) {
-      @content;
-    }
+}
+
+@mixin -lg() {
+  @media (max-width: $lg) {
+    @content;
   }
-  
-  @mixin -xxl() {
-    @media (max-width: $xxl-max) {
-      @content;
-    }
+}
+
+@mixin -xl() {
+  @media (max-width: $xl) {
+    @content;
   }
-  
-  @mixin xxl-() {
-    @media (min-width: $xxl-min) {
-      @content;
-    }
+}
+@mixin -xxl-md() {
+  @media (max-width: $xxl-md) {
+    @content;
   }
+}
+
+@mixin -xxl() {
+  @media (max-width: $xxl-max) {
+    @content;
+  }
+}
+
+@mixin xxl-() {
+  @media (min-width: $xxl-min) {
+    @content;
+  }
+}

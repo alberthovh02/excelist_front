@@ -1,16 +1,20 @@
 import React from "react";
-import {NavLink, Redirect} from "react-router-dom";
-import {Menu, Dropdown, Popover, Spin, Input, message, Collapse} from "antd";
-import { CaretDownOutlined, LoadingOutlined, SearchOutlined } from '@ant-design/icons';
+import { NavLink, Redirect } from "react-router-dom";
+import { Menu, Dropdown, Popover, Spin, Input, message, Collapse } from "antd";
+import {
+  CaretDownOutlined,
+  LoadingOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 
-import DynamicImages from './shared/DynamicImages';
+import DynamicImages from "./shared/DynamicImages";
 
 import { connect } from "react-redux";
-import {search} from "../../store/api";
-import {GETREQUEST} from "../../store/actionCreators";
+import { search } from "../../store/api";
+import { GETREQUEST } from "../../store/actionCreators";
 
 const { Search } = Input;
-const { Panel } = Collapse
+const { Panel } = Collapse;
 
 class Header extends React.Component {
   constructor(props) {
@@ -20,7 +24,7 @@ class Header extends React.Component {
       Courses: [],
       imageSource: null,
       searchField: false,
-      redirect: false
+      redirect: false,
     };
   }
 
@@ -37,7 +41,7 @@ class Header extends React.Component {
     var scrollPos = 0;
     const header = document.getElementsByTagName("header")[0];
     const { Courses } = this.props;
-    if(Courses && !this.state.Courses.length) this.setState({Courses})
+    if (Courses && !this.state.Courses.length) this.setState({ Courses });
     // adding scroll event
     window.addEventListener("scroll", function () {
       // detects new state and compares it with the new one
@@ -64,49 +68,52 @@ class Header extends React.Component {
     // });
   }
 
-  handleSearch = async(keyword) => {
+  handleSearch = async (keyword) => {
     // const { dispatch } = this.props;
-    if(keyword){
-      const response = await GETREQUEST(search(keyword))
-      if(response.code !== 200){
+    if (keyword) {
+      const response = await GETREQUEST(search(keyword));
+      if (response.code !== 200) {
         message.error("Something went wrong");
-        return false
-      }
-      else if(response.data){
+        return false;
+      } else if (response.data) {
         this.setState({
-          redirect: response.data
-        })
+          redirect: response.data,
+        });
       }
     }
-  }
+  };
 
   toggleNav = () => {
-    if(document.getElementById("mySidebar").style.width === '300px'){
+    if (document.getElementById("mySidebar").style.width === "300px") {
       document.getElementById("mySidebar").style.width = "0";
-      document.getElementById("root").style.position= "relative";
-      document.getElementById("root").style.right= "0";
-      document.getElementsByClassName('icon-bar')[0].style.transform = 'rotate(0deg)';
-      document.getElementsByClassName('icon-bar')[0].style.top = '10px';
-      document.getElementsByClassName('icon-bar')[1].style.transform = 'rotate(0deg)';
-      document.getElementsByClassName('icon-bar')[1].style.top = '15px';
-      document.getElementsByClassName('icon-bar')[2].style.transform = 'rotate(0deg)';
-      document.getElementsByClassName('icon-bar')[2].style.top = '20px';
-      document.getElementsByTagName("body")[0].style.position = 'absolute';
-    }
-    else{
+      document.getElementById("root").style.position = "relative";
+      document.getElementById("root").style.right = "0";
+      document.getElementsByClassName("icon-bar")[0].style.transform =
+        "rotate(0deg)";
+      document.getElementsByClassName("icon-bar")[0].style.top = "10px";
+      document.getElementsByClassName("icon-bar")[1].style.transform =
+        "rotate(0deg)";
+      document.getElementsByClassName("icon-bar")[1].style.top = "15px";
+      document.getElementsByClassName("icon-bar")[2].style.transform =
+        "rotate(0deg)";
+      document.getElementsByClassName("icon-bar")[2].style.top = "20px";
+      document.getElementsByTagName("body")[0].style.position = "absolute";
+    } else {
       document.getElementById("mySidebar").style.width = "300px";
-      document.getElementById("root").style.position = 'relative';
-      document.getElementById("root").style.right = '300px';
-      document.getElementsByTagName("body")[0].style.position = 'fixed';
-      document.getElementsByClassName('icon-bar')[0].style.transform = 'rotate(-45deg)';
-      document.getElementsByClassName('icon-bar')[0].style.top = '13px';
-      document.getElementsByClassName('icon-bar')[1].style.transform = 'rotate(-45deg)';
-      document.getElementsByClassName('icon-bar')[1].style.top = '13px';
-      document.getElementsByClassName('icon-bar')[2].style.transform = 'rotate(45deg)';
-      document.getElementsByClassName('icon-bar')[2].style.top = '13px';
+      document.getElementById("root").style.position = "relative";
+      document.getElementById("root").style.right = "300px";
+      document.getElementsByTagName("body")[0].style.position = "fixed";
+      document.getElementsByClassName("icon-bar")[0].style.transform =
+        "rotate(-45deg)";
+      document.getElementsByClassName("icon-bar")[0].style.top = "13px";
+      document.getElementsByClassName("icon-bar")[1].style.transform =
+        "rotate(-45deg)";
+      document.getElementsByClassName("icon-bar")[1].style.top = "13px";
+      document.getElementsByClassName("icon-bar")[2].style.transform =
+        "rotate(45deg)";
+      document.getElementsByClassName("icon-bar")[2].style.top = "13px";
     }
-
-  }
+  };
 
   render() {
     const { Lessons, Courses, imageSource, searchField, redirect } = this.state;
@@ -124,27 +131,25 @@ class Header extends React.Component {
               Courses.length &&
               Courses.map((item, key) => {
                 return (
-                  <>
-                    {
-                      key > 8 && key < 16 ? (
-                        <div 
-                          key={key} 
-                          className="navbar-lessons-link__sideblock" 
-                          // style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}
-                        >
-                          <a href={`/course/${item._id}`}>{item.title}</a>
-                        </div>
-                      ) : (
-                        <div 
-                          key={key} 
-                          className="navbar-lessons-link" 
-                          // style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}
-                        >
-                          <a href={`/course/${item._id}`}>{item.title}</a>
-                        </div>
-                      )
-                    }
-                  </>
+                  <React.Fragment key={Math.random()}>
+                    {key > 8 && key < 16 ? (
+                      <div
+                        key={key}
+                        className="navbar-lessons-link__sideblock"
+                        // style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}
+                      >
+                        <a href={`/course/${item._id}`}>{item.title}</a>
+                      </div>
+                    ) : (
+                      <div
+                        key={key}
+                        className="navbar-lessons-link"
+                        // style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}
+                      >
+                        <a href={`/course/${item._id}`}>{item.title}</a>
+                      </div>
+                    )}
+                  </React.Fragment>
                 );
               })}
           </div>
@@ -161,10 +166,12 @@ class Header extends React.Component {
                       imageSource && imageSource[0] && imageSource[0]._id
                     }`}
                   >
-                    <DynamicImages 
-												url={ imageSource && imageSource[0] && imageSource[0].imageUrl} 
-                        style={{ maxWidth: "180px" }}
-											/>
+                    <DynamicImages
+                      url={
+                        imageSource && imageSource[0] && imageSource[0].imageUrl
+                      }
+                      style={{ maxWidth: "180px" }}
+                    />
                     {/* <img
                       style={{ maxWidth: "180px" }}
                       src={
@@ -174,7 +181,7 @@ class Header extends React.Component {
                     /> */}
                     <p className="soon-name">{Lessons[0].name}</p>
                   </a>
-                    <a href="/register" className="soon-register" target="_blank">
+                  <a href="/register" className="soon-register" target="_blank">
                     ԳՐԱՆՑՎԵԼ
                   </a>
                 </div>
@@ -198,14 +205,17 @@ class Header extends React.Component {
       </Menu>
     );
 
-
-    if(redirect) {
-      return <Redirect to={{
-        pathname: "/search/",
-        state: {
-          data: redirect
-        }
-      }}/>
+    if (redirect) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/search/",
+            state: {
+              data: redirect,
+            },
+          }}
+        />
+      );
     }
     return (
       <header>
@@ -213,46 +223,57 @@ class Header extends React.Component {
           {/*<a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>×</a>*/}
           <a href="/about">ՄԵՐ ՄԱՍԻՆ</a>
           <Collapse
-              bordered={false}
-              defaultActiveKey={['1']}
-              expandIconPosition={'right'}
-              expandIcon={({ isActive }) => <CaretDownOutlined rotate={isActive ? 180 : 0}/>}
-              style={{background: 'transparent'}}
+            bordered={false}
+            defaultActiveKey={["1"]}
+            expandIconPosition={"right"}
+            expandIcon={({ isActive }) => (
+              <CaretDownOutlined rotate={isActive ? 180 : 0} />
+            )}
+            style={{ background: "transparent" }}
           >
-            <Panel key={'about'} header={'ԴԱՍԸՆԹԱՑՆԵՐ'}>
+            <Panel
+              key={"about"}
+              header={
+                <div onClick={() => (window.location = "/lessons")}>
+                  ԴԱՍԸՆԹԱՑՆԵՐ
+                </div>
+              }
+            >
               <ul>
                 {Courses &&
-                Courses.length &&
-                Courses.map((item, key) => {
-                  return (
+                  Courses.length &&
+                  Courses.map((item, key) => {
+                    return (
                       <li key={key} className="mobile-submenu">
                         <a href={`/course/${item._id}`}>{item.title}</a>
                       </li>
-                  );
-                })}
+                    );
+                  })}
               </ul>
             </Panel>
           </Collapse>
           <a href="/blog">ԲԼՈԳ</a>
           <Collapse
-              bordered={false}
-              defaultActiveKey={['1']}
-              expandIconPosition={'right'}
-              expandIcon={({ isActive }) => <CaretDownOutlined rotate={isActive ? 180 : 0}/> }
-              style={{background: 'transparent'}}
+            bordered={false}
+            defaultActiveKey={["1"]}
+            expandIconPosition={"right"}
+            expandIcon={({ isActive }) => (
+              <CaretDownOutlined rotate={isActive ? 180 : 0} />
+            )}
+            style={{ background: "transparent" }}
           >
-            <Panel key={'videoblog'} header={'ՎԻԴԵՈԲԼՈԳ'}>
-                <ul>
-                  <li className='mobile-submenu'>
-                    <a href="/videos?lang=arm">Հայերեն վիդեոներ</a>
-                  </li>
-                  <li className='mobile-submenu'>
-                    <a href="/videos?lang=rus">Русскоязычные видео</a>
-                  </li>
-                  <li className='mobile-submenu'>
-                    <a href="/videos?lang=eng">English videos</a>
-                  </li>
-                </ul>
+            <Panel key={"videoblog"} header={"ՎԻԴԵՈԲԼՈԳ"}>
+              <ul>
+                <li className="mobile-submenu">
+                  <a href="/videos?lang=arm">Հայերեն վիդեոներ</a>
+                </li>
+                <li className="mobile-submenu">
+                  <a href="/videos?lang=rus">Русскоязычные видео</a>
+                </li>
+                <li className="mobile-submenu">
+                  <a href="/videos?lang=eng">English videos</a>
+                </li>
+              </ul>
             </Panel>
           </Collapse>
           <a href="/automatic">ԱՎՏՈՄԱՏԱՑՈՒՄ</a>
@@ -318,13 +339,26 @@ class Header extends React.Component {
             </NavLink>
 
             <div className="navbar-collapse collapse" id="navbarTogglerDemo03">
-              <span id="hover-line"/>
+              <span id="hover-line" />
               <ul className="navbar-nav mr-auto mt-2 mt-lg-0 myNav">
                 <li className="nav-item">
                   <NavLink to="/about">ՄԵՐ ՄԱՍԻՆ</NavLink>
                 </li>
-                <li className="nav-item" >
-                  <Popover placement="bottom" content={menu ? menu : <Spin indicator={<LoadingOutlined style={{fontSize: 24}}/>}/>}>
+                <li className="nav-item">
+                  <Popover
+                    placement="bottom"
+                    content={
+                      menu ? (
+                        menu
+                      ) : (
+                        <Spin
+                          indicator={
+                            <LoadingOutlined style={{ fontSize: 24 }} />
+                          }
+                        />
+                      )
+                    }
+                  >
                     <NavLink
                       to="/lessons"
                       target="_blank"
@@ -332,7 +366,9 @@ class Header extends React.Component {
                       data-toggle="dropdown"
                       style={{ display: "flex", alignItems: "center" }}
                     >
-                      <a  onClick={() => (window.location = "/lessons")}>ԴԱՍԸՆԹԱՑՆԵՐ</a>
+                      <div onClick={() => (window.location = "/lessons")}>
+                        ԴԱՍԸՆԹԱՑՆԵՐ
+                      </div>
                       {/*<Icon type="caret-down" />*/}
                       <CaretDownOutlined />
                     </NavLink>
@@ -368,30 +404,30 @@ class Header extends React.Component {
                 <li>
                   <div>
                     <SearchOutlined
-                        onClick={() => this.setState({searchField: !this.state.searchField})}
-                        className="navbar-search"
+                      onClick={() =>
+                        this.setState({ searchField: !this.state.searchField })
+                      }
+                      className="navbar-search"
                     />
-                  { searchField && (
+                    {searchField && (
                       <Search
                         placeholder="Search"
                         className="nav-search-button"
-                        style={{width: '20%', marginTop: 10}}
+                        style={{ width: "20%", marginTop: 10 }}
                         onSearch={(keyword) => this.handleSearch(keyword)}
                       />
-                      )}
+                    )}
                   </div>
                 </li>
               </ul>
             </div>
-              <span className='mobile-toggler'  onClick={ this.toggleNav }>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </span>
+            <span className="mobile-toggler" onClick={this.toggleNav}>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </span>
           </nav>
         </div>
-
-
       </header>
     );
   }

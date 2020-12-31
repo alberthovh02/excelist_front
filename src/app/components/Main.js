@@ -1,18 +1,14 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/iframe-has-title */
 import React from "react";
-import {
-  BrowserRouter as Router,
-  NavLink,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { Router, NavLink, Redirect, Route, Switch } from "react-router-dom";
 
 import CountUp from "react-countup";
 import { default as ImageCarousel, Modal, ModalGateway } from "react-images";
 
 // redux
 import { connect } from "react-redux";
-import { GET, GETREQUEST } from "../../store/actionCreators";
+import { GET } from "../../store/actionCreators";
 import { getBlogsPagination } from "../../store/api";
 import { ADD_BLOGS } from "../../store/actionTypes";
 
@@ -56,12 +52,15 @@ class Index extends React.Component {
   };
 
   async componentDidMount() {
-    const response = await GETREQUEST(
+    await fetch(
       "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCIhWQ4k5FSaXrn8uKuLin7A&key=AIzaSyCGYi9ZIbDCHK88rRg5fF-PMAbMeWvorLI"
-    );
-    if (response) {
-      this.setState({ youtubeSubscribersCount: response });
-    }
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        this.setState({ youtubeSubscribersCount: result });
+      })
+      .catch((err) => console.log("err"));
+
     setInterval(() => {
       this.setState({
         order: this.state.order <= 3 ? this.state.order + 1 : 1,
@@ -186,6 +185,9 @@ class Index extends React.Component {
             <br />
             <div className="introduction__bars">
               <div className="introduction__bars__item">
+                <div className="graduate-ic">
+                  <i className="fa fa-book"></i>
+                </div>
                 <div>
                   <h1>ԴԱՍԵՐ</h1>
                   <p>
@@ -195,9 +197,11 @@ class Index extends React.Component {
                     <i className="fa fa-chevron-right arrow"></i>
                   </p>
                 </div>
-                <i className="fa fa-book"></i>
               </div>
               <div className="introduction__bars__item">
+                <div className="graduate-ic">
+                  <i className="fa fa-edit"></i>
+                </div>
                 <div>
                   <h1>ԲԼՈԳ</h1>
                   <p>
@@ -207,9 +211,11 @@ class Index extends React.Component {
                     <i className="fa fa-chevron-right arrow"></i>
                   </p>
                 </div>
-                <i className="fa fa-edit"></i>
               </div>
               <div className="introduction__bars__item">
+                <div className="graduate-ic">
+                  <i className="fa fa-play-circle-o"></i>
+                </div>
                 <div className="graduate">
                   <h1>ՎԻԴԵՈԲԼՈԳ</h1>
                   <p>
@@ -219,9 +225,11 @@ class Index extends React.Component {
                     <i className="fa fa-chevron-right arrow"></i>
                   </p>
                 </div>
-                <i className="fa fa-play-circle-o"></i>
               </div>
               <div className="introduction__bars__item">
+                <div className="graduate-ic">
+                  <i className="fa fa-graduation-cap"></i>
+                </div>
                 <div className="graduate graduate-ur">
                   <h1>Հավաստագրեր</h1>
                   <p>
@@ -231,7 +239,6 @@ class Index extends React.Component {
                     <i className="fa fa-chevron-right arrow"></i>
                   </p>
                 </div>
-                <i class="fa fa-graduation-cap"></i>
               </div>
             </div>
           </div>
@@ -412,7 +419,10 @@ class Index extends React.Component {
           <div className="videblog_desc">
             <div className="single_videoblog">
               <a href="/videos?lang=arm">
-                <img src={require("../../assets/images/intro/arm.png")} />
+                <img
+                  src={require("../../assets/images/intro/arm.png")}
+                  alt="Arm"
+                />
               </a>
               <a href="/videos?lang=arm">
                 <h4 className="single-title">Հայերեն վիդեոներ</h4>
@@ -427,7 +437,10 @@ class Index extends React.Component {
             </div>
             <div className="single_videoblog">
               <a href="/videos?lang=rus">
-                <img src={require("../../assets/images/intro/rus.png")} />
+                <img
+                  src={require("../../assets/images/intro/rus.png")}
+                  alt="Rus"
+                />
               </a>
               <a href="/videos?lang=rus">
                 <h4 className="single-title">Русскоязычные видео</h4>
@@ -442,7 +455,10 @@ class Index extends React.Component {
             </div>
             <div className="single_videoblog">
               <a href="/videos?lang=eng">
-                <img src={require("../../assets/images/intro/en.png")} />
+                <img
+                  src={require("../../assets/images/intro/en.png")}
+                  alt="Eng"
+                />
               </a>
               <a href="/videos?lang=eng">
                 <h4 className="single-title">English videos</h4>
@@ -548,7 +564,7 @@ class Index extends React.Component {
             <p>
               <CountUp
                 start={0}
-                end={Students && Students.length && Students[0].students_count}
+                end={Students && Students.length && +Students[0].students_count}
                 duration={4}
                 delay={2}
                 style={{
@@ -599,7 +615,7 @@ class Index extends React.Component {
                   end={
                     this.state.youtubeSubscribersCount &&
                     this.state.youtubeSubscribersCount.items &&
-                    this.state.youtubeSubscribersCount.items[0].statistics
+                    +this.state.youtubeSubscribersCount.items[0].statistics
                       .viewCount
                   }
                   duration={4}
@@ -630,22 +646,24 @@ class Index extends React.Component {
                   src={require("../../assets/images/our_team/member-1.jpg")}
                   alt="TEAM MEMBER"
                 />{" "}
-                <p className="member_name">
-                  <a href="#" target="_blank" className="innerTexts">
+                <div className="member_name">
+                  <div className="innerTexts">
                     <a
                       href="https://web.facebook.com/armen.petrosyan.25?_rdc=1&_rdr"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i className="fa fa-facebook" />
                     </a>
                     <a
                       href="https://www.linkedin.com/in/armen-petrosyan-47751229/ru"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i className="fa fa-linkedin" />
                     </a>
-                  </a>
-                </p>
+                  </div>
+                </div>
                 <a href="/our-team/1" target="_blank">
                   <p className="name-title">ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ</p>
                 </a>
@@ -656,25 +674,27 @@ class Index extends React.Component {
                   src={require("../../assets/images/our_team/member-2.jpg")}
                   alt="TEAM MEMBER"
                 />{" "}
-                <p className="member_name">
-                  <a href="#" target="_blank" className="innerTexts">
+                <div className="member_name">
+                  <div className="innerTexts">
                     <a
                       href="https://web.facebook.com/Mr.Excelist?_rdc=1&_rdr"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i className="fa fa-facebook" />
                     </a>
-                    <a target="_blank">
+                    <a href="#" target="_blank" rel="noopener noreferrer">
                       <i className="fa fa-skype"></i>
                     </a>
                     <a
                       href="https://www.linkedin.com/in/excelist/"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i className="fa fa-linkedin" />
                     </a>
-                  </a>
-                </p>
+                  </div>
+                </div>
                 <a href="/our-team/2" target="_blank">
                   <p className="name-title">ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ</p>
                 </a>
@@ -685,11 +705,12 @@ class Index extends React.Component {
                   src={require("../../assets/images/our_team/member-3.jpg")}
                   alt="TEAM MEMBER"
                 />
-                <p className="member_name">
-                  <a href="#" target="_blank" className="innerTexts">
+                <dev className="member_name">
+                  <div className="innerTexts">
                     <a
                       href="https://web.facebook.com/arman.harutyunyan.y"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i className="fa fa-facebook" />
                     </a>
@@ -697,12 +718,13 @@ class Index extends React.Component {
                     <a
                       href="https://www.linkedin.com/in/arman-harutyunyan-439ba8151/"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i className="fa fa-linkedin" />
                     </a>
-                  </a>
-                </p>
-                <a href="/our-team/3" target="_blank">
+                  </div>
+                </dev>
+                <a href="/our-team/3" target="_blank" rel="noopener noreferrer">
                   <p className="name-title">ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ</p>
                 </a>
                 <p>Էքսելիստ</p>
@@ -710,10 +732,9 @@ class Index extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="lessons_timeline">
           {Lessons &&
-            Lessons.length &&
+            Lessons.length > 0 &&
             Lessons.map((data, key) => {
               if (
                 new Date(data.date).getTime() - new Date(Date.now()).getTime() >
@@ -818,36 +839,67 @@ class Index extends React.Component {
                 <div className="partners_row">
                   <img
                     src={require("../../assets/images/partners/ardshinbank.png")}
+                    alt="ardshinbank"
                   />
                   <img
                     src={require("../../assets/images/partners/idram.png")}
+                    alt="idram"
                   />
                   <img
                     src={require("../../assets/images/partners/inecobank.png")}
+                    alt="inecobank"
                   />
                   <img
                     src={require("../../assets/images/partners/ameriabank.png")}
+                    alt="ameriabank"
                   />
-                  <img src={require("../../assets/images/partners/ucom.png")} />
+                  <img
+                    src={require("../../assets/images/partners/ucom.png")}
+                    alt="ucom"
+                  />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/kt.png")} />
-                  <img src={require("../../assets/images/partners/alfa.png")} />
+                  <img
+                    src={require("../../assets/images/partners/kt.png")}
+                    alt="partners"
+                  />
+                  <img
+                    src={require("../../assets/images/partners/alfa.png")}
+                    alt="alfa"
+                  />
                   <img
                     src={require("../../assets/images/partners/unicef.png")}
+                    alt="unicef"
                   />
                   <img
                     src={require("../../assets/images/partners/aregak.png")}
+                    alt="aregak"
                   />
-                  <img src={require("../../assets/images/partners/card.png")} />
+                  <img
+                    src={require("../../assets/images/partners/card.png")}
+                    alt="card"
+                  />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/nmc.png")} />
-                  <img src={require("../../assets/images/partners/msf.png")} />
-                  <img src={require("../../assets/images/partners/viva.png")} />
-                  <img src={require("../../assets/images/partners/hec.png")} />
+                  <img
+                    src={require("../../assets/images/partners/nmc.png")}
+                    alt="nmc"
+                  />
+                  <img
+                    src={require("../../assets/images/partners/msf.png")}
+                    alt="msf"
+                  />
+                  <img
+                    src={require("../../assets/images/partners/viva.png")}
+                    alt="viva"
+                  />
+                  <img
+                    src={require("../../assets/images/partners/hec.png")}
+                    alt="hec"
+                  />
                   <img
                     src={require("../../assets/images/partners/barsis.png")}
+                    alt="barsis"
                   />
                 </div>
               </Carousel>
@@ -856,60 +908,91 @@ class Index extends React.Component {
                 <div className="partners_row">
                   <img
                     src={require("../../assets/images/partners/ardshinbank.png")}
+                    alt="ardshinbank"
                   />
                 </div>
                 <div className="partners_row">
                   <img
                     src={require("../../assets/images/partners/idram.png")}
+                    alt="idram"
                   />
                 </div>
                 <div className="partners_row">
                   <img
                     src={require("../../assets/images/partners/inecobank.png")}
+                    alt="inecobank"
                   />
                 </div>
                 <div className="partners_row">
                   <img
                     src={require("../../assets/images/partners/ameriabank.png")}
+                    alt="ameriabank"
                   />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/ucom.png")} />
+                  <img
+                    src={require("../../assets/images/partners/ucom.png")}
+                    alt="ucom"
+                  />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/kt.png")} />
+                  <img
+                    src={require("../../assets/images/partners/kt.png")}
+                    alt="kt"
+                  />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/alfa.png")} />
+                  <img
+                    src={require("../../assets/images/partners/alfa.png")}
+                    alt="alfa"
+                  />
                 </div>
                 <div className="partners_row">
                   <img
                     src={require("../../assets/images/partners/unicef.png")}
+                    alt="unicef"
                   />
                 </div>
                 <div className="partners_row">
                   <img
                     src={require("../../assets/images/partners/aregak.png")}
+                    alt="aregak"
                   />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/card.png")} />
+                  <img
+                    src={require("../../assets/images/partners/card.png")}
+                    alt="card"
+                  />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/nmc.png")} />
+                  <img
+                    src={require("../../assets/images/partners/nmc.png")}
+                    alt="nmc"
+                  />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/msf.png")} />
+                  <img
+                    src={require("../../assets/images/partners/msf.png")}
+                    alt="msf"
+                  />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/viva.png")} />
+                  <img
+                    src={require("../../assets/images/partners/viva.png")}
+                    alt="viva"
+                  />
                 </div>
                 <div className="partners_row">
-                  <img src={require("../../assets/images/partners/hec.png")} />
+                  <img
+                    src={require("../../assets/images/partners/hec.png")}
+                    alt="hec"
+                  />
                 </div>
                 <div className="partners_row">
                   <img
                     src={require("../../assets/images/partners/barsis.png")}
+                    alt="barsis"
                   />
                 </div>
               </Carousel>
@@ -1077,6 +1160,7 @@ class Index extends React.Component {
             frameBorder="0"
             style={{ border: 0 }}
             allowFullScreen=""
+            // eslint-disable-next-line react/jsx-no-duplicate-props
             style={{ width: "80%" }}
           />
         </div>
@@ -1222,6 +1306,7 @@ class Index extends React.Component {
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSeU8kXIAG5VYSn2s2McxsbzmvcABIO4KUN8Cp8QzNhmWhajSA/viewform?c=0&w=1"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <button className="get_files_button">
               <i className="fa fa-envelope" aria-hidden="true" /> ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ
