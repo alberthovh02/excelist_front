@@ -1171,11 +1171,12 @@ class Index extends React.Component {
             {Albums &&
               Albums.map((item, key) => {
                 const images = item.images.map((it) => {
-                  return { src: `https://excelist.am/api/v1/public${it.url}` };
+                  return {
+                    src: `https://api.excelist.am/api/v1/public${it.url}`,
+                  };
                 });
                 return this.state.albumModal === key && images.length ? (
                   <>
-                    {" "}
                     <ModalGateway>
                       <Modal
                         onClose={() => this.setState({ albumModal: false })}
@@ -1193,11 +1194,11 @@ class Index extends React.Component {
                           style={{ width: "100%" }}
                         />
                         {/* <img
-                                                alt='gallery'
-                                                src={item.imageUrl}
-                                                onClick={() => this.setState({albumModal: key})}
-                                                style={{width: '100%'}}
-                                            /> */}
+                              alt='gallery'
+                              src={item.imageUrl}
+                              onClick={() => this.setState({albumModal: key})}
+                              style={{width: '100%'}}
+                            /> */}
                       </a>
                     </div>
                   </>
@@ -1211,7 +1212,7 @@ class Index extends React.Component {
                     >
                       <DynamicImages
                         url={item.imageUrl}
-                        //   onClick={() => this.setState({albumModal: key})}
+                        onClick={() => this.setState({ albumModal: key })}
                         style={{ width: "100%" }}
                       />
                       {/* <img src={item.imageUrl} style={{width: '100%'}}/> */}
@@ -1308,7 +1309,7 @@ class Index extends React.Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <button className="get_files_button">
+            <button className="get_files_button get-files-btn">
               <i className="fa fa-envelope" aria-hidden="true" /> ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ
             </button>
           </a>

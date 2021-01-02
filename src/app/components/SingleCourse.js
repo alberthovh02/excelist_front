@@ -1,15 +1,15 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import Comments from "./Comments";
 import Interested from "./Interested";
-import DynamicImages from './shared/DynamicImages';
+import DynamicImages from "./shared/DynamicImages";
 
 import { GETREQUEST } from "../../store/actionCreators";
 import { getSingleCourse } from "../../store/api";
@@ -20,7 +20,7 @@ class SingleCourse extends React.Component {
     super();
     this.state = {
       data: null,
-      course: null
+      course: null,
     };
   }
 
@@ -54,15 +54,27 @@ class SingleCourse extends React.Component {
 
   render() {
     const { data } = this.state;
-    if (!data) return (
-      <>
-        <Header/>
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95vh'}}>
-          <Spin indicator={<LoadingOutlined/>} size='large' tip="Loading..."/>
-        </div>
-        <Footer mode='simple' style={{position: 'absolute', bottom: 0}}/>
-      </>
-    );
+    if (!data)
+      return (
+        <>
+          <Header />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "95vh",
+            }}
+          >
+            <Spin
+              indicator={<LoadingOutlined />}
+              size="large"
+              tip="Loading..."
+            />
+          </div>
+          <Footer mode="simple" style={{ position: "absolute", bottom: 0 }} />
+        </>
+      );
     return (
       <>
         <Helmet>
@@ -75,10 +87,10 @@ class SingleCourse extends React.Component {
           <div className="layout__content">
             <h2 className="singleLesson__title">{data.title}</h2>
             <div style={{ width: "100%", height: "250px" }}>
-            <DynamicImages 
-												url={data.captionUrl} 
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-											/>
+              <DynamicImages
+                url={data.captionUrl}
+                style={{ width: "100%", height: "100%", objectFit: "contant" }}
+              />
               {/* <img
                 src={data.captionUrl}
                 alt="course"
@@ -92,69 +104,77 @@ class SingleCourse extends React.Component {
                 dangerouslySetInnerHTML={{ __html: data.content }}
               ></div>
             </div>
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-            <a className="register-for-lesson" href='/register' style={{marginBottom: 20, marginTop: 20}}>
-              <i className="fa fa-user-plus" style={{ color: "white" }}></i>
-              ԳՐԱՆՑՎԵԼ
-            </a>
-            <br />
-            <div className="feedback-first-line singleblog-content">
-              <blockquote>ՈՒՆԵ՞Ք ՀԱՐՑԵՐ</blockquote>
-              <div className="footer-contact first-line">
-                <div className="footer_phone fc_item">
-                  <i
-                    className="material-icons md-36"
-                    style={{ color: "#217142" }}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <a
+                className="register-for-lesson"
+                href="/register"
+                style={{ marginBottom: 20, marginTop: 20 }}
+              >
+                <i className="fa fa-user-plus" style={{ color: "white" }}></i>
+                ԳՐԱՆՑՎԵԼ
+              </a>
+              <br />
+              <div className="feedback-first-line singleblog-content">
+                <blockquote>ՈՒՆԵ՞Ք ՀԱՐՑԵՐ</blockquote>
+                <div className="footer-contact first-line footer-contact-single-course ">
+                  <div className="footer_phone fc_item">
+                    <i
+                      className="material-icons md-36"
+                      style={{ color: "#217142" }}
+                    >
+                      phone
+                    </i>
+                    Հեռախոս
+                    <br />{" "}
+                    <p className="feedback-footer-info">+ 374 55 50 57 57</p>
+                  </div>
+                  <div className="footer_viber fc_item ">
+                    <i
+                      className="fa fa-phone-square fa-2x"
+                      style={{ color: "#217142" }}
+                    ></i>
+                    Viber
+                    <br />{" "}
+                    <p className="feedback-footer-info">+374 55 50 57 57</p>
+                  </div>
+                </div>
+                <div className="footer-contact footer-contact-single-course">
+                  <div className="footer_mail fc_item">
+                    <i
+                      className="fa fa-envelope fa-2x"
+                      style={{ color: "#217142" }}
+                    ></i>
+                    Էլ. փոստ
+                    <br />{" "}
+                    <p className="feedback-footer-info">info@excelist.am</p>
+                  </div>
+                  <div
+                    className="footer_skype fc_item"
+                    style={{ marginRight: "19px" }}
                   >
-                    phone
-                  </i>
-                  Հեռախոս
-                  <br />{" "}
-                  <p className="feedback-footer-info">+ 374 55 50 57 57</p>
+                    <i
+                      className="fa fa-skype fa-2x"
+                      style={{ color: "#217142" }}
+                    ></i>
+                    Skype
+                    <br />{" "}
+                    <p className="feedback-footer-info">msexcel_online</p>
+                  </div>
                 </div>
-                <div className="footer_viber fc_item">
+                <div className="footer-contact-address">
                   <i
-                    className="fa fa-phone-square fa-2x"
+                    className="fa fa-map-marker fa-2x"
                     style={{ color: "#217142" }}
                   ></i>
-                  Viber
-                  <br />{" "}
-                  <p className="feedback-footer-info">+374 55 50 57 57</p>
+                  Հասցե
+                  <br />
+                  <p className="feedback-footer-info">
+                    ք. Երևան, Արշակունյաց 2` «Տիգրան Մեծ» հրատարակչություն, 3-րդ
+                    հարկ
+                  </p>
                 </div>
+                <SocialIcons style={{ width: "20%" }} />
               </div>
-              <div className="footer-contact">
-                <div className="footer_mail fc_item">
-                  <i
-                    className="fa fa-envelope fa-2x"
-                    style={{ color: "#217142" }}
-                  ></i>
-                  Էլ. փոստ
-                  <br />{" "}
-                  <p className="feedback-footer-info">info@excelist.am</p>
-                </div>
-                <div className="footer_skype fc_item">
-                  <i
-                    className="fa fa-skype fa-2x"
-                    style={{ color: "#217142" }}
-                  ></i>
-                  Skype
-                  <br /> <p className="feedback-footer-info">msexcel_online</p>
-                </div>
-              </div>
-              <div>
-                <i
-                  className="fa fa-map-marker fa-2x"
-                  style={{ color: "#217142" }}
-                ></i>
-                Հասցե
-                <br />
-                <p className="feedback-footer-info">
-                  ք. Երևան, Արշակունյաց 2` «Տիգրան Մեծ» հրատարակչություն, 3-րդ
-                  հարկ
-                </p>
-              </div>
-              <SocialIcons style={{width: '20%'}}/>
-            </div>
             </div>
             <Interested parent="Courses" />
 
@@ -170,7 +190,7 @@ class SingleCourse extends React.Component {
   }
 }
 
-const get = state => {
+const get = (state) => {
   return { Courses: state.Courses };
 };
 

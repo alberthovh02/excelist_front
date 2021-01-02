@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Input, message as toast, Button } from "antd";
 import Request from "../../store/request";
 import SocialIcons from "./shared/SocialIcons";
+const { TextArea } = Input;
 
 class Footer extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Footer extends React.Component {
       email: "",
       title: "",
       message: "",
-      loading: false
+      loading: false,
     };
   }
 
@@ -23,24 +24,24 @@ class Footer extends React.Component {
   sendMessage = async (e) => {
     const { name, email, title, message } = this.state;
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var valid = re.test(email)
-    if(!valid){
+    var valid = re.test(email);
+    if (!valid) {
       toast.error("Ոչ ճիշտ էլ․ հասցե");
-      return false
+      return false;
     }
     if (!email || !name || !message) {
       toast.error("Խնդրում ենք լրացնել բոլոր պարտադիր դաշտերը");
 
       return false;
     } else {
-      this.setState({loading: true})
+      this.setState({ loading: true });
       const resp = await Request.postJson("feedback/sendMessage", {
         name,
         email,
         title,
         message,
       });
-      this.setState({loading: false})
+      this.setState({ loading: false });
       if (resp.status === 200) {
         toast.success("Նամակը հաջողությամբ ուղարկվել է");
       } else {
@@ -52,8 +53,8 @@ class Footer extends React.Component {
     const { mode } = this.props;
     const { loading } = this.state;
     return (
-      <footer className='footer'>
-        { mode === "main" ? (
+      <footer className="footer">
+        {mode === "main" ? (
           <div className="footer__contact">
             <div className="footer_coll_1 ">
               <div className="footer_heading_1">
@@ -98,7 +99,7 @@ class Footer extends React.Component {
                   </p>
                 </div>
               </div>
-              <SocialIcons mode='full'/>
+              <SocialIcons mode="full" />
             </div>
             <div className="footer_coll_2 ">
               <div className="footer_heading_2">
@@ -124,8 +125,8 @@ class Footer extends React.Component {
                     label="Email"
                     rules={[
                       {
-                        type: 'email',
-                        message: "Not valid email"
+                        type: "email",
+                        message: "Not valid email",
                       },
                     ]}
                     onChange={this.handleInput}
@@ -138,14 +139,15 @@ class Footer extends React.Component {
                     id="footer_form_title"
                     onChange={this.handleInput}
                   />
-                  <textarea
+                  <TextArea
+                    size="large"
                     cols={60}
                     name="message"
                     rows={10}
                     placeholder="Նամակ"
                     id="footer_form_message"
                     onChange={this.handleInput}
-                  ></textarea>
+                  ></TextArea>
                   <Button
                     htmlType="submit"
                     id="sendButton"
@@ -162,8 +164,8 @@ class Footer extends React.Component {
         {mode === "simple" ? (
           <div className="footer_links">
             <div className="made_by">
-              Excelist © {new Date(Date.now()).getFullYear()} Կայքը պատրաստվել Macro Lab ընկերության
-              աջակցությամբ։
+              Excelist © {new Date(Date.now()).getFullYear()} Կայքը պատրաստվել
+              Macro Lab ընկերության աջակցությամբ։
             </div>
             <div className="footer_social_links">
               <a href="/about">ՄԵՐ ՄԱՍԻՆ </a>

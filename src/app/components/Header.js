@@ -262,7 +262,14 @@ class Header extends React.Component {
             )}
             style={{ background: "transparent" }}
           >
-            <Panel key={"videoblog"} header={"ՎԻԴԵՈԲԼՈԳ"}>
+            <Panel
+              key={"videoblog"}
+              header={
+                <div onClick={() => (window.location = "/videoblog")}>
+                  ՎԻԴԵՈԲԼՈԳ
+                </div>
+              }
+            >
               <ul>
                 <li className="mobile-submenu">
                   <a href="/videos?lang=arm">Հայերեն վիդեոներ</a>

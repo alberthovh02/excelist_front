@@ -184,7 +184,7 @@ class Feedback extends React.Component {
             <h2>ԼՐԱՑՐՈ՛Ւ ԷԼ.ՀԱՍՑԵԴ ԵՎ ՍՏԱՑԻ՛Ր ՄԱՍՆԱԳԻՏԱԿԱՆ ՆՅՈՒԹԵՐ</h2>
             <div className="line"> </div>
             <a href="/get-files" target="_blank">
-              <button className="get_files_button">
+              <button className="get_files_button get-files-btn">
                 <i className="fa fa-envelope" aria-hidden="true" />{" "}
                 ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ
               </button>

@@ -33,7 +33,6 @@ class AboutUs extends React.Component {
   render() {
     const { SingleData, Feedbacks, Albums } = this.props;
     const { youtubeSubscribersCount } = this.state;
-    console.log(Albums);
     return (
       <>
         <Helmet>
@@ -126,7 +125,7 @@ class AboutUs extends React.Component {
                 end={
                   (SingleData &&
                     SingleData[0] &&
-                    SingleData[0].facebook_followers) ||
+                    +SingleData[0].facebook_followers) ||
                   0
                 }
                 duration={4}
@@ -172,7 +171,9 @@ class AboutUs extends React.Component {
               {Albums &&
                 Albums.map((item, key) => {
                   const images = item.images.map((it) => {
-                    return { src: it.url };
+                    return {
+                      src: `https://api.excelist.am/api/v1/public${it.url}`,
+                    };
                   });
                   return this.state.albumModal === key && images.length ? (
                     <>

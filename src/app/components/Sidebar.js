@@ -40,6 +40,7 @@ class Sidebar extends React.Component {
       Videoblogs && Videoblogs.length && Videoblogs.slice(0, 3);
     const filterBlogs = Blogs && Blogs.length && Blogs.slice(0, 3);
     const filterCourses = Courses && Courses.length && Courses.slice(0, 3);
+
     if (redirect) {
       return (
         <Redirect

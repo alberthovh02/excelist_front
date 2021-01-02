@@ -1,4 +1,27 @@
 .get_files_button {
+  padding: 12px 25px;
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0, #154a2b),
+    color-stop(1, #217142)
+  );
+  box-sizing: border-box;
+  font-size: 0.7em;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-decoration: none;
+
+  @media screen and (max-width: 280px) {
+    padding: 21px 21px;
+  }
+}
+
+.get-files-btn {
   padding: 10px;
   background: -webkit-gradient(
     linear,
