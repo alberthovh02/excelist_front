@@ -89,7 +89,7 @@ class SingleCourse extends React.Component {
             <div style={{ width: "100%", height: "250px" }}>
               <DynamicImages
                 url={data.captionUrl}
-                style={{ width: "100%", height: "100%", objectFit: "contant" }}
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
               {/* <img
                 src={data.captionUrl}

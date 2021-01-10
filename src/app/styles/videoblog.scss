@@ -8,7 +8,7 @@
     margin-top: 20px !important;
     flex-wrap: wrap;
     &__item {
-      max-width: 200px;
+      max-width: 33%;
       @include -xl() {
         max-width: 90%;
       }
@@ -24,7 +24,6 @@
         margin-bottom: 10px;
       }
     }
-
   }
 }
 
@@ -33,7 +32,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 1000px
+  width: 1000px;
 }
 
 .blog-image-config {
@@ -45,7 +44,7 @@
   margin-top: 20px;
   margin-bottom: 70px;
   //flex-wrap: wrap;
-   width: 100%;
+  width: 100%;
   // display: flex;
   // flex-direction: row;
   // align-items: flex-start;
@@ -62,33 +61,32 @@
   padding: 0 15px 15px 15px;
   min-width: 200px;
   margin-bottom: 10px;
-    .blog-link {
-      color: #217c41 !important;
-      font-weight: 600;
-      font-size: 18px;
-      margin-bottom: 10px;
-      text-decoration: none;
-    }
-    .blog-text {
-      line-height: 1.7em;
-      color: #666
-    }
-
+  .blog-link {
+    color: #217c41 !important;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+  .blog-text {
+    line-height: 1.7em;
+    color: #666;
+  }
 }
 
-.blog-see-more{
+.blog-see-more {
   color: white;
   background: #217c41;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 4px;
-  padding-bottom: 4px
+  padding-bottom: 4px;
 }
 
 .blog-wrapper {
   width: 82%;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
 }
 
 .course-item {
@@ -99,41 +97,41 @@
   height: 100%;
   margin-bottom: 10px;
   min-width: 350px;
-    .blog-link {
-      color: #217c41 !important;
-      font-weight: 600;
-      font-size: 18px;
-      margin-bottom: 10px;
-      text-decoration: none;
-    }
-    .blog-text {
-      line-height: 1.7em;
-      color: #666
-    }
-    .blog-see-more{
-      color: white;
-      background: #217c41;
-      padding-left: 8px;
-      padding-right: 8px;
-      padding-top: 4px;
-      padding-bottom: 4px
-    }
+  .blog-link {
+    color: #217c41 !important;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+  .blog-text {
+    line-height: 1.7em;
+    color: #666;
+  }
+  .blog-see-more {
+    color: white;
+    background: #217c41;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
 }
 
 .videopost-title {
   margin-bottom: 13px;
   font-size: 45px;
-    font-weight: 700;
-    line-height: 50px;
-    margin: 0 0 7px;
-    color: #217142;
-    max-width: 90%;
-    text-align: left;
-    margin-bottom: 25px;
+  font-weight: 700;
+  line-height: 50px;
+  margin: 0 0 7px;
+  color: #217142;
+  max-width: 90%;
+  text-align: left;
+  margin-bottom: 25px;
 }
 
 .videopost-container {
-  width: 100%
+  width: 100%;
 }
 
 .videoblog-video-wrapper {
@@ -147,35 +145,33 @@
 }
 
 .videopost-single-post {
+  display: flex;
+  //justify-content: flex-start;
+  width: calc(100% - 310px);
+  //align-items: flex-start;
+  padding-left: 10%;
+  flex-direction: row;
+  .single-course {
+    max-width: 100%;
     display: flex;
-    //justify-content: flex-start;
-    width: calc(100% - 310px);
-    //align-items: flex-start;
-    padding-left: 10%;
-    flex-direction: row;
-    .single-course{
-      max-width: 100%;
-      display: flex;
-      flex-direction: column;
-      // align-items: flex-start;
-      p{
-        margin-bottom: 20px;
-        text-align: left;
-      }
-      // img {
-      //   max-width: 90%
-      // }
-    }
-
-    iframe{
+    flex-direction: column;
+    // align-items: flex-start;
+    p {
       margin-bottom: 20px;
-      max-width: 100%;
+      text-align: left;
     }
+    // img {
+    //   max-width: 90%
+    // }
+  }
 
-
+  iframe {
+    margin-bottom: 20px;
+    max-width: 100%;
+  }
 }
 
-@media screen and (max-width: 968px){
+@media screen and (max-width: 968px) {
   .blogpost-row {
     display: flex;
     flex-direction: column;
@@ -185,7 +181,7 @@
   }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .blog-wrapper {
     width: 95%;
     .ant-pagination {

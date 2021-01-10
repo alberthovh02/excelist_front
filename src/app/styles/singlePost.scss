@@ -1,4 +1,6 @@
-.singleLesson, .singleBlog, .singleVideoblog {
+.singleLesson,
+.singleBlog,
+.singleVideoblog {
   width: 100%;
   &__title {
     margin-bottom: 13px;
@@ -17,7 +19,7 @@
   }
   &__content {
     text-align: justify;
-    blockquote{
+    blockquote {
       padding: 10px 20px;
       margin: 0 0 20px;
       font-size: 17.5px;
@@ -36,15 +38,17 @@
 
 .singleVideoblog {
   &__iframe {
-    width: 750px;
-    height: 409px;
+    width: 640px;
+    height: 360px;
     max-width: 100%;
-    @include -md () {
+    @include -md() {
       height: 250px;
     }
   }
   &__formtext {
-    color: $brand-color
+    color: $brand-color;
+    font-weight: bold;
+    cursor: pointer;
   }
 }
 
@@ -55,7 +59,7 @@
 
 .singleblog-content {
   text-align: justify;
-  blockquote{
+  blockquote {
     padding: 10px 20px;
     margin: 0 0 20px;
     font-size: 17.5px;
@@ -66,6 +70,6 @@
 .blog-item {
   img {
     max-width: 300px;
-    max-height: 160px
+    max-height: 160px;
   }
 }

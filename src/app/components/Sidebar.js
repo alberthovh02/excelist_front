@@ -106,6 +106,7 @@ class Sidebar extends React.Component {
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSeU8kXIAG5VYSn2s2McxsbzmvcABIO4KUN8Cp8QzNhmWhajSA/viewform?c=0&w=1"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <button className="sidebar-learnmore">
               <i className="fa fa-envelope"></i> ԲԱԺԱՆՈՐԴԱԳՐՎԵԼ{" "}

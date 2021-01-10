@@ -79,9 +79,10 @@
     width: 230px;
     padding: 20px;
     .sidebar-learnmore {
+      width: 215px;
       box-sizing: border-box;
       font-size: 1em;
-      padding: 1em 2em;
+      padding: 1em 1em;
       background: -webkit-gradient(
         linear,
         left bottom,
@@ -108,6 +109,32 @@
       margin-bottom: 50px;
       // padding-left: 20px;
       //min-width: 300px;
+      .sidebar-learnmore {
+        width: 215px;
+        box-sizing: border-box;
+        font-size: 1em;
+        padding: 1em 1em;
+        background: -webkit-gradient(
+          linear,
+          left bottom,
+          left top,
+          color-stop(0, #154a2b),
+          color-stop(1, #217142)
+        );
+        border: 1px solid;
+        border-color: #123e24 #10361f #0c2a19 #10361f;
+        border-radius: 0.25em;
+        text-align: center;
+        display: inline-block;
+        cursor: pointer;
+        text-decoration: none;
+        line-height: 1em;
+        color: white !important;
+        i {
+          color: #fff;
+          margin-right: 5px;
+        }
+      }
       p {
         color: #333;
         font-size: 18px;

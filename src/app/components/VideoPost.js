@@ -15,7 +15,7 @@ class VideoPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
     };
   }
 
@@ -39,63 +39,75 @@ class VideoPost extends React.Component {
             {data && (
               <div>
                 <iframe
+                  allowfullscreen="allowfullscreen"
+                  mozallowfullscreen="mozallowfullscreen"
+                  msallowfullscreen="msallowfullscreen"
+                  oallowfullscreen="oallowfullscreen"
+                  webkitallowfullscreen="webkitallowfullscreen"
                   title="Video"
-                  className='singleVideoblog__iframe'
+                  className="singleVideoblog__iframe"
                   src={data.video_link}
                 />
               </div>
             )}
             <div>
-            <p>
-                {data.language === 'rus' 
-                ? <span>Подпишитесь /Subscribe/ </span> 
-                : <span>Բաժանորդագրվե’ք /Subscribe/</span>
-                }
-              
-              
-              <strong>
-                {" "}
-                <a
-                  href="https://www.youtube.com/c/MsExcelOnlineLessons"
-                  className="green-text"
-                  target="_blank"
-                >
-                  
-                  {data.language === 'rus' 
-                    ? <span>на наш канал.</span> 
-                    : <span>մեր յութուբյան ալիքին</span>}
-                </a>
-              </strong>
-              ։
-            </p>
+              <p>
+                {data.language === "rus" ? (
+                  <span>Подпишитесь /Subscribe/ </span>
+                ) : (
+                  <span>Բաժանորդագրվե’ք /Subscribe/</span>
+                )}
+                <strong>
+                  {" "}
+                  <a
+                    href="https://www.youtube.com/c/MsExcelOnlineLessons"
+                    className="green-text"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {data.language === "rus" ? (
+                      <span>на наш канал.</span>
+                    ) : (
+                      <span>մեր յութուբյան ալիքին</span>
+                    )}
+                  </a>
+                </strong>
+                ։
+              </p>
 
-            {data.file_link ? (
-              <div>
-                <p>
-            { data.language === 'rus' 
-            ? <span> Для получения файла, заполните{" "}</span> 
-            : <span>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք{" "}</span>
-            }
-                 
-                  <NavLink to={`/filerequest/:${data.title}`}>
-        { data.language === 'rus' 
-            ? <span className='singleVideoblog__formtext'> форму</span> 
-            : <span className='singleVideoblog__formtext'>ֆորման</span>
-            }
-                     
-                    </NavLink>:
-                </p>
-              </div>
-            ) : !data.isEmpty ? (
-              <div>
-                Մանրամասների համար դիմե՛ք․
-                <br />
-                🌐 www.macrolab.am
-                <br />
-                📞 Tel: 093 18 88 95,
-                <br />✉ E-mail: info@macrolab.am
-              </div>
-            ) : null}
+              {data.file_link ? (
+                <div>
+                  <p>
+                    {data.language === "rus" ? (
+                      <span> Для получения файла, заполните </span>
+                    ) : (
+                      <span>Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք </span>
+                    )}
+                    <NavLink to={`/filerequest/:${data.title}`}>
+                      {data.language === "rus" ? (
+                        <span className="singleVideoblog__formtext">
+                          {" "}
+                          форму
+                        </span>
+                      ) : (
+                        <span className="singleVideoblog__formtext">
+                          ֆորման
+                        </span>
+                      )}
+                    </NavLink>
+                    :
+                  </p>
+                </div>
+              ) : !data.isEmpty ? (
+                <div>
+                  Մանրամասների համար դիմե՛ք․
+                  <br />
+                  🌐 www.macrolab.am
+                  <br />
+                  📞 Tel: 093 18 88 95,
+                  <br />✉ E-mail: info@macrolab.am
+                </div>
+              ) : null}
             </div>
             <Interested parent="Videoblogs" />
 

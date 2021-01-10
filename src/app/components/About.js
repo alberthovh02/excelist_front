@@ -4,6 +4,8 @@ import Footer from "./Footer";
 import { Helmet } from "react-helmet";
 import CountUp from "react-countup";
 import { default as ImageCarousel, Modal, ModalGateway } from "react-images";
+import { default as FeedbackCarousel } from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 // import {default as FeedbackCarousel} from 'react-multi-carousel';
 import { connect } from "react-redux";
 
@@ -33,6 +35,26 @@ class AboutUs extends React.Component {
   render() {
     const { SingleData, Feedbacks, Albums } = this.props;
     const { youtubeSubscribersCount } = this.state;
+
+    const responsive = {
+      superLargeDesktop: {
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5,
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 3,
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 750 },
+        items: 2,
+      },
+      mobile: {
+        breakpoint: { max: 750, min: 0 },
+        items: 1,
+      },
+    };
+
     return (
       <>
         <Helmet>
@@ -458,29 +480,41 @@ class AboutUs extends React.Component {
               <h1 className="about_heading main_heading">
                 ԿԱՐԾԻՔՆԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ
               </h1>
-              <div className="line"></div>
-              <div className="user_feedbacks__wrapper">
-                {Feedbacks &&
-                  Feedbacks.map((feedback, key) => {
-                    return (
-                      <React.Fragment key={key}>
-                        <div className="feedback-item">
-                          <DynamicImages
-                            url={feedback.imageUrl}
-                            onClick={() => this.setState({ albumModal: key })}
-                            style={{ width: "100%" }}
-                          />
-                          {/* <img src={feedback.imageUrl} alt='Feedback user'/> */}
-                          <>
-                            <a href={feedback.link} className="feedback-name">
-                              <p>{feedback.username}</p>
-                            </a>
-                            <p>{feedback.comment}</p>
-                          </>
-                        </div>
-                      </React.Fragment>
-                    );
-                  })}
+              <div className="line"> </div>
+              <div>
+                {Feedbacks ? (
+                  <FeedbackCarousel
+                    infinite={true}
+                    responsive={responsive}
+                    afterChange={(previousSlide, { currentSlide, onMove }) => {
+                      this.setState({ currentSlide });
+                    }}
+                  >
+                    {Feedbacks.length &&
+                      Feedbacks.map((item, key) => {
+                        return (
+                          <div
+                            key={key}
+                            className="feedback-item"
+                            style={{ maxWidth: "97%", padding: "0 20px" }}
+                          >
+                            <DynamicImages url={item.imageUrl} />
+                            {/* <img src={item.imageUrl}/> */}
+                            {
+                              <>
+                                <a href={item.link} className="feedback-name">
+                                  <p>{item.username}</p>
+                                </a>
+                                <p align="center">{item.comment}</p>
+                              </>
+                            }
+                          </div>
+                        );
+                      })}
+                  </FeedbackCarousel>
+                ) : (
+                  <div align="center">loading...</div>
+                )}
               </div>
             </div>
           </div>

@@ -97,14 +97,14 @@ class Index extends React.Component {
       },
       desktop: {
         breakpoint: { max: 3000, min: 1024 },
-        items: 5,
+        items: 3,
       },
       tablet: {
-        breakpoint: { max: 1024, min: 464 },
+        breakpoint: { max: 1024, min: 750 },
         items: 2,
       },
       mobile: {
-        breakpoint: { max: 464, min: 0 },
+        breakpoint: { max: 750, min: 0 },
         items: 1,
       },
     };
@@ -1005,8 +1005,8 @@ class Index extends React.Component {
             ԿԱՐԾԻՔՆԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ
           </h1>
           <div className="line"> </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            {Feedbacks && (
+          <div>
+            {Feedbacks ? (
               <FeedbackCarousel
                 infinite={true}
                 responsive={responsive}
@@ -1020,7 +1020,7 @@ class Index extends React.Component {
                       <div
                         key={key}
                         className="feedback-item"
-                        style={{ maxWidth: 200 }}
+                        style={{ maxWidth: "97%", padding: "0 20px" }}
                       >
                         <DynamicImages url={item.imageUrl} />
                         {/* <img src={item.imageUrl}/> */}
@@ -1029,13 +1029,15 @@ class Index extends React.Component {
                             <a href={item.link} className="feedback-name">
                               <p>{item.username}</p>
                             </a>
-                            <p>{item.comment}</p>
+                            <p align="center">{item.comment}</p>
                           </>
                         }
                       </div>
                     );
                   })}
               </FeedbackCarousel>
+            ) : (
+              <div align="center">loading...</div>
             )}
           </div>
         </div>

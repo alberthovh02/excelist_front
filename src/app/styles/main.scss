@@ -14,6 +14,16 @@ span {
   word-wrap: break-word !important;
 }
 
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 20px;
+}
+
 body {
   width: 100%;
   font-family: Tahoma, Geneva, sans-serif;
@@ -376,6 +386,14 @@ body {
 .intro_partners {
   background-color: #ededed;
   padding: 0 77px;
+
+  @media screen and (max-width: 500px) {
+    padding: 0 50px;
+  }
+
+  @media screen and (max-width: 400px) {
+    padding: 0 30px;
+  }
 }
 
 .intro_benefits,
@@ -484,8 +502,13 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    object-fit: cover;
   }
-  width: 80px;
+  // width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   .feedback-name {
     font-weight: 700;
     font-size: 15px;

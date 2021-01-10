@@ -117,7 +117,7 @@ class Header extends React.Component {
 
   render() {
     const { Lessons, Courses, imageSource, searchField, redirect } = this.state;
-
+    console.log(Lessons, "lesssons");
     if (Courses && Courses.length && !imageSource && Lessons && Lessons[0]) {
       this.setState({
         imageSource: Courses.filter((item) => item._id === Lessons[0].lessonId),
@@ -170,10 +170,10 @@ class Header extends React.Component {
                       url={
                         imageSource && imageSource[0] && imageSource[0].imageUrl
                       }
-                      style={{ maxWidth: "180px" }}
+                      style={{ maxWidth: "270px" }}
                     />
                     {/* <img
-                      style={{ maxWidth: "180px" }}
+                      style={{ maxWidth: "270px" }}
                       src={
                         imageSource && imageSource[0] && imageSource[0].imageUrl
                       }

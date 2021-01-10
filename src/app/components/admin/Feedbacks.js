@@ -1,9 +1,13 @@
 import React from "react";
 import { Input, Button, message, Upload, Collapse, Modal, Form } from "antd";
-import { UploadOutlined, LoadingOutlined } from '@ant-design/icons'
+import { UploadOutlined, LoadingOutlined } from "@ant-design/icons";
 
 import { connect } from "react-redux";
-import { createFeedback, deleteFeedback, updateFeedback } from "../../../store/api";
+import {
+  createFeedback,
+  deleteFeedback,
+  updateFeedback,
+} from "../../../store/api";
 import {
   ActionCreator,
   DELETE,
@@ -43,7 +47,14 @@ class Feedbacks extends React.Component {
   handleForm = async (values, type, item) => {
     const { dispatch } = this.props;
     const { image } = this.state;
-    const { username, comment, link, edit_comment, edit_link, edit_username } = values
+    const {
+      username,
+      comment,
+      link,
+      edit_comment,
+      edit_link,
+      edit_username,
+    } = values;
 
     const data = new FormData();
     data.append("image", image);
@@ -91,7 +102,7 @@ class Feedbacks extends React.Component {
 
   deleteFeedback = async (item) => {
     const { dispatch } = this.props;
-    const response = await dispatch(DELETE(deleteFeedback(item._id)))
+    const response = await dispatch(DELETE(deleteFeedback(item._id)));
     if (response.code === 200) {
       await dispatch(ActionCreator(DELETE_FEEDBACK, item));
       message.success("Կարծիքը ջնջված է");
@@ -105,9 +116,14 @@ class Feedbacks extends React.Component {
   };
 
   render() {
-	const { Feedbacks } = this.props;
-  const { loading } = this.state;
-  if(!Feedbacks) return <div className='start-loader'><LoadingOutlined/></div>
+    const { Feedbacks } = this.props;
+    const { loading } = this.state;
+    if (!Feedbacks)
+      return (
+        <div className="start-loader">
+          <LoadingOutlined />
+        </div>
+      );
     return (
       <>
         <Collapse accordion>
@@ -118,7 +134,7 @@ class Feedbacks extends React.Component {
                   <div key={key} className="feedbacks-data">
                     <img
                       src={item.imageUrl}
-                      alt="image"
+                      alt="your img"
                       style={{ height: "8%", width: "8%" }}
                     />
                     <p>{item.username}</p>
@@ -145,7 +161,10 @@ class Feedbacks extends React.Component {
                     <Modal
                       title="Edit feedback"
                       visible={this.state.visible === item._id}
-                      okButtonProps={{htmlType: 'submit', form: 'update-feedback-form'}}
+                      okButtonProps={{
+                        htmlType: "submit",
+                        form: "update-feedback-form",
+                      }}
                       onCancel={this.handleCancel}
                       key={key}
                     >
@@ -153,28 +172,21 @@ class Feedbacks extends React.Component {
                         initialValues={{
                           edit_username: item.username,
                           edit_link: item.link,
-                          edit_comment: item.comment
+                          edit_comment: item.comment,
                         }}
-                        id='update-feedback-form'
-                        onFinish={(values) => this.handleForm(values, 'update', item)}
+                        id="update-feedback-form"
+                        onFinish={(values) =>
+                          this.handleForm(values, "update", item)
+                        }
                       >
-                        <Form.Item
-                            name="edit_username"
-                            label='User name'
-                        >
-                          <Input/>
+                        <Form.Item name="edit_username" label="User name">
+                          <Input />
                         </Form.Item>
-                        <Form.Item
-                            label="Comment link"
-                            name="edit_link"
-                        >
-                          <Input/>
+                        <Form.Item label="Comment link" name="edit_link">
+                          <Input />
                         </Form.Item>
-                        <Form.Item
-                            label="Feedback"
-                            name="edit_comment"
-                        >
-                          <TextArea/>
+                        <Form.Item label="Feedback" name="edit_comment">
+                          <TextArea />
                         </Form.Item>
                       </Form>
                     </Modal>
@@ -183,49 +195,52 @@ class Feedbacks extends React.Component {
               })}
           </Panel>
         </Collapse>
-        <Form layout='vertical' onFinish={(values) => this.handleForm(values, 'create')}>
+        <Form
+          layout="vertical"
+          onFinish={(values) => this.handleForm(values, "create")}
+        >
           <Form.Item
-              label={"Choose image"}
-              rules={[{required: true, message: "Image is required"}]}
+            label={"Choose image"}
+            rules={[{ required: true, message: "Image is required" }]}
           >
-          <Upload
-            onChange={this.onImageUpload}
-            multiple={false}
-            showUploadList={false}
-            customRequest={() =>
-              setTimeout(() => {
-                console.log("ok");
-              }, 0)
-            }
-          >
-            <Button>
-              <UploadOutlined name='image '/> Click to Upload
-            </Button>
-          </Upload>
+            <Upload
+              onChange={this.onImageUpload}
+              multiple={false}
+              showUploadList={false}
+              customRequest={() =>
+                setTimeout(() => {
+                  console.log("ok");
+                }, 0)
+              }
+            >
+              <Button>
+                <UploadOutlined name="image " /> Click to Upload
+              </Button>
+            </Upload>
           </Form.Item>
           <Form.Item
-              name="username"
-              label="User name"
-              rules={[{required: true, message: "User name is required"}]}
+            name="username"
+            label="User name"
+            rules={[{ required: true, message: "User name is required" }]}
           >
-            <Input/>
+            <Input />
           </Form.Item>
           <Form.Item
-              name="link"
-              label="Comment link"
-              rules={[{required: true, message: "User name is required"}]}
+            name="link"
+            label="Comment link"
+            rules={[{ required: true, message: "User name is required" }]}
           >
-            <Input/>
+            <Input />
           </Form.Item>
           <Form.Item
-              name="comment"
-              label="Feedback"
-              rules={[{required: true, message: "Feedback is required"}]}
+            name="comment"
+            label="Feedback"
+            rules={[{ required: true, message: "Feedback is required" }]}
           >
-            <TextArea/>
+            <TextArea />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType='submit' loading={loading}>
+            <Button type="primary" htmlType="submit" loading={loading}>
               ADD
             </Button>
           </Form.Item>

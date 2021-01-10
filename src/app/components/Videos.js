@@ -5,7 +5,7 @@ import { Spin, Pagination } from "antd";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
-import DynamicImages from './shared/DynamicImages';
+import DynamicImages from "./shared/DynamicImages";
 
 import Request from "../../store/request";
 
@@ -16,7 +16,7 @@ class Videos extends React.Component {
       data: [],
       language: null,
       title: null,
-      limit: 12
+      limit: 12,
       // slicedVideoblogs: []
     };
   }
@@ -25,13 +25,13 @@ class Videos extends React.Component {
     const language = window.location.search.split("=")[1];
     this.setState({ language });
     Request.get("video-blog/blogs-desc")
-      .then(response => response.json())
-      .then(result =>
+      .then((response) => response.json())
+      .then((result) =>
         this.setState({
-          data: result.filter(item => item.language === language)
+          data: result.filter((item) => item.language === language),
         })
       )
-      .catch(e => console.log(e));
+      .catch((e) => console.log(e));
   }
 
   render() {
@@ -39,21 +39,25 @@ class Videos extends React.Component {
     if (data && data.length && !this.state.slicedVideoblogs) {
       this.setState({ slicedVideoblogs: data.slice(0, 12) });
     }
-    const { slicedVideoblogs } = this.state;
+    const { slicedVideoblogs, limit } = this.state;
     let title = null;
     let subscribeText = null;
+
     switch (language) {
       case "arm":
         title = "Հայերեն վիդեոներ | Excelist";
-        subscribeText = 'Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ...';
+        subscribeText =
+          "Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ...";
         break;
       case "rus":
         title = "Русскоязычные видео | Excelist";
-        subscribeText = 'Подпишитесь /Subscribe/ на наш канал. Для получения файла, заполните форму...'
+        subscribeText =
+          "Подпишитесь /Subscribe/ на наш канал. Для получения файла, заполните форму...";
         break;
       default:
         title = "English videos | Excelist";
-        subscribeText = ' Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։ Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ...'
+        subscribeText =
+          " Բաժանորդագրվե’ք /Subscribe/ մեր յութուբյան ալիքին։ Հոլովակի ֆայլը ստանալու համար՝ լրացրե՛ք ...";
     }
     return (
       <div>
@@ -73,11 +77,10 @@ class Videos extends React.Component {
                     className="layout__content__card layout__content__card__small"
                   >
                     <a href={`/videoblogpost/${el.generatedUrl}`}>
-                    <DynamicImages 
-												url={el.imageUrl} 
+                      <DynamicImages
+                        url={el.imageUrl}
                         style={{ height: "100%", width: "90%" }}
-                        />
-                     
+                      />
                     </a>
                     <a
                       href={`/videoblogpost/${el.generatedUrl}`}
@@ -85,9 +88,7 @@ class Videos extends React.Component {
                     >
                       {el.title}
                     </a>
-                    <p className="blog-content">
-                      { subscribeText }
-                    </p>
+                    <p className="blog-content">{subscribeText}</p>
                     <a
                       className="blog-see-more"
                       href={`/videoblogpost/${el.generatedUrl}`}
@@ -104,27 +105,38 @@ class Videos extends React.Component {
                 style={{
                   display: "block",
                   marginLeft: "auto",
-                  marginRight: "auto"
+                  marginRight: "auto",
                 }}
               >
                 <Spin size="large" tip="Please wait data is loading..." />
               </div>
             )}
-            <div className='layout__pagination'>
-            {slicedVideoblogs && slicedVideoblogs.length && (
-              
-              <Pagination
-                defaultCurrent={1}
-                total={data && data.length}
-                pageSize={12}
-                onChange={(page, size) => {
-                  this.setState({
-                    slicedVideoblogs: data.slice((page - 1) * 12, page * size)
-                  });
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-              />
-            )}
+            <div className="layout__pagination">
+              {slicedVideoblogs && slicedVideoblogs.length && (
+                <Pagination
+                  onShowSizeChange={(current, pageSize) => {
+                    this.setState({
+                      limit: pageSize,
+                      slicedVideoblogs: data.slice(
+                        (current - 1) * pageSize,
+                        current * pageSize
+                      ),
+                    });
+                  }}
+                  defaultCurrent={1}
+                  total={data && data.length}
+                  pageSize={limit}
+                  onChange={(page, size) => {
+                    this.setState({
+                      slicedVideoblogs: data.slice(
+                        (page - 1) * 12,
+                        page * size
+                      ),
+                    });
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                />
+              )}
             </div>
           </div>
           <div className="layout__sidebar">
