@@ -1,4 +1,25 @@
+// **********   shields.io
+.shields-io {
+  display: flex;
+  font-size: 11px;
+  width: fit-content;
+  border-radius: 6px;
+  border: 1px solid white;
+  overflow: hidden;
 
+  div:nth-child(1) {
+    background: #5c5c5c;
+    color: #ffffff;
+    padding: 2px 6px;
+  }
+
+  div:nth-child(2) {
+    background: #0b7dbd;
+    color: #ffffff;
+    padding: 2px 6px;
+  }
+}
+//
 .certificates {
   &__input {
     // width: 40%;
@@ -8,9 +29,9 @@
     margin-right: 10px;
   }
   .layout__content {
-   display: flex;
-  //  width: 100%;
-   justify-content: center !important;
+    display: flex;
+    //  width: 100%;
+    justify-content: center !important;
   }
   &__views {
     display: flex;
