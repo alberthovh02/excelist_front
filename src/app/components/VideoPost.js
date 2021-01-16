@@ -74,8 +74,7 @@ class VideoPost extends React.Component {
                 </strong>
                 ։
               </p>
-
-              {data.file_link ? (
+              {data.file_link && (
                 <div>
                   <p>
                     {data.language === "rus" ? (
@@ -98,7 +97,15 @@ class VideoPost extends React.Component {
                     :
                   </p>
                 </div>
-              ) : !data.isEmpty ? (
+              )}
+
+              {data.about_video && (
+                <div className="about_video_text">
+                  <p>{data.about_video}</p>
+                </div>
+              )}
+
+              {data.is_macrolab && (
                 <div>
                   Մանրամասների համար դիմե՛ք․
                   <br />
@@ -107,7 +114,7 @@ class VideoPost extends React.Component {
                   📞 Tel: 093 18 88 95,
                   <br />✉ E-mail: info@macrolab.am
                 </div>
-              ) : null}
+              )}
             </div>
             <Interested parent="Videoblogs" />
 

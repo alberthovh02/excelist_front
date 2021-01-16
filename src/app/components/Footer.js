@@ -88,7 +88,7 @@ class Footer extends React.Component {
                   <br /> <p className="footer-info">msexcel_online</p>
                 </div>
               </div>
-              <div className="footer-contact" style={{ width: "60%" }}>
+              {/* <div className="footer-contact" style={{ width: "60%" }}>
                 <div className="fc_item">
                   <i className="fa fa-map-marker fa-2x"></i>
                   Հասցե
@@ -98,7 +98,7 @@ class Footer extends React.Component {
                     հարկ
                   </p>
                 </div>
-              </div>
+              </div> */}
               <SocialIcons mode="full" />
             </div>
             <div className="footer_coll_2 ">

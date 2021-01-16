@@ -132,6 +132,13 @@
 
 .videopost-container {
   width: 100%;
+  .layout__content {
+    flex-direction: column;
+  }
+}
+.about_video_text {
+  border-left: 4px solid lightgray;
+  padding-left: 5px;
 }
 
 .videoblog-video-wrapper {

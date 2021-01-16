@@ -114,7 +114,7 @@ class Feedback extends React.Component {
                   <br /> <p className="feedback-footer-info">msexcel_online</p>
                 </div>
               </div>
-              <div className="footer-contact" style={{ width: "60%" }}>
+              {/* <div className="footer-contact" style={{ width: "60%" }}>
                 <div className="fc_item">
                   <i
                     className="fa fa-map-marker fa-2x"
@@ -127,7 +127,7 @@ class Feedback extends React.Component {
                     հարկ
                   </p>
                 </div>
-              </div>
+              </div> */}
               <SocialIcons />
             </div>
             <div className="feedback-form">
