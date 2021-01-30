@@ -29,12 +29,29 @@ import DynamicImages from "./shared/DynamicImages";
 import Header from "./Header";
 import Footer from "./Footer";
 import Navbar from "./admin/Navbar";
+import Spiner from "../components/shared/Spiner";
 
 const createBrowserHistory = require("history");
 const { Panel } = Collapse;
 const history = createBrowserHistory.createBrowserHistory();
 const title = "Excelist.am";
 
+function listToMatrix(list, elementsPerSubArray) {
+  var matrix = [],
+    i,
+    k;
+
+  for (i = 0, k = -1; i < list.length; i++) {
+    if (i % elementsPerSubArray === 0) {
+      k++;
+      matrix[k] = [];
+    }
+
+    matrix[k].push(list[i]);
+  }
+
+  return matrix;
+}
 class Index extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +96,19 @@ class Index extends React.Component {
   }
 
   render() {
-    const { Lessons, Feedbacks, Albums, Blogs, Courses, Students } = this.props;
+    const {
+      Lessons,
+      Feedbacks,
+      Albums,
+      Blogs,
+      Courses,
+      Students,
+      SiteInfo,
+      BestExcelist,
+      Sponsor,
+      SponsorResponsive,
+    } = this.props;
+    const { address } = SiteInfo ? SiteInfo[0] : {};
     const { imageSource } = this.state;
     const FilteredBlogs = Blogs ? Blogs.slice(0, 4) : null;
     const FilteredCourses = Courses ? Courses.slice(0, 4) : null;
@@ -108,11 +137,14 @@ class Index extends React.Component {
         items: 1,
       },
     };
+
     if (Courses && Courses.length && !imageSource && Lessons && Lessons[0]) {
       this.setState({
         imageSource: Courses.filter((item) => item._id === Lessons[0].lessonId),
       });
     }
+
+    if (!this.props.SiteInfo && !this.props.Courses) return <Spiner />;
 
     return (
       <>
@@ -633,7 +665,7 @@ class Index extends React.Component {
             </p>
           </div>
         </div>
-
+        {console.log(BestExcelist)}
         <div className="intro_excelist">
           <h1 className="excelist_heading main_heading">
             ԼԱՎԱԳՈՒՅՆ ԷՔՍԵԼԻՍՏՆԵՐԻՑ ...
@@ -641,94 +673,41 @@ class Index extends React.Component {
           <div className="line"> </div>
           <div className="excelist_desc">
             <div className="our_team">
-              <div className="team_member">
-                <img
-                  src={require("../../assets/images/our_team/member-1.jpg")}
-                  alt="TEAM MEMBER"
-                />{" "}
-                <div className="member_name">
-                  <div className="innerTexts">
+              {BestExcelist && BestExcelist.length > 0 ? (
+                BestExcelist.map((member) => (
+                  <div className="team_member">
+                    <DynamicImages url={member.image} />
+                    <div className="member_name">
+                      <div className="innerTexts">
+                        <a
+                          href={member.facebook || "https://web.facebook.com"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa fa-facebook" />
+                        </a>
+                        <a
+                          href={member.linkedin || "https://www.linkedin.com/"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa fa-linkedin" />
+                        </a>
+                      </div>
+                    </div>
                     <a
-                      href="https://web.facebook.com/armen.petrosyan.25?_rdc=1&_rdr"
+                      href={`/our-team/${member._id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <i className="fa fa-facebook" />
+                      <p className="name-title">{member.name}</p>
                     </a>
-                    <a
-                      href="https://www.linkedin.com/in/armen-petrosyan-47751229/ru"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="fa fa-linkedin" />
-                    </a>
+                    <p>{member.company}</p>
                   </div>
-                </div>
-                <a href="/our-team/1" target="_blank">
-                  <p className="name-title">ԱՐՄԵՆ ՊԵՏՐՈՍՅԱՆ</p>
-                </a>
-                <p>Էքսելիստ</p>
-              </div>
-              <div className="team_member">
-                <img
-                  src={require("../../assets/images/our_team/member-2.jpg")}
-                  alt="TEAM MEMBER"
-                />{" "}
-                <div className="member_name">
-                  <div className="innerTexts">
-                    <a
-                      href="https://web.facebook.com/Mr.Excelist?_rdc=1&_rdr"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="fa fa-facebook" />
-                    </a>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                      <i className="fa fa-skype"></i>
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/excelist/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="fa fa-linkedin" />
-                    </a>
-                  </div>
-                </div>
-                <a href="/our-team/2" target="_blank">
-                  <p className="name-title">ՄԱՅԻՍ ՄԱՐԳԱՐՅԱՆ</p>
-                </a>
-                <p>Էքսելիստ</p>
-              </div>
-              <div className="team_member">
-                <img
-                  src={require("../../assets/images/our_team/member-3.jpg")}
-                  alt="TEAM MEMBER"
-                />
-                <dev className="member_name">
-                  <div className="innerTexts">
-                    <a
-                      href="https://web.facebook.com/arman.harutyunyan.y"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="fa fa-facebook" />
-                    </a>
-
-                    <a
-                      href="https://www.linkedin.com/in/arman-harutyunyan-439ba8151/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="fa fa-linkedin" />
-                    </a>
-                  </div>
-                </dev>
-                <a href="/our-team/3" target="_blank" rel="noopener noreferrer">
-                  <p className="name-title">ԱՐՄԱՆ ՀԱՐՈՒԹՅՈՒՆՅԱՆ</p>
-                </a>
-                <p>Էքսելիստ</p>
-              </div>
+                ))
+              ) : (
+                <center>Loadin ...</center>
+              )}
             </div>
           </div>
         </div>
@@ -763,6 +742,7 @@ class Index extends React.Component {
                   .concat(hour)
                   .concat(minutes)
                   .concat(night);
+
                 return (
                   <div
                     className="col-sm-12"
@@ -778,14 +758,15 @@ class Index extends React.Component {
                       </h1>
                       <div className="line"> </div>
                       <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          width: "85%",
-                          alignItems: "center",
-                        }}
+                        className="motaka"
+                        // style={{
+                        //   display: "flex",
+                        //   justifyContent: "space-between",
+                        //   width: "100%",
+                        //   alignItems: "center",
+                        // }}
                       >
-                        <div className="perfect_column_center">
+                        <div className="perfect_column_center motaka-first">
                           <Countdown
                             key={key}
                             timeTillDate={parsedDate}
@@ -804,14 +785,14 @@ class Index extends React.Component {
                             ԳՐԱՆՑՎԵԼ
                           </a>
                         </div>
-                        <div className="perfect_column_center">
+                        <div className="perfect_column_center motaka-second">
                           <DynamicImages
                             url={
                               imageSource &&
                               imageSource[0] &&
                               imageSource[0].imageUrl
                             }
-                            style={{ width: "50%" }}
+                            style={{ width: "100%" }}
                           />
                           {/* <img src={imageSource && imageSource[0] && imageSource[0].imageUrl}
                                                  style={{width: '50%'}}/> */}
@@ -830,171 +811,36 @@ class Index extends React.Component {
         <div className="intro_partners">
           <h1 className="about_heading main_heading">ՄԵՐ ԳՈՐԾԸՆԿԵՐՆԵՐԸ</h1>
           <div className="line"> </div>
+
           <div
             className="partners_desc"
             style={{ marginLeft: "auto", marginRight: "auto" }}
           >
             {window.innerWidth > 768 ? (
               <Carousel autoplay>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/ardshinbank.png")}
-                    alt="ardshinbank"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/idram.png")}
-                    alt="idram"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/inecobank.png")}
-                    alt="inecobank"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/ameriabank.png")}
-                    alt="ameriabank"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/ucom.png")}
-                    alt="ucom"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/kt.png")}
-                    alt="partners"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/alfa.png")}
-                    alt="alfa"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/unicef.png")}
-                    alt="unicef"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/aregak.png")}
-                    alt="aregak"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/card.png")}
-                    alt="card"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/nmc.png")}
-                    alt="nmc"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/msf.png")}
-                    alt="msf"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/viva.png")}
-                    alt="viva"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/hec.png")}
-                    alt="hec"
-                  />
-                  <img
-                    src={require("../../assets/images/partners/barsis.png")}
-                    alt="barsis"
-                  />
-                </div>
+                {Sponsor &&
+                  Sponsor.length &&
+                  Sponsor.map((item) => {
+                    return (
+                      <div className="partners_row">
+                        {item.map((subitem) => {
+                          return <DynamicImages url={subitem.image} />;
+                        })}
+                      </div>
+                    );
+                  })}
               </Carousel>
             ) : (
               <Carousel autoplay>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/ardshinbank.png")}
-                    alt="ardshinbank"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/idram.png")}
-                    alt="idram"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/inecobank.png")}
-                    alt="inecobank"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/ameriabank.png")}
-                    alt="ameriabank"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/ucom.png")}
-                    alt="ucom"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/kt.png")}
-                    alt="kt"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/alfa.png")}
-                    alt="alfa"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/unicef.png")}
-                    alt="unicef"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/aregak.png")}
-                    alt="aregak"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/card.png")}
-                    alt="card"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/nmc.png")}
-                    alt="nmc"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/msf.png")}
-                    alt="msf"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/viva.png")}
-                    alt="viva"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/hec.png")}
-                    alt="hec"
-                  />
-                </div>
-                <div className="partners_row">
-                  <img
-                    src={require("../../assets/images/partners/barsis.png")}
-                    alt="barsis"
-                  />
-                </div>
+                {SponsorResponsive &&
+                  SponsorResponsive.length &&
+                  SponsorResponsive.map((item) => {
+                    return (
+                      <div className="partners_row">
+                        <DynamicImages url={item.image} />;
+                      </div>
+                    );
+                  })}
               </Carousel>
             )}
           </div>
@@ -1151,21 +997,23 @@ class Index extends React.Component {
             </Collapse>
           </div>
         </div>
-
-        <div className="location perfect_column_center">
-          <h2 className="about_heading">ՈՐՏԵ՞Ղ ԵՆՔ ՄԵՆՔ</h2>
-          <div className="line"></div>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1815.4368315121103!2d44.50687889210344!3d40.17057009133478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406abc597a0402c5%3A0xf77ed062854e1e83!2sPress%20Building!5e0!3m2!1sru!2s!4v1578166442313!5m2!1sru!2s"
-            width="873"
-            height="580"
-            frameBorder="0"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            // eslint-disable-next-line react/jsx-no-duplicate-props
-            style={{ width: "80%" }}
-          />
-        </div>
+        {address && address.active && (
+          <div className="location perfect_column_center">
+            <h2 className="about_heading">ՈՐՏԵ՞Ղ ԵՆՔ ՄԵՆՔ</h2>
+            <div className="line"></div>
+            <iframe
+              title="This is a unique title"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1815.4368315121103!2d44.50687889210344!3d40.17057009133478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406abc597a0402c5%3A0xf77ed062854e1e83!2sPress%20Building!5e0!3m2!1sru!2s!4v1578166442313!5m2!1sru!2s"
+              width="873"
+              height="580"
+              frameBorder="0"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              // eslint-disable-next-line react/jsx-no-duplicate-props
+              style={{ width: "80%" }}
+            />
+          </div>
+        )}
 
         <div className="main-albums col-sm-12" style={{ paddingBottom: 30 }}>
           <h2 className="albums_heading">ՄԵՆՔ` ԼՈՒՍԱՆԿԱՐՆԵՐՈՎ</h2>
@@ -1405,6 +1253,10 @@ const get = (state) => {
     Blogs: state.Blogs,
     Courses: state.Courses,
     Students: state.SingleData,
+    SiteInfo: state.SiteInfo,
+    BestExcelist: state.BestExcelist,
+    Sponsor: state.Sponsor && listToMatrix(state.Sponsor, 5),
+    SponsorResponsive: state.Sponsor,
   };
 };
 

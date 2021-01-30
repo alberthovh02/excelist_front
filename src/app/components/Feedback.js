@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { connect } from "react-redux";
 import { message as toast, Button } from "antd";
 import Request from "../../store/request";
 
@@ -57,6 +58,19 @@ class Feedback extends React.Component {
 
   render() {
     const { loading } = this.state;
+    const { SiteInfo } = this.props;
+    const {
+      phone,
+      viber,
+      email,
+      skype,
+      address,
+      facebook,
+      telegram,
+      youtube,
+      linkedin,
+    } = SiteInfo ? SiteInfo[0] : {};
+
     return (
       <>
         <Helmet>
@@ -79,8 +93,7 @@ class Feedback extends React.Component {
                     phone
                   </i>
                   Հեռախոս
-                  <br />{" "}
-                  <p className="feedback-footer-info">+ 374 55 50 57 57</p>
+                  <br /> <p className="feedback-footer-info">{`+ ${phone}`}</p>
                 </div>
                 <div className="footer_viber fc_item">
                   <i
@@ -88,8 +101,7 @@ class Feedback extends React.Component {
                     style={{ color: "#217142", marginRight: 30 }}
                   />
                   Viber
-                  <br />{" "}
-                  <p className="feedback-footer-info">+374 55 50 57 57</p>
+                  <br /> <p className="feedback-footer-info">{`+ ${viber}`}</p>
                 </div>
               </div>
               <div className="footer-contact">
@@ -99,8 +111,7 @@ class Feedback extends React.Component {
                     style={{ color: "#217142" }}
                   />
                   Էլ. փոստ
-                  <br />{" "}
-                  <p className="feedback-footer-info">info@excelist.am</p>
+                  <br /> <p className="feedback-footer-info">{`${email}`}</p>
                 </div>
                 <div
                   className="footer_skype fc_item"
@@ -111,24 +122,29 @@ class Feedback extends React.Component {
                     style={{ color: "#217142" }}
                   />
                   Skype
-                  <br /> <p className="feedback-footer-info">msexcel_online</p>
+                  <br /> <p className="feedback-footer-info">{`${skype}`}</p>
                 </div>
               </div>
-              {/* <div className="footer-contact" style={{ width: "60%" }}>
-                <div className="fc_item">
-                  <i
-                    className="fa fa-map-marker fa-2x"
-                    style={{ color: "#217142" }}
-                  />
-                  Հասցե
-                  <br />
-                  <p className="feedback-footer-info">
-                    ք. Երևան, Արշակունյաց 2` «Տիգրան Մեծ» հրատարակչություն, 3-րդ
-                    հարկ
-                  </p>
+              {address && address.active && (
+                <div className="footer-contact" style={{ width: "60%" }}>
+                  <div className="fc_item">
+                    <i
+                      className="fa fa-map-marker fa-2x"
+                      style={{ color: "#217142" }}
+                    />
+                    Հասցե
+                    <br />
+                    <p className="feedback-footer-info">{address.name}</p>
+                  </div>
                 </div>
-              </div> */}
-              <SocialIcons />
+              )}
+              <SocialIcons
+                style={{ width: "160px" }}
+                facebook={facebook}
+                telegram={telegram}
+                youtube={youtube}
+                linkedin={linkedin}
+              />
             </div>
             <div className="feedback-form">
               <div className="feedback_heading_2">
@@ -191,18 +207,21 @@ class Feedback extends React.Component {
             </a>
           </div>
 
-          <div className="location">
-            <h2 className="about_heading">ՈՐՏԵ՞Ղ ԵՆՔ ՄԵՆՔ</h2>
-            <div className="line"> </div>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1815.4368315121103!2d44.50687889210344!3d40.17057009133478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406abc597a0402c5%3A0xf77ed062854e1e83!2sPress%20Building!5e0!3m2!1sru!2s!4v1578166442313!5m2!1sru!2s"
-              width="873"
-              height="480"
-              frameBorder="0"
-              style={{ border: 0 }}
-              allowFullScreen={false}
-            />
-          </div>
+          {address && address.active && (
+            <div className="location">
+              <h2 className="about_heading">ՈՐՏԵ՞Ղ ԵՆՔ ՄԵՆՔ</h2>
+              <div className="line"> </div>
+              <iframe
+                title="This is a unique title"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1815.4368315121103!2d44.50687889210344!3d40.17057009133478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406abc597a0402c5%3A0xf77ed062854e1e83!2sPress%20Building!5e0!3m2!1sru!2s!4v1578166442313!5m2!1sru!2s"
+                width="873"
+                height="480"
+                frameBorder="0"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+              />
+            </div>
+          )}
         </div>
         <Footer mode="simple" />
       </>
@@ -210,4 +229,8 @@ class Feedback extends React.Component {
   }
 }
 
-export default Feedback;
+const get = (state) => {
+  return { Courses: state.Courses, SiteInfo: state.SiteInfo };
+};
+
+export default connect(get)(Feedback);

@@ -474,11 +474,11 @@ class VideoBlogAdmin extends React.Component {
           <Form.Item name="about_video" label="Գրեք որևէ տեղեկատվություն">
             <Input />
           </Form.Item>
-          <Form.Item>
+          {/* <Form.Item>
             <Checkbox checked={this.state.checked} onChange={this.onChange}>
               Մակրոլաբ
             </Checkbox>
-          </Form.Item>
+          </Form.Item> */}
 
           {/* <Form.Item name="radio" label={"Content type"}>
             <Radio.Group

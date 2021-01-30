@@ -38,13 +38,28 @@
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
+
+    .ant-descriptions.ant-descriptions-small.ant-descriptions-bordered {
+      width: 100%;
+      .ant-descriptions-row {
+        .ant-descriptions-item-label {
+          width: 150px;
+        }
+      }
+    }
+
     &__table {
       // max-width: 300px;
       // min-width: 50%;
       display: flex;
-      justify-content: center !important;
+      // justify-content: center !important;
       align-items: center;
-      min-width: 450px !important;
+      // min-width: 450px !important;
+      min-width: 500px !important;
+
+      @media screen and (max-width: 500px) {
+        min-width: 320px !important;
+      }
       &__title {
         text-align: center !important;
       }

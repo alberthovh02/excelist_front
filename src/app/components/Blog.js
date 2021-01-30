@@ -59,29 +59,26 @@ class Blog extends React.Component {
                         url={el.imageUrl}
                         style={{ height: "100%", width: "90%" }}
                       />
-                      {/* <img
-                              src={el.imageUrl}
-                              alt="image"
-                              style={{ height: "100%", width: "90%" }}
-                            /> */}
                     </a>
                     <a
                       className="blog-link"
                       href={`/blogpost/${el.generatedUrl}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {el.title}
                     </a>
                     <p
                       className="blog-content"
                       dangerouslySetInnerHTML={{
-                        __html: `${el.content.slice(0, 150)} ...`,
+                        __html: `${el.content && el.content.slice(0, 150)} ...`,
                       }}
                     ></p>
                     <a
                       className="blog-see-more"
                       href={`/blogpost/${el.generatedUrl}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Ավելին …
                     </a>

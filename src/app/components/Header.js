@@ -117,7 +117,19 @@ class Header extends React.Component {
 
   render() {
     const { Lessons, Courses, imageSource, searchField, redirect } = this.state;
-    console.log(Lessons, "lesssons");
+    const { SiteInfo } = this.props;
+    const {
+      phone,
+      viber,
+      email,
+      skype,
+      address,
+      facebook,
+      youtube,
+      telegram,
+      linkedin,
+    } = SiteInfo ? SiteInfo[0] : {};
+
     if (Courses && Courses.length && !imageSource && Lessons && Lessons[0]) {
       this.setState({
         imageSource: Courses.filter((item) => item._id === Lessons[0].lessonId),
@@ -288,15 +300,20 @@ class Header extends React.Component {
         </div>
         <div className="header_text">
           <div className="phone_contact">
-            Ունե՞ք հարցեր <i className="material-icons phone_icon">phone</i>{" "}
-            +374 55 50 57 57
+            <>
+              Ունե՞ք հարցեր <i className="material-icons phone_icon">phone</i>{" "}
+              {`+ ${phone || "374 55 50 57 57"}`}
+            </>
           </div>
-          <div className="socials">
-            <a
-              href="https://www.facebook.com/Excel.lessons/?fref=ts"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+          <div
+            className="socials"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <a href={facebook || "#"} target="_blank" rel="noopener noreferrer">
               <span
                 className="zoom-social_icons-list-span socicon fa fa-facebook"
                 data-hover-rule="background-color"
@@ -307,17 +324,15 @@ class Header extends React.Component {
                   padding: "8px",
                   borderRadius: "100px",
                   color: "white",
+                  width: "35px",
+                  height: "35px",
                 }}
                 data-old-color="rgb(59, 89, 152)"
                 aria-hidden="true"
               />
             </a>
 
-            <a
-              href="https://www.youtube.com/channel/UCIhWQ4k5FSaXrn8uKuLin7A"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={youtube || "#"} target="_blank" rel="noopener noreferrer">
               <span
                 className="zoom-social_icons-list-span fa fa-youtube"
                 data-hover-rule="background-color"
@@ -328,9 +343,18 @@ class Header extends React.Component {
                   padding: "8px",
                   borderRadius: "100px",
                   color: "white",
+                  width: "35px",
+                  height: "35px",
                 }}
                 data-old-color="rgb(224, 42, 32)"
                 aria-hidden="true"
+              />
+            </a>
+            <a href={telegram || "#"} target="_blank" rel="noopener noreferrer">
+              <img
+                src={require("../../assets/images/social/telegram.svg")}
+                width="33"
+                alt="Arm"
               />
             </a>
           </div>
@@ -441,7 +465,11 @@ class Header extends React.Component {
 }
 
 const get = (state) => {
-  return { Courses: state.Courses, Lessons: state.Lessons };
+  return {
+    Courses: state.Courses,
+    Lessons: state.Lessons,
+    SiteInfo: state.SiteInfo,
+  };
 };
 
 export default connect(get)(Header);

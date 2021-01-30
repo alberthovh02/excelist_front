@@ -54,6 +54,18 @@ class SingleCourse extends React.Component {
 
   render() {
     const { data } = this.state;
+    const { SiteInfo } = this.props;
+    const {
+      phone,
+      viber,
+      email,
+      skype,
+      address,
+      facebook,
+      telegram,
+      youtube,
+      linkedin,
+    } = SiteInfo ? SiteInfo[0] : {};
     if (!data)
       return (
         <>
@@ -84,7 +96,7 @@ class SingleCourse extends React.Component {
         <Header />
 
         <div className="layout">
-          <div className="layout__content">
+          <div className="layout__content single-lesson-wrap">
             <h2 className="singleLesson__title">{data.title}</h2>
             <div style={{ width: "100%", height: "250px" }}>
               <DynamicImages
@@ -104,7 +116,7 @@ class SingleCourse extends React.Component {
                 dangerouslySetInnerHTML={{ __html: data.content }}
               ></div>
             </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="grancvel">
               <a
                 className="register-for-lesson"
                 href="/register"
@@ -113,6 +125,8 @@ class SingleCourse extends React.Component {
                 <i className="fa fa-user-plus" style={{ color: "white" }}></i>
                 ԳՐԱՆՑՎԵԼ
               </a>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
               <br />
               <div className="feedback-first-line singleblog-content">
                 <blockquote>ՈՒՆԵ՞Ք ՀԱՐՑԵՐ</blockquote>
@@ -126,7 +140,7 @@ class SingleCourse extends React.Component {
                     </i>
                     Հեռախոս
                     <br />{" "}
-                    <p className="feedback-footer-info">+ 374 55 50 57 57</p>
+                    <p className="feedback-footer-info">{`+ ${phone}`}</p>
                   </div>
                   <div className="footer_viber fc_item ">
                     <i
@@ -135,7 +149,7 @@ class SingleCourse extends React.Component {
                     ></i>
                     Viber
                     <br />{" "}
-                    <p className="feedback-footer-info">+374 55 50 57 57</p>
+                    <p className="feedback-footer-info">{`+ ${viber}`}</p>
                   </div>
                 </div>
                 <div className="footer-contact footer-contact-single-course">
@@ -145,8 +159,7 @@ class SingleCourse extends React.Component {
                       style={{ color: "#217142" }}
                     ></i>
                     Էլ. փոստ
-                    <br />{" "}
-                    <p className="feedback-footer-info">info@excelist.am</p>
+                    <br /> <p className="feedback-footer-info">{`${email}`}</p>
                   </div>
                   <div
                     className="footer_skype fc_item"
@@ -157,23 +170,27 @@ class SingleCourse extends React.Component {
                       style={{ color: "#217142" }}
                     ></i>
                     Skype
-                    <br />{" "}
-                    <p className="feedback-footer-info">msexcel_online</p>
+                    <br /> <p className="feedback-footer-info">{`${skype}`}</p>
                   </div>
                 </div>
-                <div className="footer-contact-address">
-                  <i
-                    className="fa fa-map-marker fa-2x"
-                    style={{ color: "#217142" }}
-                  ></i>
-                  Հասցե
-                  <br />
-                  <p className="feedback-footer-info">
-                    ք. Երևան, Արշակունյաց 2` «Տիգրան Մեծ» հրատարակչություն, 3-րդ
-                    հարկ
-                  </p>
-                </div>
-                <SocialIcons style={{ width: "20%" }} />
+                {address && address.active && (
+                  <div className="footer-contact-address">
+                    <i
+                      className="fa fa-map-marker fa-2x"
+                      style={{ color: "#217142" }}
+                    ></i>
+                    Հասցե
+                    <br />
+                    <p className="feedback-footer-info">{address.name}</p>
+                  </div>
+                )}
+                <SocialIcons
+                  style={{ width: "160px" }}
+                  facebook={facebook}
+                  telegram={telegram}
+                  youtube={youtube}
+                  linkedin={linkedin}
+                />
               </div>
             </div>
             <Interested parent="Courses" />
@@ -191,7 +208,7 @@ class SingleCourse extends React.Component {
 }
 
 const get = (state) => {
-  return { Courses: state.Courses };
+  return { Courses: state.Courses, SiteInfo: state.SiteInfo };
 };
 
 export default connect(get)(SingleCourse);

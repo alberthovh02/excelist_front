@@ -1,5 +1,7 @@
 .get_files_button {
-  padding: 12px 25px;
+  box-sizing: border-box;
+  font-size: 1.15em;
+  padding: 1em 2em;
   background: -webkit-gradient(
     linear,
     left bottom,
@@ -7,14 +9,19 @@
     color-stop(0, #154a2b),
     color-stop(1, #217142)
   );
-  box-sizing: border-box;
-  font-size: 0.7em;
   color: #fff;
   cursor: pointer;
   text-align: center;
   margin-top: 20px;
   border-radius: 5px;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  > i {
+    font-size: 1.3em;
+    margin-right: 10px;
+  }
 
   @media screen and (max-width: 280px) {
     padding: 21px 21px;
@@ -22,7 +29,9 @@
 }
 
 .get-files-btn {
-  padding: 10px;
+  box-sizing: border-box;
+  font-size: 0.7em;
+  padding: 15px 25px;
   background: -webkit-gradient(
     linear,
     left bottom,
@@ -31,7 +40,6 @@
     color-stop(1, #217142)
   );
   box-sizing: border-box;
-  font-size: 0.7em;
   color: #fff;
   cursor: pointer;
   text-align: center;

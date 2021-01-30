@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Input, message as toast, Button } from "antd";
+import { connect } from "react-redux";
 import Request from "../../store/request";
 import SocialIcons from "./shared/SocialIcons";
 const { TextArea } = Input;
@@ -50,8 +51,21 @@ class Footer extends React.Component {
     }
   };
   render() {
-    const { mode } = this.props;
     const { loading } = this.state;
+
+    const { SiteInfo, mode } = this.props;
+    const {
+      phone,
+      viber,
+      email,
+      skype,
+      address,
+      facebook,
+      youtube,
+      telegram,
+      linkedin,
+    } = SiteInfo ? SiteInfo[0] : {};
+
     return (
       <footer className="footer">
         {mode === "main" ? (
@@ -65,19 +79,32 @@ class Footer extends React.Component {
                 <div className="footer_phone fc_item">
                   <i className="material-icons md-36">phone</i>
                   Հեռախոս
-                  <br /> <p className="footer-info">+ 374 55 50 57 57</p>
+                  <br />{" "}
+                  {phone ? (
+                    <a href={`tel:${phone}`} className="footer-info">
+                      {`+ ${phone}`}
+                    </a>
+                  ) : (
+                    "loading..."
+                  )}
                 </div>
                 <div className="footer_viber fc_item">
                   <i className="fa fa-phone-square fa-2x"></i>
                   Viber
-                  <br /> <p className="footer-info">+374 55 50 57 57</p>
+                  <br />
+                  {viber ? (
+                    <p className="footer-info">{`+ ${viber}`}</p>
+                  ) : (
+                    "..."
+                  )}
                 </div>
               </div>
               <div className="footer-contact">
                 <div className="footer_mail fc_item">
                   <i className="fa fa-envelope fa-2x"></i>
                   Էլ. փոստ
-                  <br /> <p className="footer-info">info@excelist.am</p>
+                  <br />
+                  {email ? <p className="footer-info">{`${email}`}</p> : "..."}
                 </div>
                 <div
                   className="footer_skype fc_item"
@@ -85,21 +112,28 @@ class Footer extends React.Component {
                 >
                   <i className="fa fa-skype fa-2x"></i>
                   Skype
-                  <br /> <p className="footer-info">msexcel_online</p>
+                  <br />
+                  {skype ? <p className="footer-info">{`${skype}`}</p> : "..."}
                 </div>
               </div>
-              {/* <div className="footer-contact" style={{ width: "60%" }}>
-                <div className="fc_item">
-                  <i className="fa fa-map-marker fa-2x"></i>
-                  Հասցե
-                  <br />
-                  <p className="footer-info">
-                    ք. Երևան, Արշակունյաց 2` «Տիգրան Մեծ» հրատարակչություն, 3-րդ
-                    հարկ
-                  </p>
+              {address && address.active && (
+                <div className="footer-contact" style={{ width: "60%" }}>
+                  <div className="fc_item">
+                    <i className="fa fa-map-marker fa-2x"></i>
+                    Հասցե
+                    <br />
+                    <p className="footer-info">{address.name}</p>
+                  </div>
                 </div>
-              </div> */}
-              <SocialIcons mode="full" />
+              )}
+              <SocialIcons
+                style={{ width: "250px" }}
+                mode="full"
+                facebook={facebook}
+                linkedin={linkedin}
+                youtube={youtube}
+                telegram={telegram}
+              />
             </div>
             <div className="footer_coll_2 ">
               <div className="footer_heading_2">
@@ -181,4 +215,8 @@ class Footer extends React.Component {
   }
 }
 
-export default Footer;
+const get = (state) => {
+  return { SiteInfo: state.SiteInfo };
+};
+
+export default connect(get)(Footer);

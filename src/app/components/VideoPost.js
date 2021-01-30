@@ -74,7 +74,7 @@ class VideoPost extends React.Component {
                 </strong>
                 ։
               </p>
-              {data.file_link && (
+              {data.file_link && data.file_link !== "undefined" && (
                 <div>
                   <p>
                     {data.language === "rus" ? (
@@ -99,7 +99,7 @@ class VideoPost extends React.Component {
                 </div>
               )}
 
-              {data.about_video && (
+              {data.about_video && data.about_video !== "undefined" && (
                 <div className="about_video_text">
                   <p>{data.about_video}</p>
                 </div>
