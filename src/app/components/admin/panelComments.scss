@@ -1,0 +1,11 @@
+.panel-comments {
+  .comments-block {
+    display: flex;
+    justify-content: space-between;
+    background: lightgray;
+    margin: 0 0 10px 0;
+    border-radius: 10px;
+    padding: 5px 10px 5px 5px;
+    align-items: center;
+  }
+}

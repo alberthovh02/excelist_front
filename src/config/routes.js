@@ -32,6 +32,7 @@ import BlogAdmin from "../app/components/admin/Blog";
 import Course from "../app/components/admin/Course";
 import Certificate from "../app/components/admin/Certificate";
 import Images from "../app/components/admin/Images";
+import PanelComments from "../app/components/admin/PanelComments";
 
 export const PublicRoutes = [
   { id: 1, path: `/`, component: Main },
@@ -63,6 +64,7 @@ export const PrivateRoutes = [
   { id: 3, path: "/dashboard/siteinfo", component: SiteInfo },
   { id: 4, path: "/dashboard/feedbacks", component: Feedbacks },
   { id: 5, path: "/dashboard/subscribes", component: SubscribedUsers },
+  { id: 5, path: "/dashboard/comments", component: PanelComments },
   { id: 6, path: "/dashboard/registered_users", component: RegisteredUsers },
   { id: 7, path: "/dashboard/video-blog", component: VideoBlogAdmin },
   { id: 8, path: "/dashboard/blogs", component: BlogAdmin },

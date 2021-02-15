@@ -195,7 +195,13 @@ class SingleCourse extends React.Component {
             </div>
             <Interested parent="Courses" />
 
-            {data._id && <Comments parentId={data._id} parentType="course" />}
+            {data._id && (
+              <Comments
+                parentId={data._id}
+                parentType="course"
+                parentTitle={data && data.title}
+              />
+            )}
           </div>
           <div className="layout__sidebar">
             <Sidebar />

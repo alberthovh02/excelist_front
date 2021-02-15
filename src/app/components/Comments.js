@@ -15,17 +15,25 @@ class Comments extends React.Component {
       name: "",
       email: "",
       parentId: this.props.parentId,
-      parentType: this.props.parentType
+      parentType: this.props.parentType,
+      parentTitle: this.props.parentTitle,
     };
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
   handleSubmit = async () => {
-    const { comment, name, email, parentId, parentType } = this.state;
+    const {
+      comment,
+      name,
+      email,
+      parentId,
+      parentType,
+      parentTitle,
+    } = this.state;
     const { dispatch } = this.props;
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var valid = re.test(email);
@@ -37,7 +45,7 @@ class Comments extends React.Component {
       message.error("Խնդրում ենք լրացրեք բոլոր դաշտերը");
       return false;
     }
-    const data = { comment, name, email, parentId, parentType };
+    const data = { comment, name, email, parentId, parentType, parentTitle };
     const response = await dispatch(POST(createComment, data));
     if (response.code === 200) {
       message.success("Մեկնաբանությունը հաջողությամբ ավելացվել է");
@@ -118,7 +126,7 @@ class Comments extends React.Component {
   }
 }
 
-const get = state => {
+const get = (state) => {
   return { Comments: state.Comments };
 };
 

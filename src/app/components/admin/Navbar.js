@@ -12,6 +12,7 @@ import {
   BookOutlined,
   FileImageOutlined,
   LogoutOutlined,
+  CommentOutlined,
 } from "@ant-design/icons";
 
 class Navbar extends React.Component {
@@ -96,6 +97,12 @@ class Navbar extends React.Component {
           <Link to="/dashboard/images">
             <FileImageOutlined />
             Ալբոմներ
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="/comments">
+          <Link to="/dashboard/comments">
+            <CommentOutlined />
+            Մեկնաբանություններ
           </Link>
         </Menu.Item>
         <Menu.Item key="/siteinfo">

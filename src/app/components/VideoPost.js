@@ -119,7 +119,11 @@ class VideoPost extends React.Component {
             <Interested parent="Videoblogs" />
 
             {data._id && (
-              <Comments parentId={data._id} parentType="videoblog" />
+              <Comments
+                parentId={data._id}
+                parentType="videoblog"
+                parentTitle={data && data.title}
+              />
             )}
           </div>
 
