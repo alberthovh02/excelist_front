@@ -11,10 +11,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import Store from "./store/reducers";
 
-const store = createStore(
-  Store,
-  compose(applyMiddleware(thunk), composeWithDevTools())
-);
+const store = createStore(Store, compose(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
