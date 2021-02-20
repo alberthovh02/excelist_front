@@ -371,7 +371,7 @@ class Header extends React.Component {
 
             <div className="navbar-collapse collapse" id="navbarTogglerDemo03">
               <span id="hover-line" />
-              <ul className="navbar-nav mr-auto mt-2 mt-lg-0 myNav">
+              <ul className="navbar-nav ml-auto mt-2 mt-lg-0 myNav">
                 <li className="nav-item">
                   <NavLink to="/about">ՄԵՐ ՄԱՍԻՆ</NavLink>
                 </li>

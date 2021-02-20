@@ -837,7 +837,7 @@ class Index extends React.Component {
                   SponsorResponsive.map((item) => {
                     return (
                       <div className="partners_row">
-                        <DynamicImages url={item.image} />;
+                        <DynamicImages url={item.image} />
                       </div>
                     );
                   })}
