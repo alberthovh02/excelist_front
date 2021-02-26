@@ -10,7 +10,17 @@ h4,
 h5,
 h6,
 p,
-span {
+span,
+strong,
+em,
+b,
+i,
+mark,
+small,
+del,
+ins,
+sub,
+sup {
   word-wrap: break-word !important;
 }
 
