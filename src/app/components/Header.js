@@ -136,34 +136,55 @@ class Header extends React.Component {
       });
     }
     if (Courses && Courses.length > 0) {
+      let leftSide = Courses.slice(0, Courses.length / 2);
+      let rigthSide = Courses.slice(Courses.length / 2);
+
       var menu = (
         <div style={{ background: "white" }} className="navbar-lessons">
           <div className="navbar-lessons-links-wrapper">
-            {Courses &&
-              Courses.length &&
-              Courses.map((item, key) => {
-                return (
-                  <React.Fragment key={Math.random()}>
-                    {key > 8 && key < 16 ? (
-                      <div
-                        key={key}
-                        className="navbar-lessons-link__sideblock"
-                        // style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}
-                      >
-                        <a href={`/course/${item._id}`}>{item.title}</a>
-                      </div>
-                    ) : (
-                      <div
-                        key={key}
-                        className="navbar-lessons-link"
-                        // style={ key>=8 && key + 1 % 8 > 1 ? {display: 'inline-block'} :{}}
-                      >
-                        <a href={`/course/${item._id}`}>{item.title}</a>
-                      </div>
-                    )}
-                  </React.Fragment>
-                );
-              })}
+            {/* {Courses && Courses.length 
+
+
+              ? Courses.map((item, key) => {
+                  return ( */}
+            <React.Fragment key={Math.random()}>
+              <div style={{ width: "100%" }}>
+                {leftSide &&
+                  leftSide.map((item, key) => (
+                    <div key={key} className="navbar-lessons-link">
+                      <a href={`/course/${item._id}`}>{item.title}</a>
+                    </div>
+                  ))}
+              </div>
+
+              <div style={{ width: "100%" }}>
+                {rigthSide &&
+                  rigthSide.map((item, key) => (
+                    <div key={key} className="navbar-lessons-link">
+                      <a href={`/course/${item._id}`}>{item.title}</a>
+                    </div>
+                  ))}
+              </div>
+
+              {/* {key > 8 && key < 16 ? (
+                        <div
+                          key={key}
+                          className="navbar-lessons-link__sideblock"
+                        >
+                          <a href={`/course/${item._id}`}>{item.title}</a>
+                        </div>
+                      ) : (
+                        <div
+                          key={key}
+                          className="navbar-lessons-link"
+                        >
+                          <a href={`/course/${item._id}`}>{item.title}</a>
+                        </div>
+                      )} */}
+            </React.Fragment>
+            {/* );
+                })
+              : null} */}
           </div>
           {Lessons &&
             Lessons[0] &&

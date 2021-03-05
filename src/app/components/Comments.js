@@ -50,6 +50,7 @@ class Comments extends React.Component {
     if (response.code === 200) {
       message.success("Մեկնաբանությունը հաջողությամբ ավելացվել է");
       await dispatch(ActionCreator(CREATE_COMMENT, response.data));
+      this.setState({ comment: "", name: "", email: "" });
     } else {
       message.error({ content: "Ինչ որ բան գնաց ոչ այնպես" });
     }
@@ -71,6 +72,7 @@ class Comments extends React.Component {
               placeholder="Մեկնաբանություն"
               name="comment"
               onChange={this.handleChange}
+              value={this.state.comment}
             />
           </Form.Item>
           <Form.Item className="commentbox__form__secondline">
@@ -79,12 +81,14 @@ class Comments extends React.Component {
               placeholder="Անուն"
               onChange={this.handleChange}
               className="commentbox__form__input"
+              value={this.state.name}
             />
             <Input
               name="email"
               placeholder="Էլ. փոստ"
               onChange={this.handleChange}
               className="commentbox__form__input"
+              value={this.state.email}
             />
             <button
               className="commentbox__form__button"

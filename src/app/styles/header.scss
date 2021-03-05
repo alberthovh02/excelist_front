@@ -200,8 +200,8 @@ header {
 
 .navbar-lessons-link {
   &__sideblock {
-    width: 45%;
-    display: inline-block;
+    width: 100%;
+    // display: inline-block;
     a {
       color: #999;
       padding: 8px 0;
@@ -211,7 +211,7 @@ header {
       }
     }
   }
-  width: 45%;
+  width: 100%;
   display: inline-block;
   // background: red;
   a {
@@ -226,6 +226,9 @@ header {
 
 .navbar-lessons-links-wrapper {
   width: fit-content;
+  display: grid;
+  grid-template-columns: 46% 46%;
+  grid-gap: 10px;
 }
 
 .soon-lesson-title {

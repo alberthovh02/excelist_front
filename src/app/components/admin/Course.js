@@ -10,6 +10,7 @@ import {
   Descriptions,
   InputNumber,
 } from "antd";
+import ImgCrop from "antd-img-crop";
 import ReactQuill from "react-quill";
 import { LoadingOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
@@ -18,6 +19,7 @@ import {
   deleteCourse,
   updateCourse,
   updateCourseOrder,
+  updateCourseAndImage,
 } from "../../../store/api";
 import {
   ActionCreator,
@@ -31,8 +33,10 @@ import {
   UPDATE_COURSE,
 } from "../../../store/actionTypes";
 import { UploadOutlined } from "@ant-design/icons";
+import DynamicImages from "../shared/DynamicImages";
 
 const { Panel } = Collapse;
+const mainRoute = "https://api.excelist.am/api/v1/public";
 
 // const Map = () => {
 //   return (
@@ -92,6 +96,24 @@ class AdminCourse extends React.Component {
       caption: null,
       visible: null,
       loading: false,
+      inner: [
+        {
+          uid: null,
+          name: null,
+          status: "done",
+          url: null,
+        },
+      ],
+      innerImage: null,
+      menu: [
+        {
+          uid: null,
+          name: null,
+          status: "done",
+          url: null,
+        },
+      ],
+      menuImage: null,
     };
   }
 
@@ -160,29 +182,72 @@ class AdminCourse extends React.Component {
   };
 
   handleOk = async () => {
-    const { edit_text, edit_title, visible } = this.state;
+    const {
+      edit_text,
+      edit_title,
+      visible,
+      // innerImage,
+      menuImage,
+    } = this.state;
+
+    console.log(this.state, "sssssssssssssssssS");
+
     const { dispatch } = this.props;
     if (!edit_text && !edit_title) {
       message.error("Please fill form");
       return false;
     }
-    let data = {};
-    if (edit_title) data.title = edit_title;
-    if (edit_text) data.text = edit_text;
+    // if (innerImage) {
+    //   data.append("innerImage", innerImage);
+    // }
+    if (menuImage) {
+      // *******************************************************
+      const data = new FormData();
+      data.append("menuImage", menuImage);
 
-    const response = await dispatch(PUT(updateCourse(visible), data));
-    if (response.code !== 200) {
-      message.error("Something went wrong");
-      return false;
+      if (edit_title) data.append("title", edit_title);
+      if (edit_text) data.append("text", edit_text);
+
+      const response = await dispatch(
+        PUT(updateCourseAndImage(visible), data, true)
+      );
+      if (response.code !== 200) {
+        message.error("Something went wrong");
+        return false;
+      }
+
+      message.success("Edited");
+      this.setState({
+        edit_title: null,
+        edit_text: null,
+        visible: false,
+        menuImage: null,
+        innerImage: null,
+      });
+      await dispatch(ActionCreator(UPDATE_COURSE, response.data));
+      // *********************************************************
+    } else {
+      // *********************************************************
+      const data = {};
+      data.title = edit_title;
+      data.text = edit_text;
+      const response = await dispatch(PUT(updateCourse(visible), data));
+      if (response.code !== 200) {
+        message.error("Something went wrong");
+        return false;
+      }
+
+      message.success("Edited");
+      this.setState({
+        edit_title: null,
+        edit_text: null,
+        visible: false,
+        menuImage: null,
+        innerImage: null,
+      });
+      await dispatch(ActionCreator(UPDATE_COURSE, response.data));
+      // *****************************************************
     }
-
-    message.success("Edited");
-    this.setState({
-      edit_title: null,
-      edit_text: null,
-      visible: false,
-    });
-    await dispatch(ActionCreator(UPDATE_COURSE, response.data));
   };
 
   changeOrder = async (itemId) => {
@@ -199,9 +264,80 @@ class AdminCourse extends React.Component {
     await dispatch(ActionCreator(UPDATE_COURSE, response.data));
   };
 
+  // onChangeInnerImage = (info) => {
+  //   if (info.file.status === "removed") {
+  //     this.setState({ innerImage: null, inner: [] });
+  //   }
+  //   const isJpgOrPng =
+  //     info.file.type === "image/jpeg" || info.file.type === "image/png";
+  //   const isLt2M = info.file.size / 1024 / 1024 < 2;
+
+  //   if (!isJpgOrPng || !isLt2M) return false;
+  //   console.log(info, "inner");
+  //   if (info.file.status === "uploading") {
+  //     this.setState({ innerImage: info.file.originFileObj });
+  //   }
+  //   this.setState({
+  //     inner: info.fileList,
+  //   });
+  // };
+
+  onChangeMenuImage = (info) => {
+    if (info.file.status === "removed") {
+      this.setState({ menuImage: null, menu: [] });
+    }
+    const isJpgOrPng =
+      info.file.type === "image/jpeg" || info.file.type === "image/png";
+    const isLt2M = info.file.size / 1024 / 1024 < 2;
+
+    if (!isJpgOrPng || !isLt2M) return false;
+
+    console.log(info, "menu");
+    if (info.file.status === "uploading") {
+      this.setState({ menuImage: info.file.originFileObj });
+    }
+    this.setState({
+      menu: info.fileList,
+    });
+  };
+
+  onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow.document.write(image.outerHTML);
+  };
+
+  beforeUpload = (file) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG file!");
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error("Image must smaller than 2MB!");
+    }
+    return isJpgOrPng && isLt2M;
+  };
+
+  dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
+
   render() {
     let { Courses } = this.props;
     const { loading } = this.state;
+    console.log(this.state.innerImage);
 
     Courses = Courses && Courses.sort(alphabetically(true, "orderId"));
 
@@ -217,14 +353,17 @@ class AdminCourse extends React.Component {
           <Panel header="Բոլոր դասընթացները">
             {Courses &&
               Courses.map((item, key) => {
-                const myId = item._id;
                 return (
                   <Descriptions key={key} bordered column={1} size="small">
                     <Descriptions.Item label="Image" key={key}>
-                      <img
-                        src={item.imageUrl}
+                      <DynamicImages
+                        url={item.imageUrl}
                         alt="admin course"
-                        style={{ height: "100px", width: "180px" }}
+                        style={{
+                          height: "100px",
+                          width: "180px",
+                          objectFit: "cover",
+                        }}
                       />
                     </Descriptions.Item>
                     <Descriptions.Item label="Title" key={key}>
@@ -248,6 +387,36 @@ class AdminCourse extends React.Component {
                         onOk={this.handleOk}
                         onCancel={this.handleCancel}
                       >
+                        {/* <div>
+                          <p>Ընտրեք մենյուի նկար: </p>
+                          <Upload
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            listType="picture-card"
+                            fileList={this.state.inner}
+                            onChange={this.onChangeInnerImage}
+                            beforeUpload={this.beforeUpload}
+                            customRequest={this.dummyRequest}
+                            // onPreview={onPreview}
+                          >
+                            {this.state.inner?.length < 1 && "+ Upload"}
+                          </Upload>
+                        </div> */}
+                        <div>
+                          <p>Ընտրեք նկար: </p>
+
+                          <Upload
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            listType="picture-card"
+                            fileList={this.state.menu}
+                            onChange={this.onChangeMenuImage}
+                            beforeUpload={this.beforeUpload}
+                            customRequest={this.dummyRequest}
+                            // onPreview={onPreview}
+                          >
+                            {this.state.menu?.length < 1 && "+ Upload"}
+                          </Upload>
+                        </div>
+
                         <Input
                           defaultValue={item.title}
                           name="edit_title"
@@ -274,7 +443,25 @@ class AdminCourse extends React.Component {
                           backgroundColor: "orange",
                           borderColor: "orange",
                         }}
-                        onClick={() => this.setState({ visible: item._id })}
+                        onClick={() =>
+                          this.setState({
+                            visible: item._id,
+                            edit_title: item.title,
+                            edit_text: item.content,
+                            inner: [
+                              {
+                                uid: item._id,
+                                url: `${mainRoute}${item.captionUrl}`,
+                              },
+                            ],
+                            menu: [
+                              {
+                                uid: item._id,
+                                url: `${mainRoute}${item.imageUrl}`,
+                              },
+                            ],
+                          })
+                        }
                       >
                         EDIT
                       </Button>
