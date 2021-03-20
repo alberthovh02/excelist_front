@@ -665,7 +665,6 @@ class Index extends React.Component {
             </p>
           </div>
         </div>
-        {console.log(BestExcelist)}
         <div className="intro_excelist">
           <h1 className="excelist_heading main_heading">
             ԼԱՎԱԳՈՒՅՆ ԷՔՍԵԼԻՍՏՆԵՐԻՑ ...

@@ -14,6 +14,7 @@ class Countdown extends React.Component {
 
 	componentDidMount() {
 		this.interval = setInterval(() => {
+			console.log("mtab")
 			const { timeTillDate, timeFormat } = this.props;
 			const then = moment(timeTillDate, timeFormat);
 			const now = moment();
@@ -46,11 +47,11 @@ class Countdown extends React.Component {
 
 		return (
 			<div>
-			<Timer initialTime={this.state.myDate}>
+			<Timer initialTime={this.state.myDate} direction="backward">
 				<div className='countdown-wrapper'>
 					{days && (
 						<div className='countdown-item'>
-							<SVGCircle radius={mapNumber(days, 30, 0, 0, 360)} />
+							<SVGCircle radius={daysRadius} />
 							<Timer.Days />
 							<span>days</span>
 						</div>
