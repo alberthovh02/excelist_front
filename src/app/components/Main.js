@@ -31,6 +31,7 @@ import Footer from "./Footer";
 import Navbar from "./admin/Navbar";
 import Spiner from "../components/shared/Spiner";
 
+
 const createBrowserHistory = require("history");
 const { Panel } = Collapse;
 const history = createBrowserHistory.createBrowserHistory();
@@ -112,6 +113,8 @@ class Index extends React.Component {
     const { imageSource } = this.state;
     const FilteredBlogs = Blogs ? Blogs.slice(0, 4) : null;
     const FilteredCourses = Courses ? Courses.slice(0, 4) : null;
+
+    
     const customPanelStyle = {
       background: "#f7f7f7",
       borderRadius: 4,
@@ -554,9 +557,9 @@ class Index extends React.Component {
                 <i className="fa fa-refresh  benefit-icon" />
                 <h3>
                   Խմբային դասընթացներին զուգահեռ անհատական մոտեցմամբ օնլայն
-                  խորհրդատվություն ենք տրամադրում դասերի արանքում՝ հարցերի համար
+                  խորհրդատվություն ենք տրամադրում դասերի ընթացքում՝ հարցերի համար
                   չսպասելով հաջորդ դասի մեկնարկին: Փաստացի, դասերը շարունակվում
-                  են օֆֆլայն դասերից դուրս էլ:
+                  են օֆֆլայն դասերից դուրս ևս:
                 </h3>
               </div>
               <div className="row">
@@ -816,7 +819,7 @@ class Index extends React.Component {
             style={{ marginLeft: "auto", marginRight: "auto" }}
           >
             {window.innerWidth > 768 ? (
-              <Carousel autoplay>
+              <Carousel autoplay arrows>
                 {Sponsor &&
                   Sponsor.length &&
                   Sponsor.map((item) => {
@@ -830,7 +833,7 @@ class Index extends React.Component {
                   })}
               </Carousel>
             ) : (
-              <Carousel autoplay>
+              <Carousel autoplay arrows>
                 {SponsorResponsive &&
                   SponsorResponsive.length &&
                   SponsorResponsive.map((item) => {

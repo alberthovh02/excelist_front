@@ -7,11 +7,11 @@ import {
 	message,
 	Modal,
 	Select,
-	DatePicker,
-	Form,
-	TimePicker
+	// DatePicker,
+	// Form,
+	// TimePicker
 } from "antd";
-import moment from 'moment';
+// import moment from 'moment';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import parseDate from '../../functions/parseTime';
@@ -57,9 +57,14 @@ class Lesson extends React.Component {
 			return false;
 		}
 		const isoDate = date.toISOString()
+
+		// console.log(date, "date")
+		// console.log(isoDate, "isoDate")
+		// return
 		let data = {
 			name,
-			date: isoDate,
+			// date: isoDate,
+			date,
 			lessonId
 		}
 		this.setState({loading: true})

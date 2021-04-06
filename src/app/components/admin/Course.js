@@ -10,7 +10,6 @@ import {
   Descriptions,
   InputNumber,
 } from "antd";
-import ImgCrop from "antd-img-crop";
 import ReactQuill from "react-quill";
 import { LoadingOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";

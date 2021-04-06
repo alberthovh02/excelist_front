@@ -7,8 +7,8 @@ import {
   Upload,
   Collapse,
   message,
-  Radio,
-  Checkbox,
+  // Radio,
+  // Checkbox,
   Modal,
   Spin,
 } from "antd";

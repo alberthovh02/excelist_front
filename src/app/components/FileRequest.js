@@ -28,6 +28,11 @@ class FileRequest extends React.Component{
       return false
     }
     const resp = await Request.postJson('filerequest/sendFile', { name, profecion, email, videoLink })
+    this.setState({
+      name: '',
+      profecion: '',
+      email: ''
+    })
     if(resp.status === 200){
       message.success('Ստուգեք Ձեր էլ.փոստը')
     }else{
@@ -41,6 +46,7 @@ class FileRequest extends React.Component{
   }
 
   render(){
+    const { name, profecion, email } = this.state;
     return(
       <div>
         <Header/>
@@ -49,9 +55,9 @@ class FileRequest extends React.Component{
         </Helmet>
           <div className="filerequest-container col-sm-10">
             <Form>
-              <Input placeholder="Անուն և ազգանուն / Имя и фамилия" name="name" onChange={ this.handleInput }/>
-              <Input placeholder="Ձեր մասնագիտությունը / Ваша профессия" name="profecion" onChange={ this.handleInput }/>
-              <Input placeholder="Ձեր e-mail-ը / Ваш e-mail" name="email" onChange={ this.handleInput }/>
+              <Input placeholder="Անուն և ազգանուն / Имя и фамилия" name="name" onChange={ this.handleInput } value={name} />
+              <Input placeholder="Ձեր մասնագիտությունը / Ваша профессия" name="profecion" onChange={ this.handleInput } value={profecion} />
+              <Input placeholder="Ձեր e-mail-ը / Ваш e-mail" name="email" onChange={ this.handleInput } value={email} />
               <Button type='primary' onClick={ this.sendRequest }>Ուղարկել</Button>
             </Form>
             <div className="col-sm-2">

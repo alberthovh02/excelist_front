@@ -16,6 +16,29 @@ import { GETREQUEST } from "../../store/actionCreators";
 const { Search } = Input;
 const { Panel } = Collapse;
 
+function alphabetically(ascending, value) {
+  return function (a, b) {
+    // equal items sort equally
+    if (a[value] === b[value]) {
+      return 0;
+    }
+    // nulls sort after anything else
+    else if (a[value] === null) {
+      return 1;
+    } else if (b[value] === null) {
+      return -1;
+    }
+    // otherwise, if we're ascending, lowest sorts first
+    else if (ascending) {
+      return a[value] < b[value] ? -1 : 1;
+    }
+    // if descending, highest sorts first
+    else {
+      return a[value] < b[value] ? 1 : -1;
+    }
+  };
+}
+
 class Header extends React.Component {
   constructor(props) {
     super();
@@ -41,7 +64,10 @@ class Header extends React.Component {
     var scrollPos = 0;
     const header = document.getElementsByTagName("header")[0];
     const { Courses } = this.props;
-    if (Courses && !this.state.Courses.length) this.setState({ Courses });
+    if (Courses && !this.state.Courses.length) {
+      const newCourse = Courses && Courses.sort(alphabetically(true, "orderId"));
+      this.setState({ Courses: newCourse });
+    }
     // adding scroll event
     window.addEventListener("scroll", function () {
       // detects new state and compares it with the new one
@@ -120,10 +146,10 @@ class Header extends React.Component {
     const { SiteInfo } = this.props;
     const {
       phone,
-      viber,
-      email,
-      skype,
-      address,
+      // viber,
+      // email,
+      // skype,
+      // address,
       facebook,
       youtube,
       telegram,
@@ -375,7 +401,14 @@ class Header extends React.Component {
               <img
                 src={require("../../assets/images/social/telegram.svg")}
                 width="33"
-                alt="Arm"
+                alt="telegram"
+              />
+            </a>
+            <a href={linkedin || "#"} target="_blank" rel="noopener noreferrer">
+              <img
+                src={require("../../assets/images/social/linkedin.svg")}
+                width="33"
+                alt="linkedin"
               />
             </a>
           </div>

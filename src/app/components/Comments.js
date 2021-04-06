@@ -26,6 +26,7 @@ class Comments extends React.Component {
   };
 
   handleSubmit = async () => {
+    const link = window?.location.href
     const {
       comment,
       name,
@@ -37,6 +38,7 @@ class Comments extends React.Component {
     const { dispatch } = this.props;
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var valid = re.test(email);
+
     if (!valid) {
       message.error("Ոչ ճիշտ էլ․ հասցե");
       return false;
@@ -45,7 +47,7 @@ class Comments extends React.Component {
       message.error("Խնդրում ենք լրացրեք բոլոր դաշտերը");
       return false;
     }
-    const data = { comment, name, email, parentId, parentType, parentTitle };
+    const data = { comment, name, email, parentId, parentType, parentTitle, link };
     const response = await dispatch(POST(createComment, data));
     if (response.code === 200) {
       message.success("Մեկնաբանությունը հաջողությամբ ավելացվել է");
@@ -98,7 +100,7 @@ class Comments extends React.Component {
             </button>
           </Form.Item>
         </Form>
-        <div class="commentbox__comments">
+        <div className="commentbox__comments">
           <p className="commentbox__comments__title">
             {CurrentComments && CurrentComments.length} Comments
           </p>

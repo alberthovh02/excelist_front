@@ -11,6 +11,16 @@ import Interested from "./Interested";
 import { GETREQUEST } from "../../store/actionCreators";
 import { getSinglepost } from "../../store/api";
 
+function getId(url) {
+  if (!url) return
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return (match && match[2].length === 11)
+    ? match[2]
+    : null;
+}
+
 class VideoPost extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +36,8 @@ class VideoPost extends React.Component {
 
   render() {
     const { data } = this.state;
+    
+    // const videoId = getId(data.video_link) 
     const title = data.title && `${data.title} | Excelist.am`;
     return (
       <div className="videopost-container">
@@ -39,14 +51,14 @@ class VideoPost extends React.Component {
             {data && (
               <div>
                 <iframe
-                  allowfullscreen="allowfullscreen"
+                  allowFullScreen="allowfullscreen"
                   mozallowfullscreen="mozallowfullscreen"
                   msallowfullscreen="msallowfullscreen"
                   oallowfullscreen="oallowfullscreen"
                   webkitallowfullscreen="webkitallowfullscreen"
                   title="Video"
                   className="singleVideoblog__iframe"
-                  src={data.video_link}
+                  src={`//www.youtube.com/embed/${getId(data.video_link)}`}
                 />
               </div>
             )}
