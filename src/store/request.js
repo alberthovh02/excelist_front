@@ -2,7 +2,8 @@ class Request {
   constructor() {
     // this.mainRoute = "http://159.65.216.209:5000/api/v1/"
     // this.mainRoute = 'https://excelist.tk:5000/'
-    this.mainRoute = "https://api.excelist.am/api/v1/";
+    this.mainRoute = 'http://143.244.156.125:5000/api/v1/'
+    // this.mainRoute = "https://api.excelist.am/api/v1/";
   }
 
   get = (url) => this.sendRequest("GET", url);
