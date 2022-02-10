@@ -14,7 +14,7 @@
     "antd-img-crop": "^3.14.1",
     "jquery": "^3.5.1",
     "moment": "^2.26.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-bootstrap-image-cropper": "^0.3.0",
